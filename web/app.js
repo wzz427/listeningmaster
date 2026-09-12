@@ -77,6 +77,7 @@ function replayCurrent() {
   // 停在句末等着进下一句时，重听一定是指刚听完的这句，不适用反应延迟保护
   if (!atSentenceEnd && played >= 0 && played < BACK_GRACE && idx > 0) {
     gotoSentence(idx - 1);
+    record((old) => ({ replays: old.replays + 1 }));  // 这也是一次重听，要记在上一句头上
     return;
   }
   const before = records[cur().id] ? records[cur().id].replays : 0;
