@@ -166,6 +166,9 @@ def merge_fragments(sentences: list[Sentence]) -> int:
             and (prev.text.endswith(",") or s.text[:1].islower())
         )
         if joins:
+            # 识别在半句处点了句号（例如 in the morning. and one usually...），并句时去掉
+            if s.text[:1].islower() and prev.words[-1].text.rstrip().endswith("."):
+                prev.words[-1].text = prev.words[-1].text.rstrip().rstrip(".")
             prev.words.extend(s.words)
             prev.end = s.end
             count += 1
