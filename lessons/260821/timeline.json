@@ -1,0 +1,5113 @@
+{
+  "lesson": "260821",
+  "audio": "260821_REE_coffee_download.mp3",
+  "sentences": [
+    {
+      "id": 0,
+      "speaker": "片头片尾",
+      "start": 0.24,
+      "end": 2.64,
+      "text": "Hello and welcome to Real Easy English.",
+      "words": [
+        {
+          "text": "Hello",
+          "start": 0.24,
+          "end": 0.52
+        },
+        {
+          "text": "and",
+          "start": 0.52,
+          "end": 0.84
+        },
+        {
+          "text": "welcome",
+          "start": 0.84,
+          "end": 1.08
+        },
+        {
+          "text": "to",
+          "start": 1.08,
+          "end": 1.4
+        },
+        {
+          "text": "Real",
+          "start": 1.4,
+          "end": 1.8
+        },
+        {
+          "text": "Easy",
+          "start": 1.8,
+          "end": 2.2
+        },
+        {
+          "text": "English.",
+          "start": 2.2,
+          "end": 2.64
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "speaker": "片头片尾",
+      "start": 2.72,
+      "end": 4.32,
+      "text": "I'm Georgie and I'm Neil.",
+      "words": [
+        {
+          "text": "I'm",
+          "start": 2.72,
+          "end": 2.96
+        },
+        {
+          "text": "Georgie",
+          "start": 2.96,
+          "end": 3.56
+        },
+        {
+          "text": "and",
+          "start": 3.56,
+          "end": 3.76
+        },
+        {
+          "text": "I'm",
+          "start": 3.76,
+          "end": 4.0
+        },
+        {
+          "text": "Neil.",
+          "start": 4.0,
+          "end": 4.32
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "speaker": "片头片尾",
+      "start": 4.64,
+      "end": 15.48,
+      "text": "You can find a video version of this podcast on our website at bbc learningenglish.com, where you can find a free worksheet to download and subtitles to help you learn.",
+      "words": [
+        {
+          "text": "You",
+          "start": 4.64,
+          "end": 4.76
+        },
+        {
+          "text": "can",
+          "start": 4.76,
+          "end": 5.04
+        },
+        {
+          "text": "find",
+          "start": 5.04,
+          "end": 5.32
+        },
+        {
+          "text": "a",
+          "start": 5.32,
+          "end": 5.64
+        },
+        {
+          "text": "video",
+          "start": 5.64,
+          "end": 6.04
+        },
+        {
+          "text": "version",
+          "start": 6.04,
+          "end": 6.52
+        },
+        {
+          "text": "of",
+          "start": 6.52,
+          "end": 6.72
+        },
+        {
+          "text": "this",
+          "start": 6.72,
+          "end": 6.92
+        },
+        {
+          "text": "podcast",
+          "start": 6.92,
+          "end": 7.56
+        },
+        {
+          "text": "on",
+          "start": 7.56,
+          "end": 7.72
+        },
+        {
+          "text": "our",
+          "start": 7.72,
+          "end": 7.96
+        },
+        {
+          "text": "website",
+          "start": 7.96,
+          "end": 8.44
+        },
+        {
+          "text": "at",
+          "start": 8.44,
+          "end": 8.68
+        },
+        {
+          "text": "bbc",
+          "start": 8.68,
+          "end": 9.28
+        },
+        {
+          "text": "learningenglish.",
+          "start": 9.28,
+          "end": 10.08
+        },
+        {
+          "text": "com,",
+          "start": 10.28,
+          "end": 10.64
+        },
+        {
+          "text": "where",
+          "start": 10.92,
+          "end": 11.08
+        },
+        {
+          "text": "you",
+          "start": 11.08,
+          "end": 11.2
+        },
+        {
+          "text": "can",
+          "start": 11.2,
+          "end": 11.44
+        },
+        {
+          "text": "find",
+          "start": 11.44,
+          "end": 11.64
+        },
+        {
+          "text": "a",
+          "start": 11.64,
+          "end": 11.84
+        },
+        {
+          "text": "free",
+          "start": 11.84,
+          "end": 12.08
+        },
+        {
+          "text": "worksheet",
+          "start": 12.08,
+          "end": 12.6
+        },
+        {
+          "text": "to",
+          "start": 12.6,
+          "end": 12.92
+        },
+        {
+          "text": "download",
+          "start": 12.92,
+          "end": 13.2
+        },
+        {
+          "text": "and",
+          "start": 13.2,
+          "end": 13.44
+        },
+        {
+          "text": "subtitles",
+          "start": 13.44,
+          "end": 14.48
+        },
+        {
+          "text": "to",
+          "start": 14.48,
+          "end": 14.68
+        },
+        {
+          "text": "help",
+          "start": 14.68,
+          "end": 14.92
+        },
+        {
+          "text": "you",
+          "start": 14.92,
+          "end": 15.16
+        },
+        {
+          "text": "learn.",
+          "start": 15.16,
+          "end": 15.48
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "speaker": "Georgie",
+      "start": 20.96,
+      "end": 21.44,
+      "text": "Hi, Neil.",
+      "words": [
+        {
+          "text": "Hi,",
+          "start": 20.96,
+          "end": 21.12
+        },
+        {
+          "text": "Neil.",
+          "start": 21.24,
+          "end": 21.44
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "speaker": "Georgie",
+      "start": 21.52,
+      "end": 22.08,
+      "text": "How are you?",
+      "words": [
+        {
+          "text": "How",
+          "start": 21.52,
+          "end": 21.64
+        },
+        {
+          "text": "are",
+          "start": 21.64,
+          "end": 21.76
+        },
+        {
+          "text": "you?",
+          "start": 21.76,
+          "end": 22.08
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "speaker": "Neil",
+      "start": 22.36,
+      "end": 23.76,
+      "text": "I'm very well, thank you, Georgie.",
+      "words": [
+        {
+          "text": "I'm",
+          "start": 22.36,
+          "end": 22.56
+        },
+        {
+          "text": "very",
+          "start": 22.56,
+          "end": 22.72
+        },
+        {
+          "text": "well,",
+          "start": 22.72,
+          "end": 22.92
+        },
+        {
+          "text": "thank",
+          "start": 23.0,
+          "end": 23.2
+        },
+        {
+          "text": "you,",
+          "start": 23.2,
+          "end": 23.32
+        },
+        {
+          "text": "Georgie.",
+          "start": 23.44,
+          "end": 23.76
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "speaker": "Neil",
+      "start": 23.84,
+      "end": 25.76,
+      "text": "Are you enjoying your coffee?",
+      "words": [
+        {
+          "text": "Are",
+          "start": 23.84,
+          "end": 24.04
+        },
+        {
+          "text": "you",
+          "start": 24.04,
+          "end": 24.72
+        },
+        {
+          "text": "enjoying",
+          "start": 24.72,
+          "end": 25.12
+        },
+        {
+          "text": "your",
+          "start": 25.12,
+          "end": 25.4
+        },
+        {
+          "text": "coffee?",
+          "start": 25.4,
+          "end": 25.76
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "speaker": "Georgie",
+      "start": 26.16,
+      "end": 29.68,
+      "text": "I am, but it's got a bit cool now.",
+      "words": [
+        {
+          "text": "I",
+          "start": 26.16,
+          "end": 26.84
+        },
+        {
+          "text": "am,",
+          "start": 26.84,
+          "end": 27.32
+        },
+        {
+          "text": "but",
+          "start": 27.48,
+          "end": 27.68
+        },
+        {
+          "text": "it's",
+          "start": 27.68,
+          "end": 27.96
+        },
+        {
+          "text": "got",
+          "start": 27.96,
+          "end": 28.28
+        },
+        {
+          "text": "a",
+          "start": 28.28,
+          "end": 28.4
+        },
+        {
+          "text": "bit",
+          "start": 28.4,
+          "end": 28.72
+        },
+        {
+          "text": "cool",
+          "start": 28.72,
+          "end": 29.36
+        },
+        {
+          "text": "now.",
+          "start": 29.36,
+          "end": 29.68
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "speaker": "Georgie",
+      "start": 29.84,
+      "end": 33.0,
+      "text": "I prefer my coffee hot, but oh well.",
+      "words": [
+        {
+          "text": "I",
+          "start": 29.84,
+          "end": 30.12
+        },
+        {
+          "text": "prefer",
+          "start": 30.12,
+          "end": 30.4
+        },
+        {
+          "text": "my",
+          "start": 30.4,
+          "end": 30.72
+        },
+        {
+          "text": "coffee",
+          "start": 30.72,
+          "end": 30.96
+        },
+        {
+          "text": "hot,",
+          "start": 30.96,
+          "end": 31.36
+        },
+        {
+          "text": "but",
+          "start": 31.64,
+          "end": 32.56
+        },
+        {
+          "text": "oh",
+          "start": 32.56,
+          "end": 32.72
+        },
+        {
+          "text": "well.",
+          "start": 32.72,
+          "end": 33.0
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "speaker": "Georgie",
+      "start": 33.8,
+      "end": 34.88,
+      "text": "Are you enjoying yours?",
+      "words": [
+        {
+          "text": "Are",
+          "start": 33.8,
+          "end": 33.96
+        },
+        {
+          "text": "you",
+          "start": 33.96,
+          "end": 34.16
+        },
+        {
+          "text": "enjoying",
+          "start": 34.16,
+          "end": 34.52
+        },
+        {
+          "text": "yours?",
+          "start": 34.52,
+          "end": 34.88
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "speaker": "Neil",
+      "start": 35.16,
+      "end": 36.0,
+      "text": "I've finished mine.",
+      "words": [
+        {
+          "text": "I've",
+          "start": 35.16,
+          "end": 35.44
+        },
+        {
+          "text": "finished",
+          "start": 35.44,
+          "end": 35.72
+        },
+        {
+          "text": "mine.",
+          "start": 35.72,
+          "end": 36.0
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "speaker": "Georgie",
+      "start": 36.2,
+      "end": 37.24,
+      "text": "Oh, that's a shame.",
+      "words": [
+        {
+          "text": "Oh,",
+          "start": 36.2,
+          "end": 36.48
+        },
+        {
+          "text": "that's",
+          "start": 36.64,
+          "end": 36.8
+        },
+        {
+          "text": "a",
+          "start": 36.8,
+          "end": 36.96
+        },
+        {
+          "text": "shame.",
+          "start": 36.96,
+          "end": 37.24
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "speaker": "Neil",
+      "start": 37.44,
+      "end": 44.24,
+      "text": "It's a sad moment when I've finished my second coffee of the day because. that's it.",
+      "words": [
+        {
+          "text": "It's",
+          "start": 37.44,
+          "end": 37.68
+        },
+        {
+          "text": "a",
+          "start": 37.68,
+          "end": 37.88
+        },
+        {
+          "text": "sad",
+          "start": 37.88,
+          "end": 38.36
+        },
+        {
+          "text": "moment",
+          "start": 38.36,
+          "end": 39.08
+        },
+        {
+          "text": "when",
+          "start": 39.08,
+          "end": 39.24
+        },
+        {
+          "text": "I've",
+          "start": 39.24,
+          "end": 39.52
+        },
+        {
+          "text": "finished",
+          "start": 39.52,
+          "end": 39.92
+        },
+        {
+          "text": "my",
+          "start": 39.92,
+          "end": 40.48
+        },
+        {
+          "text": "second",
+          "start": 40.48,
+          "end": 41.08
+        },
+        {
+          "text": "coffee",
+          "start": 41.08,
+          "end": 41.68
+        },
+        {
+          "text": "of",
+          "start": 41.68,
+          "end": 41.88
+        },
+        {
+          "text": "the",
+          "start": 41.88,
+          "end": 42.0
+        },
+        {
+          "text": "day",
+          "start": 42.0,
+          "end": 42.68
+        },
+        {
+          "text": "because.",
+          "start": 42.68,
+          "end": 43.32
+        },
+        {
+          "text": "that's",
+          "start": 43.72,
+          "end": 43.96
+        },
+        {
+          "text": "it.",
+          "start": 43.96,
+          "end": 44.24
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "speaker": "Neil",
+      "start": 44.6,
+      "end": 46.44,
+      "text": "I don't have more than two.",
+      "words": [
+        {
+          "text": "I",
+          "start": 44.6,
+          "end": 44.76
+        },
+        {
+          "text": "don't",
+          "start": 44.76,
+          "end": 45.16
+        },
+        {
+          "text": "have",
+          "start": 45.16,
+          "end": 45.52
+        },
+        {
+          "text": "more",
+          "start": 45.52,
+          "end": 45.76
+        },
+        {
+          "text": "than",
+          "start": 45.76,
+          "end": 46.04
+        },
+        {
+          "text": "two.",
+          "start": 46.04,
+          "end": 46.44
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "speaker": "Georgie",
+      "start": 47.2,
+      "end": 47.6,
+      "text": "So,",
+      "words": [
+        {
+          "text": "So,",
+          "start": 47.2,
+          "end": 47.6
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "speaker": "Neil",
+      "start": 47.96,
+      "end": 49.8,
+      "text": "Georgie, we're talking about coffee.",
+      "words": [
+        {
+          "text": "Georgie,",
+          "start": 47.96,
+          "end": 48.36
+        },
+        {
+          "text": "we're",
+          "start": 48.44,
+          "end": 48.6
+        },
+        {
+          "text": "talking",
+          "start": 48.6,
+          "end": 48.92
+        },
+        {
+          "text": "about",
+          "start": 48.92,
+          "end": 49.44
+        },
+        {
+          "text": "coffee.",
+          "start": 49.44,
+          "end": 49.8
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "speaker": "Neil",
+      "start": 50.28,
+      "end": 58.16,
+      "text": "How much coffee or how many coffees, if we're talking about cups of coffee, how many do you have a day?",
+      "words": [
+        {
+          "text": "How",
+          "start": 50.28,
+          "end": 50.72
+        },
+        {
+          "text": "much",
+          "start": 50.72,
+          "end": 51.44
+        },
+        {
+          "text": "coffee",
+          "start": 51.44,
+          "end": 51.8
+        },
+        {
+          "text": "or",
+          "start": 51.8,
+          "end": 52.0
+        },
+        {
+          "text": "how",
+          "start": 52.0,
+          "end": 52.28
+        },
+        {
+          "text": "many",
+          "start": 52.28,
+          "end": 52.84
+        },
+        {
+          "text": "coffees,",
+          "start": 52.84,
+          "end": 53.44
+        },
+        {
+          "text": "if",
+          "start": 53.68,
+          "end": 53.84
+        },
+        {
+          "text": "we're",
+          "start": 53.84,
+          "end": 54.04
+        },
+        {
+          "text": "talking",
+          "start": 54.04,
+          "end": 54.4
+        },
+        {
+          "text": "about",
+          "start": 54.4,
+          "end": 55.08
+        },
+        {
+          "text": "cups",
+          "start": 55.08,
+          "end": 55.36
+        },
+        {
+          "text": "of",
+          "start": 55.36,
+          "end": 55.64
+        },
+        {
+          "text": "coffee,",
+          "start": 55.64,
+          "end": 56.0
+        },
+        {
+          "text": "how",
+          "start": 56.4,
+          "end": 56.6
+        },
+        {
+          "text": "many",
+          "start": 56.6,
+          "end": 56.88
+        },
+        {
+          "text": "do",
+          "start": 56.88,
+          "end": 57.08
+        },
+        {
+          "text": "you",
+          "start": 57.08,
+          "end": 57.4
+        },
+        {
+          "text": "have",
+          "start": 57.4,
+          "end": 57.68
+        },
+        {
+          "text": "a",
+          "start": 57.68,
+          "end": 57.8
+        },
+        {
+          "text": "day?",
+          "start": 57.8,
+          "end": 58.16
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "speaker": "Georgie",
+      "start": 59.0,
+      "end": 65.32,
+      "text": "I usually have two, and I know that you do as well, because we drink them both in the office, don't we?",
+      "words": [
+        {
+          "text": "I",
+          "start": 59.0,
+          "end": 59.8
+        },
+        {
+          "text": "usually",
+          "start": 59.8,
+          "end": 60.12
+        },
+        {
+          "text": "have",
+          "start": 60.12,
+          "end": 60.52
+        },
+        {
+          "text": "two,",
+          "start": 60.52,
+          "end": 60.96
+        },
+        {
+          "text": "and",
+          "start": 61.16,
+          "end": 61.32
+        },
+        {
+          "text": "I",
+          "start": 61.32,
+          "end": 61.44
+        },
+        {
+          "text": "know",
+          "start": 61.44,
+          "end": 61.68
+        },
+        {
+          "text": "that",
+          "start": 61.68,
+          "end": 61.88
+        },
+        {
+          "text": "you",
+          "start": 61.88,
+          "end": 62.08
+        },
+        {
+          "text": "do",
+          "start": 62.08,
+          "end": 62.32
+        },
+        {
+          "text": "as",
+          "start": 62.32,
+          "end": 62.44
+        },
+        {
+          "text": "well,",
+          "start": 62.44,
+          "end": 62.72
+        },
+        {
+          "text": "because",
+          "start": 62.96,
+          "end": 63.16
+        },
+        {
+          "text": "we",
+          "start": 63.16,
+          "end": 63.36
+        },
+        {
+          "text": "drink",
+          "start": 63.36,
+          "end": 63.6
+        },
+        {
+          "text": "them",
+          "start": 63.6,
+          "end": 63.88
+        },
+        {
+          "text": "both",
+          "start": 63.88,
+          "end": 64.16
+        },
+        {
+          "text": "in",
+          "start": 64.16,
+          "end": 64.28
+        },
+        {
+          "text": "the",
+          "start": 64.28,
+          "end": 64.48
+        },
+        {
+          "text": "office,",
+          "start": 64.48,
+          "end": 64.76
+        },
+        {
+          "text": "don't",
+          "start": 64.88,
+          "end": 65.12
+        },
+        {
+          "text": "we?",
+          "start": 65.12,
+          "end": 65.32
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "speaker": "Georgie",
+      "start": 65.6,
+      "end": 76.47,
+      "text": "We have one cup of coffee in the morning. and one usually in the afternoon when we need to regain some energy and alertness.",
+      "words": [
+        {
+          "text": "We",
+          "start": 65.6,
+          "end": 65.84
+        },
+        {
+          "text": "have",
+          "start": 65.84,
+          "end": 66.56
+        },
+        {
+          "text": "one",
+          "start": 66.56,
+          "end": 66.84
+        },
+        {
+          "text": "cup",
+          "start": 66.84,
+          "end": 67.04
+        },
+        {
+          "text": "of",
+          "start": 67.04,
+          "end": 67.28
+        },
+        {
+          "text": "coffee",
+          "start": 67.28,
+          "end": 67.52
+        },
+        {
+          "text": "in",
+          "start": 67.52,
+          "end": 67.6
+        },
+        {
+          "text": "the",
+          "start": 67.6,
+          "end": 67.76
+        },
+        {
+          "text": "morning.",
+          "start": 67.76,
+          "end": 68.12
+        },
+        {
+          "text": "and",
+          "start": 68.43,
+          "end": 68.63
+        },
+        {
+          "text": "one",
+          "start": 68.63,
+          "end": 69.55
+        },
+        {
+          "text": "usually",
+          "start": 69.55,
+          "end": 70.03
+        },
+        {
+          "text": "in",
+          "start": 70.03,
+          "end": 70.15
+        },
+        {
+          "text": "the",
+          "start": 70.15,
+          "end": 70.35
+        },
+        {
+          "text": "afternoon",
+          "start": 70.35,
+          "end": 71.03
+        },
+        {
+          "text": "when",
+          "start": 71.03,
+          "end": 71.19
+        },
+        {
+          "text": "we",
+          "start": 71.19,
+          "end": 71.35
+        },
+        {
+          "text": "need",
+          "start": 71.35,
+          "end": 71.55
+        },
+        {
+          "text": "to",
+          "start": 71.55,
+          "end": 73.11
+        },
+        {
+          "text": "regain",
+          "start": 73.11,
+          "end": 73.55
+        },
+        {
+          "text": "some",
+          "start": 73.55,
+          "end": 74.11
+        },
+        {
+          "text": "energy",
+          "start": 74.11,
+          "end": 74.67
+        },
+        {
+          "text": "and",
+          "start": 74.67,
+          "end": 75.59
+        },
+        {
+          "text": "alertness.",
+          "start": 75.59,
+          "end": 76.47
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "speaker": "Neil",
+      "start": 76.83,
+      "end": 77.19,
+      "text": "Yeah.",
+      "words": [
+        {
+          "text": "Yeah.",
+          "start": 76.83,
+          "end": 77.19
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "speaker": "Neil",
+      "start": 77.63,
+      "end": 88.15,
+      "text": "And so we all know, because we make each other At BBC Learning English, we make each other coffee. so we know how we take our coffee.",
+      "words": [
+        {
+          "text": "And",
+          "start": 77.63,
+          "end": 77.95
+        },
+        {
+          "text": "so",
+          "start": 77.95,
+          "end": 78.27
+        },
+        {
+          "text": "we",
+          "start": 78.27,
+          "end": 78.51
+        },
+        {
+          "text": "all",
+          "start": 78.51,
+          "end": 78.83
+        },
+        {
+          "text": "know,",
+          "start": 78.83,
+          "end": 79.23
+        },
+        {
+          "text": "because",
+          "start": 79.47,
+          "end": 79.75
+        },
+        {
+          "text": "we",
+          "start": 79.75,
+          "end": 79.95
+        },
+        {
+          "text": "make",
+          "start": 79.95,
+          "end": 80.19
+        },
+        {
+          "text": "each",
+          "start": 80.19,
+          "end": 80.47
+        },
+        {
+          "text": "other",
+          "start": 80.47,
+          "end": 81.11
+        },
+        {
+          "text": "At",
+          "start": 81.11,
+          "end": 81.35
+        },
+        {
+          "text": "BBC",
+          "start": 81.35,
+          "end": 81.87
+        },
+        {
+          "text": "Learning",
+          "start": 81.87,
+          "end": 82.23
+        },
+        {
+          "text": "English,",
+          "start": 82.23,
+          "end": 82.51
+        },
+        {
+          "text": "we",
+          "start": 82.59,
+          "end": 82.79
+        },
+        {
+          "text": "make",
+          "start": 82.79,
+          "end": 83.07
+        },
+        {
+          "text": "each",
+          "start": 83.07,
+          "end": 83.31
+        },
+        {
+          "text": "other",
+          "start": 83.31,
+          "end": 83.67
+        },
+        {
+          "text": "coffee.",
+          "start": 83.67,
+          "end": 84.03
+        },
+        {
+          "text": "so",
+          "start": 85.23,
+          "end": 85.43
+        },
+        {
+          "text": "we",
+          "start": 85.43,
+          "end": 85.67
+        },
+        {
+          "text": "know",
+          "start": 85.67,
+          "end": 86.39
+        },
+        {
+          "text": "how",
+          "start": 86.39,
+          "end": 86.67
+        },
+        {
+          "text": "we",
+          "start": 86.67,
+          "end": 86.99
+        },
+        {
+          "text": "take",
+          "start": 86.99,
+          "end": 87.43
+        },
+        {
+          "text": "our",
+          "start": 87.43,
+          "end": 87.79
+        },
+        {
+          "text": "coffee.",
+          "start": 87.79,
+          "end": 88.15
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "speaker": "Georgie",
+      "start": 88.55,
+      "end": 88.95,
+      "text": "Yes.",
+      "words": [
+        {
+          "text": "Yes.",
+          "start": 88.55,
+          "end": 88.95
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "speaker": "Georgie",
+      "start": 89.15,
+      "end": 93.71,
+      "text": "How we take our coffee is how we like it, what we like to put in it.",
+      "words": [
+        {
+          "text": "How",
+          "start": 89.15,
+          "end": 89.35
+        },
+        {
+          "text": "we",
+          "start": 89.35,
+          "end": 89.55
+        },
+        {
+          "text": "take",
+          "start": 89.55,
+          "end": 89.79
+        },
+        {
+          "text": "our",
+          "start": 89.79,
+          "end": 90.03
+        },
+        {
+          "text": "coffee",
+          "start": 90.03,
+          "end": 90.43
+        },
+        {
+          "text": "is",
+          "start": 90.43,
+          "end": 91.03
+        },
+        {
+          "text": "how",
+          "start": 91.03,
+          "end": 91.23
+        },
+        {
+          "text": "we",
+          "start": 91.23,
+          "end": 91.39
+        },
+        {
+          "text": "like",
+          "start": 91.39,
+          "end": 91.67
+        },
+        {
+          "text": "it,",
+          "start": 91.67,
+          "end": 91.87
+        },
+        {
+          "text": "what",
+          "start": 92.03,
+          "end": 92.23
+        },
+        {
+          "text": "we",
+          "start": 92.23,
+          "end": 92.43
+        },
+        {
+          "text": "like",
+          "start": 92.43,
+          "end": 92.67
+        },
+        {
+          "text": "to",
+          "start": 92.67,
+          "end": 93.03
+        },
+        {
+          "text": "put",
+          "start": 93.03,
+          "end": 93.31
+        },
+        {
+          "text": "in",
+          "start": 93.31,
+          "end": 93.47
+        },
+        {
+          "text": "it.",
+          "start": 93.47,
+          "end": 93.71
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "speaker": "Georgie",
+      "start": 94.09,
+      "end": 96.37,
+      "text": "For example, sugar or milk.",
+      "words": [
+        {
+          "text": "For",
+          "start": 94.09,
+          "end": 94.33
+        },
+        {
+          "text": "example,",
+          "start": 94.33,
+          "end": 94.85
+        },
+        {
+          "text": "sugar",
+          "start": 95.21,
+          "end": 95.61
+        },
+        {
+          "text": "or",
+          "start": 95.61,
+          "end": 95.89
+        },
+        {
+          "text": "milk.",
+          "start": 95.89,
+          "end": 96.37
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "speaker": "Georgie",
+      "start": 96.89,
+      "end": 99.93,
+      "text": "I know that you don't like milk in your coffee.",
+      "words": [
+        {
+          "text": "I",
+          "start": 96.89,
+          "end": 97.13
+        },
+        {
+          "text": "know",
+          "start": 97.13,
+          "end": 97.61
+        },
+        {
+          "text": "that",
+          "start": 97.61,
+          "end": 97.93
+        },
+        {
+          "text": "you",
+          "start": 97.93,
+          "end": 98.41
+        },
+        {
+          "text": "don't",
+          "start": 98.41,
+          "end": 98.69
+        },
+        {
+          "text": "like",
+          "start": 98.69,
+          "end": 98.93
+        },
+        {
+          "text": "milk",
+          "start": 98.93,
+          "end": 99.17
+        },
+        {
+          "text": "in",
+          "start": 99.17,
+          "end": 99.29
+        },
+        {
+          "text": "your",
+          "start": 99.29,
+          "end": 99.57
+        },
+        {
+          "text": "coffee.",
+          "start": 99.57,
+          "end": 99.93
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "speaker": "Georgie",
+      "start": 100.25,
+      "end": 102.17,
+      "text": "You take your coffee black.",
+      "words": [
+        {
+          "text": "You",
+          "start": 100.25,
+          "end": 100.53
+        },
+        {
+          "text": "take",
+          "start": 100.53,
+          "end": 100.85
+        },
+        {
+          "text": "your",
+          "start": 100.85,
+          "end": 101.21
+        },
+        {
+          "text": "coffee",
+          "start": 101.21,
+          "end": 101.61
+        },
+        {
+          "text": "black.",
+          "start": 101.61,
+          "end": 102.17
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "speaker": "Neil",
+      "start": 102.57,
+      "end": 103.01,
+      "text": "I do.",
+      "words": [
+        {
+          "text": "I",
+          "start": 102.57,
+          "end": 102.73
+        },
+        {
+          "text": "do.",
+          "start": 102.73,
+          "end": 103.01
+        }
+      ]
+    },
+    {
+      "id": 27,
+      "speaker": "Neil",
+      "start": 103.25,
+      "end": 109.81,
+      "text": "I like black coffee. and you take your coffee white. and you used to have sugar, but you don't anymore.",
+      "words": [
+        {
+          "text": "I",
+          "start": 103.25,
+          "end": 103.41
+        },
+        {
+          "text": "like",
+          "start": 103.41,
+          "end": 103.65
+        },
+        {
+          "text": "black",
+          "start": 103.65,
+          "end": 104.01
+        },
+        {
+          "text": "coffee.",
+          "start": 104.01,
+          "end": 104.25
+        },
+        {
+          "text": "and",
+          "start": 104.33,
+          "end": 104.53
+        },
+        {
+          "text": "you",
+          "start": 104.53,
+          "end": 104.77
+        },
+        {
+          "text": "take",
+          "start": 104.77,
+          "end": 105.13
+        },
+        {
+          "text": "your",
+          "start": 105.13,
+          "end": 105.53
+        },
+        {
+          "text": "coffee",
+          "start": 105.53,
+          "end": 106.33
+        },
+        {
+          "text": "white.",
+          "start": 106.33,
+          "end": 106.73
+        },
+        {
+          "text": "and",
+          "start": 107.13,
+          "end": 107.33
+        },
+        {
+          "text": "you",
+          "start": 107.33,
+          "end": 107.53
+        },
+        {
+          "text": "used",
+          "start": 107.53,
+          "end": 107.77
+        },
+        {
+          "text": "to",
+          "start": 107.77,
+          "end": 107.97
+        },
+        {
+          "text": "have",
+          "start": 107.97,
+          "end": 108.29
+        },
+        {
+          "text": "sugar,",
+          "start": 108.29,
+          "end": 108.41
+        },
+        {
+          "text": "but",
+          "start": 108.49,
+          "end": 108.65
+        },
+        {
+          "text": "you",
+          "start": 108.65,
+          "end": 108.85
+        },
+        {
+          "text": "don't",
+          "start": 108.85,
+          "end": 109.29
+        },
+        {
+          "text": "anymore.",
+          "start": 109.29,
+          "end": 109.81
+        }
+      ]
+    },
+    {
+      "id": 28,
+      "speaker": "Georgie",
+      "start": 110.17,
+      "end": 110.85,
+      "text": "That's right.",
+      "words": [
+        {
+          "text": "That's",
+          "start": 110.17,
+          "end": 110.49
+        },
+        {
+          "text": "right.",
+          "start": 110.49,
+          "end": 110.85
+        }
+      ]
+    },
+    {
+      "id": 29,
+      "speaker": "Georgie",
+      "start": 111.05,
+      "end": 117.01,
+      "text": "Occasionally, when I'm at home, I put some honey in my coffee to make it a bit sweeter.",
+      "words": [
+        {
+          "text": "Occasionally,",
+          "start": 111.05,
+          "end": 111.97
+        },
+        {
+          "text": "when",
+          "start": 112.13,
+          "end": 112.29
+        },
+        {
+          "text": "I'm",
+          "start": 112.29,
+          "end": 112.49
+        },
+        {
+          "text": "at",
+          "start": 112.49,
+          "end": 112.69
+        },
+        {
+          "text": "home,",
+          "start": 112.69,
+          "end": 113.09
+        },
+        {
+          "text": "I",
+          "start": 113.49,
+          "end": 113.69
+        },
+        {
+          "text": "put",
+          "start": 113.69,
+          "end": 113.93
+        },
+        {
+          "text": "some",
+          "start": 113.93,
+          "end": 114.17
+        },
+        {
+          "text": "honey",
+          "start": 114.17,
+          "end": 114.65
+        },
+        {
+          "text": "in",
+          "start": 114.65,
+          "end": 114.85
+        },
+        {
+          "text": "my",
+          "start": 114.85,
+          "end": 115.17
+        },
+        {
+          "text": "coffee",
+          "start": 115.17,
+          "end": 115.45
+        },
+        {
+          "text": "to",
+          "start": 115.45,
+          "end": 115.61
+        },
+        {
+          "text": "make",
+          "start": 115.61,
+          "end": 115.81
+        },
+        {
+          "text": "it",
+          "start": 115.81,
+          "end": 115.93
+        },
+        {
+          "text": "a",
+          "start": 115.93,
+          "end": 116.05
+        },
+        {
+          "text": "bit",
+          "start": 116.05,
+          "end": 116.41
+        },
+        {
+          "text": "sweeter.",
+          "start": 116.41,
+          "end": 117.01
+        }
+      ]
+    },
+    {
+      "id": 30,
+      "speaker": "Neil",
+      "start": 118.05,
+      "end": 119.13,
+      "text": "Honey in coffee?",
+      "words": [
+        {
+          "text": "Honey",
+          "start": 118.05,
+          "end": 118.53
+        },
+        {
+          "text": "in",
+          "start": 118.53,
+          "end": 118.85
+        },
+        {
+          "text": "coffee?",
+          "start": 118.85,
+          "end": 119.13
+        }
+      ]
+    },
+    {
+      "id": 31,
+      "speaker": "Georgie",
+      "start": 119.29,
+      "end": 119.85,
+      "text": "Yes.",
+      "words": [
+        {
+          "text": "Yes.",
+          "start": 119.29,
+          "end": 119.85
+        }
+      ]
+    },
+    {
+      "id": 32,
+      "speaker": "Georgie",
+      "start": 120.25,
+      "end": 121.21,
+      "text": "Is that surprising?",
+      "words": [
+        {
+          "text": "Is",
+          "start": 120.25,
+          "end": 120.37
+        },
+        {
+          "text": "that",
+          "start": 120.37,
+          "end": 120.57
+        },
+        {
+          "text": "surprising?",
+          "start": 120.57,
+          "end": 121.21
+        }
+      ]
+    },
+    {
+      "id": 33,
+      "speaker": "Neil",
+      "start": 121.69,
+      "end": 122.89,
+      "text": "I've never heard of that.",
+      "words": [
+        {
+          "text": "I've",
+          "start": 121.69,
+          "end": 121.97
+        },
+        {
+          "text": "never",
+          "start": 121.97,
+          "end": 122.25
+        },
+        {
+          "text": "heard",
+          "start": 122.25,
+          "end": 122.45
+        },
+        {
+          "text": "of",
+          "start": 122.45,
+          "end": 122.61
+        },
+        {
+          "text": "that.",
+          "start": 122.61,
+          "end": 122.89
+        }
+      ]
+    },
+    {
+      "id": 34,
+      "speaker": "Georgie",
+      "start": 123.25,
+      "end": 123.69,
+      "text": "Really?",
+      "words": [
+        {
+          "text": "Really?",
+          "start": 123.25,
+          "end": 123.69
+        }
+      ]
+    },
+    {
+      "id": 35,
+      "speaker": "Neil",
+      "start": 124.49,
+      "end": 126.17,
+      "text": "Sugar, but not honey.",
+      "words": [
+        {
+          "text": "Sugar,",
+          "start": 124.49,
+          "end": 124.89
+        },
+        {
+          "text": "but",
+          "start": 125.25,
+          "end": 125.45
+        },
+        {
+          "text": "not",
+          "start": 125.45,
+          "end": 125.69
+        },
+        {
+          "text": "honey.",
+          "start": 125.69,
+          "end": 126.17
+        }
+      ]
+    },
+    {
+      "id": 36,
+      "speaker": "Georgie",
+      "start": 126.65,
+      "end": 129.41,
+      "text": "But why would that be so bad?",
+      "words": [
+        {
+          "text": "But",
+          "start": 126.65,
+          "end": 126.93
+        },
+        {
+          "text": "why",
+          "start": 126.93,
+          "end": 127.69
+        },
+        {
+          "text": "would",
+          "start": 127.69,
+          "end": 127.89
+        },
+        {
+          "text": "that",
+          "start": 127.89,
+          "end": 128.17
+        },
+        {
+          "text": "be",
+          "start": 128.17,
+          "end": 128.69
+        },
+        {
+          "text": "so",
+          "start": 128.69,
+          "end": 128.93
+        },
+        {
+          "text": "bad?",
+          "start": 128.93,
+          "end": 129.41
+        }
+      ]
+    },
+    {
+      "id": 37,
+      "speaker": "Neil",
+      "start": 129.81,
+      "end": 130.93,
+      "text": "Well, I don't know.",
+      "words": [
+        {
+          "text": "Well,",
+          "start": 129.81,
+          "end": 130.13
+        },
+        {
+          "text": "I",
+          "start": 130.25,
+          "end": 130.41
+        },
+        {
+          "text": "don't",
+          "start": 130.41,
+          "end": 130.61
+        },
+        {
+          "text": "know.",
+          "start": 130.61,
+          "end": 130.93
+        }
+      ]
+    },
+    {
+      "id": 38,
+      "speaker": "Neil",
+      "start": 131.37,
+      "end": 132.89,
+      "text": "It's just I've never heard of it.",
+      "words": [
+        {
+          "text": "It's",
+          "start": 131.37,
+          "end": 131.57
+        },
+        {
+          "text": "just",
+          "start": 131.57,
+          "end": 131.81
+        },
+        {
+          "text": "I've",
+          "start": 131.81,
+          "end": 132.01
+        },
+        {
+          "text": "never",
+          "start": 132.01,
+          "end": 132.29
+        },
+        {
+          "text": "heard",
+          "start": 132.29,
+          "end": 132.53
+        },
+        {
+          "text": "of",
+          "start": 132.53,
+          "end": 132.65
+        },
+        {
+          "text": "it.",
+          "start": 132.65,
+          "end": 132.89
+        }
+      ]
+    },
+    {
+      "id": 39,
+      "speaker": "Georgie",
+      "start": 134.41,
+      "end": 135.21,
+      "text": "It's really good.",
+      "words": [
+        {
+          "text": "It's",
+          "start": 134.41,
+          "end": 134.69
+        },
+        {
+          "text": "really",
+          "start": 134.69,
+          "end": 134.89
+        },
+        {
+          "text": "good.",
+          "start": 134.89,
+          "end": 135.21
+        }
+      ]
+    },
+    {
+      "id": 40,
+      "speaker": "Georgie",
+      "start": 135.49,
+      "end": 136.41,
+      "text": "I would recommend.",
+      "words": [
+        {
+          "text": "I",
+          "start": 135.49,
+          "end": 135.61
+        },
+        {
+          "text": "would",
+          "start": 135.61,
+          "end": 135.85
+        },
+        {
+          "text": "recommend.",
+          "start": 135.85,
+          "end": 136.41
+        }
+      ]
+    },
+    {
+      "id": 41,
+      "speaker": "Georgie",
+      "start": 136.89,
+      "end": 138.26,
+      "text": "Okay.",
+      "words": [
+        {
+          "text": "Okay.",
+          "start": 136.89,
+          "end": 138.26
+        }
+      ]
+    },
+    {
+      "id": 42,
+      "speaker": "Neil",
+      "start": 139.25,
+      "end": 144.01,
+      "text": "So, Georgie, what happens if you don't have your coffee?",
+      "words": [
+        {
+          "text": "So,",
+          "start": 139.25,
+          "end": 139.41
+        },
+        {
+          "text": "Georgie,",
+          "start": 139.53,
+          "end": 140.05
+        },
+        {
+          "text": "what",
+          "start": 140.73,
+          "end": 141.09
+        },
+        {
+          "text": "happens",
+          "start": 141.09,
+          "end": 142.05
+        },
+        {
+          "text": "if",
+          "start": 142.05,
+          "end": 142.29
+        },
+        {
+          "text": "you",
+          "start": 142.29,
+          "end": 142.69
+        },
+        {
+          "text": "don't",
+          "start": 142.69,
+          "end": 143.09
+        },
+        {
+          "text": "have",
+          "start": 143.09,
+          "end": 143.33
+        },
+        {
+          "text": "your",
+          "start": 143.33,
+          "end": 143.65
+        },
+        {
+          "text": "coffee?",
+          "start": 143.65,
+          "end": 144.01
+        }
+      ]
+    },
+    {
+      "id": 43,
+      "speaker": "Georgie",
+      "start": 144.73,
+      "end": 151.65,
+      "text": "Well, in the morning, if I don't have coffee, I feel very grumpy and very tired.",
+      "words": [
+        {
+          "text": "Well,",
+          "start": 144.73,
+          "end": 145.17
+        },
+        {
+          "text": "in",
+          "start": 145.33,
+          "end": 145.49
+        },
+        {
+          "text": "the",
+          "start": 145.49,
+          "end": 145.69
+        },
+        {
+          "text": "morning,",
+          "start": 145.69,
+          "end": 146.13
+        },
+        {
+          "text": "if",
+          "start": 146.41,
+          "end": 146.53
+        },
+        {
+          "text": "I",
+          "start": 146.53,
+          "end": 146.65
+        },
+        {
+          "text": "don't",
+          "start": 146.65,
+          "end": 146.89
+        },
+        {
+          "text": "have",
+          "start": 146.89,
+          "end": 147.17
+        },
+        {
+          "text": "coffee,",
+          "start": 147.17,
+          "end": 147.41
+        },
+        {
+          "text": "I",
+          "start": 147.49,
+          "end": 147.73
+        },
+        {
+          "text": "feel",
+          "start": 147.73,
+          "end": 148.33
+        },
+        {
+          "text": "very",
+          "start": 148.33,
+          "end": 148.89
+        },
+        {
+          "text": "grumpy",
+          "start": 148.89,
+          "end": 149.77
+        },
+        {
+          "text": "and",
+          "start": 149.77,
+          "end": 150.53
+        },
+        {
+          "text": "very",
+          "start": 150.53,
+          "end": 151.05
+        },
+        {
+          "text": "tired.",
+          "start": 151.05,
+          "end": 151.65
+        }
+      ]
+    },
+    {
+      "id": 44,
+      "speaker": "Georgie",
+      "start": 152.81,
+      "end": 160.17,
+      "text": "In the afternoon, if I don't have a coffee, it's not terrible, but I would prefer to have my afternoon coffee.",
+      "words": [
+        {
+          "text": "In",
+          "start": 152.81,
+          "end": 152.93
+        },
+        {
+          "text": "the",
+          "start": 152.93,
+          "end": 153.21
+        },
+        {
+          "text": "afternoon,",
+          "start": 153.21,
+          "end": 153.89
+        },
+        {
+          "text": "if",
+          "start": 154.05,
+          "end": 154.17
+        },
+        {
+          "text": "I",
+          "start": 154.17,
+          "end": 154.29
+        },
+        {
+          "text": "don't",
+          "start": 154.29,
+          "end": 154.49
+        },
+        {
+          "text": "have",
+          "start": 154.49,
+          "end": 154.61
+        },
+        {
+          "text": "a",
+          "start": 154.61,
+          "end": 154.85
+        },
+        {
+          "text": "coffee,",
+          "start": 154.85,
+          "end": 155.25
+        },
+        {
+          "text": "it's",
+          "start": 155.45,
+          "end": 155.69
+        },
+        {
+          "text": "not",
+          "start": 155.69,
+          "end": 156.09
+        },
+        {
+          "text": "terrible,",
+          "start": 156.09,
+          "end": 156.57
+        },
+        {
+          "text": "but",
+          "start": 156.89,
+          "end": 157.57
+        },
+        {
+          "text": "I",
+          "start": 157.57,
+          "end": 157.69
+        },
+        {
+          "text": "would",
+          "start": 157.69,
+          "end": 157.97
+        },
+        {
+          "text": "prefer",
+          "start": 157.97,
+          "end": 158.25
+        },
+        {
+          "text": "to",
+          "start": 158.25,
+          "end": 158.41
+        },
+        {
+          "text": "have",
+          "start": 158.41,
+          "end": 159.05
+        },
+        {
+          "text": "my",
+          "start": 159.05,
+          "end": 159.33
+        },
+        {
+          "text": "afternoon",
+          "start": 159.33,
+          "end": 159.85
+        },
+        {
+          "text": "coffee.",
+          "start": 159.85,
+          "end": 160.17
+        }
+      ]
+    },
+    {
+      "id": 45,
+      "speaker": "Georgie",
+      "start": 160.45,
+      "end": 161.25,
+      "text": "How about you?",
+      "words": [
+        {
+          "text": "How",
+          "start": 160.45,
+          "end": 160.69
+        },
+        {
+          "text": "about",
+          "start": 160.69,
+          "end": 160.93
+        },
+        {
+          "text": "you?",
+          "start": 160.93,
+          "end": 161.25
+        }
+      ]
+    },
+    {
+      "id": 46,
+      "speaker": "Neil",
+      "start": 162.07,
+      "end": 169.19,
+      "text": "Yeah, I need my coffee, especially in the morning, but I don't have my coffee first thing in the morning.",
+      "words": [
+        {
+          "text": "Yeah,",
+          "start": 162.07,
+          "end": 162.35
+        },
+        {
+          "text": "I",
+          "start": 162.47,
+          "end": 162.71
+        },
+        {
+          "text": "need",
+          "start": 162.71,
+          "end": 163.51
+        },
+        {
+          "text": "my",
+          "start": 163.51,
+          "end": 163.91
+        },
+        {
+          "text": "coffee,",
+          "start": 163.91,
+          "end": 164.27
+        },
+        {
+          "text": "especially",
+          "start": 164.59,
+          "end": 165.11
+        },
+        {
+          "text": "in",
+          "start": 165.11,
+          "end": 165.27
+        },
+        {
+          "text": "the",
+          "start": 165.27,
+          "end": 165.51
+        },
+        {
+          "text": "morning,",
+          "start": 165.51,
+          "end": 165.91
+        },
+        {
+          "text": "but",
+          "start": 166.07,
+          "end": 166.23
+        },
+        {
+          "text": "I",
+          "start": 166.23,
+          "end": 166.67
+        },
+        {
+          "text": "don't",
+          "start": 166.67,
+          "end": 166.99
+        },
+        {
+          "text": "have",
+          "start": 166.99,
+          "end": 167.23
+        },
+        {
+          "text": "my",
+          "start": 167.23,
+          "end": 167.51
+        },
+        {
+          "text": "coffee",
+          "start": 167.51,
+          "end": 167.83
+        },
+        {
+          "text": "first",
+          "start": 167.83,
+          "end": 168.15
+        },
+        {
+          "text": "thing",
+          "start": 168.15,
+          "end": 168.55
+        },
+        {
+          "text": "in",
+          "start": 168.55,
+          "end": 168.67
+        },
+        {
+          "text": "the",
+          "start": 168.67,
+          "end": 168.87
+        },
+        {
+          "text": "morning.",
+          "start": 168.87,
+          "end": 169.19
+        }
+      ]
+    },
+    {
+      "id": 47,
+      "speaker": "Georgie",
+      "start": 169.43,
+      "end": 170.19,
+      "text": "Oh, interesting.",
+      "words": [
+        {
+          "text": "Oh,",
+          "start": 169.43,
+          "end": 169.59
+        },
+        {
+          "text": "interesting.",
+          "start": 169.79,
+          "end": 170.19
+        }
+      ]
+    },
+    {
+      "id": 48,
+      "speaker": "Neil",
+      "start": 170.31,
+      "end": 174.63,
+      "text": "I have it kind of, I don't know, work time, nine o'clock.",
+      "words": [
+        {
+          "text": "I",
+          "start": 170.31,
+          "end": 170.39
+        },
+        {
+          "text": "have",
+          "start": 170.39,
+          "end": 170.55
+        },
+        {
+          "text": "it",
+          "start": 170.55,
+          "end": 170.83
+        },
+        {
+          "text": "kind",
+          "start": 170.83,
+          "end": 171.11
+        },
+        {
+          "text": "of,",
+          "start": 171.11,
+          "end": 171.27
+        },
+        {
+          "text": "I",
+          "start": 171.59,
+          "end": 171.71
+        },
+        {
+          "text": "don't",
+          "start": 171.71,
+          "end": 171.83
+        },
+        {
+          "text": "know,",
+          "start": 171.83,
+          "end": 172.03
+        },
+        {
+          "text": "work",
+          "start": 172.67,
+          "end": 172.99
+        },
+        {
+          "text": "time,",
+          "start": 172.99,
+          "end": 173.39
+        },
+        {
+          "text": "nine",
+          "start": 173.79,
+          "end": 174.03
+        },
+        {
+          "text": "o'clock.",
+          "start": 174.03,
+          "end": 174.63
+        }
+      ]
+    },
+    {
+      "id": 49,
+      "speaker": "Georgie",
+      "start": 175.15,
+      "end": 175.91,
+      "text": "Why is that?",
+      "words": [
+        {
+          "text": "Why",
+          "start": 175.15,
+          "end": 175.39
+        },
+        {
+          "text": "is",
+          "start": 175.39,
+          "end": 175.59
+        },
+        {
+          "text": "that?",
+          "start": 175.59,
+          "end": 175.91
+        }
+      ]
+    },
+    {
+      "id": 50,
+      "speaker": "Neil",
+      "start": 176.27,
+      "end": 180.63,
+      "text": "I think it's too strong, too powerful, Or maybe just the way I drink it.",
+      "words": [
+        {
+          "text": "I",
+          "start": 176.27,
+          "end": 176.39
+        },
+        {
+          "text": "think",
+          "start": 176.39,
+          "end": 176.59
+        },
+        {
+          "text": "it's",
+          "start": 176.59,
+          "end": 176.87
+        },
+        {
+          "text": "too",
+          "start": 176.87,
+          "end": 177.27
+        },
+        {
+          "text": "strong,",
+          "start": 177.27,
+          "end": 177.55
+        },
+        {
+          "text": "too",
+          "start": 177.67,
+          "end": 177.99
+        },
+        {
+          "text": "powerful,",
+          "start": 177.99,
+          "end": 178.47
+        },
+        {
+          "text": "Or",
+          "start": 178.83,
+          "end": 179.11
+        },
+        {
+          "text": "maybe",
+          "start": 179.11,
+          "end": 179.43
+        },
+        {
+          "text": "just",
+          "start": 179.43,
+          "end": 179.63
+        },
+        {
+          "text": "the",
+          "start": 179.63,
+          "end": 179.75
+        },
+        {
+          "text": "way",
+          "start": 179.75,
+          "end": 179.95
+        },
+        {
+          "text": "I",
+          "start": 179.95,
+          "end": 180.19
+        },
+        {
+          "text": "drink",
+          "start": 180.19,
+          "end": 180.47
+        },
+        {
+          "text": "it.",
+          "start": 180.47,
+          "end": 180.63
+        }
+      ]
+    },
+    {
+      "id": 51,
+      "speaker": "Neil",
+      "start": 180.79,
+      "end": 181.15,
+      "text": "Mmm.",
+      "words": [
+        {
+          "text": "Mmm.",
+          "start": 180.79,
+          "end": 181.15
+        }
+      ]
+    },
+    {
+      "id": 52,
+      "speaker": "Georgie",
+      "start": 181.35,
+      "end": 183.31,
+      "text": "What happens if you drink too much coffee?",
+      "words": [
+        {
+          "text": "What",
+          "start": 181.35,
+          "end": 181.63
+        },
+        {
+          "text": "happens",
+          "start": 181.63,
+          "end": 181.91
+        },
+        {
+          "text": "if",
+          "start": 181.91,
+          "end": 182.03
+        },
+        {
+          "text": "you",
+          "start": 182.03,
+          "end": 182.19
+        },
+        {
+          "text": "drink",
+          "start": 182.19,
+          "end": 182.43
+        },
+        {
+          "text": "too",
+          "start": 182.43,
+          "end": 182.59
+        },
+        {
+          "text": "much",
+          "start": 182.59,
+          "end": 182.95
+        },
+        {
+          "text": "coffee?",
+          "start": 182.95,
+          "end": 183.31
+        }
+      ]
+    },
+    {
+      "id": 53,
+      "speaker": "Georgie",
+      "start": 183.67,
+      "end": 184.11,
+      "text": "Oh,",
+      "words": [
+        {
+          "text": "Oh,",
+          "start": 183.67,
+          "end": 184.11
+        }
+      ]
+    },
+    {
+      "id": 54,
+      "speaker": "Neil",
+      "start": 184.63,
+      "end": 188.95,
+      "text": "then it's difficult to sleep. because of the caffeine.",
+      "words": [
+        {
+          "text": "then",
+          "start": 184.63,
+          "end": 185.19
+        },
+        {
+          "text": "it's",
+          "start": 185.19,
+          "end": 185.55
+        },
+        {
+          "text": "difficult",
+          "start": 185.55,
+          "end": 186.23
+        },
+        {
+          "text": "to",
+          "start": 186.23,
+          "end": 186.51
+        },
+        {
+          "text": "sleep.",
+          "start": 186.51,
+          "end": 187.51
+        },
+        {
+          "text": "because",
+          "start": 187.95,
+          "end": 188.11
+        },
+        {
+          "text": "of",
+          "start": 188.11,
+          "end": 188.23
+        },
+        {
+          "text": "the",
+          "start": 188.23,
+          "end": 188.59
+        },
+        {
+          "text": "caffeine.",
+          "start": 188.59,
+          "end": 188.95
+        }
+      ]
+    },
+    {
+      "id": 55,
+      "speaker": "Neil",
+      "start": 189.27,
+      "end": 200.63,
+      "text": "Caffeine is that chemical in coffee and tea that makes you feel awake and alert, But too much means you're too alert.",
+      "words": [
+        {
+          "text": "Caffeine",
+          "start": 189.27,
+          "end": 189.75
+        },
+        {
+          "text": "is",
+          "start": 189.75,
+          "end": 189.91
+        },
+        {
+          "text": "that",
+          "start": 189.91,
+          "end": 190.43
+        },
+        {
+          "text": "chemical",
+          "start": 190.43,
+          "end": 191.63
+        },
+        {
+          "text": "in",
+          "start": 191.63,
+          "end": 192.71
+        },
+        {
+          "text": "coffee",
+          "start": 192.71,
+          "end": 193.03
+        },
+        {
+          "text": "and",
+          "start": 193.03,
+          "end": 193.27
+        },
+        {
+          "text": "tea",
+          "start": 193.27,
+          "end": 194.03
+        },
+        {
+          "text": "that",
+          "start": 194.03,
+          "end": 194.19
+        },
+        {
+          "text": "makes",
+          "start": 194.19,
+          "end": 194.51
+        },
+        {
+          "text": "you",
+          "start": 194.51,
+          "end": 194.67
+        },
+        {
+          "text": "feel",
+          "start": 194.67,
+          "end": 195.27
+        },
+        {
+          "text": "awake",
+          "start": 195.27,
+          "end": 196.07
+        },
+        {
+          "text": "and",
+          "start": 196.07,
+          "end": 196.71
+        },
+        {
+          "text": "alert,",
+          "start": 196.71,
+          "end": 197.19
+        },
+        {
+          "text": "But",
+          "start": 197.31,
+          "end": 197.71
+        },
+        {
+          "text": "too",
+          "start": 197.71,
+          "end": 197.91
+        },
+        {
+          "text": "much",
+          "start": 197.91,
+          "end": 198.47
+        },
+        {
+          "text": "means",
+          "start": 198.47,
+          "end": 199.59
+        },
+        {
+          "text": "you're",
+          "start": 199.59,
+          "end": 199.87
+        },
+        {
+          "text": "too",
+          "start": 199.87,
+          "end": 200.11
+        },
+        {
+          "text": "alert.",
+          "start": 200.11,
+          "end": 200.63
+        }
+      ]
+    },
+    {
+      "id": 56,
+      "speaker": "Georgie",
+      "start": 201.55,
+      "end": 206.46,
+      "text": "I don't think that caffeine has a big effect on me.",
+      "words": [
+        {
+          "text": "I",
+          "start": 201.55,
+          "end": 201.79
+        },
+        {
+          "text": "don't",
+          "start": 201.79,
+          "end": 202.11
+        },
+        {
+          "text": "think",
+          "start": 202.11,
+          "end": 203.03
+        },
+        {
+          "text": "that",
+          "start": 203.03,
+          "end": 203.43
+        },
+        {
+          "text": "caffeine",
+          "start": 203.43,
+          "end": 203.79
+        },
+        {
+          "text": "has",
+          "start": 203.79,
+          "end": 204.07
+        },
+        {
+          "text": "a",
+          "start": 204.07,
+          "end": 204.27
+        },
+        {
+          "text": "big",
+          "start": 204.27,
+          "end": 204.59
+        },
+        {
+          "text": "effect",
+          "start": 204.59,
+          "end": 204.95
+        },
+        {
+          "text": "on",
+          "start": 204.95,
+          "end": 205.11
+        },
+        {
+          "text": "me.",
+          "start": 205.11,
+          "end": 206.46
+        }
+      ]
+    },
+    {
+      "id": 57,
+      "speaker": "Georgie",
+      "start": 206.8,
+      "end": 210.32,
+      "text": "I don't think I have trouble sleeping if I drink too much coffee.",
+      "words": [
+        {
+          "text": "I",
+          "start": 206.8,
+          "end": 206.92
+        },
+        {
+          "text": "don't",
+          "start": 206.92,
+          "end": 207.12
+        },
+        {
+          "text": "think",
+          "start": 207.12,
+          "end": 207.32
+        },
+        {
+          "text": "I",
+          "start": 207.32,
+          "end": 207.48
+        },
+        {
+          "text": "have",
+          "start": 207.48,
+          "end": 207.72
+        },
+        {
+          "text": "trouble",
+          "start": 207.72,
+          "end": 208.36
+        },
+        {
+          "text": "sleeping",
+          "start": 208.36,
+          "end": 208.84
+        },
+        {
+          "text": "if",
+          "start": 208.84,
+          "end": 209.0
+        },
+        {
+          "text": "I",
+          "start": 209.0,
+          "end": 209.16
+        },
+        {
+          "text": "drink",
+          "start": 209.16,
+          "end": 209.4
+        },
+        {
+          "text": "too",
+          "start": 209.4,
+          "end": 209.56
+        },
+        {
+          "text": "much",
+          "start": 209.56,
+          "end": 209.92
+        },
+        {
+          "text": "coffee.",
+          "start": 209.92,
+          "end": 210.32
+        }
+      ]
+    },
+    {
+      "id": 58,
+      "speaker": "Georgie",
+      "start": 210.88,
+      "end": 212.0,
+      "text": "It's strange.",
+      "words": [
+        {
+          "text": "It's",
+          "start": 210.88,
+          "end": 211.68
+        },
+        {
+          "text": "strange.",
+          "start": 211.68,
+          "end": 212.0
+        }
+      ]
+    },
+    {
+      "id": 59,
+      "speaker": "Georgie",
+      "start": 212.12,
+      "end": 215.32,
+      "text": "Yeah, because sometimes I'll have an espresso after dinner.",
+      "words": [
+        {
+          "text": "Yeah,",
+          "start": 212.12,
+          "end": 212.32
+        },
+        {
+          "text": "because",
+          "start": 212.4,
+          "end": 212.72
+        },
+        {
+          "text": "sometimes",
+          "start": 212.72,
+          "end": 213.08
+        },
+        {
+          "text": "I'll",
+          "start": 213.08,
+          "end": 213.28
+        },
+        {
+          "text": "have",
+          "start": 213.28,
+          "end": 213.6
+        },
+        {
+          "text": "an",
+          "start": 213.6,
+          "end": 213.84
+        },
+        {
+          "text": "espresso",
+          "start": 213.84,
+          "end": 214.68
+        },
+        {
+          "text": "after",
+          "start": 214.68,
+          "end": 215.04
+        },
+        {
+          "text": "dinner.",
+          "start": 215.04,
+          "end": 215.32
+        }
+      ]
+    },
+    {
+      "id": 60,
+      "speaker": "Neil",
+      "start": 215.96,
+      "end": 216.28,
+      "text": "Really?",
+      "words": [
+        {
+          "text": "Really?",
+          "start": 215.96,
+          "end": 216.28
+        }
+      ]
+    },
+    {
+      "id": 61,
+      "speaker": "Georgie",
+      "start": 216.44,
+      "end": 218.12,
+      "text": "Yeah, And I can still sleep.",
+      "words": [
+        {
+          "text": "Yeah,",
+          "start": 216.44,
+          "end": 216.72
+        },
+        {
+          "text": "And",
+          "start": 216.92,
+          "end": 217.08
+        },
+        {
+          "text": "I",
+          "start": 217.08,
+          "end": 217.2
+        },
+        {
+          "text": "can",
+          "start": 217.2,
+          "end": 217.36
+        },
+        {
+          "text": "still",
+          "start": 217.36,
+          "end": 217.68
+        },
+        {
+          "text": "sleep.",
+          "start": 217.68,
+          "end": 218.12
+        }
+      ]
+    },
+    {
+      "id": 62,
+      "speaker": "Neil",
+      "start": 218.44,
+      "end": 219.16,
+      "text": "That's crazy.",
+      "words": [
+        {
+          "text": "That's",
+          "start": 218.44,
+          "end": 218.72
+        },
+        {
+          "text": "crazy.",
+          "start": 218.72,
+          "end": 219.16
+        }
+      ]
+    },
+    {
+      "id": 63,
+      "speaker": "Georgie",
+      "start": 219.4,
+      "end": 220.4,
+      "text": "Yeah, Lucky me.",
+      "words": [
+        {
+          "text": "Yeah,",
+          "start": 219.4,
+          "end": 219.6
+        },
+        {
+          "text": "Lucky",
+          "start": 219.72,
+          "end": 220.08
+        },
+        {
+          "text": "me.",
+          "start": 220.08,
+          "end": 220.4
+        }
+      ]
+    },
+    {
+      "id": 64,
+      "speaker": "Neil",
+      "start": 220.6,
+      "end": 221.28,
+      "text": "Lucky you.",
+      "words": [
+        {
+          "text": "Lucky",
+          "start": 220.6,
+          "end": 220.96
+        },
+        {
+          "text": "you.",
+          "start": 220.96,
+          "end": 221.28
+        }
+      ]
+    },
+    {
+      "id": 65,
+      "speaker": "Georgie",
+      "start": 222.88,
+      "end": 225.52,
+      "text": "Neil, have you ever tried to cut down on coffee?",
+      "words": [
+        {
+          "text": "Neil,",
+          "start": 222.88,
+          "end": 223.08
+        },
+        {
+          "text": "have",
+          "start": 223.16,
+          "end": 223.32
+        },
+        {
+          "text": "you",
+          "start": 223.32,
+          "end": 223.52
+        },
+        {
+          "text": "ever",
+          "start": 223.52,
+          "end": 223.76
+        },
+        {
+          "text": "tried",
+          "start": 223.76,
+          "end": 224.0
+        },
+        {
+          "text": "to",
+          "start": 224.0,
+          "end": 224.32
+        },
+        {
+          "text": "cut",
+          "start": 224.32,
+          "end": 224.56
+        },
+        {
+          "text": "down",
+          "start": 224.56,
+          "end": 224.84
+        },
+        {
+          "text": "on",
+          "start": 224.84,
+          "end": 225.12
+        },
+        {
+          "text": "coffee?",
+          "start": 225.12,
+          "end": 225.52
+        }
+      ]
+    },
+    {
+      "id": 66,
+      "speaker": "Neil",
+      "start": 226.48,
+      "end": 228.72,
+      "text": "Cut down on, You mean have less?",
+      "words": [
+        {
+          "text": "Cut",
+          "start": 226.48,
+          "end": 226.8
+        },
+        {
+          "text": "down",
+          "start": 226.8,
+          "end": 227.08
+        },
+        {
+          "text": "on,",
+          "start": 227.08,
+          "end": 227.28
+        },
+        {
+          "text": "You",
+          "start": 227.36,
+          "end": 227.52
+        },
+        {
+          "text": "mean",
+          "start": 227.52,
+          "end": 227.84
+        },
+        {
+          "text": "have",
+          "start": 227.84,
+          "end": 228.2
+        },
+        {
+          "text": "less?",
+          "start": 228.2,
+          "end": 228.72
+        }
+      ]
+    },
+    {
+      "id": 67,
+      "speaker": "Neil",
+      "start": 229.92,
+      "end": 236.28,
+      "text": "No, I haven't tried to cut down on coffee, but I've tried to cut down on caffeine.",
+      "words": [
+        {
+          "text": "No,",
+          "start": 229.92,
+          "end": 230.28
+        },
+        {
+          "text": "I",
+          "start": 230.4,
+          "end": 230.6
+        },
+        {
+          "text": "haven't",
+          "start": 230.6,
+          "end": 231.04
+        },
+        {
+          "text": "tried",
+          "start": 231.04,
+          "end": 231.28
+        },
+        {
+          "text": "to",
+          "start": 231.28,
+          "end": 231.6
+        },
+        {
+          "text": "cut",
+          "start": 231.6,
+          "end": 231.84
+        },
+        {
+          "text": "down",
+          "start": 231.84,
+          "end": 232.04
+        },
+        {
+          "text": "on",
+          "start": 232.04,
+          "end": 232.4
+        },
+        {
+          "text": "coffee,",
+          "start": 232.4,
+          "end": 232.8
+        },
+        {
+          "text": "but",
+          "start": 233.0,
+          "end": 233.24
+        },
+        {
+          "text": "I've",
+          "start": 233.24,
+          "end": 233.56
+        },
+        {
+          "text": "tried",
+          "start": 233.56,
+          "end": 233.76
+        },
+        {
+          "text": "to",
+          "start": 233.76,
+          "end": 233.96
+        },
+        {
+          "text": "cut",
+          "start": 233.96,
+          "end": 234.24
+        },
+        {
+          "text": "down",
+          "start": 234.24,
+          "end": 234.88
+        },
+        {
+          "text": "on",
+          "start": 234.88,
+          "end": 235.84
+        },
+        {
+          "text": "caffeine.",
+          "start": 235.84,
+          "end": 236.28
+        }
+      ]
+    },
+    {
+      "id": 68,
+      "speaker": "Neil",
+      "start": 236.84,
+      "end": 237.16,
+      "text": "Okay.",
+      "words": [
+        {
+          "text": "Okay.",
+          "start": 236.84,
+          "end": 237.16
+        }
+      ]
+    },
+    {
+      "id": 69,
+      "speaker": "Neil",
+      "start": 237.4,
+      "end": 245.12,
+      "text": "So I, for a while, I only drank decaffeinated coffee or decaf, as we call it.",
+      "words": [
+        {
+          "text": "So",
+          "start": 237.4,
+          "end": 237.84
+        },
+        {
+          "text": "I,",
+          "start": 237.84,
+          "end": 238.16
+        },
+        {
+          "text": "for",
+          "start": 238.28,
+          "end": 238.44
+        },
+        {
+          "text": "a",
+          "start": 238.44,
+          "end": 238.56
+        },
+        {
+          "text": "while,",
+          "start": 238.56,
+          "end": 238.84
+        },
+        {
+          "text": "I",
+          "start": 238.96,
+          "end": 239.32
+        },
+        {
+          "text": "only",
+          "start": 239.32,
+          "end": 239.76
+        },
+        {
+          "text": "drank",
+          "start": 239.76,
+          "end": 240.8
+        },
+        {
+          "text": "decaffeinated",
+          "start": 240.8,
+          "end": 242.24
+        },
+        {
+          "text": "coffee",
+          "start": 242.24,
+          "end": 242.72
+        },
+        {
+          "text": "or",
+          "start": 242.72,
+          "end": 243.04
+        },
+        {
+          "text": "decaf,",
+          "start": 243.04,
+          "end": 243.72
+        },
+        {
+          "text": "as",
+          "start": 244.28,
+          "end": 244.52
+        },
+        {
+          "text": "we",
+          "start": 244.52,
+          "end": 244.68
+        },
+        {
+          "text": "call",
+          "start": 244.68,
+          "end": 244.88
+        },
+        {
+          "text": "it.",
+          "start": 244.88,
+          "end": 245.12
+        }
+      ]
+    },
+    {
+      "id": 70,
+      "speaker": "Neil",
+      "start": 245.91,
+      "end": 246.11,
+      "text": "Okay,",
+      "words": [
+        {
+          "text": "Okay,",
+          "start": 245.91,
+          "end": 246.11
+        }
+      ]
+    },
+    {
+      "id": 71,
+      "speaker": "Georgie",
+      "start": 246.19,
+      "end": 247.11,
+      "text": "And how was that?",
+      "words": [
+        {
+          "text": "And",
+          "start": 246.19,
+          "end": 246.35
+        },
+        {
+          "text": "how",
+          "start": 246.35,
+          "end": 246.51
+        },
+        {
+          "text": "was",
+          "start": 246.51,
+          "end": 246.71
+        },
+        {
+          "text": "that?",
+          "start": 246.71,
+          "end": 247.11
+        }
+      ]
+    },
+    {
+      "id": 72,
+      "speaker": "Neil",
+      "start": 247.59,
+      "end": 252.39,
+      "text": "Well, I didn't miss caffeine at the time.",
+      "words": [
+        {
+          "text": "Well,",
+          "start": 247.59,
+          "end": 247.91
+        },
+        {
+          "text": "I",
+          "start": 248.35,
+          "end": 248.55
+        },
+        {
+          "text": "didn't",
+          "start": 248.55,
+          "end": 249.71
+        },
+        {
+          "text": "miss",
+          "start": 249.71,
+          "end": 251.31
+        },
+        {
+          "text": "caffeine",
+          "start": 251.31,
+          "end": 251.71
+        },
+        {
+          "text": "at",
+          "start": 251.71,
+          "end": 251.91
+        },
+        {
+          "text": "the",
+          "start": 251.91,
+          "end": 252.03
+        },
+        {
+          "text": "time.",
+          "start": 252.03,
+          "end": 252.39
+        }
+      ]
+    },
+    {
+      "id": 73,
+      "speaker": "Neil",
+      "start": 252.47,
+      "end": 258.58,
+      "text": "I don't think It lasted for a long time, um, but. now I drink caffeine.",
+      "words": [
+        {
+          "text": "I",
+          "start": 252.47,
+          "end": 252.63
+        },
+        {
+          "text": "don't",
+          "start": 252.63,
+          "end": 252.87
+        },
+        {
+          "text": "think",
+          "start": 252.87,
+          "end": 253.47
+        },
+        {
+          "text": "It",
+          "start": 253.47,
+          "end": 253.67
+        },
+        {
+          "text": "lasted",
+          "start": 253.67,
+          "end": 254.03
+        },
+        {
+          "text": "for",
+          "start": 254.03,
+          "end": 254.15
+        },
+        {
+          "text": "a",
+          "start": 254.15,
+          "end": 254.27
+        },
+        {
+          "text": "long",
+          "start": 254.27,
+          "end": 254.51
+        },
+        {
+          "text": "time,",
+          "start": 254.51,
+          "end": 254.91
+        },
+        {
+          "text": "um,",
+          "start": 255.71,
+          "end": 256.03
+        },
+        {
+          "text": "but.",
+          "start": 256.31,
+          "end": 256.96
+        },
+        {
+          "text": "now",
+          "start": 257.46,
+          "end": 257.78
+        },
+        {
+          "text": "I",
+          "start": 257.78,
+          "end": 257.94
+        },
+        {
+          "text": "drink",
+          "start": 257.94,
+          "end": 258.34
+        },
+        {
+          "text": "caffeine.",
+          "start": 258.34,
+          "end": 258.58
+        }
+      ]
+    },
+    {
+      "id": 74,
+      "speaker": "Neil",
+      "start": 258.7,
+      "end": 261.32,
+      "text": "I don't care.",
+      "words": [
+        {
+          "text": "I",
+          "start": 258.7,
+          "end": 258.86
+        },
+        {
+          "text": "don't",
+          "start": 258.86,
+          "end": 259.06
+        },
+        {
+          "text": "care.",
+          "start": 259.06,
+          "end": 261.32
+        }
+      ]
+    },
+    {
+      "id": 75,
+      "speaker": "Neil",
+      "start": 266.39,
+      "end": 266.59,
+      "text": "Okay,",
+      "words": [
+        {
+          "text": "Okay,",
+          "start": 266.39,
+          "end": 266.59
+        }
+      ]
+    },
+    {
+      "id": 76,
+      "speaker": "Georgie",
+      "start": 266.71,
+      "end": 271.07,
+      "text": "Neil, it's time to recap the vocabulary we used in the conversation.",
+      "words": [
+        {
+          "text": "Neil,",
+          "start": 266.71,
+          "end": 266.91
+        },
+        {
+          "text": "it's",
+          "start": 266.99,
+          "end": 267.19
+        },
+        {
+          "text": "time",
+          "start": 267.19,
+          "end": 267.47
+        },
+        {
+          "text": "to",
+          "start": 267.47,
+          "end": 267.79
+        },
+        {
+          "text": "recap",
+          "start": 267.79,
+          "end": 268.07
+        },
+        {
+          "text": "the",
+          "start": 268.07,
+          "end": 268.35
+        },
+        {
+          "text": "vocabulary",
+          "start": 268.35,
+          "end": 269.03
+        },
+        {
+          "text": "we",
+          "start": 269.03,
+          "end": 269.27
+        },
+        {
+          "text": "used",
+          "start": 269.27,
+          "end": 269.95
+        },
+        {
+          "text": "in",
+          "start": 269.95,
+          "end": 270.15
+        },
+        {
+          "text": "the",
+          "start": 270.15,
+          "end": 270.39
+        },
+        {
+          "text": "conversation.",
+          "start": 270.39,
+          "end": 271.07
+        }
+      ]
+    },
+    {
+      "id": 77,
+      "speaker": "Georgie",
+      "start": 271.51,
+      "end": 273.27,
+      "text": "We used the verb take.",
+      "words": [
+        {
+          "text": "We",
+          "start": 271.51,
+          "end": 271.79
+        },
+        {
+          "text": "used",
+          "start": 271.79,
+          "end": 272.07
+        },
+        {
+          "text": "the",
+          "start": 272.07,
+          "end": 272.23
+        },
+        {
+          "text": "verb",
+          "start": 272.23,
+          "end": 272.79
+        },
+        {
+          "text": "take.",
+          "start": 272.79,
+          "end": 273.27
+        }
+      ]
+    },
+    {
+      "id": 78,
+      "speaker": "Georgie",
+      "start": 273.43,
+      "end": 275.55,
+      "text": "So, Neil, how do you take your coffee?",
+      "words": [
+        {
+          "text": "So,",
+          "start": 273.43,
+          "end": 273.55
+        },
+        {
+          "text": "Neil,",
+          "start": 273.67,
+          "end": 273.95
+        },
+        {
+          "text": "how",
+          "start": 274.07,
+          "end": 274.31
+        },
+        {
+          "text": "do",
+          "start": 274.31,
+          "end": 274.43
+        },
+        {
+          "text": "you",
+          "start": 274.43,
+          "end": 274.63
+        },
+        {
+          "text": "take",
+          "start": 274.63,
+          "end": 274.91
+        },
+        {
+          "text": "your",
+          "start": 274.91,
+          "end": 275.23
+        },
+        {
+          "text": "coffee?",
+          "start": 275.23,
+          "end": 275.55
+        }
+      ]
+    },
+    {
+      "id": 79,
+      "speaker": "Neil",
+      "start": 275.95,
+      "end": 280.35,
+      "text": "I take my coffee black, and I know you take your coffee white.",
+      "words": [
+        {
+          "text": "I",
+          "start": 275.95,
+          "end": 276.39
+        },
+        {
+          "text": "take",
+          "start": 276.39,
+          "end": 276.71
+        },
+        {
+          "text": "my",
+          "start": 276.71,
+          "end": 277.03
+        },
+        {
+          "text": "coffee",
+          "start": 277.03,
+          "end": 277.43
+        },
+        {
+          "text": "black,",
+          "start": 277.43,
+          "end": 277.71
+        },
+        {
+          "text": "and",
+          "start": 277.79,
+          "end": 277.95
+        },
+        {
+          "text": "I",
+          "start": 277.95,
+          "end": 278.07
+        },
+        {
+          "text": "know",
+          "start": 278.07,
+          "end": 278.47
+        },
+        {
+          "text": "you",
+          "start": 278.47,
+          "end": 278.71
+        },
+        {
+          "text": "take",
+          "start": 278.71,
+          "end": 278.99
+        },
+        {
+          "text": "your",
+          "start": 278.99,
+          "end": 279.35
+        },
+        {
+          "text": "coffee",
+          "start": 279.35,
+          "end": 279.91
+        },
+        {
+          "text": "white.",
+          "start": 279.91,
+          "end": 280.35
+        }
+      ]
+    },
+    {
+      "id": 80,
+      "speaker": "Georgie",
+      "start": 280.87,
+      "end": 287.79,
+      "text": "Yes, We also heard caffeine, which is the chemical that is in coffee, which makes you feel more awake.",
+      "words": [
+        {
+          "text": "Yes,",
+          "start": 280.87,
+          "end": 281.11
+        },
+        {
+          "text": "We",
+          "start": 281.31,
+          "end": 281.63
+        },
+        {
+          "text": "also",
+          "start": 281.63,
+          "end": 281.99
+        },
+        {
+          "text": "heard",
+          "start": 281.99,
+          "end": 282.63
+        },
+        {
+          "text": "caffeine,",
+          "start": 282.63,
+          "end": 283.07
+        },
+        {
+          "text": "which",
+          "start": 283.15,
+          "end": 283.39
+        },
+        {
+          "text": "is",
+          "start": 283.39,
+          "end": 283.55
+        },
+        {
+          "text": "the",
+          "start": 283.55,
+          "end": 283.79
+        },
+        {
+          "text": "chemical",
+          "start": 283.79,
+          "end": 284.55
+        },
+        {
+          "text": "that",
+          "start": 284.55,
+          "end": 284.79
+        },
+        {
+          "text": "is",
+          "start": 284.79,
+          "end": 285.03
+        },
+        {
+          "text": "in",
+          "start": 285.03,
+          "end": 285.51
+        },
+        {
+          "text": "coffee,",
+          "start": 285.51,
+          "end": 285.83
+        },
+        {
+          "text": "which",
+          "start": 285.91,
+          "end": 286.15
+        },
+        {
+          "text": "makes",
+          "start": 286.15,
+          "end": 286.39
+        },
+        {
+          "text": "you",
+          "start": 286.39,
+          "end": 286.55
+        },
+        {
+          "text": "feel",
+          "start": 286.55,
+          "end": 287.03
+        },
+        {
+          "text": "more",
+          "start": 287.03,
+          "end": 287.35
+        },
+        {
+          "text": "awake.",
+          "start": 287.35,
+          "end": 287.79
+        }
+      ]
+    },
+    {
+      "id": 81,
+      "speaker": "Neil",
+      "start": 288.03,
+      "end": 292.11,
+      "text": "Yes, but you can also get decaffeinated coffee or tea.",
+      "words": [
+        {
+          "text": "Yes,",
+          "start": 288.03,
+          "end": 288.39
+        },
+        {
+          "text": "but",
+          "start": 288.59,
+          "end": 288.75
+        },
+        {
+          "text": "you",
+          "start": 288.75,
+          "end": 288.87
+        },
+        {
+          "text": "can",
+          "start": 288.87,
+          "end": 289.15
+        },
+        {
+          "text": "also",
+          "start": 289.15,
+          "end": 289.47
+        },
+        {
+          "text": "get",
+          "start": 289.47,
+          "end": 289.87
+        },
+        {
+          "text": "decaffeinated",
+          "start": 289.87,
+          "end": 291.11
+        },
+        {
+          "text": "coffee",
+          "start": 291.11,
+          "end": 291.63
+        },
+        {
+          "text": "or",
+          "start": 291.63,
+          "end": 291.83
+        },
+        {
+          "text": "tea.",
+          "start": 291.83,
+          "end": 292.11
+        }
+      ]
+    },
+    {
+      "id": 82,
+      "speaker": "Neil",
+      "start": 292.59,
+      "end": 298.47,
+      "text": "Itmeans there's no caffeine And we usually shorten that just to decaf, decaf coffee.",
+      "words": [
+        {
+          "text": "Itmeans",
+          "start": 292.59,
+          "end": 293.07
+        },
+        {
+          "text": "there's",
+          "start": 293.07,
+          "end": 293.35
+        },
+        {
+          "text": "no",
+          "start": 293.35,
+          "end": 293.71
+        },
+        {
+          "text": "caffeine",
+          "start": 293.71,
+          "end": 294.27
+        },
+        {
+          "text": "And",
+          "start": 294.27,
+          "end": 294.55
+        },
+        {
+          "text": "we",
+          "start": 294.55,
+          "end": 294.79
+        },
+        {
+          "text": "usually",
+          "start": 294.79,
+          "end": 295.55
+        },
+        {
+          "text": "shorten",
+          "start": 295.55,
+          "end": 295.99
+        },
+        {
+          "text": "that",
+          "start": 295.99,
+          "end": 296.39
+        },
+        {
+          "text": "just",
+          "start": 296.39,
+          "end": 296.63
+        },
+        {
+          "text": "to",
+          "start": 296.63,
+          "end": 296.87
+        },
+        {
+          "text": "decaf,",
+          "start": 296.87,
+          "end": 297.43
+        },
+        {
+          "text": "decaf",
+          "start": 297.59,
+          "end": 298.11
+        },
+        {
+          "text": "coffee.",
+          "start": 298.11,
+          "end": 298.47
+        }
+      ]
+    },
+    {
+      "id": 83,
+      "speaker": "Georgie",
+      "start": 299.15,
+      "end": 304.47,
+      "text": "Yes, We also heard the phrasal verb cut down on, which means you have less of something.",
+      "words": [
+        {
+          "text": "Yes,",
+          "start": 299.15,
+          "end": 299.43
+        },
+        {
+          "text": "We",
+          "start": 299.51,
+          "end": 299.75
+        },
+        {
+          "text": "also",
+          "start": 299.75,
+          "end": 300.03
+        },
+        {
+          "text": "heard",
+          "start": 300.03,
+          "end": 300.27
+        },
+        {
+          "text": "the",
+          "start": 300.27,
+          "end": 300.43
+        },
+        {
+          "text": "phrasal",
+          "start": 300.43,
+          "end": 300.87
+        },
+        {
+          "text": "verb",
+          "start": 300.87,
+          "end": 301.35
+        },
+        {
+          "text": "cut",
+          "start": 301.35,
+          "end": 301.75
+        },
+        {
+          "text": "down",
+          "start": 301.75,
+          "end": 302.07
+        },
+        {
+          "text": "on,",
+          "start": 302.07,
+          "end": 302.31
+        },
+        {
+          "text": "which",
+          "start": 302.43,
+          "end": 302.71
+        },
+        {
+          "text": "means",
+          "start": 302.71,
+          "end": 303.11
+        },
+        {
+          "text": "you",
+          "start": 303.11,
+          "end": 303.39
+        },
+        {
+          "text": "have",
+          "start": 303.39,
+          "end": 303.67
+        },
+        {
+          "text": "less",
+          "start": 303.67,
+          "end": 303.87
+        },
+        {
+          "text": "of",
+          "start": 303.87,
+          "end": 304.03
+        },
+        {
+          "text": "something.",
+          "start": 304.03,
+          "end": 304.47
+        }
+      ]
+    },
+    {
+      "id": 84,
+      "speaker": "Neil",
+      "start": 304.67,
+      "end": 307.07,
+      "text": "Yep, And you can also say cut back on.",
+      "words": [
+        {
+          "text": "Yep,",
+          "start": 304.67,
+          "end": 304.87
+        },
+        {
+          "text": "And",
+          "start": 304.95,
+          "end": 305.15
+        },
+        {
+          "text": "you",
+          "start": 305.15,
+          "end": 305.27
+        },
+        {
+          "text": "can",
+          "start": 305.27,
+          "end": 305.59
+        },
+        {
+          "text": "also",
+          "start": 305.59,
+          "end": 305.91
+        },
+        {
+          "text": "say",
+          "start": 305.91,
+          "end": 306.31
+        },
+        {
+          "text": "cut",
+          "start": 306.31,
+          "end": 306.59
+        },
+        {
+          "text": "back",
+          "start": 306.59,
+          "end": 306.87
+        },
+        {
+          "text": "on.",
+          "start": 306.87,
+          "end": 307.07
+        }
+      ]
+    },
+    {
+      "id": 85,
+      "speaker": "Neil",
+      "start": 307.19,
+      "end": 308.23,
+      "text": "It means the same thing.",
+      "words": [
+        {
+          "text": "It",
+          "start": 307.19,
+          "end": 307.31
+        },
+        {
+          "text": "means",
+          "start": 307.31,
+          "end": 307.55
+        },
+        {
+          "text": "the",
+          "start": 307.55,
+          "end": 307.67
+        },
+        {
+          "text": "same",
+          "start": 307.67,
+          "end": 307.91
+        },
+        {
+          "text": "thing.",
+          "start": 307.91,
+          "end": 308.23
+        }
+      ]
+    },
+    {
+      "id": 86,
+      "speaker": "Neil",
+      "start": 308.91,
+      "end": 309.15,
+      "text": "Okay,",
+      "words": [
+        {
+          "text": "Okay,",
+          "start": 308.91,
+          "end": 309.15
+        }
+      ]
+    },
+    {
+      "id": 87,
+      "speaker": "Georgie",
+      "start": 309.23,
+      "end": 314.07,
+      "text": "Well that is the end of this conversation about coffee in Real Easy English.",
+      "words": [
+        {
+          "text": "Well",
+          "start": 309.23,
+          "end": 309.43
+        },
+        {
+          "text": "that",
+          "start": 309.43,
+          "end": 309.63
+        },
+        {
+          "text": "is",
+          "start": 309.63,
+          "end": 309.83
+        },
+        {
+          "text": "the",
+          "start": 309.83,
+          "end": 310.03
+        },
+        {
+          "text": "end",
+          "start": 310.03,
+          "end": 310.31
+        },
+        {
+          "text": "of",
+          "start": 310.31,
+          "end": 310.51
+        },
+        {
+          "text": "this",
+          "start": 310.51,
+          "end": 310.83
+        },
+        {
+          "text": "conversation",
+          "start": 310.83,
+          "end": 311.47
+        },
+        {
+          "text": "about",
+          "start": 311.47,
+          "end": 311.91
+        },
+        {
+          "text": "coffee",
+          "start": 311.91,
+          "end": 312.35
+        },
+        {
+          "text": "in",
+          "start": 312.35,
+          "end": 312.75
+        },
+        {
+          "text": "Real",
+          "start": 312.75,
+          "end": 313.15
+        },
+        {
+          "text": "Easy",
+          "start": 313.15,
+          "end": 313.55
+        },
+        {
+          "text": "English.",
+          "start": 313.55,
+          "end": 314.07
+        }
+      ]
+    },
+    {
+      "id": 88,
+      "speaker": "Neil",
+      "start": 314.39,
+      "end": 319.63,
+      "text": "Yes, and if people want to watch more episodes of Real Easy English, what should they do?",
+      "words": [
+        {
+          "text": "Yes,",
+          "start": 314.39,
+          "end": 314.63
+        },
+        {
+          "text": "and",
+          "start": 314.71,
+          "end": 314.99
+        },
+        {
+          "text": "if",
+          "start": 314.99,
+          "end": 315.35
+        },
+        {
+          "text": "people",
+          "start": 315.35,
+          "end": 315.75
+        },
+        {
+          "text": "want",
+          "start": 315.75,
+          "end": 316.07
+        },
+        {
+          "text": "to",
+          "start": 316.07,
+          "end": 316.75
+        },
+        {
+          "text": "watch",
+          "start": 316.75,
+          "end": 317.11
+        },
+        {
+          "text": "more",
+          "start": 317.11,
+          "end": 317.43
+        },
+        {
+          "text": "episodes",
+          "start": 317.43,
+          "end": 317.83
+        },
+        {
+          "text": "of",
+          "start": 317.83,
+          "end": 318.03
+        },
+        {
+          "text": "Real",
+          "start": 318.03,
+          "end": 318.31
+        },
+        {
+          "text": "Easy",
+          "start": 318.31,
+          "end": 318.55
+        },
+        {
+          "text": "English,",
+          "start": 318.55,
+          "end": 318.83
+        },
+        {
+          "text": "what",
+          "start": 318.91,
+          "end": 319.07
+        },
+        {
+          "text": "should",
+          "start": 319.07,
+          "end": 319.23
+        },
+        {
+          "text": "they",
+          "start": 319.23,
+          "end": 319.35
+        },
+        {
+          "text": "do?",
+          "start": 319.35,
+          "end": 319.63
+        }
+      ]
+    },
+    {
+      "id": 89,
+      "speaker": "Georgie",
+      "start": 319.87,
+      "end": 326.59,
+      "text": "They should go to our website, bbclearningenglish.com, where they can find a free worksheet to test what they've learned.",
+      "words": [
+        {
+          "text": "They",
+          "start": 319.87,
+          "end": 320.07
+        },
+        {
+          "text": "should",
+          "start": 320.07,
+          "end": 320.31
+        },
+        {
+          "text": "go",
+          "start": 320.31,
+          "end": 320.63
+        },
+        {
+          "text": "to",
+          "start": 320.63,
+          "end": 320.91
+        },
+        {
+          "text": "our",
+          "start": 320.91,
+          "end": 321.23
+        },
+        {
+          "text": "website,",
+          "start": 321.23,
+          "end": 321.67
+        },
+        {
+          "text": "bbclearningenglish.",
+          "start": 321.75,
+          "end": 323.15
+        },
+        {
+          "text": "com,",
+          "start": 323.31,
+          "end": 323.59
+        },
+        {
+          "text": "where",
+          "start": 323.67,
+          "end": 323.79
+        },
+        {
+          "text": "they",
+          "start": 323.79,
+          "end": 323.95
+        },
+        {
+          "text": "can",
+          "start": 323.95,
+          "end": 324.19
+        },
+        {
+          "text": "find",
+          "start": 324.19,
+          "end": 324.47
+        },
+        {
+          "text": "a",
+          "start": 324.47,
+          "end": 324.67
+        },
+        {
+          "text": "free",
+          "start": 324.67,
+          "end": 324.99
+        },
+        {
+          "text": "worksheet",
+          "start": 324.99,
+          "end": 325.47
+        },
+        {
+          "text": "to",
+          "start": 325.47,
+          "end": 325.63
+        },
+        {
+          "text": "test",
+          "start": 325.63,
+          "end": 325.91
+        },
+        {
+          "text": "what",
+          "start": 325.91,
+          "end": 326.03
+        },
+        {
+          "text": "they've",
+          "start": 326.03,
+          "end": 326.31
+        },
+        {
+          "text": "learned.",
+          "start": 326.31,
+          "end": 326.59
+        }
+      ]
+    },
+    {
+      "id": 90,
+      "speaker": "Georgie",
+      "start": 326.99,
+      "end": 327.51,
+      "text": "Goodbye for now.",
+      "words": [
+        {
+          "text": "Goodbye",
+          "start": 326.99,
+          "end": 327.19
+        },
+        {
+          "text": "for",
+          "start": 327.19,
+          "end": 327.31
+        },
+        {
+          "text": "now.",
+          "start": 327.31,
+          "end": 327.51
+        }
+      ]
+    },
+    {
+      "id": 91,
+      "speaker": "Neil",
+      "start": 327.79,
+      "end": 328.23,
+      "text": "Goodbye.",
+      "words": [
+        {
+          "text": "Goodbye.",
+          "start": 327.79,
+          "end": 328.23
+        }
+      ]
+    },
+    {
+      "id": 92,
+      "speaker": "片头片尾",
+      "start": 331.38,
+      "end": 333.46,
+      "text": "Want more easy programs?",
+      "words": [
+        {
+          "text": "Want",
+          "start": 331.38,
+          "end": 331.74
+        },
+        {
+          "text": "more",
+          "start": 331.74,
+          "end": 332.26
+        },
+        {
+          "text": "easy",
+          "start": 332.26,
+          "end": 332.86
+        },
+        {
+          "text": "programs?",
+          "start": 332.86,
+          "end": 333.46
+        }
+      ]
+    },
+    {
+      "id": 93,
+      "speaker": "片头片尾",
+      "start": 333.7,
+      "end": 336.18,
+      "text": "There's more to explore on our website.",
+      "words": [
+        {
+          "text": "There's",
+          "start": 333.7,
+          "end": 334.02
+        },
+        {
+          "text": "more",
+          "start": 334.02,
+          "end": 334.34
+        },
+        {
+          "text": "to",
+          "start": 334.34,
+          "end": 334.7
+        },
+        {
+          "text": "explore",
+          "start": 334.7,
+          "end": 335.1
+        },
+        {
+          "text": "on",
+          "start": 335.1,
+          "end": 335.3
+        },
+        {
+          "text": "our",
+          "start": 335.3,
+          "end": 335.58
+        },
+        {
+          "text": "website.",
+          "start": 335.58,
+          "end": 336.18
+        }
+      ]
+    },
+    {
+      "id": 94,
+      "speaker": "片头片尾",
+      "start": 336.62,
+      "end": 342.62,
+      "text": "Try Easy English Conversations to practice introducing yourself and other beginner topics.",
+      "words": [
+        {
+          "text": "Try",
+          "start": 336.62,
+          "end": 337.22
+        },
+        {
+          "text": "Easy",
+          "start": 337.22,
+          "end": 337.62
+        },
+        {
+          "text": "English",
+          "start": 337.62,
+          "end": 338.1
+        },
+        {
+          "text": "Conversations",
+          "start": 338.1,
+          "end": 339.02
+        },
+        {
+          "text": "to",
+          "start": 339.02,
+          "end": 339.42
+        },
+        {
+          "text": "practice",
+          "start": 339.42,
+          "end": 340.06
+        },
+        {
+          "text": "introducing",
+          "start": 340.06,
+          "end": 340.5
+        },
+        {
+          "text": "yourself",
+          "start": 340.5,
+          "end": 341.06
+        },
+        {
+          "text": "and",
+          "start": 341.06,
+          "end": 341.38
+        },
+        {
+          "text": "other",
+          "start": 341.38,
+          "end": 341.66
+        },
+        {
+          "text": "beginner",
+          "start": 341.66,
+          "end": 342.1
+        },
+        {
+          "text": "topics.",
+          "start": 342.1,
+          "end": 342.62
+        }
+      ]
+    },
+    {
+      "id": 95,
+      "speaker": "片头片尾",
+      "start": 343.1,
+      "end": 347.78,
+      "text": "Or learn through our exciting challenge series like the London Letter Challenge.",
+      "words": [
+        {
+          "text": "Or",
+          "start": 343.1,
+          "end": 343.62
+        },
+        {
+          "text": "learn",
+          "start": 343.62,
+          "end": 343.86
+        },
+        {
+          "text": "through",
+          "start": 343.86,
+          "end": 344.14
+        },
+        {
+          "text": "our",
+          "start": 344.14,
+          "end": 344.46
+        },
+        {
+          "text": "exciting",
+          "start": 344.46,
+          "end": 345.14
+        },
+        {
+          "text": "challenge",
+          "start": 345.14,
+          "end": 345.62
+        },
+        {
+          "text": "series",
+          "start": 345.62,
+          "end": 346.06
+        },
+        {
+          "text": "like",
+          "start": 346.06,
+          "end": 346.26
+        },
+        {
+          "text": "the",
+          "start": 346.26,
+          "end": 346.58
+        },
+        {
+          "text": "London",
+          "start": 346.58,
+          "end": 346.94
+        },
+        {
+          "text": "Letter",
+          "start": 346.94,
+          "end": 347.3
+        },
+        {
+          "text": "Challenge.",
+          "start": 347.3,
+          "end": 347.78
+        }
+      ]
+    },
+    {
+      "id": 96,
+      "speaker": "片头片尾",
+      "start": 348.42,
+      "end": 355.86,
+      "text": "And of course, we have video episodes of Real Easy English, so you can watch our presenters with subtitles to help you.",
+      "words": [
+        {
+          "text": "And",
+          "start": 348.42,
+          "end": 348.78
+        },
+        {
+          "text": "of",
+          "start": 348.78,
+          "end": 348.86
+        },
+        {
+          "text": "course,",
+          "start": 348.86,
+          "end": 349.22
+        },
+        {
+          "text": "we",
+          "start": 349.34,
+          "end": 349.54
+        },
+        {
+          "text": "have",
+          "start": 349.54,
+          "end": 349.86
+        },
+        {
+          "text": "video",
+          "start": 349.86,
+          "end": 350.26
+        },
+        {
+          "text": "episodes",
+          "start": 350.26,
+          "end": 350.82
+        },
+        {
+          "text": "of",
+          "start": 350.82,
+          "end": 351.06
+        },
+        {
+          "text": "Real",
+          "start": 351.06,
+          "end": 351.42
+        },
+        {
+          "text": "Easy",
+          "start": 351.42,
+          "end": 351.78
+        },
+        {
+          "text": "English,",
+          "start": 351.78,
+          "end": 352.22
+        },
+        {
+          "text": "so",
+          "start": 352.46,
+          "end": 352.7
+        },
+        {
+          "text": "you",
+          "start": 352.7,
+          "end": 352.9
+        },
+        {
+          "text": "can",
+          "start": 352.9,
+          "end": 353.1
+        },
+        {
+          "text": "watch",
+          "start": 353.1,
+          "end": 353.34
+        },
+        {
+          "text": "our",
+          "start": 353.34,
+          "end": 353.58
+        },
+        {
+          "text": "presenters",
+          "start": 353.58,
+          "end": 354.38
+        },
+        {
+          "text": "with",
+          "start": 354.38,
+          "end": 354.62
+        },
+        {
+          "text": "subtitles",
+          "start": 354.62,
+          "end": 355.22
+        },
+        {
+          "text": "to",
+          "start": 355.22,
+          "end": 355.38
+        },
+        {
+          "text": "help",
+          "start": 355.38,
+          "end": 355.58
+        },
+        {
+          "text": "you.",
+          "start": 355.58,
+          "end": 355.86
+        }
+      ]
+    },
+    {
+      "id": 97,
+      "speaker": "片头片尾",
+      "start": 356.26,
+      "end": 362.54,
+      "text": "Find all our easy podcasts and videos on our website, bbc learningenglish.com.",
+      "words": [
+        {
+          "text": "Find",
+          "start": 356.26,
+          "end": 356.62
+        },
+        {
+          "text": "all",
+          "start": 356.62,
+          "end": 356.9
+        },
+        {
+          "text": "our",
+          "start": 356.9,
+          "end": 357.26
+        },
+        {
+          "text": "easy",
+          "start": 357.26,
+          "end": 357.54
+        },
+        {
+          "text": "podcasts",
+          "start": 357.54,
+          "end": 358.3
+        },
+        {
+          "text": "and",
+          "start": 358.3,
+          "end": 358.58
+        },
+        {
+          "text": "videos",
+          "start": 358.58,
+          "end": 359.1
+        },
+        {
+          "text": "on",
+          "start": 359.1,
+          "end": 359.3
+        },
+        {
+          "text": "our",
+          "start": 359.3,
+          "end": 359.58
+        },
+        {
+          "text": "website,",
+          "start": 359.58,
+          "end": 360.06
+        },
+        {
+          "text": "bbc",
+          "start": 360.22,
+          "end": 361.1
+        },
+        {
+          "text": "learningenglish.",
+          "start": 361.1,
+          "end": 362.06
+        },
+        {
+          "text": "com.",
+          "start": 362.22,
+          "end": 362.54
+        }
+      ]
+    }
+  ]
+}

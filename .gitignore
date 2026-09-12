@@ -1,0 +1,11 @@
+api-keys.txt
+*.local.*
+.env
+__pycache__/
+*.pyc
+.venv/
+node_modules/
+dist/
+.DS_Store
+*.wav
+lessons/*/audio_16k.wav
