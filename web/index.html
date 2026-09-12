@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>听力练习</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="bar">
+  <div class="bar-left">
+    <strong id="title">听力练习</strong>
+    <span class="muted" id="source"></span>
+  </div>
+  <div class="bar-right">
+    <button id="modeBtn" class="chip" title="整段听不停；精听每句停">精听</button>
+    <label class="chip"><input type="checkbox" id="autoPause" checked> 每句停一下</label>
+    <label class="chip"><input type="checkbox" id="autoSlow" checked> 重听第二遍放慢</label>
+    <button id="rateBtn" class="chip">原速</button>
+    <button id="skipIntro" class="chip">从正文开始</button>
+    <button id="checkBtn" class="chip">家长检查</button>
+  </div>
+</header>
+
+<main>
+  <div id="card" class="card">
+    <div class="card-head">
+      <span id="speaker" class="speaker">—</span>
+      <span id="counter" class="muted">第 0 句 / 共 0 句</span>
+    </div>
+    <p id="hidden-hint" class="hint">先用耳朵听。听不懂就按 <b>重听本句</b>；还不懂再按 <b>看文字</b>。</p>
+    <p id="text" class="sentence" hidden></p>
+    <p id="zh" class="zh" hidden></p>
+    <div class="again-wrap"><button id="againBtn" class="primary big" hidden>原速再听一遍这句</button></div>
+  </div>
+
+  <div id="wordbox" class="wordbox" hidden>
+    <div class="wordbox-head">
+      <span id="wordText" class="word-title"></span>
+      <span id="wordHard" class="badge" hidden>生词</span>
+      <button id="wordClose" class="chip">关闭</button>
+    </div>
+    <p id="wordZh" class="word-zh"></p>
+    <div class="row">
+      <button id="wordTts" class="chip big">🔊 标准发音</button>
+      <button id="wordRaw" class="chip big">🔊 这句里的原声</button>
+    </div>
+  </div>
+</main>
+
+<div class="progress"><div id="progressFill"></div></div>
+
+<footer class="controls">
+  <button id="playBtn" class="primary big">▶ 播放</button>
+  <button id="replayBtn" class="big">↺ 重听本句</button>
+  <button id="textBtn" class="big">看文字</button>
+  <button id="zhBtn" class="big" hidden>看中文</button>
+  <button id="prevBtn">← 上一句</button>
+  <button id="nextBtn">下一句 →</button>
+  <button id="exportBtn" class="ghost">导出记录</button>
+</footer>
+
+<section id="checkPanel" class="check" hidden>
+  <p class="muted">给大人用：点任意一句，直接从这句开头播，用来确认时间点准不准。</p>
+  <ol id="checkList"></ol>
+</section>
+
+<audio id="audio" preload="auto"></audio>
+<script src="app.js"></script>
+</body>
+</html>

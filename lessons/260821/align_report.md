@@ -12,7 +12,7 @@
 |---|---|---|---|---|
 | 0 | 0.24 | 2.64 | 片头片尾 | Hello and welcome to Real Easy English. |
 | 1 | 2.72 | 4.32 | 片头片尾 | I'm Georgie and I'm Neil. |
-| 2 | 4.64 | 15.48 | 片头片尾 | You can find a video version of this podcast on our website at bbc learningenglishcom, where you can find a free worksheet to download and subtitles to help you learn. |
+| 2 | 4.64 | 15.48 | 片头片尾 | You can find a video version of this podcast on our website at bbc learningenglish com, where you can find a free worksheet to download and subtitles to help you learn. |
 | 3 | 20.96 | 21.44 | Georgie | Hi, Neil. |
 | 4 | 21.52 | 22.08 | Georgie | How are you? |
 | 5 | 22.36 | 23.76 | Neil | I'm very well, thank you, Georgie. |
@@ -22,13 +22,13 @@
 | 9 | 33.80 | 34.88 | Georgie | Are you enjoying yours? |
 | 10 | 35.16 | 36.00 | Neil | I've finished mine. |
 | 11 | 36.20 | 37.24 | Georgie | Oh, that's a shame. |
-| 12 | 37.44 | 44.24 | Neil | It's a sad moment when I've finished my second coffee of the day becausethat's it. |
+| 12 | 37.44 | 44.24 | Neil | It's a sad moment when I've finished my second coffee of the day because that's it. |
 | 13 | 44.60 | 46.44 | Neil | I don't have more than two. |
 | 14 | 47.20 | 47.60 | Georgie | So, |
 | 15 | 47.96 | 49.80 | Neil | Georgie, we're talking about coffee. |
 | 16 | 50.28 | 58.16 | Neil | How much coffee or how many coffees, if we're talking about cups of coffee, how many do you have a day? |
 | 17 | 59.00 | 65.32 | Georgie | I usually have two, and I know that you do as well, because we drink them both in the office, don't we? |
-| 18 | 65.60 | 76.47 | Georgie | We have one cup of coffee in the morningand one usually in the afternoon when we need to regain some energy and alertness. |
+| 18 | 65.60 | 76.47 | Georgie | We have one cup of coffee in the morning and one usually in the afternoon when we need to regain some energy and alertness. |
 | 19 | 76.83 | 77.19 | Neil | Yeah. |
 | 20 | 77.63 | 88.15 | Neil | And so we all know, because we make each other At BBC Learning English, we make each other coffee so we know how we take our coffee. |
 | 21 | 88.55 | 88.95 | Georgie | Yes. |
@@ -64,7 +64,7 @@
 | 51 | 180.79 | 181.15 | Neil | Mmm. |
 | 52 | 181.35 | 183.31 | Georgie | What happens if you drink too much coffee? |
 | 53 | 183.67 | 184.11 | Georgie | Oh, |
-| 54 | 184.63 | 188.95 | Neil | then it's difficult to sleepbecause of the caffeine. |
+| 54 | 184.63 | 188.95 | Neil | then it's difficult to sleep because of the caffeine. |
 | 55 | 189.27 | 200.63 | Neil | Caffeine is that chemical in coffee and tea that makes you feel awake and alert, But too much means you're too alert. |
 | 56 | 201.55 | 206.46 | Georgie | I don't think that caffeine has a big effect on me. |
 | 57 | 206.80 | 210.32 | Georgie | I don't think I have trouble sleeping if I drink too much coffee. |
@@ -83,7 +83,7 @@
 | 70 | 245.91 | 246.11 | Neil | Okay, |
 | 71 | 246.19 | 247.11 | Georgie | And how was that? |
 | 72 | 247.59 | 252.39 | Neil | Well, I didn't miss caffeine at the time. |
-| 73 | 252.47 | 258.58 | Neil | I don't think It lasted for a long time, um, butnow I drink caffeine. |
+| 73 | 252.47 | 258.58 | Neil | I don't think It lasted for a long time, um, but now I drink caffeine. |
 | 74 | 258.70 | 261.32 | Neil | I don't care. |
 | 75 | 266.39 | 266.59 | Neil | Okay, |
 | 76 | 266.71 | 271.07 | Georgie | Neil, it's time to recap the vocabulary we used in the conversation. |
@@ -99,7 +99,7 @@
 | 86 | 308.91 | 309.15 | Neil | Okay, |
 | 87 | 309.23 | 314.07 | Georgie | Well that is the end of this conversation about coffee in Real Easy English. |
 | 88 | 314.39 | 319.63 | Neil | Yes, and if people want to watch more episodes of Real Easy English, what should they do? |
-| 89 | 319.87 | 326.59 | Georgie | They should go to our website, bbclearningenglishcom, where they can find a free worksheet to test what they've learned. |
+| 89 | 319.87 | 326.59 | Georgie | They should go to our website, bbclearningenglish com, where they can find a free worksheet to test what they've learned. |
 | 90 | 326.99 | 327.51 | Georgie | Goodbye for now. |
 | 91 | 327.79 | 328.23 | Neil | Goodbye. |
 | 92 | 331.38 | 333.46 | 片头片尾 | Want more easy programs? |
@@ -107,4 +107,4 @@
 | 94 | 336.62 | 342.62 | 片头片尾 | Try Easy English Conversations to practice introducing yourself and other beginner topics. |
 | 95 | 343.10 | 347.78 | 片头片尾 | Or learn through our exciting challenge series like the London Letter Challenge. |
 | 96 | 348.42 | 355.86 | 片头片尾 | And of course, we have video episodes of Real Easy English, so you can watch our presenters with subtitles to help you. |
-| 97 | 356.26 | 362.54 | 片头片尾 | Find all our easy podcasts and videos on our website, bbc learningenglishcom. |
+| 97 | 356.26 | 362.54 | 片头片尾 | Find all our easy podcasts and videos on our website, bbc learningenglish com. |

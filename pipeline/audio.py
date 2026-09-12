@@ -33,3 +33,30 @@ def probe(src: Path) -> str:
         line.strip() for line in out.stderr.splitlines()
         if "Duration" in line or "Stream" in line
     )
+
+
+def to_m4a(src: Path, dst: Path) -> Path:
+    """转成 m4a 给播放器用。
+
+    规则 R14（specs/SPEC-001-player.md）：MP3 尤其是变码率的，在浏览器里跳到指定时间会偏，
+    「回到句首」就会跑掉。m4a 的时间索引更准。
+    """
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    subprocess.run(
+        [FFMPEG, "-y", "-loglevel", "error", "-i", str(src),
+         "-c:a", "aac", "-b:a", "96k", "-movflags", "+faststart", str(dst)],
+        check=True,
+    )
+    return dst
+
+
+if __name__ == "__main__":
+    import sys
+
+    sys.stdout.reconfigure(encoding="utf-8")
+    lesson = sys.argv[1] if len(sys.argv) > 1 else "260821"
+    root = Path(__file__).resolve().parent.parent
+    source = next((root / "materials" / lesson).glob("*.mp3"))
+    target = to_m4a(source, root / "lessons" / lesson / "audio.m4a")
+    print(f"已转出 {target.relative_to(root)}（{target.stat().st_size / 1e6:.1f} MB）")
+    print(probe(target))

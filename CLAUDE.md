@@ -36,8 +36,9 @@
 
 - Python：`C:\Users\wzzpk\.conda\envs\pywork\python.exe`（conda 环境 pywork，不在 PATH 上，用绝对路径调用；装包用 `<该路径> -m pip install`）。不要用系统 Python，也不要另建环境。
 - 机器：Windows 11，显卡 RTX 500 Ada（4GB 显存）。
-- 测试：暂无。
-- 启动：暂无（播放器还没开工）。
+- 测试：暂无自动测试。改完播放器至少跑两条静态检查：`node --check web/app.js`；脚本用到的元素 id 在页面里都存在。
+- 启动播放器：双击 `start-player.bat`，或在仓库根目录跑 `<pywork python> -m http.server 8765`，再打开 http://localhost:8765/web/ 。
+- 备课（一集跑一次，依次）：`pipeline/audio.py` 转音频 → `pipeline/asr_probe.py` 识别 → `pipeline/align.py` 对齐讲稿 → `pipeline/teach.py` 生成中文。
 
 ## 干这件事进哪
 
@@ -52,7 +53,7 @@
 | 调百炼语音识别 | `docs/refs/qwen-asr-api.md`（官方文档存档） |
 | 原始素材 | `materials/<期号>/`（音频 + 讲稿 + 练习） |
 | 备课程序 | `pipeline/` |
-| 播放器 | `web/` |
+| 播放器 | `web/`（三个文件：index.html、style.css、app.js） |
 | 压缩上下文 | `/warp` |
 
 ## 节奏

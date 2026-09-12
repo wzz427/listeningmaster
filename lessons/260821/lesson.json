@@ -55,7 +55,7 @@
           "key": "english"
         }
       ],
-      "zh": "大家好，欢迎收听《轻松英语》！"
+      "zh": "大家好，欢迎来到 Real Easy English。"
     },
     {
       "id": 1,
@@ -95,14 +95,14 @@
           "key": "neil"
         }
       ],
-      "zh": "我是乔治娅，我是尼尔。"
+      "zh": "我是 Georgie，我是 Neil。"
     },
     {
       "id": 2,
       "speaker": "片头片尾",
       "start": 4.64,
       "end": 15.48,
-      "text": "You can find a video version of this podcast on our website at bbc learningenglish.com, where you can find a free worksheet to download and subtitles to help you learn.",
+      "text": "You can find a video version of this podcast on our website at bbc learningenglish com, where you can find a free worksheet to download and subtitles to help you learn.",
       "words": [
         {
           "text": "You",
@@ -189,7 +189,7 @@
           "key": "bbc"
         },
         {
-          "text": "learningenglish.",
+          "text": "learningenglish",
           "start": 9.28,
           "end": 10.08,
           "key": "learningenglish"
@@ -291,7 +291,7 @@
           "key": "learn"
         }
       ],
-      "zh": "你可以在我们的网站bbclearningenglish.com上找到这期节目的视频版，还能免费下载练习题和字幕来帮你学习。"
+      "zh": "你可以在我们的网站 bbc learningenglish com 上找到这档播客的视频版，那里还能下载免费练习纸，也有字幕帮你学习。"
     },
     {
       "id": 3,
@@ -313,7 +313,7 @@
           "key": "neil"
         }
       ],
-      "zh": "嗨，尼尔！"
+      "zh": "嗨，Neil。"
     },
     {
       "id": 4,
@@ -387,7 +387,7 @@
           "key": "georgie"
         }
       ],
-      "zh": "我很好，谢谢，乔治娅。"
+      "zh": "我很好，谢谢你，Georgie。"
     },
     {
       "id": 6,
@@ -427,7 +427,7 @@
           "key": "coffee"
         }
       ],
-      "zh": "你喝咖啡喝得开心吗？"
+      "zh": "你咖啡喝得开心吗？"
     },
     {
       "id": 7,
@@ -491,7 +491,7 @@
           "key": "now"
         }
       ],
-      "zh": "开心，不过现在有点凉了。"
+      "zh": "挺开心的，不过现在有点凉了。"
     },
     {
       "id": 8,
@@ -549,7 +549,7 @@
           "key": "well"
         }
       ],
-      "zh": "我更喜欢热的咖啡，唉，算了。"
+      "zh": "我更喜欢喝热咖啡，不过唉，算了。"
     },
     {
       "id": 9,
@@ -583,7 +583,7 @@
           "key": "yours"
         }
       ],
-      "zh": "你喝得开心吗？"
+      "zh": "你那杯喝得开心吗？"
     },
     {
       "id": 10,
@@ -645,14 +645,14 @@
           "key": "shame"
         }
       ],
-      "zh": "哎呀，真可惜。"
+      "zh": "哦，那太可惜了。"
     },
     {
       "id": 12,
       "speaker": "Neil",
       "start": 37.44,
       "end": 44.24,
-      "text": "It's a sad moment when I've finished my second coffee of the day because. that's it.",
+      "text": "It's a sad moment when I've finished my second coffee of the day because that's it.",
       "words": [
         {
           "text": "It's",
@@ -733,7 +733,7 @@
           "key": "day"
         },
         {
-          "text": "because.",
+          "text": "because",
           "start": 42.68,
           "end": 43.32,
           "key": "because"
@@ -751,7 +751,7 @@
           "key": "it"
         }
       ],
-      "zh": "我一天喝第二杯咖啡喝完的时候，就特别难过，因为——没了！"
+      "zh": "每天第二杯咖啡喝完的时候，我就有点难过，因为这就没了。"
     },
     {
       "id": 13,
@@ -797,7 +797,7 @@
           "key": "two"
         }
       ],
-      "zh": "我一天最多只喝两杯。"
+      "zh": "我一天不会喝超过两杯。"
     },
     {
       "id": 14,
@@ -813,7 +813,7 @@
           "key": "so"
         }
       ],
-      "zh": "所以……"
+      "zh": "那么，"
     },
     {
       "id": 15,
@@ -853,7 +853,7 @@
           "key": "coffee"
         }
       ],
-      "zh": "乔治娅，咱们今天聊的是咖啡。"
+      "zh": "Georgie，我们在聊咖啡。"
     },
     {
       "id": 16,
@@ -989,7 +989,7 @@
           "key": "day"
         }
       ],
-      "zh": "你一天喝多少咖啡？如果按杯算，你一天喝几杯？"
+      "zh": "咖啡你喝多少，或者说喝几杯——要是按一杯一杯算，你一天喝几杯？"
     },
     {
       "id": 17,
@@ -1131,14 +1131,14 @@
           "key": "we"
         }
       ],
-      "zh": "我一般喝两杯，我知道你也一样，因为我们俩都在办公室喝，对吧？"
+      "zh": "我一般喝两杯，我知道你也一样，因为我们俩都是在办公室喝的，对吧？"
     },
     {
       "id": 18,
       "speaker": "Georgie",
       "start": 65.6,
       "end": 76.47,
-      "text": "We have one cup of coffee in the morning. and one usually in the afternoon when we need to regain some energy and alertness.",
+      "text": "We have one cup of coffee in the morning and one usually in the afternoon when we need to regain some energy and alertness.",
       "words": [
         {
           "text": "We",
@@ -1189,7 +1189,7 @@
           "key": "the"
         },
         {
-          "text": "morning.",
+          "text": "morning",
           "start": 67.76,
           "end": 68.12,
           "key": "morning"
@@ -1285,7 +1285,7 @@
           "key": "alertness"
         }
       ],
-      "zh": "早上喝一杯，下午再喝一杯，提提神、醒醒脑。"
+      "zh": "我们早上喝一杯，下午一般再喝一杯，因为那时候需要恢复点精力，清醒一下。"
     },
     {
       "id": 19,
@@ -1301,14 +1301,14 @@
           "key": "yeah"
         }
       ],
-      "zh": "嗯。"
+      "zh": "是啊。"
     },
     {
       "id": 20,
       "speaker": "Neil",
       "start": 77.63,
       "end": 88.15,
-      "text": "And so we all know, because we make each other At BBC Learning English, we make each other coffee. so we know how we take our coffee.",
+      "text": "And so we all know, because we make each other At BBC Learning English, we make each other coffee so we know how we take our coffee.",
       "words": [
         {
           "text": "And",
@@ -1419,7 +1419,7 @@
           "key": "other"
         },
         {
-          "text": "coffee.",
+          "text": "coffee",
           "start": 83.67,
           "end": 84.03,
           "key": "coffee"
@@ -1473,7 +1473,7 @@
           "key": "coffee"
         }
       ],
-      "zh": "是啊，我们BBC学英语的同事经常互相帮对方泡咖啡，所以彼此都知道对方怎么喝咖啡。"
+      "zh": "所以大家都知道，因为我们在 BBC Learning English 会互相给对方做咖啡，所以我们知道彼此咖啡要怎么 take，也就是怎么喝、加什么。"
     },
     {
       "id": 21,
@@ -1601,7 +1601,7 @@
           "key": "it"
         }
       ],
-      "zh": "‘怎么喝咖啡’就是指你喜欢什么口味，喜欢往里加什么。"
+      "zh": "我们咖啡要怎么 take，就是我们喜欢怎么喝，喜欢往里面加什么。"
     },
     {
       "id": 23,
@@ -1711,7 +1711,7 @@
           "key": "coffee"
         }
       ],
-      "zh": "我知道你不爱在咖啡里加牛奶，你喝的是纯黑咖啡。"
+      "zh": "我知道你咖啡里不喜欢加牛奶。"
     },
     {
       "id": 25,
@@ -1751,7 +1751,7 @@
           "key": "black"
         }
       ],
-      "zh": "你喝咖啡不加奶。"
+      "zh": "你喝咖啡不加奶，喝黑的。"
     },
     {
       "id": 26,
@@ -1773,14 +1773,14 @@
           "key": "do"
         }
       ],
-      "zh": "是啊。"
+      "zh": "对，没错。"
     },
     {
       "id": 27,
       "speaker": "Neil",
       "start": 103.25,
       "end": 109.81,
-      "text": "I like black coffee. and you take your coffee white. and you used to have sugar, but you don't anymore.",
+      "text": "I like black coffee and you take your coffee white and you used to have sugar, but you don't anymore.",
       "words": [
         {
           "text": "I",
@@ -1801,7 +1801,7 @@
           "key": "black"
         },
         {
-          "text": "coffee.",
+          "text": "coffee",
           "start": 104.01,
           "end": 104.25,
           "key": "coffee"
@@ -1837,7 +1837,7 @@
           "key": "coffee"
         },
         {
-          "text": "white.",
+          "text": "white",
           "start": 106.33,
           "end": 106.73,
           "key": "white"
@@ -1903,7 +1903,7 @@
           "key": "anymore"
         }
       ],
-      "zh": "我喜欢喝黑咖啡。你喝咖啡要加奶，以前还加糖，现在不加了。"
+      "zh": "我喜欢黑咖啡，你喝咖啡要加奶，你以前还放糖，现在不放了。"
     },
     {
       "id": 28,
@@ -2043,7 +2043,7 @@
           "key": "sweeter"
         }
       ],
-      "zh": "偶尔我在家的时候，会往咖啡里加点蜂蜜，让它甜一点。"
+      "zh": "有时候在家，我会往咖啡里加点蜂蜜，让它甜一点。"
     },
     {
       "id": 30,
@@ -2071,7 +2071,7 @@
           "key": "coffee"
         }
       ],
-      "zh": "蜂蜜加咖啡？"
+      "zh": "咖啡里加蜂蜜？"
     },
     {
       "id": 31,
@@ -2171,7 +2171,7 @@
           "key": "really"
         }
       ],
-      "zh": "真的？"
+      "zh": "真的吗？"
     },
     {
       "id": 35,
@@ -2205,7 +2205,7 @@
           "key": "honey"
         }
       ],
-      "zh": "加糖可以，但加蜂蜜？没试过。"
+      "zh": "糖可以，蜂蜜就不行。"
     },
     {
       "id": 36,
@@ -2257,7 +2257,7 @@
           "key": "bad"
         }
       ],
-      "zh": "可这有啥不好的？"
+      "zh": "可这有什么不好呢？"
     },
     {
       "id": 37,
@@ -2291,7 +2291,7 @@
           "key": "know"
         }
       ],
-      "zh": "呃，我也不知道。"
+      "zh": "嗯，我也不知道。"
     },
     {
       "id": 38,
@@ -2343,7 +2343,7 @@
           "key": "it"
         }
       ],
-      "zh": "就是……真没听说过。"
+      "zh": "就是我从没听说过。"
     },
     {
       "id": 39,
@@ -2371,7 +2371,7 @@
           "key": "good"
         }
       ],
-      "zh": "其实特别好喝。"
+      "zh": "真的很好喝。"
     },
     {
       "id": 40,
@@ -2399,7 +2399,7 @@
           "key": "recommend"
         }
       ],
-      "zh": "我挺推荐的。"
+      "zh": "我推荐你试试。"
     },
     {
       "id": 41,
@@ -2485,7 +2485,7 @@
           "key": "coffee"
         }
       ],
-      "zh": "那乔治，要是你不喝咖啡，会怎么样？"
+      "zh": "那 Georgie，你要是不喝咖啡会怎么样？"
     },
     {
       "id": 43,
@@ -2591,7 +2591,7 @@
           "key": "tired"
         }
       ],
-      "zh": "早上要是不喝咖啡，我就特别暴躁、特别困。"
+      "zh": "嗯，早上不喝咖啡，我会很烦躁，还特别累。"
     },
     {
       "id": 44,
@@ -2727,7 +2727,7 @@
           "key": "coffee"
         }
       ],
-      "zh": "下午要是不喝，倒也没啥大不了的，但我还是更想喝一杯。"
+      "zh": "下午要是不喝，倒也没那么难受，但我还是想喝下午那杯。"
     },
     {
       "id": 45,
@@ -2885,7 +2885,7 @@
           "key": "morning"
         }
       ],
-      "zh": "嗯，我得喝咖啡，尤其是早上。不过我不会一起床就喝。"
+      "zh": "我需要咖啡，尤其是早上，不过我不是一早起来就喝。"
     },
     {
       "id": 47,
@@ -2989,7 +2989,7 @@
           "key": "o'clock"
         }
       ],
-      "zh": "我一般……嗯……大概九点，上班时间喝。"
+      "zh": "我大概是，怎么说呢，上班时间喝，九点吧。"
     },
     {
       "id": 49,
@@ -3017,7 +3017,7 @@
           "key": "that"
         }
       ],
-      "zh": "为啥呀？"
+      "zh": "为什么呢？"
     },
     {
       "id": 50,
@@ -3117,7 +3117,7 @@
           "key": "it"
         }
       ],
-      "zh": "我觉得它太浓了，劲儿太大了，或者可能只是我喝法的问题。"
+      "zh": "我觉得它太浓了，劲儿太大，也可能只是我喝的方式不对。"
     },
     {
       "id": 51,
@@ -3133,7 +3133,7 @@
           "key": "mmm"
         }
       ],
-      "zh": "嗯……"
+      "zh": "嗯。"
     },
     {
       "id": 52,
@@ -3191,7 +3191,7 @@
           "key": "coffee"
         }
       ],
-      "zh": "要是咖啡喝太多会怎样？"
+      "zh": "喝太多咖啡会怎么样？"
     },
     {
       "id": 53,
@@ -3207,14 +3207,14 @@
           "key": "oh"
         }
       ],
-      "zh": "哦——"
+      "zh": "哦，"
     },
     {
       "id": 54,
       "speaker": "Neil",
       "start": 184.63,
       "end": 188.95,
-      "text": "then it's difficult to sleep. because of the caffeine.",
+      "text": "then it's difficult to sleep because of the caffeine.",
       "words": [
         {
           "text": "then",
@@ -3241,7 +3241,7 @@
           "key": "to"
         },
         {
-          "text": "sleep.",
+          "text": "sleep",
           "start": 186.51,
           "end": 187.51,
           "key": "sleep"
@@ -3271,7 +3271,7 @@
           "key": "caffeine"
         }
       ],
-      "zh": "那就睡不着觉了，因为咖啡因。"
+      "zh": "那就很难睡着，因为里面有 caffeine，就是咖啡因。"
     },
     {
       "id": 55,
@@ -3413,7 +3413,7 @@
           "key": "alert"
         }
       ],
-      "zh": "咖啡因是咖啡和茶里的一种成分，能让你清醒、精神；但喝太多，就太精神、睡不着了。"
+      "zh": "Caffeine 就是咖啡和茶里那种让你清醒、有精神的化学物质，但太多了就说明你太精神了。"
     },
     {
       "id": 56,
@@ -3489,7 +3489,7 @@
           "key": "me"
         }
       ],
-      "zh": "我觉得咖啡因对我影响不大。"
+      "zh": "我觉得 caffeine 对我影响不大。"
     },
     {
       "id": 57,
@@ -3577,7 +3577,7 @@
           "key": "coffee"
         }
       ],
-      "zh": "我觉得就算咖啡喝多了，我也不会睡不着。"
+      "zh": "我觉得我喝太多咖啡也睡得着。"
     },
     {
       "id": 58,
@@ -3599,7 +3599,7 @@
           "key": "strange"
         }
       ],
-      "zh": "真奇怪。"
+      "zh": "这挺奇怪的。"
     },
     {
       "id": 59,
@@ -3663,7 +3663,7 @@
           "key": "dinner"
         }
       ],
-      "zh": "是啊，有时候我晚饭后还会喝一杯浓缩咖啡。"
+      "zh": "对，因为有时候我晚饭后会喝一杯浓缩咖啡。"
     },
     {
       "id": 60,
@@ -3679,7 +3679,7 @@
           "key": "really"
         }
       ],
-      "zh": "真的？"
+      "zh": "真的吗？"
     },
     {
       "id": 61,
@@ -3725,7 +3725,7 @@
           "key": "sleep"
         }
       ],
-      "zh": "对啊，我照样能睡着。"
+      "zh": "是啊，而且我照样能睡着。"
     },
     {
       "id": 62,
@@ -3747,7 +3747,7 @@
           "key": "crazy"
         }
       ],
-      "zh": "这也太离谱了吧！"
+      "zh": "太神奇了。"
     },
     {
       "id": 63,
@@ -3775,7 +3775,7 @@
           "key": "me"
         }
       ],
-      "zh": "嘿嘿，我运气好呗。"
+      "zh": "是啊，我运气好。"
     },
     {
       "id": 64,
@@ -3867,7 +3867,7 @@
           "key": "coffee"
         }
       ],
-      "zh": "尼尔，你试过少喝点咖啡吗？"
+      "zh": "Neil，你有没有试过 cut down on coffee？就是少喝点咖啡。"
     },
     {
       "id": 66,
@@ -3919,7 +3919,7 @@
           "key": "less"
         }
       ],
-      "zh": "‘少喝点’？你是说喝得少一点？"
+      "zh": "Cut down on，你是说少喝点？"
     },
     {
       "id": 67,
@@ -4031,7 +4031,7 @@
           "key": "caffeine"
         }
       ],
-      "zh": "没试过少喝咖啡，但我试过少摄入咖啡因。"
+      "zh": "没有，我没试过 cut down on coffee，但我试过 cut down on caffeine，就是少摄入咖啡因。"
     },
     {
       "id": 68,
@@ -4047,7 +4047,7 @@
           "key": "okay"
         }
       ],
-      "zh": "哦，好。"
+      "zh": "好。"
     },
     {
       "id": 69,
@@ -4153,7 +4153,7 @@
           "key": "it"
         }
       ],
-      "zh": "有段时间，我只喝脱咖啡因咖啡，也就是我们说的‘低因咖啡’。"
+      "zh": "所以我有段时间只喝无咖啡因咖啡，也就是我们说的 decaf，不含咖啡因的那种。"
     },
     {
       "id": 70,
@@ -4169,7 +4169,7 @@
           "key": "okay"
         }
       ],
-      "zh": "哦，好。"
+      "zh": "好，"
     },
     {
       "id": 71,
@@ -4261,14 +4261,14 @@
           "key": "time"
         }
       ],
-      "zh": "那时候我根本没觉得少了咖啡因有啥不对劲。"
+      "zh": "嗯，当时我倒不觉得缺了 caffeine，就是咖啡因。"
     },
     {
       "id": 73,
       "speaker": "Neil",
       "start": 252.47,
       "end": 258.58,
-      "text": "I don't think It lasted for a long time, um, but. now I drink caffeine.",
+      "text": "I don't think It lasted for a long time, um, but now I drink caffeine.",
       "words": [
         {
           "text": "I",
@@ -4331,7 +4331,7 @@
           "key": "um"
         },
         {
-          "text": "but.",
+          "text": "but",
           "start": 256.31,
           "end": 256.96,
           "key": "but"
@@ -4361,7 +4361,7 @@
           "key": "caffeine"
         }
       ],
-      "zh": "不过好像也没坚持多久……现在我又喝含咖啡因的了。"
+      "zh": "我觉得没坚持多久，嗯，但现在我又喝含咖啡因的东西了。"
     },
     {
       "id": 74,
@@ -4389,7 +4389,7 @@
           "key": "care"
         }
       ],
-      "zh": "反正我也不在乎啦。"
+      "zh": "我不在乎了。"
     },
     {
       "id": 75,
@@ -4405,7 +4405,7 @@
           "key": "okay"
         }
       ],
-      "zh": "好嘞，"
+      "zh": "好，"
     },
     {
       "id": 76,
@@ -4487,7 +4487,7 @@
           "key": "conversation"
         }
       ],
-      "zh": "尼尔，咱们来复习一下刚才对话里用到的单词吧。"
+      "zh": "Neil，咱们来回顾一下对话里用到的词。"
     },
     {
       "id": 77,
@@ -4527,7 +4527,7 @@
           "key": "take"
         }
       ],
-      "zh": "我们用了动词‘take’。"
+      "zh": "我们用了动词 take。"
     },
     {
       "id": 78,
@@ -4585,7 +4585,7 @@
           "key": "coffee"
         }
       ],
-      "zh": "尼尔，你喝咖啡喜欢怎么喝呀？"
+      "zh": "Neil，你的咖啡怎么喝？"
     },
     {
       "id": 79,
@@ -4673,7 +4673,7 @@
           "key": "white"
         }
       ],
-      "zh": "我喝黑咖啡，我知道你喝加奶的咖啡。"
+      "zh": "我喝咖啡不加奶，我知道你喝咖啡要加奶。"
     },
     {
       "id": 80,
@@ -4797,7 +4797,7 @@
           "key": "awake"
         }
       ],
-      "zh": "对，还有‘caffeine（咖啡因）’这个词，就是咖啡里让人更清醒的那种成分。"
+      "zh": "对，我们还听到了 caffeine，它是咖啡里的一种化学物质，会让你感觉更清醒。"
     },
     {
       "id": 81,
@@ -4867,7 +4867,7 @@
           "key": "tea"
         }
       ],
-      "zh": "对，不过你也可以喝不含咖啡因的咖啡或茶。"
+      "zh": "对，不过你也可以喝 decaffeinated coffee，也就是无咖啡因的咖啡，或者无咖啡因的茶。"
     },
     {
       "id": 82,
@@ -4961,7 +4961,7 @@
           "key": "coffee"
         }
       ],
-      "zh": "意思就是里面没咖啡因，我们一般就叫它‘decaf（低因咖啡）’，或者直接说‘decaf coffee’。"
+      "zh": "意思就是没有咖啡因。我们一般就把它缩成 decaf，decaf coffee。"
     },
     {
       "id": 83,
@@ -5073,7 +5073,7 @@
           "key": "something"
         }
       ],
-      "zh": "还有短语动词‘cut down on’，意思是‘少喝/少吃/少做某事’。"
+      "zh": "对，我们还听到了短语动词 cut down on，意思就是少来点某个东西。"
     },
     {
       "id": 84,
@@ -5137,7 +5137,7 @@
           "key": "on"
         }
       ],
-      "zh": "对，也可以说‘cut back on’。"
+      "zh": "对，你也可以说 cut back on。"
     },
     {
       "id": 85,
@@ -5193,7 +5193,7 @@
           "key": "okay"
         }
       ],
-      "zh": "好嘞，"
+      "zh": "好，"
     },
     {
       "id": 87,
@@ -5287,7 +5287,7 @@
           "key": "english"
         }
       ],
-      "zh": "好了，这期《轻松英语》聊咖啡的内容就到这里啦。"
+      "zh": "好了，这期 Real Easy English 聊咖啡就到这儿。"
     },
     {
       "id": 88,
@@ -5399,14 +5399,14 @@
           "key": "do"
         }
       ],
-      "zh": "对，如果大家还想看更多《轻松英语》的节目，该怎么做呢？"
+      "zh": "对，如果大家想看更多 Real Easy English 的节目，他们该怎么做呢？"
     },
     {
       "id": 89,
       "speaker": "Georgie",
       "start": 319.87,
       "end": 326.59,
-      "text": "They should go to our website, bbclearningenglish.com, where they can find a free worksheet to test what they've learned.",
+      "text": "They should go to our website, bbclearningenglish com, where they can find a free worksheet to test what they've learned.",
       "words": [
         {
           "text": "They",
@@ -5445,7 +5445,7 @@
           "key": "website"
         },
         {
-          "text": "bbclearningenglish.",
+          "text": "bbclearningenglish",
           "start": 321.75,
           "end": 323.15,
           "key": "bbclearningenglish"
@@ -5529,7 +5529,7 @@
           "key": "learned"
         }
       ],
-      "zh": "请上我们的网站 bbclearningenglish.com，在那儿可以免费下载练习题，检验自己学得怎么样。"
+      "zh": "他们应该去我们的网站 bbclearningenglish com，在那儿可以找到免费的学习单，测一测自己学到了什么。"
     },
     {
       "id": 90,
@@ -5557,7 +5557,7 @@
           "key": "now"
         }
       ],
-      "zh": "那咱们先说再见啦！"
+      "zh": "先再见啦。"
     },
     {
       "id": 91,
@@ -5573,7 +5573,7 @@
           "key": "goodbye"
         }
       ],
-      "zh": "拜拜！"
+      "zh": "再见。"
     },
     {
       "id": 92,
@@ -5607,7 +5607,7 @@
           "key": "programs"
         }
       ],
-      "zh": "还想听更多简单易懂的节目？"
+      "zh": "想听更多简单节目吗？"
     },
     {
       "id": 93,
@@ -5659,7 +5659,7 @@
           "key": "website"
         }
       ],
-      "zh": "我们网站上还有很多内容等你探索哦！"
+      "zh": "我们网站上还有更多内容可以看。"
     },
     {
       "id": 94,
@@ -5741,7 +5741,7 @@
           "key": "topics"
         }
       ],
-      "zh": "试试《轻松英语会话》，练练怎么自我介绍，还有其他零基础话题。"
+      "zh": "试试 Easy English Conversations，练习自我介绍和其他入门话题。"
     },
     {
       "id": 95,
@@ -5823,7 +5823,7 @@
           "key": "challenge"
         }
       ],
-      "zh": "或者挑战我们超有趣的系列节目，比如《伦敦来信挑战》。"
+      "zh": "或者通过我们好玩的挑战系列来学，比如 London Letter Challenge。"
     },
     {
       "id": 96,
@@ -5965,14 +5965,14 @@
           "key": "you"
         }
       ],
-      "zh": "当然啦，《轻松英语》也有视频版，你可以边看主持人说话，边看字幕，超有帮助！"
+      "zh": "当然，我们也有 Real Easy English 的视频版，你可以看主持人，还有字幕帮忙。"
     },
     {
       "id": 97,
       "speaker": "片头片尾",
       "start": 356.26,
       "end": 362.54,
-      "text": "Find all our easy podcasts and videos on our website, bbc learningenglish.com.",
+      "text": "Find all our easy podcasts and videos on our website, bbc learningenglish com.",
       "words": [
         {
           "text": "Find",
@@ -6041,7 +6041,7 @@
           "key": "bbc"
         },
         {
-          "text": "learningenglish.",
+          "text": "learningenglish",
           "start": 361.1,
           "end": 362.06,
           "key": "learningenglish"
@@ -6053,7 +6053,7 @@
           "key": "com"
         }
       ],
-      "zh": "所有简单易懂的播客和视频，都在我们网站 bbclearningenglish.com 上哦！"
+      "zh": "在我们网站 bbc learningenglish com 上能找到所有简单的播客和视频。"
     }
   ],
   "glossary": {
@@ -6069,7 +6069,7 @@
     },
     "after": {
       "lemma": "after",
-      "zh": "在……之后",
+      "zh": "在…之后",
       "hard": false
     },
     "afternoon": {
@@ -6079,17 +6079,17 @@
     },
     "alert": {
       "lemma": "alert",
-      "zh": "警觉的",
+      "zh": "清醒机敏的",
       "hard": true
     },
     "alertness": {
       "lemma": "alertness",
-      "zh": "警觉状态",
+      "zh": "清醒状态",
       "hard": true
     },
     "all": {
       "lemma": "all",
-      "zh": "全部",
+      "zh": "都",
       "hard": false
     },
     "also": {
@@ -6099,11 +6099,11 @@
     },
     "am": {
       "lemma": "be",
-      "zh": "是（第一人称）",
+      "zh": "是",
       "hard": false
     },
     "an": {
-      "lemma": "an",
+      "lemma": "a",
       "zh": "一个",
       "hard": false
     },
@@ -6114,48 +6114,48 @@
     },
     "anymore": {
       "lemma": "anymore",
-      "zh": "再（不）",
-      "hard": true
+      "zh": "不再",
+      "hard": false
     },
     "are": {
       "lemma": "be",
-      "zh": "是（第二/复数）",
+      "zh": "是",
       "hard": false
     },
     "as": {
       "lemma": "as",
-      "zh": "像……一样",
+      "zh": "正如",
       "hard": false
     },
     "at": {
       "lemma": "at",
-      "zh": "在（某时/某处）",
+      "zh": "在",
       "hard": false
     },
     "awake": {
       "lemma": "awake",
       "zh": "醒着的",
-      "hard": true
+      "hard": false
     },
     "back": {
       "lemma": "back",
-      "zh": "向后；回来",
-      "hard": false
+      "zh": "减少（短语）",
+      "hard": true
     },
     "bad": {
       "lemma": "bad",
-      "zh": "糟糕的",
+      "zh": "不好",
       "hard": false
     },
     "bbc": {
       "lemma": "bbc",
       "zh": "英国广播公司",
-      "hard": true
+      "hard": false
     },
     "bbclearningenglish": {
       "lemma": "bbclearningenglish",
-      "zh": "BBC英语学习网",
-      "hard": true
+      "zh": "BBC英语学习",
+      "hard": false
     },
     "be": {
       "lemma": "be",
@@ -6169,8 +6169,8 @@
     },
     "beginner": {
       "lemma": "beginner",
-      "zh": "初学者",
-      "hard": true
+      "zh": "初学者的",
+      "hard": false
     },
     "big": {
       "lemma": "big",
@@ -6179,7 +6179,7 @@
     },
     "bit": {
       "lemma": "bit",
-      "zh": "一点",
+      "zh": "有点",
       "hard": false
     },
     "black": {
@@ -6204,7 +6204,7 @@
     },
     "call": {
       "lemma": "call",
-      "zh": "叫作",
+      "zh": "称作",
       "hard": false
     },
     "can": {
@@ -6214,13 +6214,13 @@
     },
     "care": {
       "lemma": "care",
-      "zh": "在意",
-      "hard": true
+      "zh": "在乎",
+      "hard": false
     },
     "challenge": {
       "lemma": "challenge",
       "zh": "挑战",
-      "hard": true
+      "hard": false
     },
     "chemical": {
       "lemma": "chemical",
@@ -6234,13 +6234,13 @@
     },
     "coffees": {
       "lemma": "coffee",
-      "zh": "杯咖啡",
-      "hard": false
+      "zh": "几杯咖啡",
+      "hard": true
     },
     "com": {
       "lemma": "com",
-      "zh": "点（网址后缀）",
-      "hard": true
+      "zh": "网站域名后缀",
+      "hard": false
     },
     "conversation": {
       "lemma": "conversation",
@@ -6249,7 +6249,7 @@
     },
     "conversations": {
       "lemma": "conversation",
-      "zh": "对话",
+      "zh": "对话（复数）",
       "hard": false
     },
     "cool": {
@@ -6264,27 +6264,27 @@
     },
     "crazy": {
       "lemma": "crazy",
-      "zh": "疯狂的",
-      "hard": true
+      "zh": "太不可思议",
+      "hard": false
     },
     "cup": {
       "lemma": "cup",
-      "zh": "杯子",
+      "zh": "一杯",
       "hard": false
     },
     "cups": {
       "lemma": "cup",
-      "zh": "杯子",
+      "zh": "杯子（复数）",
       "hard": false
     },
     "cut": {
       "lemma": "cut",
-      "zh": "减少",
+      "zh": "减少（短语）",
       "hard": true
     },
     "day": {
       "lemma": "day",
-      "zh": "天",
+      "zh": "一天",
       "hard": false
     },
     "decaf": {
@@ -6294,12 +6294,12 @@
     },
     "decaffeinated": {
       "lemma": "decaffeinated",
-      "zh": "不含咖啡因的",
+      "zh": "无咖啡因的",
       "hard": true
     },
     "didn't": {
       "lemma": "do",
-      "zh": "没有",
+      "zh": "没有（did not）",
       "hard": false
     },
     "difficult": {
@@ -6314,27 +6314,27 @@
     },
     "do": {
       "lemma": "do",
-      "zh": "做",
+      "zh": "（助动词）",
       "hard": false
     },
     "don't": {
       "lemma": "do",
-      "zh": "不",
+      "zh": "不（do not）",
       "hard": false
     },
     "down": {
       "lemma": "down",
-      "zh": "向下；减少",
+      "zh": "减少（短语）",
       "hard": true
     },
     "download": {
       "lemma": "download",
       "zh": "下载",
-      "hard": true
+      "hard": false
     },
     "drank": {
       "lemma": "drink",
-      "zh": "喝了",
+      "zh": "喝（过去式）",
       "hard": false
     },
     "drink": {
@@ -6344,28 +6344,28 @@
     },
     "each": {
       "lemma": "each",
-      "zh": "每个",
+      "zh": "互相",
       "hard": false
     },
     "easy": {
       "lemma": "easy",
-      "zh": "简单的",
+      "zh": "容易的",
       "hard": false
     },
     "effect": {
       "lemma": "effect",
       "zh": "影响",
-      "hard": true
+      "hard": false
     },
     "end": {
       "lemma": "end",
-      "zh": "结束",
+      "zh": "结尾",
       "hard": false
     },
     "energy": {
       "lemma": "energy",
       "zh": "精力",
-      "hard": true
+      "hard": false
     },
     "english": {
       "lemma": "English",
@@ -6380,16 +6380,16 @@
     "episodes": {
       "lemma": "episode",
       "zh": "集",
-      "hard": true
+      "hard": false
     },
     "especially": {
       "lemma": "especially",
       "zh": "尤其",
-      "hard": true
+      "hard": false
     },
     "espresso": {
       "lemma": "espresso",
-      "zh": "意式浓缩咖啡",
+      "zh": "浓缩咖啡",
       "hard": true
     },
     "ever": {
@@ -6399,18 +6399,18 @@
     },
     "example": {
       "lemma": "example",
-      "zh": "例子",
+      "zh": "例如",
       "hard": false
     },
     "exciting": {
       "lemma": "exciting",
       "zh": "令人兴奋的",
-      "hard": true
+      "hard": false
     },
     "explore": {
       "lemma": "explore",
       "zh": "探索",
-      "hard": true
+      "hard": false
     },
     "feel": {
       "lemma": "feel",
@@ -6429,8 +6429,8 @@
     },
     "first": {
       "lemma": "first",
-      "zh": "最先",
-      "hard": false
+      "zh": "一大早",
+      "hard": true
     },
     "for": {
       "lemma": "for",
@@ -6445,11 +6445,11 @@
     "georgie": {
       "lemma": "Georgie",
       "zh": "乔治（人名）",
-      "hard": true
+      "hard": false
     },
     "get": {
       "lemma": "get",
-      "zh": "得到",
+      "zh": "买到",
       "hard": false
     },
     "go": {
@@ -6459,7 +6459,7 @@
     },
     "good": {
       "lemma": "good",
-      "zh": "好",
+      "zh": "好的",
       "hard": false
     },
     "goodbye": {
@@ -6469,12 +6469,12 @@
     },
     "got": {
       "lemma": "get",
-      "zh": "变得",
+      "zh": "变得（凉）",
       "hard": true
     },
     "grumpy": {
       "lemma": "grumpy",
-      "zh": "脾气坏的",
+      "zh": "脾气不好；烦躁",
       "hard": true
     },
     "happens": {
@@ -6489,17 +6489,17 @@
     },
     "have": {
       "lemma": "have",
-      "zh": "有",
+      "zh": "喝（咖啡）",
       "hard": false
     },
     "haven't": {
-      "lemma": "have not",
-      "zh": "没有",
+      "lemma": "have",
+      "zh": "还没有",
       "hard": false
     },
     "heard": {
       "lemma": "hear",
-      "zh": "听说",
+      "zh": "听说过",
       "hard": false
     },
     "hello": {
@@ -6514,7 +6514,7 @@
     },
     "hi": {
       "lemma": "hi",
-      "zh": "嗨",
+      "zh": "嗨；你好",
       "hard": false
     },
     "home": {
@@ -6543,18 +6543,18 @@
       "hard": false
     },
     "i'll": {
-      "lemma": "I will",
+      "lemma": "will",
       "zh": "我会",
       "hard": false
     },
     "i'm": {
-      "lemma": "I am",
-      "zh": "我是",
+      "lemma": "be",
+      "zh": "我是；我在",
       "hard": false
     },
     "i've": {
-      "lemma": "I have",
-      "zh": "我有",
+      "lemma": "have",
+      "zh": "我已经",
       "hard": false
     },
     "if": {
@@ -6575,7 +6575,7 @@
     "introducing": {
       "lemma": "introduce",
       "zh": "介绍",
-      "hard": true
+      "hard": false
     },
     "is": {
       "lemma": "be",
@@ -6589,13 +6589,13 @@
     },
     "it's": {
       "lemma": "it is",
-      "zh": "它是",
+      "zh": "它是；它很",
       "hard": false
     },
     "itmeans": {
-      "lemma": "it means",
+      "lemma": "mean",
       "zh": "意思是",
-      "hard": true
+      "hard": false
     },
     "just": {
       "lemma": "just",
@@ -6604,7 +6604,7 @@
     },
     "kind": {
       "lemma": "kind",
-      "zh": "种类",
+      "zh": "有点；大概",
       "hard": true
     },
     "know": {
@@ -6614,7 +6614,7 @@
     },
     "lasted": {
       "lemma": "last",
-      "zh": "持续",
+      "zh": "持续了",
       "hard": true
     },
     "learn": {
@@ -6624,7 +6624,7 @@
     },
     "learned": {
       "lemma": "learn",
-      "zh": "学过",
+      "zh": "学到",
       "hard": false
     },
     "learning": {
@@ -6633,9 +6633,9 @@
       "hard": false
     },
     "learningenglish": {
-      "lemma": "Learning English",
-      "zh": "英语学习",
-      "hard": true
+      "lemma": "learningenglish",
+      "zh": "BBC学英语",
+      "hard": false
     },
     "less": {
       "lemma": "less",
@@ -6669,17 +6669,17 @@
     },
     "make": {
       "lemma": "make",
-      "zh": "做",
+      "zh": "做；泡（咖啡）",
       "hard": false
     },
     "makes": {
       "lemma": "make",
-      "zh": "使",
-      "hard": true
+      "zh": "使；让",
+      "hard": false
     },
     "many": {
       "lemma": "many",
-      "zh": "许多",
+      "zh": "多少",
       "hard": false
     },
     "maybe": {
@@ -6709,13 +6709,13 @@
     },
     "mine": {
       "lemma": "mine",
-      "zh": "我的",
+      "zh": "我的（咖啡）",
       "hard": false
     },
     "miss": {
       "lemma": "miss",
-      "zh": "想念",
-      "hard": true
+      "zh": "想念；怀念",
+      "hard": false
     },
     "mmm": {
       "lemma": "mmm",
@@ -6725,7 +6725,7 @@
     "moment": {
       "lemma": "moment",
       "zh": "时刻",
-      "hard": true
+      "hard": false
     },
     "more": {
       "lemma": "more",
@@ -6739,7 +6739,7 @@
     },
     "much": {
       "lemma": "much",
-      "zh": "多",
+      "zh": "多少",
       "hard": false
     },
     "my": {
@@ -6769,7 +6769,7 @@
     },
     "no": {
       "lemma": "no",
-      "zh": "不",
+      "zh": "没有",
       "hard": false
     },
     "not": {
@@ -6784,8 +6784,8 @@
     },
     "o'clock": {
       "lemma": "o'clock",
-      "zh": "…点钟",
-      "hard": true
+      "zh": "点钟",
+      "hard": false
     },
     "occasionally": {
       "lemma": "occasionally",
@@ -6809,7 +6809,7 @@
     },
     "okay": {
       "lemma": "okay",
-      "zh": "好的",
+      "zh": "好的；好吧",
       "hard": false
     },
     "on": {
@@ -6819,7 +6819,7 @@
     },
     "one": {
       "lemma": "one",
-      "zh": "一个",
+      "zh": "一",
       "hard": false
     },
     "only": {
@@ -6834,7 +6834,7 @@
     },
     "other": {
       "lemma": "other",
-      "zh": "其他的",
+      "zh": "互相",
       "hard": false
     },
     "our": {
@@ -6859,12 +6859,12 @@
     },
     "podcasts": {
       "lemma": "podcast",
-      "zh": "播客节目",
+      "zh": "播客",
       "hard": true
     },
     "powerful": {
       "lemma": "powerful",
-      "zh": "提神效果强的",
+      "zh": "劲大；太浓",
       "hard": true
     },
     "practice": {
@@ -6880,7 +6880,7 @@
     "presenters": {
       "lemma": "presenter",
       "zh": "主持人",
-      "hard": false
+      "hard": true
     },
     "programs": {
       "lemma": "program",
@@ -6889,22 +6889,22 @@
     },
     "put": {
       "lemma": "put",
-      "zh": "放",
+      "zh": "加；放",
       "hard": false
     },
     "real": {
       "lemma": "real",
-      "zh": "真正的",
+      "zh": "真实的",
       "hard": false
     },
     "really": {
       "lemma": "really",
-      "zh": "真的",
+      "zh": "真的；非常",
       "hard": false
     },
     "recap": {
       "lemma": "recap",
-      "zh": "回顾",
+      "zh": "回顾；总结",
       "hard": true
     },
     "recommend": {
@@ -6919,17 +6919,17 @@
     },
     "right": {
       "lemma": "right",
-      "zh": "对的",
+      "zh": "对",
       "hard": false
     },
     "sad": {
       "lemma": "sad",
-      "zh": "难过的",
+      "zh": "难过",
       "hard": false
     },
     "same": {
       "lemma": "same",
-      "zh": "相同的",
+      "zh": "相同",
       "hard": false
     },
     "say": {
@@ -6939,22 +6939,22 @@
     },
     "second": {
       "lemma": "second",
-      "zh": "第二杯",
+      "zh": "第二",
       "hard": false
     },
     "series": {
       "lemma": "series",
-      "zh": "系列",
+      "zh": "系列节目",
       "hard": false
     },
     "shame": {
       "lemma": "shame",
-      "zh": "遗憾",
+      "zh": "可惜",
       "hard": true
     },
     "shorten": {
       "lemma": "shorten",
-      "zh": "缩写",
+      "zh": "缩短",
       "hard": true
     },
     "should": {
@@ -6974,7 +6974,7 @@
     },
     "so": {
       "lemma": "so",
-      "zh": "所以",
+      "zh": "那么；所以",
       "hard": false
     },
     "some": {
@@ -6984,7 +6984,7 @@
     },
     "something": {
       "lemma": "something",
-      "zh": "某样东西",
+      "zh": "某事；某物",
       "hard": false
     },
     "sometimes": {
@@ -6999,18 +6999,18 @@
     },
     "strange": {
       "lemma": "strange",
-      "zh": "奇怪的",
+      "zh": "奇怪",
       "hard": false
     },
     "strong": {
       "lemma": "strong",
-      "zh": "浓的",
-      "hard": false
+      "zh": "浓；劲大",
+      "hard": true
     },
     "subtitles": {
       "lemma": "subtitle",
       "zh": "字幕",
-      "hard": false
+      "hard": true
     },
     "sugar": {
       "lemma": "sugar",
@@ -7019,7 +7019,7 @@
     },
     "surprising": {
       "lemma": "surprising",
-      "zh": "令人惊讶的",
+      "zh": "令人惊讶",
       "hard": false
     },
     "sweeter": {
@@ -7029,12 +7029,12 @@
     },
     "take": {
       "lemma": "take",
-      "zh": "喝（咖啡）的方式",
+      "zh": "喝咖啡时加什么",
       "hard": true
     },
     "talking": {
       "lemma": "talk",
-      "zh": "聊",
+      "zh": "谈论",
       "hard": false
     },
     "tea": {
@@ -7044,7 +7044,7 @@
     },
     "terrible": {
       "lemma": "terrible",
-      "zh": "糟糕的",
+      "zh": "糟糕",
       "hard": false
     },
     "test": {
@@ -7064,27 +7064,27 @@
     },
     "that": {
       "lemma": "that",
-      "zh": "那个",
+      "zh": "那个；那",
       "hard": false
     },
     "that's": {
       "lemma": "that is",
-      "zh": "那是",
+      "zh": "真是；那是",
       "hard": false
     },
     "the": {
       "lemma": "the",
-      "zh": "这/那",
+      "zh": "这个；那个",
       "hard": false
     },
     "them": {
       "lemma": "they",
-      "zh": "他们",
+      "zh": "他们；它们",
       "hard": false
     },
     "then": {
       "lemma": "then",
-      "zh": "那么",
+      "zh": "然后；那么",
       "hard": false
     },
     "there's": {
@@ -7104,12 +7104,12 @@
     },
     "thing": {
       "lemma": "thing",
-      "zh": "事情",
+      "zh": "事情；东西",
       "hard": false
     },
     "think": {
       "lemma": "think",
-      "zh": "觉得",
+      "zh": "认为",
       "hard": false
     },
     "this": {
@@ -7129,17 +7129,17 @@
     },
     "tired": {
       "lemma": "tired",
-      "zh": "困倦的",
+      "zh": "累的",
       "hard": false
     },
     "to": {
       "lemma": "to",
-      "zh": "去",
+      "zh": "到；向；不定式",
       "hard": false
     },
     "too": {
       "lemma": "too",
-      "zh": "太",
+      "zh": "太；也",
       "hard": false
     },
     "topics": {
@@ -7159,23 +7159,23 @@
     },
     "try": {
       "lemma": "try",
-      "zh": "尝试",
+      "zh": "试试",
       "hard": false
     },
     "two": {
       "lemma": "two",
-      "zh": "两杯",
+      "zh": "二；两",
       "hard": false
     },
     "um": {
       "lemma": "um",
-      "zh": "嗯（停顿词）",
+      "zh": "嗯",
       "hard": false
     },
     "used": {
       "lemma": "use",
-      "zh": "过去常",
-      "hard": false
+      "zh": "用过；过去常常",
+      "hard": true
     },
     "usually": {
       "lemma": "usually",
@@ -7185,7 +7185,7 @@
     "verb": {
       "lemma": "verb",
       "zh": "动词",
-      "hard": true
+      "hard": false
     },
     "version": {
       "lemma": "version",
@@ -7194,7 +7194,7 @@
     },
     "very": {
       "lemma": "very",
-      "zh": "很",
+      "zh": "非常",
       "hard": false
     },
     "video": {
@@ -7210,7 +7210,7 @@
     "vocabulary": {
       "lemma": "vocabulary",
       "zh": "词汇",
-      "hard": true
+      "hard": false
     },
     "want": {
       "lemma": "want",
@@ -7219,12 +7219,12 @@
     },
     "was": {
       "lemma": "be",
-      "zh": "是（过去）",
+      "zh": "是",
       "hard": false
     },
     "watch": {
       "lemma": "watch",
-      "zh": "看",
+      "zh": "观看",
       "hard": false
     },
     "way": {
@@ -7254,7 +7254,7 @@
     },
     "well": {
       "lemma": "well",
-      "zh": "好",
+      "zh": "好；嗯",
       "hard": false
     },
     "what": {
@@ -7269,7 +7269,7 @@
     },
     "where": {
       "lemma": "where",
-      "zh": "在哪里",
+      "zh": "哪里",
       "hard": false
     },
     "which": {
@@ -7279,12 +7279,12 @@
     },
     "while": {
       "lemma": "while",
-      "zh": "当……时候",
+      "zh": "一段时间",
       "hard": true
     },
     "white": {
       "lemma": "white",
-      "zh": "加奶的",
+      "zh": "加牛奶的",
       "hard": true
     },
     "why": {
@@ -7294,12 +7294,12 @@
     },
     "with": {
       "lemma": "with",
-      "zh": "和……一起",
+      "zh": "带有；加",
       "hard": false
     },
     "work": {
       "lemma": "work",
-      "zh": "上班",
+      "zh": "工作",
       "hard": false
     },
     "worksheet": {
@@ -7309,18 +7309,18 @@
     },
     "would": {
       "lemma": "would",
-      "zh": "会（表示习惯）",
-      "hard": true
+      "zh": "会；愿意",
+      "hard": false
     },
     "yeah": {
       "lemma": "yeah",
-      "zh": "嗯，是的",
+      "zh": "是的；嗯",
       "hard": false
     },
     "yep": {
       "lemma": "yep",
-      "zh": "嗯，是的",
-      "hard": false
+      "zh": "是的；嗯",
+      "hard": true
     },
     "yes": {
       "lemma": "yes",
@@ -7333,7 +7333,7 @@
       "hard": false
     },
     "you're": {
-      "lemma": "you're",
+      "lemma": "you are",
       "zh": "你是",
       "hard": false
     },
@@ -7344,13 +7344,13 @@
     },
     "yours": {
       "lemma": "yours",
-      "zh": "你的（东西）",
-      "hard": true
+      "zh": "你的（咖啡）",
+      "hard": false
     },
     "yourself": {
       "lemma": "yourself",
       "zh": "你自己",
-      "hard": true
+      "hard": false
     }
   }
 }

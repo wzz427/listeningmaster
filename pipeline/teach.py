@@ -32,6 +32,7 @@ def translate(sentences: list[dict], context: str, model: str = MODEL) -> dict[i
         data, _ = call(
             model,
             WHO + "把每句英文翻成自然的中文口语，一句对一句，不要逐词硬译，不要加解释。"
+                  "遇到这一集正在教的英文词（例如 decaf、cut down on），保留英文再补一句中文意思。"
                   '只输出 JSON：{"items":[{"id":数字,"zh":"中文"}]}',
             f"这一集的完整内容（只作背景，不用翻译）：\n{context}\n\n"
             f"要翻译的句子：\n{json.dumps(payload, ensure_ascii=False)}",
@@ -49,7 +50,10 @@ def gloss(words: list[str], context: str, model: str = MODEL) -> dict[str, dict]
         data, _ = call(
             model,
             WHO + "给每个词写它在这一集里的意思：lemma 是原形，zh 是中文意思（不超过 12 个字，"
-                  "有多个意思时只给这一集里用到的那个），hard 表示这个词对 B1 学生是不是生词。"
+                  "有多个意思时只给这一集里用到的那个）。"
+                  "hard 表示：这个词本身，或者它在这一集里的这个意思，B1（剑桥 PET）水平的学生"
+                  "可能不认识。常见词用在特殊意思上也算生词，例如 take your coffee black 里的 "
+                  "take、black。"
                   '原样保留 w 字段。只输出 JSON：'
                   '{"items":[{"w":"...","lemma":"...","zh":"...","hard":true}]}',
             f"这一集的完整内容：\n{context}\n\n"

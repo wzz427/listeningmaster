@@ -6,17 +6,27 @@
 
 ## 现在在哪（最新在上）
 
-### 2026-09-12 · 起步：定方向、搭仓库、验证语音识别
+### 2026-09-12 下午 · 播放器第一版做完，等孩子试用
 
 - 做了什么 / 为什么这么改：
-  - 和 owner 讨论清楚了产品方向，结论落在 `demand.md` 和 `docs/decisions.md`；竞品和听力教学研究的调研结论落在 `docs/research.md`。
-  - 按《AI 编程项目管理指南》搭了仓库骨架（`CLAUDE.md`、`demand.md`、`docs/`、`specs/`、`.claude/commands/`），原来的 `260821/` 移到 `materials/260821/`，owner 给的调用文档存成 `docs/refs/qwen-asr-api.md`。
-  - 验证了核心不确定环节：用百炼 `qwen-audio-3.0-asr-flash-filetrans` 识别样本音频并与讲稿对齐，产出 `lessons/260821/timeline.json` 和 `align_report.md`。结论写在 `specs/SPEC-001-player.md` 的实验一节：时间轴可用，说话人得用讲稿的（模型的分离不可用）。
-  - 备课程序现在有四个文件：`pipeline/keys.py` 读密钥、`pipeline/audio.py` 转音频、`pipeline/asr_probe.py` 调识别、`pipeline/align.py` 对齐讲稿。
-- 下一步从哪接：owner 回答 `specs/SPEC-001-player.md` 文末四个问题 → 定稿 → 写播放器。
+  - owner 拍板四件事（自动停做成开关、中文藏最后一级、第一版就带释义、不问懂没懂），`specs/SPEC-001-player.md` 据此定稿，决策补到 D10–D13。
+  - 因为第一版就要中文释义，先接了大模型：`pipeline/llm.py` 统一调用口，`pipeline/teach.py` 生成每句中文和每个词的语境释义。
+  - owner 要求比较 deepseek-flash 和 qwen3.8-flash，结果在 `lessons/260821/model_compare.md`，owner 选了 deepseek-flash（决策 D15）。
+  - 播放器在 `web/`，纯网页三个文件，不需要构建也不需要服务器接口（决策 D14）。双击 `start-player.bat` 就能打开。
+  - 已做的检查：脚本语法、页面元素和脚本对得上、五个文件都能正常取到。**没有在浏览器里点过**，这部分要 owner 验。
+- 下一步从哪接：owner 或孩子试用第一集 → 用「家长检查」面板点 20 句确认时间点 → 有问题先修，没问题就写预习页的规格。
+
+### 2026-09-12 上午 · 起步：定方向、搭仓库、验证语音识别
+
+- 做了什么 / 为什么这么改：
+  - 产品方向落在 `demand.md` 和 `docs/decisions.md`；竞品和听力教学研究落在 `docs/research.md`。
+  - 按《AI 编程项目管理指南》搭了仓库骨架，素材移到 `materials/260821/`，owner 给的调用文档存成 `docs/refs/qwen-asr-api.md`。
+  - 验证了核心不确定环节：百炼 `qwen-audio-3.0-asr-flash-filetrans` 识别 + 讲稿对齐，产出 `lessons/260821/timeline.json`。结论见 SPEC-001 的实验一节：时间轴可用，说话人必须用讲稿的。
+- 下一步从哪接：已接到下一段。
 
 ## 等 owner 亲手做的（一行一件）
 
-- [ ] 回答 SPEC-001 文末四个问题 —— 都是产品方向，不能替他定
+- [ ] 试用播放器第一版，并用「家长检查」面板点 20 句，确认从句子开头播得准不准 —— 只能用耳朵验
+- [ ] 审一遍大模型生成的中文（`lessons/260821/lesson.json` 里每句的 zh 和每个词的释义）—— 规则 R13 要求给孩子之前 owner 过目
 - [ ] 决定要不要在百炼后台重置千问密钥 —— 它在 2026-09-12 的对话里被打印过一次（见 `docs/lessons.md`）
 - [ ] 考虑把 `api-keys.txt` 移到仓库外面 —— 现在靠 `.gitignore` 挡着，移出去更稳
