@@ -55,6 +55,8 @@
 | 备课程序 | `pipeline/` |
 | 播放器 | `web/`（三个文件：index.html、style.css、app.js） |
 | 验播放器改得对不对 | `tests/test_player.py` |
+| 改界面 | 先加载 frontend-design 技能（owner 2026-09-21 要求按真正的前端设计标准做）；改完跑 `tests/test_player.py --shots <目录>` 看截图 |
+| 量句子边界干不干净 | `pipeline/measure_bounds.py` |
 | 压缩上下文 | `/warp` |
 
 ## 节奏
