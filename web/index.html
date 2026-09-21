@@ -19,7 +19,7 @@
     </div>
   </div>
   <div class="top-actions">
-    <button id="checkBtn" class="ghost-btn">家长检查</button>
+    <button id="fullBtn" class="ghost-btn">全文</button>
     <button id="settingsBtn" class="icon-btn" aria-label="设置" aria-expanded="false">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>
     </button>
@@ -55,7 +55,16 @@
       </div>
       <p id="text" class="sentence" hidden></p>
       <p id="zh" class="zh" hidden></p>
-      <div class="card-actions">
+      <div id="sectionEnd" class="section-end" hidden>
+        <span class="end-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+        <h2 id="endTitle" class="end-title">这段听完了</h2>
+        <p id="endNext" class="end-next"></p>
+        <div class="end-actions">
+          <button id="againSectionBtn" class="pill big">这段再听一遍</button>
+          <button id="nextSectionBtn" class="pill accent big">听下一段 <kbd>空格</kbd></button>
+        </div>
+      </div>
+      <div id="cardActions" class="card-actions">
         <button id="textBtn" class="pill">看文字 <kbd>T</kbd></button>
         <button id="zhBtn" class="pill" hidden>看中文</button>
         <button id="againBtn" class="pill accent" hidden>原速再听一遍</button>
@@ -64,6 +73,12 @@
   </section>
 
   <section class="deck">
+    <div class="part-head">
+      <span id="partNo" class="part-no">第 1 段</span>
+      <span id="partTitle" class="part-title"></span>
+      <span id="partCount" class="part-count"></span>
+    </div>
+    <div id="parts" class="parts" aria-label="整集分成几段，点一段从那段开头听"></div>
     <div class="times">
       <span id="timeNow">0:00</span>
       <span id="timeTotal">0:00</span>
@@ -119,13 +134,13 @@
   </div>
 </div>
 
-<aside id="checkPanel" class="drawer" hidden>
+<aside id="fullPanel" class="drawer" hidden>
   <div class="drawer-head">
-    <h2>家长检查</h2>
-    <button id="checkClose" class="close-btn" aria-label="关闭">×</button>
+    <h2>全文</h2>
+    <button id="fullClose" class="close-btn" aria-label="关闭">×</button>
   </div>
-  <p class="drawer-note">点任意一句，从这句开头播到这句结尾就停。听两件事：开头第一个字有没有被切掉；结尾有没有带进下一句的声音。</p>
-  <ol id="checkList"></ol>
+  <p class="drawer-note">点任意一句，只播这一句，播完就停。带小圆点的是重听过的句子。</p>
+  <ol id="fullList"></ol>
 </aside>
 
 <audio id="audio" preload="auto"></audio>

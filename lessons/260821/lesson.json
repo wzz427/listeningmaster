@@ -4,6 +4,28 @@
   "source": "BBC Learning English · Real Easy English",
   "audio": "audio.m4a",
   "bodyStart": 20.96,
+  "sections": [
+    {
+      "first": 3,
+      "last": 41,
+      "title": "平时怎么喝咖啡"
+    },
+    {
+      "first": 42,
+      "last": 64,
+      "title": "不喝或喝多咖啡的影响"
+    },
+    {
+      "first": 65,
+      "last": 75,
+      "title": "少喝咖啡和低因咖啡"
+    },
+    {
+      "first": 76,
+      "last": 91,
+      "title": "复习词汇和道别"
+    }
+  ],
   "sentences": [
     {
       "id": 0,

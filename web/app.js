@@ -2,7 +2,10 @@
  *
  * 几条要记住的理由：
  * - 默认一直往下播；「每句播完停一下」是开关，默认关（owner 2026-09-21 拍板，决策 D16）。
- * - 进度条上每一段是一句话，颜色区分说话人：点上一句、下一句时看得见自己跳到了哪（R15）。
+ * - 正文按话题分成两分钟左右一段（D22）。进度条分两层：上面一条是整集，看得见自己在第几段；
+ *   下面一条只画当前这段，每一小段是一句话，颜色区分说话人（R15、R20）。
+ *   整集画在一条上太密：6 分钟挤在 900 像素里，最短的句子不到 2 像素，点不中。
+ * - 一段播完就停，给「这段再听一遍」「听下一段」两个选择；片头播完不停，直接进正文（R21）。
  * - 需要停在句末时，提前几十毫秒把音量渐弱到零再停，不然会带进下一句开头的声音。
  *   有十几处两句贴得太紧，句子边界挪到哪都不够，只能靠这里收得准（见 docs/lessons.md）。
  * - 重听有 1 秒的反应延迟保护：人按键慢半拍，不保护就总跳错句（R3）。
@@ -32,10 +35,15 @@ let stopAt = null;        // 这次播放要在哪一秒停（null 表示不停�
 let stopKind = null;      // 'sentence' 停在句末 · 'word' 播完一个词
 let fadedFor = null;      // 已经为哪个停点安排过渐弱
 let atSentenceEnd = false;
+let atSectionEnd = false; // 停在一段的末尾，卡片上换成「这段再听一遍 / 听下一段」
 let resumeAfterWord = null;
 let ctx = null;
 let gain = null;
 const speakerClass = {};  // 说话人 → 'a' / 'b'
+let parts = [];           // 按时间顺序：片头、正文第 1 段 … 第 N 段、片尾
+let partOf = [];          // 第 i 句属于 parts 的哪一项
+let shownPart = -1;       // 下面那条进度条现在画的是哪一项
+let sectionCount = 0;
 
 /* ---------- 启动 ---------- */
 
@@ -45,9 +53,10 @@ async function boot() {
   body.forEach((s) => {
     if (!(s.speaker in speakerClass)) speakerClass[s.speaker] = Object.keys(speakerClass).length ? 'b' : 'a';
   });
+  buildParts();
   audio.addEventListener('loadedmetadata', () => {
-    buildTimeline();
-    $('timeTotal').textContent = clock(audio.duration);
+    buildOverview();  // 整集那条要用音频总长，片尾后面还有一点音乐
+    render();
     if (audio.currentTime === 0) audio.currentTime = cur().start;  // 显示第 1 句，播放也从第 1 句开始
   });
   audio.src = BASE + lesson.audio;
@@ -58,7 +67,8 @@ async function boot() {
   $('autoPause').checked = localStorage.getItem(settingKey('autoPause')) === 'on';
   $('autoSlow').checked = localStorage.getItem(settingKey('autoSlow')) !== 'off';
   buildLegend();
-  buildCheckList();
+  buildOverview();
+  buildFullText();
   idx = Math.max(0, lesson.sentences.indexOf(body[0]));
   setRate(1);
   render();
@@ -69,6 +79,8 @@ const recordKey = () => `listening:${LESSON}`;
 const settingKey = (name) => `listening:${LESSON}:${name}`;
 const cur = () => lesson.sentences[idx];
 const cls = (s) => (s.speaker === OUTSIDE ? 'o' : speakerClass[s.speaker] || 'o');
+const part = (i = idx) => parts[partOf[i]];
+const isSectionLast = (i = idx) => part(i).kind === 'section' && part(i).last === i;
 
 function readJSON(key, fallback) {
   try { return JSON.parse(localStorage.getItem(key)) || fallback; } catch { return fallback; }
@@ -80,6 +92,39 @@ function record(patch, sentence = cur()) {
   localStorage.setItem(recordKey(), JSON.stringify(records));
   markStuck();
 }
+
+/* ---------- 分段：片头、正文各段、片尾 ---------- */
+
+function buildParts() {
+  const n = lesson.sentences.length;
+  const at = (id) => lesson.sentences.findIndex((s) => s.id === id);
+  let sections = (lesson.sections || []).map((x) => ({ first: at(x.first), title: x.title }))
+    .filter((x) => x.first >= 0);
+  if (!sections.length) {  // 旧的课程文件没有分段：整集正文算一段
+    sections = [{ first: lesson.sentences.indexOf(body[0]), title: lesson.title || '' }];
+  }
+  const bodyLast = lesson.sentences.indexOf(body[body.length - 1]);
+  // 每段到下一段开头之前为止，夹在中间的片头片尾句也归它，保证每一句都有归属
+  sections.forEach((x, k) => { x.last = k + 1 < sections.length ? sections[k + 1].first - 1 : bodyLast; });
+  parts = [];
+  if (sections[0].first > 0) parts.push({ kind: 'intro', first: 0, last: sections[0].first - 1, title: '片头' });
+  sections.forEach((x, k) => parts.push({ kind: 'section', n: k + 1, first: x.first, last: x.last, title: x.title }));
+  if (bodyLast < n - 1) parts.push({ kind: 'outro', first: bodyLast + 1, last: n - 1, title: '片尾' });
+  parts.forEach((p) => {
+    p.t0 = lesson.sentences[p.first].start;
+    p.t1 = lesson.sentences[p.last].end;
+  });
+  partOf = lesson.sentences.map((_, i) => parts.findIndex((p) => i >= p.first && i <= p.last));
+  sectionCount = sections.length;
+}
+
+/* 下一段正文；已经是最后一段，就回到第 1 段 */
+function nextSection() {
+  const k = partOf[idx];
+  return parts.find((p, j) => j > k && p.kind === 'section') || parts.find((p) => p.kind === 'section');
+}
+
+const isLastSection = () => part().kind === 'section' && nextSection().n <= part().n;
 
 /* ---------- 声音：渐强、渐弱、准点停 ---------- */
 
@@ -103,6 +148,7 @@ function rampGain(to, seconds) {
 function start(seconds, { stop = null, kind = null } = {}) {
   ensureGraph();
   atSentenceEnd = false;
+  atSectionEnd = false;
   stopAt = stop;
   stopKind = kind;
   fadedFor = null;
@@ -129,7 +175,8 @@ function tick() {
   const t = audio.currentTime;
 
   if (!audio.paused) {
-    const target = stopAt !== null ? stopAt : ($('autoPause').checked ? cur().end : null);
+    const target = stopAt !== null ? stopAt
+      : ($('autoPause').checked || isSectionLast()) ? cur().end : null;
     if (target !== null) {
       const remain = (target - t) / audio.playbackRate;
       if (fadedFor !== target && remain <= FADE + 0.025) {
@@ -165,10 +212,12 @@ function reachStop() {
     if (resumeAfterWord) {
       audio.currentTime = resumeAfterWord.time;
       atSentenceEnd = resumeAfterWord.atEnd;
+      atSectionEnd = resumeAfterWord.sectionEnd;
       resumeAfterWord = null;
     }
   } else {
     atSentenceEnd = true;
+    atSectionEnd = isSectionLast();
   }
   render();
 }
@@ -203,6 +252,8 @@ function replayCurrent() {
 function togglePlay() {
   if (!audio.paused) {
     audio.pause();
+  } else if (atSectionEnd) {
+    gotoSentence(nextSection().first);  // 一段听完，按播放就是听下一段
   } else if (atSentenceEnd) {
     gotoSentence(idx + 1);   // 停在句末，按播放就是进下一句
   } else {
@@ -223,37 +274,69 @@ function setRate(value) {
 
 function render() {
   const s = cur();
-  const nth = body.indexOf(s) + 1;
+  const p = part();
+  if (partOf[idx] !== shownPart) buildTimeline();
   const playing = !audio.paused;
+  const last = isLastSection();
   document.body.classList.toggle('playing', playing);
   $('speaker').textContent = s.speaker;
   $('avatar').textContent = s.speaker === OUTSIDE ? '♪' : s.speaker.slice(0, 1);
   $('avatar').className = `avatar ${cls(s)}`;
-  $('counter').textContent = nth > 0 ? `第 ${nth} 句 / 共 ${body.length} 句` : '片头片尾，不算正文';
+  $('counter').textContent = p.kind === 'section'
+    ? `第 ${p.n} 段 · 第 ${idx - p.first + 1} 句 / 共 ${p.last - p.first + 1} 句`
+    : `${p.title}，不算正文`;
   // 矢量图标不认 .hidden 属性，要直接改 hidden 这个标记
   $('iconPlay').toggleAttribute('hidden', playing);
   $('iconPause').toggleAttribute('hidden', !playing);
-  $('playLabel').textContent = playing ? '暂停' : (atSentenceEnd ? '下一句' : '播放');
+  $('playLabel').textContent = playing ? '暂停'
+    : atSectionEnd ? (last ? '从头听' : '下一段')
+    : atSentenceEnd ? '下一句' : '播放';
 
   const tag = $('stateTag');
-  if (atSentenceEnd) { tag.textContent = '停在这句末尾'; tag.classList.add('stop'); }
-  else if (sentenceStopWanted()) { tag.textContent = '这句播完会停'; tag.classList.add('stop'); }
-  else { tag.textContent = '连续播放'; tag.classList.remove('stop'); }
+  const [label, stop] = atSectionEnd ? ['这段听完了', true]
+    : atSentenceEnd ? ['停在这句末尾', true]
+    : sentenceStopWanted() ? ['这句播完会停', true]
+    : isSectionLast() ? ['这段播完会停', true]
+    : ['连续播放', false];
+  tag.textContent = label;
+  tag.classList.toggle('stop', stop);
+
+  // 一段听完：卡片上换成两个选择；他点开了文字就先让他看文字
+  const ending = atSectionEnd && $('text').hidden;
+  $('sectionEnd').hidden = !ending;
+  $('cardActions').hidden = ending;
+  $('hint').hidden = ending || !$('text').hidden;
+  if (ending) {
+    $('endTitle').textContent = last ? '这集听完了' : `第 ${p.n} 段听完了`;
+    $('endNext').textContent = last ? '想再练哪一段，点下面的段号' : `下一段：${nextSection().title}`;
+    $('nextSectionBtn').innerHTML = `${last ? '从第 1 段开始' : '听下一段'} <kbd>空格</kbd>`;
+  }
 
   document.querySelectorAll('.seg').forEach((el) => {
     el.classList.toggle('current', Number(el.dataset.i) === idx);
   });
-  document.querySelectorAll('#checkList li').forEach((li) => {
+  document.querySelectorAll('.part').forEach((el) => {
+    el.classList.toggle('current', Number(el.dataset.k) === partOf[idx]);
+  });
+  document.querySelectorAll('#fullList li.line').forEach((li) => {
     li.classList.toggle('current', Number(li.dataset.i) === idx);
   });
 }
 
 function drawProgress(t) {
-  const total = audio.duration || 1;
-  $('playhead').style.left = `${(t / total) * 100}%`;
-  $('timeNow').textContent = clock(t);
+  const p = parts[shownPart];
+  if (!p) return;
+  const span = p.t1 - p.t0;
+  const into = Math.max(0, Math.min(span, t - p.t0));
+  $('playhead').style.left = `${(into / span) * 100}%`;
+  $('timeNow').textContent = clock(into);
   document.querySelectorAll('.seg').forEach((el) => {
     el.classList.toggle('past', lesson.sentences[Number(el.dataset.i)].end <= t);
+  });
+  document.querySelectorAll('.part').forEach((el) => {
+    const q = parts[Number(el.dataset.k)];
+    const done = Math.max(0, Math.min(1, (t - q.t0) / (q.t1 - q.t0)));
+    el.firstChild.style.width = `${done * 100}%`;
   });
 }
 
@@ -319,41 +402,74 @@ function highlightSpeaking(t) {
   });
 }
 
-/* ---------- 进度条：每一段是一句 ---------- */
+/* ---------- 进度：上面整集分几段，下面这段每一小段是一句 ---------- */
+
+function buildOverview() {
+  const total = audio.duration || lesson.sentences[lesson.sentences.length - 1].end;
+  const box = $('parts');
+  box.innerHTML = '';
+  parts.forEach((p, k) => {
+    const from = k === 0 ? 0 : p.t0;
+    const to = k + 1 < parts.length ? parts[k + 1].t0 : total;
+    const el = document.createElement('button');
+    el.className = `part ${p.kind}`;
+    el.dataset.k = k;
+    el.style.flexGrow = String(Math.max(1, to - from));
+    el.title = p.kind === 'section' ? `第 ${p.n} 段：${p.title}` : p.title;
+    el.setAttribute('aria-label', el.title);
+    el.innerHTML = '<span class="fill"></span><span class="label"></span>';
+    el.querySelector('.label').textContent = p.kind === 'section' ? p.n : p.title;
+    el.onclick = () => gotoSentence(p.first);
+    box.appendChild(el);
+  });
+}
 
 function buildTimeline() {
-  const total = audio.duration || lesson.sentences[lesson.sentences.length - 1].end;
+  shownPart = partOf[idx];
+  const p = parts[shownPart];
+  const span = p.t1 - p.t0;
   const box = $('segments');
   box.innerHTML = '';
-  lesson.sentences.forEach((s, i) => {
+  for (let i = p.first; i <= p.last; i++) {
+    const s = lesson.sentences[i];
     const seg = document.createElement('div');
     seg.className = `seg ${cls(s)}`;
     seg.dataset.i = i;
-    seg.style.left = `${(s.start / total) * 100}%`;
-    seg.style.width = `max(2px, calc(${((s.end - s.start) / total) * 100}% - 1.5px))`;
+    seg.style.left = `${((s.start - p.t0) / span) * 100}%`;
+    seg.style.width = `max(3px, calc(${((s.end - s.start) / span) * 100}% - 2px))`;
     box.appendChild(seg);
-  });
+  }
+  box.classList.remove('swap');
+  void box.offsetWidth;
+  box.classList.add('swap');
+  $('partNo').textContent = p.kind === 'section' ? `第 ${p.n} 段` : p.title;
+  $('partNo').classList.toggle('outside', p.kind !== 'section');
+  $('partTitle').textContent = p.kind === 'section' ? p.title : '不算正文';
+  $('partCount').textContent = `共 ${sectionCount} 段`;
+  $('timeTotal').textContent = clock(span);
   markStuck();
-  render();
 }
 
 function markStuck() {
-  document.querySelectorAll('.seg').forEach((el) => {
-    const r = records[lesson.sentences[Number(el.dataset.i)].id];
-    el.classList.toggle('stuck', !!r && r.replays > 0);
-  });
+  const stuck = (i) => {
+    const r = records[lesson.sentences[i].id];
+    return !!r && r.replays > 0;
+  };
+  document.querySelectorAll('.seg').forEach((el) => el.classList.toggle('stuck', stuck(Number(el.dataset.i))));
+  document.querySelectorAll('#fullList li.line').forEach((li) => li.classList.toggle('stuck', stuck(Number(li.dataset.i))));
 }
 
 function sentenceAt(clientX) {
+  const p = parts[shownPart];
   const rect = $('timeline').getBoundingClientRect();
-  const t = ((clientX - rect.left) / rect.width) * (audio.duration || 1);
-  let best = 0;
-  lesson.sentences.forEach((s, i) => {
-    const d = t < s.start ? s.start - t : t > s.end ? t - s.end : 0;
-    const bd = t < lesson.sentences[best].start ? lesson.sentences[best].start - t
-      : t > lesson.sentences[best].end ? t - lesson.sentences[best].end : 0;
-    if (d < bd) best = i;
-  });
+  const t = p.t0 + ((clientX - rect.left) / rect.width) * (p.t1 - p.t0);
+  let best = p.first;
+  let bestGap = Infinity;
+  for (let i = p.first; i <= p.last; i++) {
+    const s = lesson.sentences[i];
+    const gap = t < s.start ? s.start - t : t > s.end ? t - s.end : 0;
+    if (gap < bestGap) { best = i; bestGap = gap; }
+  }
   return best;
 }
 
@@ -372,18 +488,16 @@ function buildLegend() {
     legend.insertAdjacentHTML('beforeend',
       `<span><i style="background:var(--spk-${c})"></i>${name}</span>`);
   });
-  legend.insertAdjacentHTML('beforeend',
-    '<span><i style="background:var(--spk-o)"></i>片头片尾</span>' +
-    '<span><i class="stuck-dot"></i>重听过的句子</span>');
+  legend.insertAdjacentHTML('beforeend', '<span><i class="stuck-dot"></i>重听过的句子</span>');
 }
 
 $('timeline').addEventListener('pointermove', (e) => {
   const i = sentenceAt(e.clientX);
   const s = lesson.sentences[i];
-  const nth = body.indexOf(s) + 1;
+  const p = parts[shownPart];
   const tip = $('tip');
   const rect = $('timeline').getBoundingClientRect();
-  tip.innerHTML = `<b>${nth > 0 ? '第 ' + nth + ' 句' : OUTSIDE}</b>${s.speaker === OUTSIDE ? '' : s.speaker} · ${clock(s.start)}`;
+  tip.innerHTML = `<b>第 ${i - p.first + 1} 句</b>${s.speaker === OUTSIDE ? '' : s.speaker} · ${clock(s.start - p.t0)}`;
   tip.style.left = `${Math.min(rect.width - 70, Math.max(70, e.clientX - rect.left))}px`;
   tip.hidden = false;
   document.querySelectorAll('.seg.hover').forEach((el) => el.classList.remove('hover'));
@@ -417,7 +531,9 @@ function openWord(i, tag) {
   box.style.top = above > 12 ? `${above}px` : `${Math.min(window.innerHeight - box.offsetHeight - 12, r.bottom + 14)}px`;
   $('wordTts').onclick = () => speak(clean);
   $('wordRaw').onclick = () => {
-    resumeAfterWord = { time: audio.paused ? audio.currentTime : cur().start, atEnd: atSentenceEnd };
+    resumeAfterWord = {
+      time: audio.paused ? audio.currentTime : cur().start, atEnd: atSentenceEnd, sectionEnd: atSectionEnd,
+    };
     start(Math.max(0, w.start - WORD_PAD), { stop: w.end + WORD_PAD, kind: 'word' });
   };
   record((old) => ({ words: old.words.indexOf(w.key) < 0 ? old.words.concat(w.key) : old.words }));
@@ -434,28 +550,39 @@ function speak(text) {
   speechSynthesis.speak(u);
 }
 
-/* ---------- 家长检查 ---------- */
+/* ---------- 全文：按段列出每一句，点一句只播这一句 ---------- */
 
-function buildCheckList() {
-  const list = $('checkList');
+function buildFullText() {
+  const list = $('fullList');
   list.innerHTML = '';
-  lesson.sentences.forEach((s, i) => {
-    const li = document.createElement('li');
-    li.dataset.i = i;
-    if (s.speaker === OUTSIDE) li.classList.add('outside');
-    li.innerHTML = `<span class="t"></span><span class="s"><b class="${cls(s)}"></b></span>`;
-    li.querySelector('.t').textContent = clock(s.start) + '.' + String(Math.round((s.start % 1) * 100)).padStart(2, '0');
-    li.querySelector('b').textContent = s.speaker;
-    li.querySelector('.s').appendChild(document.createTextNode(s.text));
-    li.onclick = () => {
-      idx = i;
-      hideText();
-      start(s.start, { stop: s.end, kind: 'sentence' });  // 只播这一句，方便听开头结尾
-      render();
-      flashSegment(i);
-    };
-    list.appendChild(li);
+  parts.forEach((p) => {
+    const head = document.createElement('li');
+    head.className = `group ${p.kind}`;
+    head.innerHTML = '<span class="g-no"></span><span class="g-title"></span>';
+    head.querySelector('.g-no').textContent = p.kind === 'section' ? `第 ${p.n} 段` : p.title;
+    head.querySelector('.g-title').textContent = p.kind === 'section' ? p.title : '不算正文';
+    list.appendChild(head);
+    for (let i = p.first; i <= p.last; i++) {
+      const s = lesson.sentences[i];
+      const li = document.createElement('li');
+      li.className = 'line';
+      li.dataset.i = i;
+      if (s.speaker === OUTSIDE) li.classList.add('outside');
+      li.innerHTML = `<span class="t"></span><span class="s"><b class="${cls(s)}"></b></span>`;
+      li.querySelector('.t').textContent = clock(s.start - p.t0);
+      li.querySelector('b').textContent = s.speaker === OUTSIDE ? '' : s.speaker;
+      li.querySelector('.s').appendChild(document.createTextNode(s.text));
+      li.onclick = () => {
+        idx = i;
+        hideText();
+        start(s.start, { stop: s.end, kind: 'sentence' });  // 只播这一句，方便听开头结尾
+        render();
+        flashSegment(i);
+      };
+      list.appendChild(li);
+    }
   });
+  markStuck();
 }
 
 /* ---------- 按钮和键盘 ---------- */
@@ -464,6 +591,8 @@ $('playBtn').onclick = togglePlay;
 $('replayBtn').onclick = replayCurrent;
 $('prevBtn').onclick = () => gotoSentence(idx - 1);
 $('nextBtn').onclick = () => gotoSentence(idx + 1);
+$('nextSectionBtn').onclick = () => gotoSentence(nextSection().first);
+$('againSectionBtn').onclick = () => gotoSentence(part().first);
 $('againBtn').onclick = () => {
   setRate(1);
   $('againBtn').classList.remove('nudge');
@@ -505,12 +634,14 @@ $('exportBtn').onclick = () => {
   link.click();
 };
 function setDrawer(open) {
-  $('checkPanel').hidden = !open;
-  $('checkBtn').classList.toggle('on', open);
+  $('fullPanel').hidden = !open;
+  $('fullBtn').classList.toggle('on', open);
   document.body.classList.toggle('drawer-open', open);  // 宽屏时播放器往左让开，别被挡住
+  const here = document.querySelector('#fullList li.current');
+  if (open && here) here.scrollIntoView({ block: 'center' });
 }
-$('checkBtn').onclick = () => setDrawer($('checkPanel').hidden);
-$('checkClose').onclick = () => setDrawer(false);
+$('fullBtn').onclick = () => setDrawer($('fullPanel').hidden);
+$('fullClose').onclick = () => setDrawer(false);
 $('wordClose').onclick = () => { $('wordbox').hidden = true; };
 
 document.addEventListener('click', (e) => {
