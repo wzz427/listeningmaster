@@ -61,7 +61,7 @@
       "id": 1,
       "speaker": "片头片尾",
       "start": 2.72,
-      "end": 4.32,
+      "end": 4.44,
       "text": "I'm Georgie and I'm Neil.",
       "words": [
         {
@@ -100,8 +100,8 @@
     {
       "id": 2,
       "speaker": "片头片尾",
-      "start": 4.64,
-      "end": 15.48,
+      "start": 4.53,
+      "end": 15.37,
       "text": "You can find a video version of this podcast on our website at bbc learningenglish com, where you can find a free worksheet to download and subtitles to help you learn.",
       "words": [
         {
@@ -319,7 +319,7 @@
       "id": 4,
       "speaker": "Georgie",
       "start": 21.52,
-      "end": 22.08,
+      "end": 22.03,
       "text": "How are you?",
       "words": [
         {
@@ -346,7 +346,7 @@
     {
       "id": 5,
       "speaker": "Neil",
-      "start": 22.36,
+      "start": 22.31,
       "end": 23.76,
       "text": "I'm very well, thank you, Georgie.",
       "words": [
@@ -393,7 +393,7 @@
       "id": 6,
       "speaker": "Neil",
       "start": 23.84,
-      "end": 25.76,
+      "end": 25.66,
       "text": "Are you enjoying your coffee?",
       "words": [
         {
@@ -433,7 +433,7 @@
       "id": 7,
       "speaker": "Georgie",
       "start": 26.16,
-      "end": 29.68,
+      "end": 29.71,
       "text": "I am, but it's got a bit cool now.",
       "words": [
         {
@@ -496,8 +496,8 @@
     {
       "id": 8,
       "speaker": "Georgie",
-      "start": 29.84,
-      "end": 33.0,
+      "start": 29.76,
+      "end": 32.94,
       "text": "I prefer my coffee hot, but oh well.",
       "words": [
         {
@@ -554,8 +554,8 @@
     {
       "id": 9,
       "speaker": "Georgie",
-      "start": 33.8,
-      "end": 34.88,
+      "start": 33.77,
+      "end": 34.84,
       "text": "Are you enjoying yours?",
       "words": [
         {
@@ -588,8 +588,8 @@
     {
       "id": 10,
       "speaker": "Neil",
-      "start": 35.16,
-      "end": 36.0,
+      "start": 35.12,
+      "end": 36.01,
       "text": "I've finished mine.",
       "words": [
         {
@@ -617,7 +617,7 @@
       "id": 11,
       "speaker": "Georgie",
       "start": 36.2,
-      "end": 37.24,
+      "end": 37.22,
       "text": "Oh, that's a shame.",
       "words": [
         {
@@ -650,8 +650,8 @@
     {
       "id": 12,
       "speaker": "Neil",
-      "start": 37.44,
-      "end": 44.24,
+      "start": 37.34,
+      "end": 44.13,
       "text": "It's a sad moment when I've finished my second coffee of the day because that's it.",
       "words": [
         {
@@ -756,8 +756,8 @@
     {
       "id": 13,
       "speaker": "Neil",
-      "start": 44.6,
-      "end": 46.44,
+      "start": 44.53,
+      "end": 46.33,
       "text": "I don't have more than two.",
       "words": [
         {
@@ -802,7 +802,7 @@
     {
       "id": 14,
       "speaker": "Georgie",
-      "start": 47.2,
+      "start": 47.07,
       "end": 47.6,
       "text": "So,",
       "words": [
@@ -818,8 +818,8 @@
     {
       "id": 15,
       "speaker": "Neil",
-      "start": 47.96,
-      "end": 49.8,
+      "start": 47.88,
+      "end": 49.76,
       "text": "Georgie, we're talking about coffee.",
       "words": [
         {
@@ -858,8 +858,8 @@
     {
       "id": 16,
       "speaker": "Neil",
-      "start": 50.28,
-      "end": 58.16,
+      "start": 50.18,
+      "end": 58.09,
       "text": "How much coffee or how many coffees, if we're talking about cups of coffee, how many do you have a day?",
       "words": [
         {
@@ -994,8 +994,8 @@
     {
       "id": 17,
       "speaker": "Georgie",
-      "start": 59.0,
-      "end": 65.32,
+      "start": 58.84,
+      "end": 65.28,
       "text": "I usually have two, and I know that you do as well, because we drink them both in the office, don't we?",
       "words": [
         {
@@ -1136,8 +1136,8 @@
     {
       "id": 18,
       "speaker": "Georgie",
-      "start": 65.6,
-      "end": 76.47,
+      "start": 65.55,
+      "end": 76.41,
       "text": "We have one cup of coffee in the morning and one usually in the afternoon when we need to regain some energy and alertness.",
       "words": [
         {
@@ -1290,8 +1290,8 @@
     {
       "id": 19,
       "speaker": "Neil",
-      "start": 76.83,
-      "end": 77.19,
+      "start": 76.67,
+      "end": 77.08,
       "text": "Yeah.",
       "words": [
         {
@@ -1306,8 +1306,8 @@
     {
       "id": 20,
       "speaker": "Neil",
-      "start": 77.63,
-      "end": 88.15,
+      "start": 77.51,
+      "end": 88.04,
       "text": "And so we all know, because we make each other At BBC Learning English, we make each other coffee so we know how we take our coffee.",
       "words": [
         {
@@ -1479,7 +1479,7 @@
       "id": 21,
       "speaker": "Georgie",
       "start": 88.55,
-      "end": 88.95,
+      "end": 89.05,
       "text": "Yes.",
       "words": [
         {
@@ -1489,13 +1489,13 @@
           "key": "yes"
         }
       ],
-      "zh": "对。"
+      "zh": "对呀。"
     },
     {
       "id": 22,
       "speaker": "Georgie",
       "start": 89.15,
-      "end": 93.71,
+      "end": 93.61,
       "text": "How we take our coffee is how we like it, what we like to put in it.",
       "words": [
         {
@@ -1606,8 +1606,8 @@
     {
       "id": 23,
       "speaker": "Georgie",
-      "start": 94.09,
-      "end": 96.37,
+      "start": 94.1,
+      "end": 96.28,
       "text": "For example, sugar or milk.",
       "words": [
         {
@@ -1646,8 +1646,8 @@
     {
       "id": 24,
       "speaker": "Georgie",
-      "start": 96.89,
-      "end": 99.93,
+      "start": 96.82,
+      "end": 99.89,
       "text": "I know that you don't like milk in your coffee.",
       "words": [
         {
@@ -1716,8 +1716,8 @@
     {
       "id": 25,
       "speaker": "Georgie",
-      "start": 100.25,
-      "end": 102.17,
+      "start": 100.13,
+      "end": 102.07,
       "text": "You take your coffee black.",
       "words": [
         {
@@ -1756,8 +1756,8 @@
     {
       "id": 26,
       "speaker": "Neil",
-      "start": 102.57,
-      "end": 103.01,
+      "start": 102.49,
+      "end": 102.98,
       "text": "I do.",
       "words": [
         {
@@ -1778,8 +1778,8 @@
     {
       "id": 27,
       "speaker": "Neil",
-      "start": 103.25,
-      "end": 109.81,
+      "start": 103.17,
+      "end": 109.7,
       "text": "I like black coffee and you take your coffee white and you used to have sugar, but you don't anymore.",
       "words": [
         {
@@ -1909,7 +1909,7 @@
       "id": 28,
       "speaker": "Georgie",
       "start": 110.17,
-      "end": 110.85,
+      "end": 110.87,
       "text": "That's right.",
       "words": [
         {
@@ -1930,8 +1930,8 @@
     {
       "id": 29,
       "speaker": "Georgie",
-      "start": 111.05,
-      "end": 117.01,
+      "start": 111.0,
+      "end": 116.93,
       "text": "Occasionally, when I'm at home, I put some honey in my coffee to make it a bit sweeter.",
       "words": [
         {
@@ -2048,7 +2048,7 @@
     {
       "id": 30,
       "speaker": "Neil",
-      "start": 118.05,
+      "start": 117.99,
       "end": 119.13,
       "text": "Honey in coffee?",
       "words": [
@@ -2077,7 +2077,7 @@
       "id": 31,
       "speaker": "Georgie",
       "start": 119.29,
-      "end": 119.85,
+      "end": 119.79,
       "text": "Yes.",
       "words": [
         {
@@ -2092,8 +2092,8 @@
     {
       "id": 32,
       "speaker": "Georgie",
-      "start": 120.25,
-      "end": 121.21,
+      "start": 120.11,
+      "end": 121.17,
       "text": "Is that surprising?",
       "words": [
         {
@@ -2120,8 +2120,8 @@
     {
       "id": 33,
       "speaker": "Neil",
-      "start": 121.69,
-      "end": 122.89,
+      "start": 121.64,
+      "end": 122.78,
       "text": "I've never heard of that.",
       "words": [
         {
@@ -2161,7 +2161,7 @@
       "id": 34,
       "speaker": "Georgie",
       "start": 123.25,
-      "end": 123.69,
+      "end": 123.63,
       "text": "Really?",
       "words": [
         {
@@ -2177,7 +2177,7 @@
       "id": 35,
       "speaker": "Neil",
       "start": 124.49,
-      "end": 126.17,
+      "end": 126.06,
       "text": "Sugar, but not honey.",
       "words": [
         {
@@ -2210,8 +2210,8 @@
     {
       "id": 36,
       "speaker": "Georgie",
-      "start": 126.65,
-      "end": 129.41,
+      "start": 126.6,
+      "end": 129.3,
       "text": "But why would that be so bad?",
       "words": [
         {
@@ -2262,8 +2262,8 @@
     {
       "id": 37,
       "speaker": "Neil",
-      "start": 129.81,
-      "end": 130.93,
+      "start": 129.73,
+      "end": 130.9,
       "text": "Well, I don't know.",
       "words": [
         {
@@ -2296,8 +2296,8 @@
     {
       "id": 38,
       "speaker": "Neil",
-      "start": 131.37,
-      "end": 132.89,
+      "start": 131.26,
+      "end": 132.78,
       "text": "It's just I've never heard of it.",
       "words": [
         {
@@ -2348,8 +2348,8 @@
     {
       "id": 39,
       "speaker": "Georgie",
-      "start": 134.41,
-      "end": 135.21,
+      "start": 134.36,
+      "end": 135.18,
       "text": "It's really good.",
       "words": [
         {
@@ -2376,8 +2376,8 @@
     {
       "id": 40,
       "speaker": "Georgie",
-      "start": 135.49,
-      "end": 136.41,
+      "start": 135.43,
+      "end": 136.3,
       "text": "I would recommend.",
       "words": [
         {
@@ -2405,7 +2405,7 @@
       "id": 41,
       "speaker": "Georgie",
       "start": 136.89,
-      "end": 138.26,
+      "end": 138.15,
       "text": "Okay.",
       "words": [
         {
@@ -2415,13 +2415,13 @@
           "key": "okay"
         }
       ],
-      "zh": "好吧。"
+      "zh": "好。"
     },
     {
       "id": 42,
       "speaker": "Neil",
       "start": 139.25,
-      "end": 144.01,
+      "end": 143.9,
       "text": "So, Georgie, what happens if you don't have your coffee?",
       "words": [
         {
@@ -2490,8 +2490,8 @@
     {
       "id": 43,
       "speaker": "Georgie",
-      "start": 144.73,
-      "end": 151.65,
+      "start": 144.57,
+      "end": 151.59,
       "text": "Well, in the morning, if I don't have coffee, I feel very grumpy and very tired.",
       "words": [
         {
@@ -2596,8 +2596,8 @@
     {
       "id": 44,
       "speaker": "Georgie",
-      "start": 152.81,
-      "end": 160.17,
+      "start": 152.73,
+      "end": 160.13,
       "text": "In the afternoon, if I don't have a coffee, it's not terrible, but I would prefer to have my afternoon coffee.",
       "words": [
         {
@@ -2732,8 +2732,8 @@
     {
       "id": 45,
       "speaker": "Georgie",
-      "start": 160.45,
-      "end": 161.25,
+      "start": 160.37,
+      "end": 161.18,
       "text": "How about you?",
       "words": [
         {
@@ -2760,8 +2760,8 @@
     {
       "id": 46,
       "speaker": "Neil",
-      "start": 162.07,
-      "end": 169.19,
+      "start": 161.93,
+      "end": 169.08,
       "text": "Yeah, I need my coffee, especially in the morning, but I don't have my coffee first thing in the morning.",
       "words": [
         {
@@ -2890,7 +2890,7 @@
     {
       "id": 47,
       "speaker": "Georgie",
-      "start": 169.43,
+      "start": 169.3,
       "end": 170.19,
       "text": "Oh, interesting.",
       "words": [
@@ -2913,7 +2913,7 @@
       "id": 48,
       "speaker": "Neil",
       "start": 170.31,
-      "end": 174.63,
+      "end": 174.53,
       "text": "I have it kind of, I don't know, work time, nine o'clock.",
       "words": [
         {
@@ -2994,8 +2994,8 @@
     {
       "id": 49,
       "speaker": "Georgie",
-      "start": 175.15,
-      "end": 175.91,
+      "start": 175.06,
+      "end": 175.85,
       "text": "Why is that?",
       "words": [
         {
@@ -3022,8 +3022,8 @@
     {
       "id": 50,
       "speaker": "Neil",
-      "start": 176.27,
-      "end": 180.63,
+      "start": 176.21,
+      "end": 180.54,
       "text": "I think it's too strong, too powerful, Or maybe just the way I drink it.",
       "words": [
         {
@@ -3138,8 +3138,8 @@
     {
       "id": 52,
       "speaker": "Georgie",
-      "start": 181.35,
-      "end": 183.31,
+      "start": 181.29,
+      "end": 183.21,
       "text": "What happens if you drink too much coffee?",
       "words": [
         {
@@ -3196,8 +3196,8 @@
     {
       "id": 53,
       "speaker": "Georgie",
-      "start": 183.67,
-      "end": 184.11,
+      "start": 183.52,
+      "end": 184.13,
       "text": "Oh,",
       "words": [
         {
@@ -3213,7 +3213,7 @@
       "id": 54,
       "speaker": "Neil",
       "start": 184.63,
-      "end": 188.95,
+      "end": 188.99,
       "text": "then it's difficult to sleep because of the caffeine.",
       "words": [
         {
@@ -3277,7 +3277,7 @@
       "id": 55,
       "speaker": "Neil",
       "start": 189.27,
-      "end": 200.63,
+      "end": 200.53,
       "text": "Caffeine is that chemical in coffee and tea that makes you feel awake and alert, But too much means you're too alert.",
       "words": [
         {
@@ -3418,8 +3418,8 @@
     {
       "id": 56,
       "speaker": "Georgie",
-      "start": 201.55,
-      "end": 206.46,
+      "start": 201.48,
+      "end": 206.35,
       "text": "I don't think that caffeine has a big effect on me.",
       "words": [
         {
@@ -3494,8 +3494,8 @@
     {
       "id": 57,
       "speaker": "Georgie",
-      "start": 206.8,
-      "end": 210.32,
+      "start": 206.7,
+      "end": 210.22,
       "text": "I don't think I have trouble sleeping if I drink too much coffee.",
       "words": [
         {
@@ -3582,7 +3582,7 @@
     {
       "id": 58,
       "speaker": "Georgie",
-      "start": 210.88,
+      "start": 210.79,
       "end": 212.0,
       "text": "It's strange.",
       "words": [
@@ -3605,7 +3605,7 @@
       "id": 59,
       "speaker": "Georgie",
       "start": 212.12,
-      "end": 215.32,
+      "end": 215.24,
       "text": "Yeah, because sometimes I'll have an espresso after dinner.",
       "words": [
         {
@@ -3668,8 +3668,8 @@
     {
       "id": 60,
       "speaker": "Neil",
-      "start": 215.96,
-      "end": 216.28,
+      "start": 215.79,
+      "end": 216.26,
       "text": "Really?",
       "words": [
         {
@@ -3685,7 +3685,7 @@
       "id": 61,
       "speaker": "Georgie",
       "start": 216.44,
-      "end": 218.12,
+      "end": 218.01,
       "text": "Yeah, And I can still sleep.",
       "words": [
         {
@@ -3730,8 +3730,8 @@
     {
       "id": 62,
       "speaker": "Neil",
-      "start": 218.44,
-      "end": 219.16,
+      "start": 218.41,
+      "end": 219.1,
       "text": "That's crazy.",
       "words": [
         {
@@ -3753,7 +3753,7 @@
       "id": 63,
       "speaker": "Georgie",
       "start": 219.4,
-      "end": 220.4,
+      "end": 220.37,
       "text": "Yeah, Lucky me.",
       "words": [
         {
@@ -3780,8 +3780,8 @@
     {
       "id": 64,
       "speaker": "Neil",
-      "start": 220.6,
-      "end": 221.28,
+      "start": 220.48,
+      "end": 221.24,
       "text": "Lucky you.",
       "words": [
         {
@@ -3802,8 +3802,8 @@
     {
       "id": 65,
       "speaker": "Georgie",
-      "start": 222.88,
-      "end": 225.52,
+      "start": 222.74,
+      "end": 225.41,
       "text": "Neil, have you ever tried to cut down on coffee?",
       "words": [
         {
@@ -3872,8 +3872,8 @@
     {
       "id": 66,
       "speaker": "Neil",
-      "start": 226.48,
-      "end": 228.72,
+      "start": 226.42,
+      "end": 228.64,
       "text": "Cut down on, You mean have less?",
       "words": [
         {
@@ -3925,7 +3925,7 @@
       "id": 67,
       "speaker": "Neil",
       "start": 229.92,
-      "end": 236.28,
+      "end": 236.18,
       "text": "No, I haven't tried to cut down on coffee, but I've tried to cut down on caffeine.",
       "words": [
         {
@@ -4036,7 +4036,7 @@
     {
       "id": 68,
       "speaker": "Neil",
-      "start": 236.84,
+      "start": 236.81,
       "end": 237.16,
       "text": "Okay.",
       "words": [
@@ -4053,7 +4053,7 @@
       "id": 69,
       "speaker": "Neil",
       "start": 237.4,
-      "end": 245.12,
+      "end": 245.01,
       "text": "So I, for a while, I only drank decaffeinated coffee or decaf, as we call it.",
       "words": [
         {
@@ -4158,7 +4158,7 @@
     {
       "id": 70,
       "speaker": "Neil",
-      "start": 245.91,
+      "start": 245.74,
       "end": 246.11,
       "text": "Okay,",
       "words": [
@@ -4175,7 +4175,7 @@
       "id": 71,
       "speaker": "Georgie",
       "start": 246.19,
-      "end": 247.11,
+      "end": 247.0,
       "text": "And how was that?",
       "words": [
         {
@@ -4208,7 +4208,7 @@
     {
       "id": 72,
       "speaker": "Neil",
-      "start": 247.59,
+      "start": 247.5,
       "end": 252.39,
       "text": "Well, I didn't miss caffeine at the time.",
       "words": [
@@ -4266,8 +4266,8 @@
     {
       "id": 73,
       "speaker": "Neil",
-      "start": 252.47,
-      "end": 258.58,
+      "start": 252.53,
+      "end": 258.63,
       "text": "I don't think It lasted for a long time, um, but now I drink caffeine.",
       "words": [
         {
@@ -4366,7 +4366,7 @@
     {
       "id": 74,
       "speaker": "Neil",
-      "start": 258.7,
+      "start": 258.63,
       "end": 261.32,
       "text": "I don't care.",
       "words": [
@@ -4411,7 +4411,7 @@
       "id": 76,
       "speaker": "Georgie",
       "start": 266.71,
-      "end": 271.07,
+      "end": 271.02,
       "text": "Neil, it's time to recap the vocabulary we used in the conversation.",
       "words": [
         {
@@ -4492,8 +4492,8 @@
     {
       "id": 77,
       "speaker": "Georgie",
-      "start": 271.51,
-      "end": 273.27,
+      "start": 271.39,
+      "end": 273.24,
       "text": "We used the verb take.",
       "words": [
         {
@@ -4532,8 +4532,8 @@
     {
       "id": 78,
       "speaker": "Georgie",
-      "start": 273.43,
-      "end": 275.55,
+      "start": 273.34,
+      "end": 275.49,
       "text": "So, Neil, how do you take your coffee?",
       "words": [
         {
@@ -4591,7 +4591,7 @@
       "id": 79,
       "speaker": "Neil",
       "start": 275.95,
-      "end": 280.35,
+      "end": 280.26,
       "text": "I take my coffee black, and I know you take your coffee white.",
       "words": [
         {
@@ -4679,7 +4679,7 @@
       "id": 80,
       "speaker": "Georgie",
       "start": 280.87,
-      "end": 287.79,
+      "end": 287.73,
       "text": "Yes, We also heard caffeine, which is the chemical that is in coffee, which makes you feel more awake.",
       "words": [
         {
@@ -4802,8 +4802,8 @@
     {
       "id": 81,
       "speaker": "Neil",
-      "start": 288.03,
-      "end": 292.11,
+      "start": 287.89,
+      "end": 292.09,
       "text": "Yes, but you can also get decaffeinated coffee or tea.",
       "words": [
         {
@@ -4872,8 +4872,8 @@
     {
       "id": 82,
       "speaker": "Neil",
-      "start": 292.59,
-      "end": 298.47,
+      "start": 292.51,
+      "end": 298.36,
       "text": "Itmeans there's no caffeine And we usually shorten that just to decaf, decaf coffee.",
       "words": [
         {
@@ -4966,8 +4966,8 @@
     {
       "id": 83,
       "speaker": "Georgie",
-      "start": 299.15,
-      "end": 304.47,
+      "start": 299.19,
+      "end": 304.48,
       "text": "Yes, We also heard the phrasal verb cut down on, which means you have less of something.",
       "words": [
         {
@@ -5143,7 +5143,7 @@
       "id": 85,
       "speaker": "Neil",
       "start": 307.19,
-      "end": 308.23,
+      "end": 308.36,
       "text": "It means the same thing.",
       "words": [
         {
@@ -5199,7 +5199,7 @@
       "id": 87,
       "speaker": "Georgie",
       "start": 309.23,
-      "end": 314.07,
+      "end": 314.09,
       "text": "Well that is the end of this conversation about coffee in Real Easy English.",
       "words": [
         {
@@ -5292,8 +5292,8 @@
     {
       "id": 88,
       "speaker": "Neil",
-      "start": 314.39,
-      "end": 319.63,
+      "start": 314.23,
+      "end": 319.75,
       "text": "Yes, and if people want to watch more episodes of Real Easy English, what should they do?",
       "words": [
         {
@@ -5404,8 +5404,8 @@
     {
       "id": 89,
       "speaker": "Georgie",
-      "start": 319.87,
-      "end": 326.59,
+      "start": 319.75,
+      "end": 326.49,
       "text": "They should go to our website, bbclearningenglish com, where they can find a free worksheet to test what they've learned.",
       "words": [
         {
@@ -5535,7 +5535,7 @@
       "id": 90,
       "speaker": "Georgie",
       "start": 326.99,
-      "end": 327.51,
+      "end": 327.53,
       "text": "Goodbye for now.",
       "words": [
         {
@@ -5563,7 +5563,7 @@
       "id": 91,
       "speaker": "Neil",
       "start": 327.79,
-      "end": 328.23,
+      "end": 328.3,
       "text": "Goodbye.",
       "words": [
         {
@@ -5579,7 +5579,7 @@
       "id": 92,
       "speaker": "片头片尾",
       "start": 331.38,
-      "end": 333.46,
+      "end": 333.35,
       "text": "Want more easy programs?",
       "words": [
         {
@@ -5612,8 +5612,8 @@
     {
       "id": 93,
       "speaker": "片头片尾",
-      "start": 333.7,
-      "end": 336.18,
+      "start": 333.61,
+      "end": 336.14,
       "text": "There's more to explore on our website.",
       "words": [
         {
@@ -5664,8 +5664,8 @@
     {
       "id": 94,
       "speaker": "片头片尾",
-      "start": 336.62,
-      "end": 342.62,
+      "start": 336.48,
+      "end": 342.51,
       "text": "Try Easy English Conversations to practice introducing yourself and other beginner topics.",
       "words": [
         {
@@ -5746,8 +5746,8 @@
     {
       "id": 95,
       "speaker": "片头片尾",
-      "start": 343.1,
-      "end": 347.78,
+      "start": 343.02,
+      "end": 347.71,
       "text": "Or learn through our exciting challenge series like the London Letter Challenge.",
       "words": [
         {
@@ -5828,8 +5828,8 @@
     {
       "id": 96,
       "speaker": "片头片尾",
-      "start": 348.42,
-      "end": 355.86,
+      "start": 348.34,
+      "end": 355.8,
       "text": "And of course, we have video episodes of Real Easy English, so you can watch our presenters with subtitles to help you.",
       "words": [
         {

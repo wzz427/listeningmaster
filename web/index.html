@@ -7,63 +7,126 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header class="bar">
-  <div class="bar-left">
-    <strong id="title">听力练习</strong>
-    <span class="muted" id="source"></span>
+<div class="glow" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="top">
+  <div class="brand">
+    <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+    <div>
+      <h1 id="title">听力练习</h1>
+      <p id="source" class="source"></p>
+    </div>
   </div>
-  <div class="bar-right">
-    <button id="modeBtn" class="chip" title="整段听不停；精听每句停">精听</button>
-    <label class="chip"><input type="checkbox" id="autoPause" checked> 每句停一下</label>
-    <label class="chip"><input type="checkbox" id="autoSlow" checked> 重听第二遍放慢</label>
-    <button id="rateBtn" class="chip">原速</button>
-    <button id="skipIntro" class="chip">从正文开始</button>
-    <button id="checkBtn" class="chip">家长检查</button>
+  <div class="top-actions">
+    <button id="checkBtn" class="ghost-btn">家长检查</button>
+    <button id="settingsBtn" class="icon-btn" aria-label="设置" aria-expanded="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>
+    </button>
+    <div id="settings" class="settings" hidden>
+      <label class="switch-row">
+        <span>每句播完停一下<small>关着就是一直往下播</small></span>
+        <input type="checkbox" id="autoPause"><i aria-hidden="true"></i>
+      </label>
+      <label class="switch-row">
+        <span>同一句重听第二遍自动放慢<small>放到 0.8 倍，音调不变</small></span>
+        <input type="checkbox" id="autoSlow" checked><i aria-hidden="true"></i>
+      </label>
+      <button id="exportBtn" class="text-btn">导出学习记录</button>
+    </div>
   </div>
 </header>
 
-<main>
-  <div id="card" class="card">
-    <div class="card-head">
-      <span id="speaker" class="speaker">—</span>
-      <span id="counter" class="muted">第 0 句 / 共 0 句</span>
+<main class="stage">
+  <section class="now" aria-live="polite">
+    <div class="who">
+      <span id="avatar" class="avatar">·</span>
+      <div class="who-text">
+        <div id="speaker" class="speaker-name">—</div>
+        <div id="counter" class="counter">第 0 句 / 共 0 句</div>
+      </div>
+      <span id="stateTag" class="state-tag">连续播放</span>
     </div>
-    <p id="hidden-hint" class="hint">先用耳朵听。听不懂就按 <b>重听本句</b>；还不懂再按 <b>看文字</b>。</p>
-    <p id="text" class="sentence" hidden></p>
-    <p id="zh" class="zh" hidden></p>
-    <div class="again-wrap"><button id="againBtn" class="primary big" hidden>原速再听一遍这句</button></div>
-  </div>
 
-  <div id="wordbox" class="wordbox" hidden>
-    <div class="wordbox-head">
-      <span id="wordText" class="word-title"></span>
-      <span id="wordHard" class="badge" hidden>生词</span>
-      <button id="wordClose" class="chip">关闭</button>
+    <div id="card" class="card">
+      <div id="hint" class="hint">
+        <div class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <p>先用耳朵听。没听懂点 <b>重听本句</b>，还不懂再点 <b>看文字</b>。</p>
+      </div>
+      <p id="text" class="sentence" hidden></p>
+      <p id="zh" class="zh" hidden></p>
+      <div class="card-actions">
+        <button id="textBtn" class="pill">看文字 <kbd>T</kbd></button>
+        <button id="zhBtn" class="pill" hidden>看中文</button>
+        <button id="againBtn" class="pill accent" hidden>原速再听一遍</button>
+      </div>
     </div>
-    <p id="wordZh" class="word-zh"></p>
-    <div class="row">
-      <button id="wordTts" class="chip big">🔊 标准发音</button>
-      <button id="wordRaw" class="chip big">🔊 这句里的原声</button>
+  </section>
+
+  <section class="deck">
+    <div class="times">
+      <span id="timeNow">0:00</span>
+      <span id="timeTotal">0:00</span>
     </div>
-  </div>
+    <div id="timeline" class="timeline" aria-label="每一段是一句话，点一下跳到那句开头">
+      <div id="segments" class="segments"></div>
+      <div id="playhead" class="playhead"><i></i></div>
+      <div id="tip" class="tip" hidden></div>
+    </div>
+    <div id="legend" class="legend"></div>
+
+    <div class="transport">
+      <button id="prevBtn" class="t-btn" aria-label="上一句">
+        <span class="t-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5v14"/><path d="M19 5 9 12l10 7z"/></svg></span>
+        <span class="t-label">上一句</span><kbd>←</kbd>
+      </button>
+      <button id="replayBtn" class="t-btn" aria-label="重听本句">
+        <span class="t-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v5h5"/></svg></span>
+        <span class="t-label">重听本句</span><kbd>R</kbd>
+      </button>
+      <button id="playBtn" class="t-btn play" aria-label="播放">
+        <span class="t-icon">
+          <svg id="iconPlay" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          <svg id="iconPause" viewBox="0 0 24 24" aria-hidden="true" hidden><path d="M8 5v14M16 5v14"/></svg>
+        </span>
+        <span id="playLabel" class="t-label">播放</span><kbd>空格</kbd>
+      </button>
+      <button id="nextBtn" class="t-btn" aria-label="下一句">
+        <span class="t-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5v14"/><path d="M5 5l10 7-10 7z"/></svg></span>
+        <span class="t-label">下一句</span><kbd>→</kbd>
+      </button>
+    </div>
+
+    <div class="speed" role="group" aria-label="语速">
+      <span class="speed-label">语速</span>
+      <button class="speed-btn" data-rate="0.7">0.7</button>
+      <button class="speed-btn" data-rate="0.8">0.8</button>
+      <button class="speed-btn" data-rate="1">1.0</button>
+    </div>
+  </section>
 </main>
 
-<div class="progress"><div id="progressFill"></div></div>
+<div id="wordbox" class="wordbox" hidden>
+  <div class="wordbox-head">
+    <span id="wordText" class="word-title"></span>
+    <span id="wordHard" class="badge" hidden>生词</span>
+    <button id="wordClose" class="close-btn" aria-label="关闭">×</button>
+  </div>
+  <p id="wordZh" class="word-zh"></p>
+  <div class="word-actions">
+    <button id="wordTts" class="pill">标准发音</button>
+    <button id="wordRaw" class="pill accent">这句里的原声</button>
+  </div>
+</div>
 
-<footer class="controls">
-  <button id="playBtn" class="primary big">▶ 播放</button>
-  <button id="replayBtn" class="big">↺ 重听本句</button>
-  <button id="textBtn" class="big">看文字</button>
-  <button id="zhBtn" class="big" hidden>看中文</button>
-  <button id="prevBtn">← 上一句</button>
-  <button id="nextBtn">下一句 →</button>
-  <button id="exportBtn" class="ghost">导出记录</button>
-</footer>
-
-<section id="checkPanel" class="check" hidden>
-  <p class="muted">给大人用：点任意一句，直接从这句开头播，用来确认时间点准不准。</p>
+<aside id="checkPanel" class="drawer" hidden>
+  <div class="drawer-head">
+    <h2>家长检查</h2>
+    <button id="checkClose" class="close-btn" aria-label="关闭">×</button>
+  </div>
+  <p class="drawer-note">点任意一句，从这句开头播到这句结尾就停。听两件事：开头第一个字有没有被切掉；结尾有没有带进下一句的声音。</p>
   <ol id="checkList"></ol>
-</section>
+</aside>
 
 <audio id="audio" preload="auto"></audio>
 <script src="app.js"></script>

@@ -5,6 +5,10 @@
 规则 R13（specs/SPEC-001-player.md）：生成的内容要 owner 审过才给孩子用。
 
 原始返回存在 lessons/<课>/teach_raw.json，方便复查模型到底说了什么。
+
+重跑时默认复用上一版 lesson.json 里已有的翻译和词条，只给新出现的句子和词调模型。
+这样改了句子起止时间（refine_bounds.py）之后重建课程文件，不会把 owner 审过的中文换掉。
+要全部重新生成就加 --fresh。
 """
 
 import json
@@ -73,17 +77,33 @@ def normalize(token: str) -> str:
     return re.sub(r"[^a-z0-9']", "", token.lower().replace("\u2019", "'"))
 
 
-def build(lesson: str) -> None:
+def load_previous(lesson_dir: Path) -> tuple[dict[str, str], dict[str, dict]]:
+    """上一版课程文件里已有的内容：{英文句子: 中文}，以及词条。"""
+    path = lesson_dir / "lesson.json"
+    if not path.exists():
+        return {}, {}
+    old = json.loads(path.read_text(encoding="utf-8"))
+    return ({s["text"]: s["zh"] for s in old["sentences"] if s.get("zh")},
+            old.get("glossary", {}))
+
+
+def build(lesson: str, fresh: bool = False) -> None:
     lesson_dir = ROOT / "lessons" / lesson
     timeline = json.loads((lesson_dir / "timeline.json").read_text(encoding="utf-8"))
     sentences = timeline["sentences"]
     context = " ".join(s["text"] for s in sentences)
 
     forms = sorted({normalize(w["text"]) for s in sentences for w in s["words"]} - {""})
-    print(f"{len(sentences)} 句，{len(forms)} 个不同的词")
+    known_zh, glossary = ({}, {}) if fresh else load_previous(lesson_dir)
+    todo_sentences = [s for s in sentences if s["text"] not in known_zh]
+    todo_words = [w for w in forms if w not in glossary]
+    print(f"{len(sentences)} 句，{len(forms)} 个不同的词；"
+          f"要新生成的：{len(todo_sentences)} 句、{len(todo_words)} 个词")
 
-    zh_map = translate(sentences, context)
-    glossary = gloss(forms, context)
+    new_zh = translate(todo_sentences, context) if todo_sentences else {}
+    if todo_words:
+        glossary.update(gloss(todo_words, context))
+    zh_map = {s["id"]: new_zh.get(s["id"]) or known_zh.get(s["text"], "") for s in sentences}
 
     (lesson_dir / "teach_raw.json").write_text(
         json.dumps({"zh": zh_map, "glossary": glossary}, ensure_ascii=False, indent=2),
@@ -112,4 +132,5 @@ def build(lesson: str) -> None:
 
 if __name__ == "__main__":
     sys.stdout.reconfigure(encoding="utf-8")
-    build(sys.argv[1] if len(sys.argv) > 1 else "260821")
+    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    build(args[0] if args else "260821", fresh="--fresh" in sys.argv)
