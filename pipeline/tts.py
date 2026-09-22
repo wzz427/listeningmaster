@@ -8,8 +8,8 @@
 谷歌翻译的朗读就是 Python 库 gTTS 用的那个（它生成的英音文件和这里取的逐字节相同），不装那个库，直接取。
 它要翻墙才取得到，孩子那边又不许依赖境外服务（demand.md 的网络约束），所以：
 
-- 发音词典：放在仓库外、和仓库并排的 WordsAudio/，常用 2 万词一次取好，以后备课不用翻墙。
-  <pywork python> pipeline/tts.py library [--top 20000]    断了重跑会接着取，已有的不重取
+- 发音词典：放在仓库外、和仓库并排的 WordsAudio/，常用 5 万词一次取好，以后备课不用翻墙（owner 2026-09-22 同意从 2 万扩到 5 万）。
+  <pywork python> pipeline/tts.py library [--top 50000]    断了重跑会接着取，已有的不重取
   词表用 wordfreq 的常见程度排名（综合字幕、书、网页、维基百科），收的是实际出现的形式，finished、cups 也算。
   光靠常见程度盖不住每集教的词：decaf 排第 4.5 万、phrasal 排第 9 万。
 - 每集的朗读：teach.py 建课程文件时调 build()，把这集用到的词从词典拷到 lessons/<课>/tts/（拷几百个文件，一两秒）。
@@ -181,7 +181,7 @@ if __name__ == "__main__":
     sys.path.insert(0, str(Path(__file__).resolve().parent))
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     if args[:1] == ["library"]:
-        library(int(sys.argv[sys.argv.index("--top") + 1]) if "--top" in sys.argv else 20000)
+        library(int(sys.argv[sys.argv.index("--top") + 1]) if "--top" in sys.argv else 50000)
     elif args[:1] == ["check"]:
         check_page(args[1] if len(args) > 1 else "260821")
     else:
