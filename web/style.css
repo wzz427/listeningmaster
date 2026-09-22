@@ -416,6 +416,8 @@ body.playing .t-btn.play .t-icon { animation: breathe 2.4s ease-in-out infinite;
   font-size: 18px; line-height: 1;
 }
 .word-zh { margin: 8px 0 14px; font-size: 18px; color: var(--cream); }
+.word-note { margin: -6px 0 14px; font-size: 13.5px; line-height: 1.5; color: var(--cream-2); }
+.word-note b { font: 500 16px/1.4 var(--en); color: var(--amber-2); }
 .word-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 
 /* ---------- 全文 ---------- */

@@ -13,6 +13,7 @@
 | 矢量图标切换显示没反应 | `svg.hidden = true` 对矢量图不起作用 | 用 `toggleAttribute('hidden', ...)` |
 | 挪句子边界后某句开头多出几秒音乐 | 搜索范围覆盖了两句之间的整段空隙 | 句首句末各自只在原位置附近找 |
 | 点下一句没反应，音频永远从头播 | 本地服务不支持 Range，浏览器跳不过去 | 用 `pipeline/serve.py`，别用 `python -m http.server` |
+| 单播一个词会带进前后词的碎片 | 识别给的词边界偏 0.1 秒左右，前后再多放一点就切进相邻的词 | 切口挪到词和词之间最安静的一帧，前后不多放；连读切不开的整串播（`pipeline/refine_bounds.py` 的 `refine_words`） |
 | 让大模型分段，切得很碎（6 段、每段 40 到 70 秒） | 只告诉它「每段不超过 120 秒」，它就往细里切 | 把总时长和目标段数一起告诉它，并写「段数宁少勿多」（`pipeline/teach.py` 的 `split_sections`） |
 | 在 Bash 里用 Python 脚本批量替换代码，报 `AssertionError`、要找的文字对不上 | 代码里的 `\n` 这类反斜杠转义被吃掉一层，没查清是哪一层吃的 | 要找的文字里有反斜杠时，改用 Edit 工具逐处改 |
 | 百炼报找不到文件或地址无效 | 录音文件转写模型只收公网地址，不收本地路径 | 用 `dashscope.utils.oss_utils.upload_file` 传到临时存储，并加请求头 `X-DashScope-OssResourceResolve: enable` |

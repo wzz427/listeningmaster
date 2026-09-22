@@ -21,7 +21,7 @@ const LESSON = new URLSearchParams(location.search).get('lesson') || '260821';
 const BASE = `../lessons/${LESSON}/`;
 const OUTSIDE = '片头片尾';
 const BACK_GRACE = 1.0;   // 本句才播了这么久以内按重听，视为想听上一句
-const WORD_PAD = 0.06;    // 播单词原声时前后各留一点
+const WORD_FADE = 0.015;  // 播单词原声，切口已在空隙里，收尾渐弱短一点，别吃掉词尾
 const FADE = 0.04;        // 停之前渐弱这么久（秒）
 const FADE_IN = 0.015;    // 每次开始播渐强这么久，免得跳转时「啪」一声
 const SLOW = 0.8;
@@ -184,7 +184,8 @@ function tick() {
       : (!$('text').hidden || isSectionLast()) ? cur().end : null;
     if (target !== null) {
       const remain = (target - t) / audio.playbackRate;
-      if (fadedFor !== target && remain <= FADE + 0.025) {
+      const fade = stopKind === 'word' ? WORD_FADE : FADE;
+      if (fadedFor !== target && remain <= fade + 0.025) {
         rampGain(0, remain);
         fadedFor = target;
       }
@@ -527,29 +528,46 @@ $('timeline').addEventListener('click', (e) => playOne(sentenceAt(e.clientX)));
 
 /* ---------- 单词 ---------- */
 
+/* 点词时播哪一段原声：备课时按音量切好了（pipeline/refine_bounds.py 的 refine_words）。
+ * 切口都在词和词之间的空隙里，所以前后不再多放。连读切不开的，播连着读的那一小串；
+ * 连得太长的不给，让他听整句。以前前后各多放 0.06 秒，带进了相邻词的碎片（2026-09-22 owner 听出来的）。 */
 function openWord(i, tag) {
-  const w = cur().words[i];
+  const words = cur().words;
+  const w = words[i];
   const g = lesson.glossary[w.key] || {};
   const clean = w.text.replace(/^[^A-Za-z']+|[^A-Za-z']+$/g, '');
+  const clip = w.clip === undefined ? [i, i] : w.clip;  // 旧课程文件没有 clip：只播这个词
+  const linked = !!clip && clip[0] !== clip[1];
   document.querySelectorAll('.sentence w.picked').forEach((el) => el.classList.remove('picked'));
   tag.classList.add('picked');
   $('wordText').textContent = clean;
   $('wordZh').textContent = g.zh || '（这个词没有释义）';
   $('wordHard').hidden = !g.hard;
+  $('wordRaw').hidden = !clip;
+  $('wordRaw').textContent = linked ? '听连读的原声' : '这句里的原声';
+  const note = $('wordNote');
+  note.hidden = !!clip && !linked;
+  note.textContent = clip ? '这里连着读：' : '这里和前后连着读，切不出来。点「原速再听一遍」听整句。';
+  if (linked) {
+    const b = document.createElement('b');
+    b.textContent = words.slice(clip[0], clip[1] + 1).map((x) => x.text).join(' ');
+    note.appendChild(b);
+  }
   const box = $('wordbox');
   box.hidden = false;
   const r = tag.getBoundingClientRect();
   const width = box.offsetWidth;
   box.style.left = `${Math.min(window.innerWidth - width - 16, Math.max(16, r.left + r.width / 2 - width / 2))}px`;
-  // 优先弹在词的上方，别盖住下面的中文和按钮；上方放不下再放下方
-  const above = r.top - box.offsetHeight - 14;
-  box.style.top = above > 12 ? `${above}px` : `${Math.min(window.innerHeight - box.offsetHeight - 12, r.bottom + 14)}px`;
+  // 优先弹在词的上方，别盖住下面的中文和按钮；空间紧就贴近一点，实在放不下再放下方
+  const room = r.top - box.offsetHeight;
+  box.style.top = room >= 12 ? `${room - Math.min(14, room - 4)}px`
+    : `${Math.min(window.innerHeight - box.offsetHeight - 12, r.bottom + 14)}px`;
   $('wordTts').onclick = () => speak(clean);
   $('wordRaw').onclick = () => {
     resumeAfterWord = {
       time: audio.paused ? audio.currentTime : cur().start, atEnd: atSentenceEnd, sectionEnd: atSectionEnd,
     };
-    start(Math.max(0, w.start - WORD_PAD), { stop: w.end + WORD_PAD, kind: 'word' });
+    start(words[clip[0]].start, { stop: words[clip[1]].end, kind: 'word' });
   };
   record((old) => ({ words: old.words.indexOf(w.key) < 0 ? old.words.concat(w.key) : old.words }));
 }
