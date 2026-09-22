@@ -22,7 +22,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 LESSON = "260821"
-CURRENT_DOCS = ["CLAUDE.md", "demand.md", "docs/architecture.md", "docs/workflow.md", "docs/debts.md",
+CURRENT_DOCS = ["CLAUDE.md", "demand.md", "docs/architecture.md", "docs/workflow.md", "docs/environment.md", "docs/debts.md",
                 *sorted(str(p.relative_to(ROOT)).replace("\\", "/") for p in (ROOT / "specs").glob("*.md"))]
 PATH_ROOTS = ("pipeline/", "web/", "tests/", "docs/", "specs/", "lessons/", "materials/", ".claude/")
 TOP_FILES = {"demand.md", "CLAUDE.md", "idea.txt", "start-player.bat", "api-keys.txt"}

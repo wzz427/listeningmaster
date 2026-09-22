@@ -108,5 +108,6 @@
 | 现在在哪、上一段为什么这么改 | `docs/handoff.md` |
 | 加删文件、改了文件格式、接了新的外部服务 | `docs/architecture.md`，改完跑 `tests/test_docs.py` |
 | owner 的原话需求变了 | `demand.md` |
+| 装了新包、换了工具、端口 | `docs/environment.md` |
 
 提交写做了什么和为什么；几个会话同时干活时带上文件列表。压缩上下文之前敲 `/warp`。
