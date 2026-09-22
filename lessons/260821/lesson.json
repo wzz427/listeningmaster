@@ -77,7 +77,61 @@
           "key": "english"
         }
       ],
-      "zh": "大家好，欢迎来到 Real Easy English。"
+      "zh": "大家好，欢迎来到 Real Easy English。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Hello",
+          "pos": "int.",
+          "ipa": "/həˈləʊ/",
+          "zh": "你好",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "and",
+          "pos": "conj.",
+          "ipa": "/ænd/",
+          "zh": "和",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "welcome",
+          "pos": "v.",
+          "ipa": "/ˈwelkəm/",
+          "zh": "欢迎",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "to",
+          "pos": "prep.",
+          "ipa": "/tə/",
+          "zh": "到",
+          "more": true
+        },
+        {
+          "words": [
+            4,
+            5,
+            6
+          ],
+          "text": "Real Easy English",
+          "pos": "名字",
+          "ipa": "/ˌriːəl ˈiːzi ˈɪŋɡlɪʃ/",
+          "zh": "节目名",
+          "more": false
+        }
+      ]
     },
     {
       "id": 1,
@@ -117,7 +171,59 @@
           "key": "neil"
         }
       ],
-      "zh": "我是 Georgie，我是 Neil。"
+      "zh": "我是 Georgie，我是 Neil。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "I'm",
+          "pos": "缩写",
+          "ipa": "/aɪm/",
+          "zh": "= I am 我是",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "Georgie",
+          "pos": "名字",
+          "ipa": "/ˈdʒɔːdʒi/",
+          "zh": "人名（主持人）",
+          "more": false
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "and",
+          "pos": "conj.",
+          "ipa": "/ənd/",
+          "zh": "和",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "I'm",
+          "pos": "缩写",
+          "ipa": "/aɪm/",
+          "zh": "= I am 我是",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "Neil",
+          "pos": "名字",
+          "ipa": "/niːl/",
+          "zh": "人名（主持人）",
+          "more": false
+        }
+      ]
     },
     {
       "id": 2,
@@ -313,7 +419,301 @@
           "key": "learn"
         }
       ],
-      "zh": "你可以在我们的网站 bbc learningenglish com 上找到这档播客的视频版，那里还能下载免费练习纸，也有字幕帮你学习。"
+      "zh": "你可以在我们的网站 bbc learningenglish com 上找到这档播客的视频版，那里还能下载免费练习纸，也有字幕帮你学习。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "You",
+          "pos": "pron.",
+          "ipa": "/juː/",
+          "zh": "你",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "can",
+          "pos": "aux.",
+          "ipa": "/kæn/",
+          "zh": "能，可以",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "find",
+          "pos": "v.",
+          "ipa": "/faɪnd/",
+          "zh": "找到，发现",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "a",
+          "pos": "art.",
+          "ipa": "/ə/",
+          "zh": "一个",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "video",
+          "pos": "n.",
+          "ipa": "/ˈvɪdiəʊ/",
+          "zh": "视频",
+          "more": true
+        },
+        {
+          "words": [
+            5
+          ],
+          "text": "version",
+          "pos": "n.",
+          "ipa": "/ˈvɜːʃn/",
+          "zh": "版本",
+          "more": true
+        },
+        {
+          "words": [
+            6
+          ],
+          "text": "of",
+          "pos": "prep.",
+          "ipa": "/əv/",
+          "zh": "……的",
+          "more": true
+        },
+        {
+          "words": [
+            7
+          ],
+          "text": "this",
+          "pos": "pron.",
+          "ipa": "/ðɪs/",
+          "zh": "这个",
+          "more": true
+        },
+        {
+          "words": [
+            8
+          ],
+          "text": "podcast",
+          "pos": "n.",
+          "ipa": "/ˈpɒdkɑːst/",
+          "zh": "播客",
+          "more": true
+        },
+        {
+          "words": [
+            9
+          ],
+          "text": "on",
+          "pos": "prep.",
+          "ipa": "/ɒn/",
+          "zh": "在……上",
+          "more": true
+        },
+        {
+          "words": [
+            10
+          ],
+          "text": "our",
+          "pos": "pron.",
+          "ipa": "/ɑː(r)/",
+          "zh": "我们的",
+          "more": true
+        },
+        {
+          "words": [
+            11
+          ],
+          "text": "website",
+          "pos": "n.",
+          "ipa": "/ˈwebsaɪt/",
+          "zh": "网站",
+          "more": true
+        },
+        {
+          "words": [
+            12
+          ],
+          "text": "at",
+          "pos": "prep.",
+          "ipa": "/æt/",
+          "zh": "在（网址）",
+          "more": true
+        },
+        {
+          "words": [
+            13,
+            14,
+            15
+          ],
+          "text": "bbc learningenglish com",
+          "pos": "名字",
+          "ipa": "/ˌbiː biː ˈsiː ˈlɜːnɪŋ ˈɪŋɡlɪʃ ˌkɒm/",
+          "zh": "网站名",
+          "more": false
+        },
+        {
+          "words": [
+            16
+          ],
+          "text": "where",
+          "pos": "adv.",
+          "ipa": "/weə(r)/",
+          "zh": "在那里",
+          "more": true
+        },
+        {
+          "words": [
+            17
+          ],
+          "text": "you",
+          "pos": "pron.",
+          "ipa": "/juː/",
+          "zh": "你",
+          "more": true
+        },
+        {
+          "words": [
+            18
+          ],
+          "text": "can",
+          "pos": "aux.",
+          "ipa": "/kæn/",
+          "zh": "能，可以",
+          "more": true
+        },
+        {
+          "words": [
+            19
+          ],
+          "text": "find",
+          "pos": "v.",
+          "ipa": "/faɪnd/",
+          "zh": "找到，发现",
+          "more": true
+        },
+        {
+          "words": [
+            20
+          ],
+          "text": "a",
+          "pos": "art.",
+          "ipa": "/ə/",
+          "zh": "一个",
+          "more": true
+        },
+        {
+          "words": [
+            21
+          ],
+          "text": "free",
+          "pos": "adj.",
+          "ipa": "/friː/",
+          "zh": "免费的",
+          "more": true
+        },
+        {
+          "words": [
+            22
+          ],
+          "text": "worksheet",
+          "pos": "n.",
+          "ipa": "/ˈwɜːkʃiːt/",
+          "zh": "练习纸",
+          "more": true
+        },
+        {
+          "words": [
+            23
+          ],
+          "text": "to",
+          "pos": "不定式",
+          "ipa": "/tə/",
+          "zh": "不用翻译",
+          "more": true
+        },
+        {
+          "words": [
+            24
+          ],
+          "text": "download",
+          "pos": "v.",
+          "ipa": "/ˌdaʊnˈləʊd/",
+          "zh": "下载",
+          "more": true
+        },
+        {
+          "words": [
+            25
+          ],
+          "text": "and",
+          "pos": "conj.",
+          "ipa": "/ənd/",
+          "zh": "和",
+          "more": true
+        },
+        {
+          "words": [
+            26
+          ],
+          "text": "subtitles",
+          "pos": "n.",
+          "ipa": "/ˈsʌbtaɪtlz/",
+          "zh": "字幕",
+          "more": true
+        },
+        {
+          "words": [
+            27
+          ],
+          "text": "to",
+          "pos": "不定式",
+          "ipa": "/tə/",
+          "zh": "不用翻译",
+          "more": true
+        },
+        {
+          "words": [
+            28
+          ],
+          "text": "help",
+          "pos": "v.",
+          "ipa": "/help/",
+          "zh": "帮助",
+          "more": true
+        },
+        {
+          "words": [
+            29
+          ],
+          "text": "you",
+          "pos": "pron.",
+          "ipa": "/juː/",
+          "zh": "你",
+          "more": true
+        },
+        {
+          "words": [
+            30
+          ],
+          "text": "learn",
+          "pos": "v.",
+          "ipa": "/lɜːn/",
+          "zh": "学习",
+          "more": true
+        }
+      ]
     },
     {
       "id": 3,
@@ -335,7 +735,29 @@
           "key": "neil"
         }
       ],
-      "zh": "嗨，Neil。"
+      "zh": "嗨，Neil。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Hi",
+          "pos": "int.",
+          "ipa": "/haɪ/",
+          "zh": "嗨；你好",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "Neil",
+          "pos": "名字",
+          "ipa": "/niːl/",
+          "zh": "人名（主持人）",
+          "more": false
+        }
+      ]
     },
     {
       "id": 4,
@@ -363,7 +785,21 @@
           "key": "you"
         }
       ],
-      "zh": "你好吗？"
+      "zh": "你好吗？",
+      "notes": [
+        {
+          "words": [
+            0,
+            1,
+            2
+          ],
+          "text": "How are you?",
+          "pos": "词组",
+          "ipa": "/haʊ ɑː juː/",
+          "zh": "你好吗？",
+          "more": true
+        }
+      ]
     },
     {
       "id": 5,
@@ -409,7 +845,60 @@
           "key": "georgie"
         }
       ],
-      "zh": "我很好，谢谢你，Georgie。"
+      "zh": "我很好，谢谢你，Georgie。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "I'm",
+          "pos": "缩写",
+          "ipa": "/aɪm/",
+          "zh": "= I am 我是",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "very",
+          "pos": "adv.",
+          "ipa": "/ˈveri/",
+          "zh": "很",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "well",
+          "pos": "adj.",
+          "ipa": "/wel/",
+          "zh": "健康的",
+          "more": true
+        },
+        {
+          "words": [
+            3,
+            4
+          ],
+          "text": "thank you",
+          "pos": "词组",
+          "ipa": "/ˈθæŋk juː/",
+          "zh": "谢谢你",
+          "more": true
+        },
+        {
+          "words": [
+            5
+          ],
+          "text": "Georgie",
+          "pos": "名字",
+          "ipa": "/ˈdʒɔːdʒi/",
+          "zh": "人名（主持人）",
+          "more": false
+        }
+      ]
     },
     {
       "id": 6,
@@ -449,7 +938,59 @@
           "key": "coffee"
         }
       ],
-      "zh": "你咖啡喝得开心吗？"
+      "zh": "你咖啡喝得开心吗？",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Are",
+          "pos": "aux.",
+          "ipa": "/ɑː(r)/",
+          "zh": "（构成疑问句）",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "you",
+          "pos": "pron.",
+          "ipa": "/juː/",
+          "zh": "你",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "enjoying",
+          "pos": "v.",
+          "ipa": "/ɪnˈdʒɔɪɪŋ/",
+          "zh": "享受",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "your",
+          "pos": "pron.",
+          "ipa": "/jɔː(r)/",
+          "zh": "你的",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "coffee",
+          "pos": "n.",
+          "ipa": "/ˈkɒfi/",
+          "zh": "咖啡",
+          "more": true
+        }
+      ]
     },
     {
       "id": 7,
@@ -513,7 +1054,90 @@
           "key": "now"
         }
       ],
-      "zh": "挺开心的，不过现在有点凉了。"
+      "zh": "挺开心的，不过现在有点凉了。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "I",
+          "pos": "pron.",
+          "ipa": "/aɪ/",
+          "zh": "我",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "am",
+          "pos": "v.",
+          "ipa": "/æm/",
+          "zh": "是（表示同意）",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "but",
+          "pos": "conj.",
+          "ipa": "/bʌt/",
+          "zh": "但是",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "it's",
+          "pos": "缩写",
+          "ipa": "/ɪts/",
+          "zh": "= it has 它已经",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "got",
+          "pos": "v.",
+          "ipa": "/ɡɒt/",
+          "zh": "变得",
+          "more": true
+        },
+        {
+          "words": [
+            5,
+            6
+          ],
+          "text": "a bit",
+          "pos": "词组",
+          "ipa": "/ə bɪt/",
+          "zh": "有点儿",
+          "more": true
+        },
+        {
+          "words": [
+            7
+          ],
+          "text": "cool",
+          "pos": "adj.",
+          "ipa": "/kuːl/",
+          "zh": "凉的",
+          "more": true
+        },
+        {
+          "words": [
+            8
+          ],
+          "text": "now",
+          "pos": "adv.",
+          "ipa": "/naʊ/",
+          "zh": "现在",
+          "more": true
+        }
+      ]
     },
     {
       "id": 8,
@@ -571,7 +1195,80 @@
           "key": "well"
         }
       ],
-      "zh": "我更喜欢喝热咖啡，不过唉，算了。"
+      "zh": "我更喜欢喝热咖啡，不过唉，算了。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "I",
+          "pos": "pron.",
+          "ipa": "/aɪ/",
+          "zh": "我",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "prefer",
+          "pos": "v.",
+          "ipa": "/prɪˈfɜː(r)/",
+          "zh": "更喜欢",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "my",
+          "pos": "pron.",
+          "ipa": "/maɪ/",
+          "zh": "我的",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "coffee",
+          "pos": "n.",
+          "ipa": "/ˈkɒfi/",
+          "zh": "咖啡",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "hot",
+          "pos": "adj.",
+          "ipa": "/hɒt/",
+          "zh": "热的",
+          "more": true
+        },
+        {
+          "words": [
+            5
+          ],
+          "text": "but",
+          "pos": "conj.",
+          "ipa": "/bʌt/",
+          "zh": "但是",
+          "more": true
+        },
+        {
+          "words": [
+            6,
+            7
+          ],
+          "text": "oh well",
+          "pos": "词组",
+          "ipa": "/ˌəʊ ˈwel/",
+          "zh": "唉，算了",
+          "more": true
+        }
+      ]
     },
     {
       "id": 9,
@@ -605,7 +1302,49 @@
           "key": "yours"
         }
       ],
-      "zh": "你那杯喝得开心吗？"
+      "zh": "你那杯喝得开心吗？",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Are",
+          "pos": "aux.",
+          "ipa": "/ɑː(r)/",
+          "zh": "（构成疑问句）",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "you",
+          "pos": "pron.",
+          "ipa": "/juː/",
+          "zh": "你",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "enjoying",
+          "pos": "v.",
+          "ipa": "/ɪnˈdʒɔɪɪŋ/",
+          "zh": "享受，喜欢",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "yours",
+          "pos": "pron.",
+          "ipa": "/jɔːz/",
+          "zh": "你的（咖啡）",
+          "more": true
+        }
+      ]
     },
     {
       "id": 10,
@@ -633,7 +1372,39 @@
           "key": "mine"
         }
       ],
-      "zh": "我已经喝完了。"
+      "zh": "我已经喝完了。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "I've",
+          "pos": "缩写",
+          "ipa": "/aɪv/",
+          "zh": "= I have 我已经",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "finished",
+          "pos": "v.",
+          "ipa": "/ˈfɪnɪʃt/",
+          "zh": "喝完；吃完",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "mine",
+          "pos": "pron.",
+          "ipa": "/maɪn/",
+          "zh": "我的（那份）",
+          "more": true
+        }
+      ]
     },
     {
       "id": 11,
@@ -667,7 +1438,49 @@
           "key": "shame"
         }
       ],
-      "zh": "哦，那太可惜了。"
+      "zh": "哦，那太可惜了。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Oh",
+          "pos": "int.",
+          "ipa": "/əʊ/",
+          "zh": "哦（表示同情）",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "that's",
+          "pos": "缩写",
+          "ipa": "/ðæts/",
+          "zh": "= that is 那真是",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "a",
+          "pos": "art.",
+          "ipa": "/ə/",
+          "zh": "一（个）",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "shame",
+          "pos": "n.",
+          "ipa": "/ʃeɪm/",
+          "zh": "遗憾的事",
+          "more": true
+        }
+      ]
     },
     {
       "id": 12,
@@ -773,7 +1586,160 @@
           "key": "it"
         }
       ],
-      "zh": "每天第二杯咖啡喝完的时候，我就有点难过，因为这就没了。"
+      "zh": "每天第二杯咖啡喝完的时候，我就有点难过，因为这就没了。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "It's",
+          "pos": "缩写",
+          "ipa": "/ɪts/",
+          "zh": "= It is 它是",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "a",
+          "pos": "art.",
+          "ipa": "/ə/",
+          "zh": "一个",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "sad",
+          "pos": "adj.",
+          "ipa": "/sæd/",
+          "zh": "令人难过的",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "moment",
+          "pos": "n.",
+          "ipa": "/ˈməʊmənt/",
+          "zh": "时刻",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "when",
+          "pos": "conj.",
+          "ipa": "/wen/",
+          "zh": "当……时",
+          "more": true
+        },
+        {
+          "words": [
+            5
+          ],
+          "text": "I've",
+          "pos": "缩写",
+          "ipa": "/aɪv/",
+          "zh": "= I have 我已经",
+          "more": true
+        },
+        {
+          "words": [
+            6
+          ],
+          "text": "finished",
+          "pos": "v.",
+          "ipa": "/ˈfɪnɪʃt/",
+          "zh": "喝完",
+          "more": true
+        },
+        {
+          "words": [
+            7
+          ],
+          "text": "my",
+          "pos": "pron.",
+          "ipa": "/maɪ/",
+          "zh": "我的",
+          "more": true
+        },
+        {
+          "words": [
+            8
+          ],
+          "text": "second",
+          "pos": "num.",
+          "ipa": "/ˈsekənd/",
+          "zh": "第二",
+          "more": true
+        },
+        {
+          "words": [
+            9
+          ],
+          "text": "coffee",
+          "pos": "n.",
+          "ipa": "/ˈkɒfi/",
+          "zh": "咖啡",
+          "more": true
+        },
+        {
+          "words": [
+            10
+          ],
+          "text": "of",
+          "pos": "prep.",
+          "ipa": "/əv/",
+          "zh": "……的",
+          "more": true
+        },
+        {
+          "words": [
+            11
+          ],
+          "text": "the",
+          "pos": "art.",
+          "ipa": "/ðə/",
+          "zh": "这（个）",
+          "more": true
+        },
+        {
+          "words": [
+            12
+          ],
+          "text": "day",
+          "pos": "n.",
+          "ipa": "/deɪ/",
+          "zh": "一天",
+          "more": true
+        },
+        {
+          "words": [
+            13
+          ],
+          "text": "because",
+          "pos": "conj.",
+          "ipa": "/bɪˈkɒz/",
+          "zh": "因为",
+          "more": true
+        },
+        {
+          "words": [
+            14,
+            15
+          ],
+          "text": "that's it",
+          "pos": "词组",
+          "ipa": "/ðæts ɪt/",
+          "zh": "就这样了",
+          "more": true
+        }
+      ]
     },
     {
       "id": 13,
@@ -819,7 +1785,69 @@
           "key": "two"
         }
       ],
-      "zh": "我一天不会喝超过两杯。"
+      "zh": "我一天不会喝超过两杯。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "I",
+          "pos": "pron.",
+          "ipa": "/aɪ/",
+          "zh": "我",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "don't",
+          "pos": "缩写",
+          "ipa": "/dəʊnt/",
+          "zh": "= do not 不",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "have",
+          "pos": "v.",
+          "ipa": "/hæv/",
+          "zh": "喝",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "more",
+          "pos": "adj.",
+          "ipa": "/mɔː(r)/",
+          "zh": "更多的",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "than",
+          "pos": "prep.",
+          "ipa": "/ðæn/",
+          "zh": "比",
+          "more": true
+        },
+        {
+          "words": [
+            5
+          ],
+          "text": "two",
+          "pos": "num.",
+          "ipa": "/tuː/",
+          "zh": "两（杯）",
+          "more": true
+        }
+      ]
     },
     {
       "id": 14,
@@ -835,7 +1863,19 @@
           "key": "so"
         }
       ],
-      "zh": "那么，"
+      "zh": "那么，",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "So",
+          "pos": "conj.",
+          "ipa": "/səʊ/",
+          "zh": "那么",
+          "more": true
+        }
+      ]
     },
     {
       "id": 15,
@@ -875,7 +1915,59 @@
           "key": "coffee"
         }
       ],
-      "zh": "Georgie，我们在聊咖啡。"
+      "zh": "Georgie，我们在聊咖啡。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Georgie",
+          "pos": "名字",
+          "ipa": "/ˈdʒɔːdʒi/",
+          "zh": "人名（主持人）",
+          "more": false
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "we're",
+          "pos": "缩写",
+          "ipa": "/wɪə(r)/",
+          "zh": "= we are 我们正在",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "talking",
+          "pos": "v.",
+          "ipa": "/ˈtɔːkɪŋ/",
+          "zh": "谈论",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "about",
+          "pos": "prep.",
+          "ipa": "/əˈbaʊt/",
+          "zh": "关于",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "coffee",
+          "pos": "n.",
+          "ipa": "/ˈkɒfi/",
+          "zh": "咖啡",
+          "more": true
+        }
+      ]
     },
     {
       "id": 16,
@@ -1011,7 +2103,183 @@
           "key": "day"
         }
       ],
-      "zh": "咖啡你喝多少，或者说喝几杯——要是按一杯一杯算，你一天喝几杯？"
+      "zh": "咖啡你喝多少，或者说喝几杯——要是按一杯一杯算，你一天喝几杯？",
+      "notes": [
+        {
+          "words": [
+            0,
+            1
+          ],
+          "text": "How much",
+          "pos": "词组",
+          "ipa": "/haʊ mʌtʃ/",
+          "zh": "多少（后接不可数名词）",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "coffee",
+          "pos": "n.",
+          "ipa": "/ˈkɒfi/",
+          "zh": "咖啡",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "or",
+          "pos": "conj.",
+          "ipa": "/ɔː(r)/",
+          "zh": "或者",
+          "more": true
+        },
+        {
+          "words": [
+            4,
+            5
+          ],
+          "text": "how many",
+          "pos": "词组",
+          "ipa": "/haʊ ˈmeni/",
+          "zh": "多少（后接可数名词复数）",
+          "more": true
+        },
+        {
+          "words": [
+            6
+          ],
+          "text": "coffees",
+          "pos": "n.",
+          "ipa": "/ˈkɒfiz/",
+          "zh": "杯咖啡",
+          "more": true
+        },
+        {
+          "words": [
+            7
+          ],
+          "text": "if",
+          "pos": "conj.",
+          "ipa": "/ɪf/",
+          "zh": "如果",
+          "more": true
+        },
+        {
+          "words": [
+            8,
+            9
+          ],
+          "text": "we're talking",
+          "pos": "词组",
+          "ipa": "/wɪə ˈtɔːkɪŋ/",
+          "zh": "我们在谈论",
+          "more": true
+        },
+        {
+          "words": [
+            10
+          ],
+          "text": "about",
+          "pos": "prep.",
+          "ipa": "/əˈbaʊt/",
+          "zh": "关于",
+          "more": true
+        },
+        {
+          "words": [
+            11
+          ],
+          "text": "cups",
+          "pos": "n.",
+          "ipa": "/kʌps/",
+          "zh": "杯",
+          "more": true
+        },
+        {
+          "words": [
+            12
+          ],
+          "text": "of",
+          "pos": "prep.",
+          "ipa": "/əv/",
+          "zh": "……的",
+          "more": true
+        },
+        {
+          "words": [
+            13
+          ],
+          "text": "coffee",
+          "pos": "n.",
+          "ipa": "/ˈkɒfi/",
+          "zh": "咖啡",
+          "more": true
+        },
+        {
+          "words": [
+            14,
+            15
+          ],
+          "text": "how many",
+          "pos": "词组",
+          "ipa": "/haʊ ˈmeni/",
+          "zh": "多少（后接可数名词复数）",
+          "more": true
+        },
+        {
+          "words": [
+            16
+          ],
+          "text": "do",
+          "pos": "aux.",
+          "ipa": "/duː/",
+          "zh": "（构成疑问句）",
+          "more": true
+        },
+        {
+          "words": [
+            17
+          ],
+          "text": "you",
+          "pos": "pron.",
+          "ipa": "/juː/",
+          "zh": "你",
+          "more": true
+        },
+        {
+          "words": [
+            18
+          ],
+          "text": "have",
+          "pos": "v.",
+          "ipa": "/hæv/",
+          "zh": "喝",
+          "more": true
+        },
+        {
+          "words": [
+            19
+          ],
+          "text": "a",
+          "pos": "art.",
+          "ipa": "/ə/",
+          "zh": "一（个）",
+          "more": true
+        },
+        {
+          "words": [
+            20
+          ],
+          "text": "day",
+          "pos": "n.",
+          "ipa": "/deɪ/",
+          "zh": "天",
+          "more": true
+        }
+      ]
     },
     {
       "id": 17,
@@ -1153,7 +2421,220 @@
           "key": "we"
         }
       ],
-      "zh": "我一般喝两杯，我知道你也一样，因为我们俩都是在办公室喝的，对吧？"
+      "zh": "我一般喝两杯，我知道你也一样，因为我们俩都是在办公室喝的，对吧？",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "I",
+          "pos": "pron.",
+          "ipa": "/aɪ/",
+          "zh": "我",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "usually",
+          "pos": "adv.",
+          "ipa": "/ˈjuːʒuəli/",
+          "zh": "通常",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "have",
+          "pos": "v.",
+          "ipa": "/hæv/",
+          "zh": "喝",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "two",
+          "pos": "num.",
+          "ipa": "/tuː/",
+          "zh": "两（杯）",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "and",
+          "pos": "conj.",
+          "ipa": "/ænd/",
+          "zh": "和",
+          "more": true
+        },
+        {
+          "words": [
+            5
+          ],
+          "text": "I",
+          "pos": "pron.",
+          "ipa": "/aɪ/",
+          "zh": "我",
+          "more": true
+        },
+        {
+          "words": [
+            6
+          ],
+          "text": "know",
+          "pos": "v.",
+          "ipa": "/nəʊ/",
+          "zh": "知道",
+          "more": true
+        },
+        {
+          "words": [
+            7
+          ],
+          "text": "that",
+          "pos": "conj.",
+          "ipa": "/ðæt/",
+          "zh": "（引导从句）",
+          "more": true
+        },
+        {
+          "words": [
+            8
+          ],
+          "text": "you",
+          "pos": "pron.",
+          "ipa": "/juː/",
+          "zh": "你",
+          "more": true
+        },
+        {
+          "words": [
+            9
+          ],
+          "text": "do",
+          "pos": "aux.",
+          "ipa": "/duː/",
+          "zh": "（代替动词）",
+          "more": true
+        },
+        {
+          "words": [
+            10,
+            11
+          ],
+          "text": "as well",
+          "pos": "词组",
+          "ipa": "/æz wel/",
+          "zh": "也",
+          "more": true
+        },
+        {
+          "words": [
+            12
+          ],
+          "text": "because",
+          "pos": "conj.",
+          "ipa": "/bɪˈkɒz/",
+          "zh": "因为",
+          "more": true
+        },
+        {
+          "words": [
+            13
+          ],
+          "text": "we",
+          "pos": "pron.",
+          "ipa": "/wiː/",
+          "zh": "我们",
+          "more": true
+        },
+        {
+          "words": [
+            14
+          ],
+          "text": "drink",
+          "pos": "v.",
+          "ipa": "/drɪŋk/",
+          "zh": "喝",
+          "more": true
+        },
+        {
+          "words": [
+            15
+          ],
+          "text": "them",
+          "pos": "pron.",
+          "ipa": "/ðem/",
+          "zh": "它们",
+          "more": true
+        },
+        {
+          "words": [
+            16
+          ],
+          "text": "both",
+          "pos": "pron.",
+          "ipa": "/bəʊθ/",
+          "zh": "两个都",
+          "more": true
+        },
+        {
+          "words": [
+            17
+          ],
+          "text": "in",
+          "pos": "prep.",
+          "ipa": "/ɪn/",
+          "zh": "在……里",
+          "more": true
+        },
+        {
+          "words": [
+            18
+          ],
+          "text": "the",
+          "pos": "art.",
+          "ipa": "/ðə/",
+          "zh": "这（个）",
+          "more": true
+        },
+        {
+          "words": [
+            19
+          ],
+          "text": "office",
+          "pos": "n.",
+          "ipa": "/ˈɒfɪs/",
+          "zh": "办公室",
+          "more": true
+        },
+        {
+          "words": [
+            20
+          ],
+          "text": "don't",
+          "pos": "缩写",
+          "ipa": "/dəʊnt/",
+          "zh": "= do not 不",
+          "more": true
+        },
+        {
+          "words": [
+            21
+          ],
+          "text": "we",
+          "pos": "pron.",
+          "ipa": "/wiː/",
+          "zh": "我们",
+          "more": true
+        }
+      ]
     },
     {
       "id": 18,
@@ -1307,7 +2788,249 @@
           "key": "alertness"
         }
       ],
-      "zh": "我们早上喝一杯，下午一般再喝一杯，因为那时候需要恢复点精力，清醒一下。"
+      "zh": "我们早上喝一杯，下午一般再喝一杯，因为那时候需要恢复点精力，清醒一下。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "We",
+          "pos": "pron.",
+          "ipa": "/wiː/",
+          "zh": "我们",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "have",
+          "pos": "v.",
+          "ipa": "/hæv/",
+          "zh": "喝",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "one",
+          "pos": "num.",
+          "ipa": "/wʌn/",
+          "zh": "一",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "cup",
+          "pos": "n.",
+          "ipa": "/kʌp/",
+          "zh": "杯",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "of",
+          "pos": "prep.",
+          "ipa": "/əv/",
+          "zh": "的",
+          "more": true
+        },
+        {
+          "words": [
+            5
+          ],
+          "text": "coffee",
+          "pos": "n.",
+          "ipa": "/ˈkɒfi/",
+          "zh": "咖啡",
+          "more": true
+        },
+        {
+          "words": [
+            6
+          ],
+          "text": "in",
+          "pos": "prep.",
+          "ipa": "/ɪn/",
+          "zh": "在",
+          "more": true
+        },
+        {
+          "words": [
+            7
+          ],
+          "text": "the",
+          "pos": "art.",
+          "ipa": "/ðə/",
+          "zh": "这",
+          "more": true
+        },
+        {
+          "words": [
+            8
+          ],
+          "text": "morning",
+          "pos": "n.",
+          "ipa": "/ˈmɔːnɪŋ/",
+          "zh": "早晨",
+          "more": true
+        },
+        {
+          "words": [
+            9
+          ],
+          "text": "and",
+          "pos": "conj.",
+          "ipa": "/ænd/",
+          "zh": "和",
+          "more": true
+        },
+        {
+          "words": [
+            10
+          ],
+          "text": "one",
+          "pos": "num.",
+          "ipa": "/wʌn/",
+          "zh": "一",
+          "more": true
+        },
+        {
+          "words": [
+            11
+          ],
+          "text": "usually",
+          "pos": "adv.",
+          "ipa": "/ˈjuːʒuəli/",
+          "zh": "通常",
+          "more": true
+        },
+        {
+          "words": [
+            12
+          ],
+          "text": "in",
+          "pos": "prep.",
+          "ipa": "/ɪn/",
+          "zh": "在",
+          "more": true
+        },
+        {
+          "words": [
+            13
+          ],
+          "text": "the",
+          "pos": "art.",
+          "ipa": "/ðə/",
+          "zh": "这",
+          "more": true
+        },
+        {
+          "words": [
+            14
+          ],
+          "text": "afternoon",
+          "pos": "n.",
+          "ipa": "/ˌɑːftəˈnuːn/",
+          "zh": "下午",
+          "more": true
+        },
+        {
+          "words": [
+            15
+          ],
+          "text": "when",
+          "pos": "conj.",
+          "ipa": "/wen/",
+          "zh": "当",
+          "more": true
+        },
+        {
+          "words": [
+            16
+          ],
+          "text": "we",
+          "pos": "pron.",
+          "ipa": "/wiː/",
+          "zh": "我们",
+          "more": true
+        },
+        {
+          "words": [
+            17
+          ],
+          "text": "need",
+          "pos": "v.",
+          "ipa": "/niːd/",
+          "zh": "需要",
+          "more": true
+        },
+        {
+          "words": [
+            18
+          ],
+          "text": "to",
+          "pos": "不定式",
+          "ipa": "/tuː/",
+          "zh": "不用翻译",
+          "more": true
+        },
+        {
+          "words": [
+            19
+          ],
+          "text": "regain",
+          "pos": "v.",
+          "ipa": "/rɪˈɡeɪn/",
+          "zh": "恢复",
+          "more": true
+        },
+        {
+          "words": [
+            20
+          ],
+          "text": "some",
+          "pos": "pron.",
+          "ipa": "/sʌm/",
+          "zh": "一些",
+          "more": true
+        },
+        {
+          "words": [
+            21
+          ],
+          "text": "energy",
+          "pos": "n.",
+          "ipa": "/ˈenədʒi/",
+          "zh": "精力",
+          "more": true
+        },
+        {
+          "words": [
+            22
+          ],
+          "text": "and",
+          "pos": "conj.",
+          "ipa": "/ænd/",
+          "zh": "和",
+          "more": true
+        },
+        {
+          "words": [
+            23
+          ],
+          "text": "alertness",
+          "pos": "n.",
+          "ipa": "/əˈlɜːtnəs/",
+          "zh": "警觉",
+          "more": true
+        }
+      ]
     },
     {
       "id": 19,
@@ -1323,7 +3046,19 @@
           "key": "yeah"
         }
       ],
-      "zh": "是啊。"
+      "zh": "是啊。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Yeah",
+          "pos": "int.",
+          "ipa": "/jeə/",
+          "zh": "是的",
+          "more": true
+        }
+      ]
     },
     {
       "id": 20,
@@ -1495,7 +3230,234 @@
           "key": "coffee"
         }
       ],
-      "zh": "所以大家都知道，因为我们在 BBC Learning English 会互相给对方做咖啡，所以我们知道彼此咖啡要怎么 take，也就是怎么喝、加什么。"
+      "zh": "所以大家都知道，因为我们在 BBC Learning English 会互相给对方做咖啡，所以我们知道彼此咖啡要怎么 take，也就是怎么喝、加什么。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "And",
+          "pos": "conj.",
+          "ipa": "/ænd/",
+          "zh": "而且",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "so",
+          "pos": "adv.",
+          "ipa": "/səʊ/",
+          "zh": "所以",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "we",
+          "pos": "pron.",
+          "ipa": "/wiː/",
+          "zh": "我们",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "all",
+          "pos": "adv.",
+          "ipa": "/ɔːl/",
+          "zh": "都",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "know",
+          "pos": "v.",
+          "ipa": "/nəʊ/",
+          "zh": "知道",
+          "more": true
+        },
+        {
+          "words": [
+            5
+          ],
+          "text": "because",
+          "pos": "conj.",
+          "ipa": "/bɪˈkɒz/",
+          "zh": "因为",
+          "more": true
+        },
+        {
+          "words": [
+            6
+          ],
+          "text": "we",
+          "pos": "pron.",
+          "ipa": "/wiː/",
+          "zh": "我们",
+          "more": true
+        },
+        {
+          "words": [
+            7
+          ],
+          "text": "make",
+          "pos": "v.",
+          "ipa": "/meɪk/",
+          "zh": "做",
+          "more": true
+        },
+        {
+          "words": [
+            8,
+            9
+          ],
+          "text": "each other",
+          "pos": "词组",
+          "ipa": "/ˌiːtʃ ˈʌðə(r)/",
+          "zh": "互相",
+          "more": true
+        },
+        {
+          "words": [
+            10,
+            11,
+            12,
+            13
+          ],
+          "text": "At BBC Learning English",
+          "pos": "名字",
+          "ipa": "/ət ˌbiː biː ˈsiː ˈlɜːnɪŋ ˈɪŋɡlɪʃ/",
+          "zh": "节目名",
+          "more": false
+        },
+        {
+          "words": [
+            14
+          ],
+          "text": "we",
+          "pos": "pron.",
+          "ipa": "/wiː/",
+          "zh": "我们",
+          "more": true
+        },
+        {
+          "words": [
+            15
+          ],
+          "text": "make",
+          "pos": "v.",
+          "ipa": "/meɪk/",
+          "zh": "做",
+          "more": true
+        },
+        {
+          "words": [
+            16,
+            17
+          ],
+          "text": "each other",
+          "pos": "词组",
+          "ipa": "/ˌiːtʃ ˈʌðə(r)/",
+          "zh": "互相",
+          "more": true
+        },
+        {
+          "words": [
+            18
+          ],
+          "text": "coffee",
+          "pos": "n.",
+          "ipa": "/ˈkɒfi/",
+          "zh": "咖啡",
+          "more": true
+        },
+        {
+          "words": [
+            19
+          ],
+          "text": "so",
+          "pos": "conj.",
+          "ipa": "/səʊ/",
+          "zh": "所以",
+          "more": true
+        },
+        {
+          "words": [
+            20
+          ],
+          "text": "we",
+          "pos": "pron.",
+          "ipa": "/wiː/",
+          "zh": "我们",
+          "more": true
+        },
+        {
+          "words": [
+            21
+          ],
+          "text": "know",
+          "pos": "v.",
+          "ipa": "/nəʊ/",
+          "zh": "知道",
+          "more": true
+        },
+        {
+          "words": [
+            22
+          ],
+          "text": "how",
+          "pos": "adv.",
+          "ipa": "/haʊ/",
+          "zh": "如何",
+          "more": true
+        },
+        {
+          "words": [
+            23
+          ],
+          "text": "we",
+          "pos": "pron.",
+          "ipa": "/wiː/",
+          "zh": "我们",
+          "more": true
+        },
+        {
+          "words": [
+            24
+          ],
+          "text": "take",
+          "pos": "v.",
+          "ipa": "/teɪk/",
+          "zh": "喝（咖啡、茶）",
+          "more": true
+        },
+        {
+          "words": [
+            25
+          ],
+          "text": "our",
+          "pos": "pron.",
+          "ipa": "/ɔː(r)/",
+          "zh": "我们的",
+          "more": true
+        },
+        {
+          "words": [
+            26
+          ],
+          "text": "coffee",
+          "pos": "n.",
+          "ipa": "/ˈkɒfi/",
+          "zh": "咖啡",
+          "more": true
+        }
+      ]
     },
     {
       "id": 21,
@@ -1511,7 +3473,19 @@
           "key": "yes"
         }
       ],
-      "zh": "对呀。"
+      "zh": "对呀。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Yes",
+          "pos": "int.",
+          "ipa": "/jes/",
+          "zh": "是的",
+          "more": true
+        }
+      ]
     },
     {
       "id": 22,
@@ -1623,7 +3597,179 @@
           "key": "it"
         }
       ],
-      "zh": "我们咖啡要怎么 take，就是我们喜欢怎么喝，喜欢往里面加什么。"
+      "zh": "我们咖啡要怎么 take，就是我们喜欢怎么喝，喜欢往里面加什么。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "How",
+          "pos": "adv.",
+          "ipa": "/haʊ/",
+          "zh": "如何，怎样",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "we",
+          "pos": "pron.",
+          "ipa": "/wiː/",
+          "zh": "我们",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "take",
+          "pos": "v.",
+          "ipa": "/teɪk/",
+          "zh": "喝（咖啡、茶）",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "our",
+          "pos": "pron.",
+          "ipa": "/ɑː(r)/",
+          "zh": "我们的",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "coffee",
+          "pos": "n.",
+          "ipa": "/ˈkɒfi/",
+          "zh": "咖啡",
+          "more": true
+        },
+        {
+          "words": [
+            5
+          ],
+          "text": "is",
+          "pos": "v.",
+          "ipa": "/ɪz/",
+          "zh": "是",
+          "more": true
+        },
+        {
+          "words": [
+            6
+          ],
+          "text": "how",
+          "pos": "conj.",
+          "ipa": "/haʊ/",
+          "zh": "……的方式",
+          "more": true
+        },
+        {
+          "words": [
+            7
+          ],
+          "text": "we",
+          "pos": "pron.",
+          "ipa": "/wiː/",
+          "zh": "我们",
+          "more": true
+        },
+        {
+          "words": [
+            8
+          ],
+          "text": "like",
+          "pos": "v.",
+          "ipa": "/laɪk/",
+          "zh": "喜欢",
+          "more": true
+        },
+        {
+          "words": [
+            9
+          ],
+          "text": "it",
+          "pos": "pron.",
+          "ipa": "/ɪt/",
+          "zh": "它",
+          "more": true
+        },
+        {
+          "words": [
+            10
+          ],
+          "text": "what",
+          "pos": "pron.",
+          "ipa": "/wɒt/",
+          "zh": "……的东西",
+          "more": true
+        },
+        {
+          "words": [
+            11
+          ],
+          "text": "we",
+          "pos": "pron.",
+          "ipa": "/wiː/",
+          "zh": "我们",
+          "more": true
+        },
+        {
+          "words": [
+            12
+          ],
+          "text": "like",
+          "pos": "v.",
+          "ipa": "/laɪk/",
+          "zh": "喜欢",
+          "more": true
+        },
+        {
+          "words": [
+            13
+          ],
+          "text": "to",
+          "pos": "不定式",
+          "ipa": "/tu/",
+          "zh": "不用翻译",
+          "more": true
+        },
+        {
+          "words": [
+            14
+          ],
+          "text": "put",
+          "pos": "v.",
+          "ipa": "/pʊt/",
+          "zh": "放，加",
+          "more": true
+        },
+        {
+          "words": [
+            15
+          ],
+          "text": "in",
+          "pos": "prep.",
+          "ipa": "/ɪn/",
+          "zh": "在……里",
+          "more": true
+        },
+        {
+          "words": [
+            16
+          ],
+          "text": "it",
+          "pos": "pron.",
+          "ipa": "/ɪt/",
+          "zh": "它",
+          "more": true
+        }
+      ]
     },
     {
       "id": 23,
@@ -1663,7 +3809,50 @@
           "key": "milk"
         }
       ],
-      "zh": "比如糖或者牛奶。"
+      "zh": "比如糖或者牛奶。",
+      "notes": [
+        {
+          "words": [
+            0,
+            1
+          ],
+          "text": "For example",
+          "pos": "词组",
+          "ipa": "/fɔːr ɪɡˈzɑːmpl/",
+          "zh": "例如",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "sugar",
+          "pos": "n.",
+          "ipa": "/ˈʃʊɡə(r)/",
+          "zh": "糖",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "or",
+          "pos": "conj.",
+          "ipa": "/ɔː(r)/",
+          "zh": "或者",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "milk",
+          "pos": "n.",
+          "ipa": "/mɪlk/",
+          "zh": "牛奶",
+          "more": true
+        }
+      ]
     },
     {
       "id": 24,
@@ -1733,7 +3922,109 @@
           "key": "coffee"
         }
       ],
-      "zh": "我知道你咖啡里不喜欢加牛奶。"
+      "zh": "我知道你咖啡里不喜欢加牛奶。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "I",
+          "pos": "pron.",
+          "ipa": "/aɪ/",
+          "zh": "我",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "know",
+          "pos": "v.",
+          "ipa": "/nəʊ/",
+          "zh": "知道",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "that",
+          "pos": "conj.",
+          "ipa": "/ðæt/",
+          "zh": "（引导从句）",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "you",
+          "pos": "pron.",
+          "ipa": "/juː/",
+          "zh": "你",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "don't",
+          "pos": "缩写",
+          "ipa": "/dəʊnt/",
+          "zh": "= do not 不",
+          "more": true
+        },
+        {
+          "words": [
+            5
+          ],
+          "text": "like",
+          "pos": "v.",
+          "ipa": "/laɪk/",
+          "zh": "喜欢",
+          "more": true
+        },
+        {
+          "words": [
+            6
+          ],
+          "text": "milk",
+          "pos": "n.",
+          "ipa": "/mɪlk/",
+          "zh": "牛奶",
+          "more": true
+        },
+        {
+          "words": [
+            7
+          ],
+          "text": "in",
+          "pos": "prep.",
+          "ipa": "/ɪn/",
+          "zh": "在……里",
+          "more": true
+        },
+        {
+          "words": [
+            8
+          ],
+          "text": "your",
+          "pos": "pron.",
+          "ipa": "/jɔː(r)/",
+          "zh": "你的",
+          "more": true
+        },
+        {
+          "words": [
+            9
+          ],
+          "text": "coffee",
+          "pos": "n.",
+          "ipa": "/ˈkɒfi/",
+          "zh": "咖啡",
+          "more": true
+        }
+      ]
     },
     {
       "id": 25,
@@ -1773,7 +4064,59 @@
           "key": "black"
         }
       ],
-      "zh": "你喝咖啡不加奶，喝黑的。"
+      "zh": "你喝咖啡不加奶，喝黑的。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "You",
+          "pos": "pron.",
+          "ipa": "/juː/",
+          "zh": "你",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "take",
+          "pos": "v.",
+          "ipa": "/teɪk/",
+          "zh": "喝（咖啡、茶）",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "your",
+          "pos": "pron.",
+          "ipa": "/jɔː(r)/",
+          "zh": "你的",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "coffee",
+          "pos": "n.",
+          "ipa": "/ˈkɒfi/",
+          "zh": "咖啡",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "black",
+          "pos": "adj.",
+          "ipa": "/blæk/",
+          "zh": "（咖啡）不加奶的",
+          "more": true
+        }
+      ]
     },
     {
       "id": 26,
@@ -1795,7 +4138,29 @@
           "key": "do"
         }
       ],
-      "zh": "对，没错。"
+      "zh": "对，没错。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "I",
+          "pos": "pron.",
+          "ipa": "/aɪ/",
+          "zh": "我",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "do",
+          "pos": "aux.",
+          "ipa": "/duː/",
+          "zh": "（代替动词）",
+          "more": true
+        }
+      ]
     },
     {
       "id": 27,
@@ -1925,7 +4290,191 @@
           "key": "anymore"
         }
       ],
-      "zh": "我喜欢黑咖啡，你喝咖啡要加奶，你以前还放糖，现在不放了。"
+      "zh": "我喜欢黑咖啡，你喝咖啡要加奶，你以前还放糖，现在不放了。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "I",
+          "pos": "pron.",
+          "ipa": "/aɪ/",
+          "zh": "我",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "like",
+          "pos": "v.",
+          "ipa": "/laɪk/",
+          "zh": "喜欢",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "black",
+          "pos": "adj.",
+          "ipa": "/blæk/",
+          "zh": "（咖啡）不加奶的",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "coffee",
+          "pos": "n.",
+          "ipa": "/ˈkɒfi/",
+          "zh": "咖啡",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "and",
+          "pos": "conj.",
+          "ipa": "/ænd/",
+          "zh": "和",
+          "more": true
+        },
+        {
+          "words": [
+            5
+          ],
+          "text": "you",
+          "pos": "pron.",
+          "ipa": "/juː/",
+          "zh": "你",
+          "more": true
+        },
+        {
+          "words": [
+            6
+          ],
+          "text": "take",
+          "pos": "v.",
+          "ipa": "/teɪk/",
+          "zh": "喝（咖啡、茶）",
+          "more": true
+        },
+        {
+          "words": [
+            7
+          ],
+          "text": "your",
+          "pos": "pron.",
+          "ipa": "/jɔː(r)/",
+          "zh": "你的",
+          "more": true
+        },
+        {
+          "words": [
+            8
+          ],
+          "text": "coffee",
+          "pos": "n.",
+          "ipa": "/ˈkɒfi/",
+          "zh": "咖啡",
+          "more": true
+        },
+        {
+          "words": [
+            9
+          ],
+          "text": "white",
+          "pos": "adj.",
+          "ipa": "/waɪt/",
+          "zh": "（咖啡）加奶的",
+          "more": true
+        },
+        {
+          "words": [
+            10
+          ],
+          "text": "and",
+          "pos": "conj.",
+          "ipa": "/ænd/",
+          "zh": "和",
+          "more": true
+        },
+        {
+          "words": [
+            11
+          ],
+          "text": "you",
+          "pos": "pron.",
+          "ipa": "/juː/",
+          "zh": "你",
+          "more": true
+        },
+        {
+          "words": [
+            12,
+            13,
+            14
+          ],
+          "text": "used to have",
+          "pos": "词组",
+          "ipa": "/juːst tə hæv/",
+          "zh": "过去有",
+          "more": true
+        },
+        {
+          "words": [
+            15
+          ],
+          "text": "sugar",
+          "pos": "n.",
+          "ipa": "/ˈʃʊɡə(r)/",
+          "zh": "糖",
+          "more": true
+        },
+        {
+          "words": [
+            16
+          ],
+          "text": "but",
+          "pos": "conj.",
+          "ipa": "/bʌt/",
+          "zh": "但是",
+          "more": true
+        },
+        {
+          "words": [
+            17
+          ],
+          "text": "you",
+          "pos": "pron.",
+          "ipa": "/juː/",
+          "zh": "你",
+          "more": true
+        },
+        {
+          "words": [
+            18
+          ],
+          "text": "don't",
+          "pos": "缩写",
+          "ipa": "/dəʊnt/",
+          "zh": "= do not 不",
+          "more": true
+        },
+        {
+          "words": [
+            19
+          ],
+          "text": "anymore",
+          "pos": "adv.",
+          "ipa": "/ˌeniˈmɔː(r)/",
+          "zh": "不再",
+          "more": true
+        }
+      ]
     },
     {
       "id": 28,
@@ -1947,7 +4496,29 @@
           "key": "right"
         }
       ],
-      "zh": "对。"
+      "zh": "对。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "That's",
+          "pos": "缩写",
+          "ipa": "/ðæts/",
+          "zh": "= That is 那是对的",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "right",
+          "pos": "adj.",
+          "ipa": "/raɪt/",
+          "zh": "对的，正确的",
+          "more": true
+        }
+      ]
     },
     {
       "id": 29,
@@ -2065,7 +4636,171 @@
           "key": "sweeter"
         }
       ],
-      "zh": "有时候在家，我会往咖啡里加点蜂蜜，让它甜一点。"
+      "zh": "有时候在家，我会往咖啡里加点蜂蜜，让它甜一点。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Occasionally",
+          "pos": "adv.",
+          "ipa": "/əˈkeɪʒnəli/",
+          "zh": "偶尔",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "when",
+          "pos": "conj.",
+          "ipa": "/wen/",
+          "zh": "当……时",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "I'm",
+          "pos": "缩写",
+          "ipa": "/aɪm/",
+          "zh": "= I am 我是",
+          "more": true
+        },
+        {
+          "words": [
+            3,
+            4
+          ],
+          "text": "at home",
+          "pos": "词组",
+          "ipa": "/ət ˈhəʊm/",
+          "zh": "在家",
+          "more": true
+        },
+        {
+          "words": [
+            5
+          ],
+          "text": "I",
+          "pos": "pron.",
+          "ipa": "/aɪ/",
+          "zh": "我",
+          "more": true
+        },
+        {
+          "words": [
+            6
+          ],
+          "text": "put",
+          "pos": "v.",
+          "ipa": "/pʊt/",
+          "zh": "放",
+          "more": true
+        },
+        {
+          "words": [
+            7
+          ],
+          "text": "some",
+          "pos": "det.",
+          "ipa": "/sʌm/",
+          "zh": "一些",
+          "more": true
+        },
+        {
+          "words": [
+            8
+          ],
+          "text": "honey",
+          "pos": "n.",
+          "ipa": "/ˈhʌni/",
+          "zh": "蜂蜜",
+          "more": true
+        },
+        {
+          "words": [
+            9
+          ],
+          "text": "in",
+          "pos": "prep.",
+          "ipa": "/ɪn/",
+          "zh": "在……里",
+          "more": true
+        },
+        {
+          "words": [
+            10
+          ],
+          "text": "my",
+          "pos": "pron.",
+          "ipa": "/maɪ/",
+          "zh": "我的",
+          "more": true
+        },
+        {
+          "words": [
+            11
+          ],
+          "text": "coffee",
+          "pos": "n.",
+          "ipa": "/ˈkɒfi/",
+          "zh": "咖啡",
+          "more": true
+        },
+        {
+          "words": [
+            12
+          ],
+          "text": "to",
+          "pos": "不定式",
+          "ipa": "/tu/",
+          "zh": "不用翻译",
+          "more": true
+        },
+        {
+          "words": [
+            13
+          ],
+          "text": "make",
+          "pos": "v.",
+          "ipa": "/meɪk/",
+          "zh": "使",
+          "more": true
+        },
+        {
+          "words": [
+            14
+          ],
+          "text": "it",
+          "pos": "pron.",
+          "ipa": "/ɪt/",
+          "zh": "它",
+          "more": true
+        },
+        {
+          "words": [
+            15,
+            16
+          ],
+          "text": "a bit",
+          "pos": "词组",
+          "ipa": "/ə bɪt/",
+          "zh": "一点",
+          "more": true
+        },
+        {
+          "words": [
+            17
+          ],
+          "text": "sweeter",
+          "pos": "adj.",
+          "ipa": "/ˈswiːtə(r)/",
+          "zh": "更甜的",
+          "more": true
+        }
+      ]
     },
     {
       "id": 30,
@@ -2093,7 +4828,39 @@
           "key": "coffee"
         }
       ],
-      "zh": "咖啡里加蜂蜜？"
+      "zh": "咖啡里加蜂蜜？",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Honey",
+          "pos": "n.",
+          "ipa": "/ˈhʌni/",
+          "zh": "蜂蜜",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "in",
+          "pos": "prep.",
+          "ipa": "/ɪn/",
+          "zh": "在……里",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "coffee",
+          "pos": "n.",
+          "ipa": "/ˈkɒfi/",
+          "zh": "咖啡",
+          "more": true
+        }
+      ]
     },
     {
       "id": 31,
@@ -2109,7 +4876,19 @@
           "key": "yes"
         }
       ],
-      "zh": "对呀。"
+      "zh": "对呀。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Yes",
+          "pos": "int.",
+          "ipa": "/jes/",
+          "zh": "是的",
+          "more": true
+        }
+      ]
     },
     {
       "id": 32,
@@ -2137,7 +4916,39 @@
           "key": "surprising"
         }
       ],
-      "zh": "这很奇怪吗？"
+      "zh": "这很奇怪吗？",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Is",
+          "pos": "v.",
+          "ipa": "/ɪz/",
+          "zh": "是",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "that",
+          "pos": "pron.",
+          "ipa": "/ðæt/",
+          "zh": "那",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "surprising",
+          "pos": "adj.",
+          "ipa": "/səˈpraɪzɪŋ/",
+          "zh": "令人惊讶的",
+          "more": true
+        }
+      ]
     },
     {
       "id": 33,
@@ -2177,7 +4988,50 @@
           "key": "that"
         }
       ],
-      "zh": "我从来没听说过。"
+      "zh": "我从来没听说过。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "I've",
+          "pos": "缩写",
+          "ipa": "/aɪv/",
+          "zh": "= I have 我已经",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "never",
+          "pos": "adv.",
+          "ipa": "/ˈnevə(r)/",
+          "zh": "从不",
+          "more": true
+        },
+        {
+          "words": [
+            2,
+            3
+          ],
+          "text": "heard of",
+          "pos": "词组",
+          "ipa": "/hɜːd ɒv/",
+          "zh": "听说过",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "that",
+          "pos": "pron.",
+          "ipa": "/ðæt/",
+          "zh": "那件事",
+          "more": true
+        }
+      ]
     },
     {
       "id": 34,
@@ -2193,7 +5047,19 @@
           "key": "really"
         }
       ],
-      "zh": "真的吗？"
+      "zh": "真的吗？",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Really",
+          "pos": "int.",
+          "ipa": "/ˈriːəli/",
+          "zh": "真的吗？",
+          "more": true
+        }
+      ]
     },
     {
       "id": 35,
@@ -2227,7 +5093,49 @@
           "key": "honey"
         }
       ],
-      "zh": "糖可以，蜂蜜就不行。"
+      "zh": "糖可以，蜂蜜就不行。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Sugar",
+          "pos": "n.",
+          "ipa": "/ˈʃʊɡə(r)/",
+          "zh": "糖",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "but",
+          "pos": "conj.",
+          "ipa": "/bʌt/",
+          "zh": "但是",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "not",
+          "pos": "adv.",
+          "ipa": "/nɒt/",
+          "zh": "不是",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "honey",
+          "pos": "n.",
+          "ipa": "/ˈhʌni/",
+          "zh": "蜂蜜",
+          "more": true
+        }
+      ]
     },
     {
       "id": 36,
@@ -2279,7 +5187,79 @@
           "key": "bad"
         }
       ],
-      "zh": "可这有什么不好呢？"
+      "zh": "可这有什么不好呢？",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "But",
+          "pos": "conj.",
+          "ipa": "/bʌt/",
+          "zh": "但是",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "why",
+          "pos": "adv.",
+          "ipa": "/waɪ/",
+          "zh": "为什么",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "would",
+          "pos": "aux.",
+          "ipa": "/wʊd/",
+          "zh": "会",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "that",
+          "pos": "pron.",
+          "ipa": "/ðæt/",
+          "zh": "那（事）",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "be",
+          "pos": "v.",
+          "ipa": "/biː/",
+          "zh": "是",
+          "more": true
+        },
+        {
+          "words": [
+            5
+          ],
+          "text": "so",
+          "pos": "adv.",
+          "ipa": "/səʊ/",
+          "zh": "这么",
+          "more": true
+        },
+        {
+          "words": [
+            6
+          ],
+          "text": "bad",
+          "pos": "adj.",
+          "ipa": "/bæd/",
+          "zh": "糟糕",
+          "more": true
+        }
+      ]
     },
     {
       "id": 37,
@@ -2313,7 +5293,49 @@
           "key": "know"
         }
       ],
-      "zh": "嗯，我也不知道。"
+      "zh": "嗯，我也不知道。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Well",
+          "pos": "int.",
+          "ipa": "/wel/",
+          "zh": "嗯（用于句首）",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "I",
+          "pos": "pron.",
+          "ipa": "/aɪ/",
+          "zh": "我",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "don't",
+          "pos": "缩写",
+          "ipa": "/dəʊnt/",
+          "zh": "= do not 不",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "know",
+          "pos": "v.",
+          "ipa": "/nəʊ/",
+          "zh": "知道",
+          "more": true
+        }
+      ]
     },
     {
       "id": 38,
@@ -2365,7 +5387,70 @@
           "key": "it"
         }
       ],
-      "zh": "就是我从没听说过。"
+      "zh": "就是我从没听说过。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "It's",
+          "pos": "缩写",
+          "ipa": "/ɪts/",
+          "zh": "= It is 它是",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "just",
+          "pos": "adv.",
+          "ipa": "/dʒʌst/",
+          "zh": "只是",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "I've",
+          "pos": "缩写",
+          "ipa": "/aɪv/",
+          "zh": "= I have 我已经",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "never",
+          "pos": "adv.",
+          "ipa": "/ˈnevə(r)/",
+          "zh": "从未",
+          "more": true
+        },
+        {
+          "words": [
+            4,
+            5
+          ],
+          "text": "heard of",
+          "pos": "词组",
+          "ipa": "/hɜːd ɒv/",
+          "zh": "听说过",
+          "more": true
+        },
+        {
+          "words": [
+            6
+          ],
+          "text": "it",
+          "pos": "pron.",
+          "ipa": "/ɪt/",
+          "zh": "它",
+          "more": true
+        }
+      ]
     },
     {
       "id": 39,
@@ -2393,7 +5478,39 @@
           "key": "good"
         }
       ],
-      "zh": "真的很好喝。"
+      "zh": "真的很好喝。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "It's",
+          "pos": "缩写",
+          "ipa": "/ɪts/",
+          "zh": "= It is 它是",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "really",
+          "pos": "adv.",
+          "ipa": "/ˈriːəli/",
+          "zh": "非常，很",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "good",
+          "pos": "adj.",
+          "ipa": "/ɡʊd/",
+          "zh": "好的",
+          "more": true
+        }
+      ]
     },
     {
       "id": 40,
@@ -2421,7 +5538,39 @@
           "key": "recommend"
         }
       ],
-      "zh": "我推荐你试试。"
+      "zh": "我推荐你试试。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "I",
+          "pos": "pron.",
+          "ipa": "/aɪ/",
+          "zh": "我",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "would",
+          "pos": "aux.",
+          "ipa": "/wʊd/",
+          "zh": "会（表示意愿）",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "recommend",
+          "pos": "v.",
+          "ipa": "/ˌrekəˈmend/",
+          "zh": "推荐",
+          "more": true
+        }
+      ]
     },
     {
       "id": 41,
@@ -2437,7 +5586,19 @@
           "key": "okay"
         }
       ],
-      "zh": "好。"
+      "zh": "好。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Okay",
+          "pos": "int.",
+          "ipa": "/ˌəʊˈkeɪ/",
+          "zh": "好的",
+          "more": true
+        }
+      ]
     },
     {
       "id": 42,
@@ -2507,7 +5668,109 @@
           "key": "coffee"
         }
       ],
-      "zh": "那 Georgie，你要是不喝咖啡会怎么样？"
+      "zh": "那 Georgie，你要是不喝咖啡会怎么样？",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "So",
+          "pos": "adv.",
+          "ipa": "/səʊ/",
+          "zh": "那么",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "Georgie",
+          "pos": "名字",
+          "ipa": "/ˈdʒɔːdʒi/",
+          "zh": "人名（主持人）",
+          "more": false
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "what",
+          "pos": "pron.",
+          "ipa": "/wɒt/",
+          "zh": "什么",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "happens",
+          "pos": "v.",
+          "ipa": "/ˈhæpənz/",
+          "zh": "发生",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "if",
+          "pos": "conj.",
+          "ipa": "/ɪf/",
+          "zh": "如果",
+          "more": true
+        },
+        {
+          "words": [
+            5
+          ],
+          "text": "you",
+          "pos": "pron.",
+          "ipa": "/juː/",
+          "zh": "你",
+          "more": true
+        },
+        {
+          "words": [
+            6
+          ],
+          "text": "don't",
+          "pos": "缩写",
+          "ipa": "/dəʊnt/",
+          "zh": "= do not 不",
+          "more": true
+        },
+        {
+          "words": [
+            7
+          ],
+          "text": "have",
+          "pos": "v.",
+          "ipa": "/hæv/",
+          "zh": "喝",
+          "more": true
+        },
+        {
+          "words": [
+            8
+          ],
+          "text": "your",
+          "pos": "pron.",
+          "ipa": "/jɔː(r)/",
+          "zh": "你的",
+          "more": true
+        },
+        {
+          "words": [
+            9
+          ],
+          "text": "coffee",
+          "pos": "n.",
+          "ipa": "/ˈkɒfi/",
+          "zh": "咖啡",
+          "more": true
+        }
+      ]
     },
     {
       "id": 43,
@@ -2613,7 +5876,151 @@
           "key": "tired"
         }
       ],
-      "zh": "嗯，早上不喝咖啡，我会很烦躁，还特别累。"
+      "zh": "嗯，早上不喝咖啡，我会很烦躁，还特别累。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Well",
+          "pos": "int.",
+          "ipa": "/wel/",
+          "zh": "嗯（用于引出话）",
+          "more": true
+        },
+        {
+          "words": [
+            1,
+            2,
+            3
+          ],
+          "text": "in the morning",
+          "pos": "词组",
+          "ipa": "/ɪn ðə ˈmɔːnɪŋ/",
+          "zh": "在早上",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "if",
+          "pos": "conj.",
+          "ipa": "/ɪf/",
+          "zh": "如果",
+          "more": true
+        },
+        {
+          "words": [
+            5
+          ],
+          "text": "I",
+          "pos": "pron.",
+          "ipa": "/aɪ/",
+          "zh": "我",
+          "more": true
+        },
+        {
+          "words": [
+            6
+          ],
+          "text": "don't",
+          "pos": "缩写",
+          "ipa": "/dəʊnt/",
+          "zh": "= do not 不",
+          "more": true
+        },
+        {
+          "words": [
+            7
+          ],
+          "text": "have",
+          "pos": "v.",
+          "ipa": "/hæv/",
+          "zh": "喝",
+          "more": true
+        },
+        {
+          "words": [
+            8
+          ],
+          "text": "coffee",
+          "pos": "n.",
+          "ipa": "/ˈkɒfi/",
+          "zh": "咖啡",
+          "more": true
+        },
+        {
+          "words": [
+            9
+          ],
+          "text": "I",
+          "pos": "pron.",
+          "ipa": "/aɪ/",
+          "zh": "我",
+          "more": true
+        },
+        {
+          "words": [
+            10
+          ],
+          "text": "feel",
+          "pos": "v.",
+          "ipa": "/fiːl/",
+          "zh": "感觉",
+          "more": true
+        },
+        {
+          "words": [
+            11
+          ],
+          "text": "very",
+          "pos": "adv.",
+          "ipa": "/ˈveri/",
+          "zh": "非常",
+          "more": true
+        },
+        {
+          "words": [
+            12
+          ],
+          "text": "grumpy",
+          "pos": "adj.",
+          "ipa": "/ˈɡrʌmpi/",
+          "zh": "脾气坏的",
+          "more": true
+        },
+        {
+          "words": [
+            13
+          ],
+          "text": "and",
+          "pos": "conj.",
+          "ipa": "/ænd/",
+          "zh": "和",
+          "more": true
+        },
+        {
+          "words": [
+            14
+          ],
+          "text": "very",
+          "pos": "adv.",
+          "ipa": "/ˈveri/",
+          "zh": "非常",
+          "more": true
+        },
+        {
+          "words": [
+            15
+          ],
+          "text": "tired",
+          "pos": "adj.",
+          "ipa": "/ˈtaɪəd/",
+          "zh": "疲倦的",
+          "more": true
+        }
+      ]
     },
     {
       "id": 44,
@@ -2749,7 +6156,201 @@
           "key": "coffee"
         }
       ],
-      "zh": "下午要是不喝，倒也没那么难受，但我还是想喝下午那杯。"
+      "zh": "下午要是不喝，倒也没那么难受，但我还是想喝下午那杯。",
+      "notes": [
+        {
+          "words": [
+            0,
+            1,
+            2
+          ],
+          "text": "In the afternoon",
+          "pos": "词组",
+          "ipa": "/ɪn ði ˌɑːftəˈnuːn/",
+          "zh": "在下午",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "if",
+          "pos": "conj.",
+          "ipa": "/ɪf/",
+          "zh": "如果",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "I",
+          "pos": "pron.",
+          "ipa": "/aɪ/",
+          "zh": "我",
+          "more": true
+        },
+        {
+          "words": [
+            5
+          ],
+          "text": "don't",
+          "pos": "缩写",
+          "ipa": "/dəʊnt/",
+          "zh": "= do not 不",
+          "more": true
+        },
+        {
+          "words": [
+            6
+          ],
+          "text": "have",
+          "pos": "v.",
+          "ipa": "/hæv/",
+          "zh": "喝",
+          "more": true
+        },
+        {
+          "words": [
+            7
+          ],
+          "text": "a",
+          "pos": "art.",
+          "ipa": "/ə/",
+          "zh": "一（杯）",
+          "more": true
+        },
+        {
+          "words": [
+            8
+          ],
+          "text": "coffee",
+          "pos": "n.",
+          "ipa": "/ˈkɒfi/",
+          "zh": "咖啡",
+          "more": true
+        },
+        {
+          "words": [
+            9
+          ],
+          "text": "it's",
+          "pos": "缩写",
+          "ipa": "/ɪts/",
+          "zh": "= it is 它是",
+          "more": true
+        },
+        {
+          "words": [
+            10
+          ],
+          "text": "not",
+          "pos": "adv.",
+          "ipa": "/nɒt/",
+          "zh": "不",
+          "more": true
+        },
+        {
+          "words": [
+            11
+          ],
+          "text": "terrible",
+          "pos": "adj.",
+          "ipa": "/ˈterəbl/",
+          "zh": "很糟的",
+          "more": true
+        },
+        {
+          "words": [
+            12
+          ],
+          "text": "but",
+          "pos": "conj.",
+          "ipa": "/bʌt/",
+          "zh": "但是",
+          "more": true
+        },
+        {
+          "words": [
+            13
+          ],
+          "text": "I",
+          "pos": "pron.",
+          "ipa": "/aɪ/",
+          "zh": "我",
+          "more": true
+        },
+        {
+          "words": [
+            14
+          ],
+          "text": "would",
+          "pos": "aux.",
+          "ipa": "/wʊd/",
+          "zh": "会（表示意愿）",
+          "more": true
+        },
+        {
+          "words": [
+            15
+          ],
+          "text": "prefer",
+          "pos": "v.",
+          "ipa": "/prɪˈfɜː(r)/",
+          "zh": "更喜欢",
+          "more": true
+        },
+        {
+          "words": [
+            16
+          ],
+          "text": "to",
+          "pos": "不定式",
+          "ipa": "/tu/",
+          "zh": "不用翻译",
+          "more": true
+        },
+        {
+          "words": [
+            17
+          ],
+          "text": "have",
+          "pos": "v.",
+          "ipa": "/hæv/",
+          "zh": "喝",
+          "more": true
+        },
+        {
+          "words": [
+            18
+          ],
+          "text": "my",
+          "pos": "pron.",
+          "ipa": "/maɪ/",
+          "zh": "我的",
+          "more": true
+        },
+        {
+          "words": [
+            19
+          ],
+          "text": "afternoon",
+          "pos": "n.",
+          "ipa": "/ˌɑːftəˈnuːn/",
+          "zh": "下午",
+          "more": true
+        },
+        {
+          "words": [
+            20
+          ],
+          "text": "coffee",
+          "pos": "n.",
+          "ipa": "/ˈkɒfi/",
+          "zh": "咖啡",
+          "more": true
+        }
+      ]
     },
     {
       "id": 45,
@@ -2777,7 +6378,21 @@
           "key": "you"
         }
       ],
-      "zh": "你呢？"
+      "zh": "你呢？",
+      "notes": [
+        {
+          "words": [
+            0,
+            1,
+            2
+          ],
+          "text": "How about you?",
+          "pos": "词组",
+          "ipa": "/haʊ əˈbaʊt juː/",
+          "zh": "你呢？",
+          "more": true
+        }
+      ]
     },
     {
       "id": 46,
@@ -2907,7 +6522,173 @@
           "key": "morning"
         }
       ],
-      "zh": "我需要咖啡，尤其是早上，不过我不是一早起来就喝。"
+      "zh": "我需要咖啡，尤其是早上，不过我不是一早起来就喝。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Yeah",
+          "pos": "int.",
+          "ipa": "/jeə/",
+          "zh": "是的",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "I",
+          "pos": "pron.",
+          "ipa": "/aɪ/",
+          "zh": "我",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "need",
+          "pos": "v.",
+          "ipa": "/niːd/",
+          "zh": "需要",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "my",
+          "pos": "pron.",
+          "ipa": "/maɪ/",
+          "zh": "我的",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "coffee",
+          "pos": "n.",
+          "ipa": "/ˈkɒfi/",
+          "zh": "咖啡",
+          "more": true
+        },
+        {
+          "words": [
+            5
+          ],
+          "text": "especially",
+          "pos": "adv.",
+          "ipa": "/ɪˈspeʃəli/",
+          "zh": "尤其",
+          "more": true
+        },
+        {
+          "words": [
+            6
+          ],
+          "text": "in",
+          "pos": "prep.",
+          "ipa": "/ɪn/",
+          "zh": "在",
+          "more": true
+        },
+        {
+          "words": [
+            7
+          ],
+          "text": "the",
+          "pos": "art.",
+          "ipa": "/ðə/",
+          "zh": "这",
+          "more": true
+        },
+        {
+          "words": [
+            8
+          ],
+          "text": "morning",
+          "pos": "n.",
+          "ipa": "/ˈmɔːnɪŋ/",
+          "zh": "早晨",
+          "more": true
+        },
+        {
+          "words": [
+            9
+          ],
+          "text": "but",
+          "pos": "conj.",
+          "ipa": "/bʌt/",
+          "zh": "但是",
+          "more": true
+        },
+        {
+          "words": [
+            10
+          ],
+          "text": "I",
+          "pos": "pron.",
+          "ipa": "/aɪ/",
+          "zh": "我",
+          "more": true
+        },
+        {
+          "words": [
+            11
+          ],
+          "text": "don't",
+          "pos": "缩写",
+          "ipa": "/dəʊnt/",
+          "zh": "= do not 不",
+          "more": true
+        },
+        {
+          "words": [
+            12
+          ],
+          "text": "have",
+          "pos": "v.",
+          "ipa": "/hæv/",
+          "zh": "喝",
+          "more": true
+        },
+        {
+          "words": [
+            13
+          ],
+          "text": "my",
+          "pos": "pron.",
+          "ipa": "/maɪ/",
+          "zh": "我的",
+          "more": true
+        },
+        {
+          "words": [
+            14
+          ],
+          "text": "coffee",
+          "pos": "n.",
+          "ipa": "/ˈkɒfi/",
+          "zh": "咖啡",
+          "more": true
+        },
+        {
+          "words": [
+            15,
+            16,
+            17,
+            18,
+            19
+          ],
+          "text": "first thing in the morning",
+          "pos": "词组",
+          "ipa": "/fɜːst θɪŋ ɪn ðə ˈmɔːnɪŋ/",
+          "zh": "早晨第一件事",
+          "more": true
+        }
+      ]
     },
     {
       "id": 47,
@@ -2929,7 +6710,29 @@
           "key": "interesting"
         }
       ],
-      "zh": "哦，有意思。"
+      "zh": "哦，有意思。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Oh",
+          "pos": "int.",
+          "ipa": "/əʊ/",
+          "zh": "哦（表示惊讶或感兴趣）",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "interesting",
+          "pos": "adj.",
+          "ipa": "/ˈɪntrəstɪŋ/",
+          "zh": "有趣的",
+          "more": true
+        }
+      ]
     },
     {
       "id": 48,
@@ -3011,7 +6814,120 @@
           "key": "o'clock"
         }
       ],
-      "zh": "我大概是，怎么说呢，上班时间喝，九点吧。"
+      "zh": "我大概是，怎么说呢，上班时间喝，九点吧。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "I",
+          "pos": "pron.",
+          "ipa": "/aɪ/",
+          "zh": "我",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "have",
+          "pos": "v.",
+          "ipa": "/hæv/",
+          "zh": "有",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "it",
+          "pos": "pron.",
+          "ipa": "/ɪt/",
+          "zh": "它",
+          "more": true
+        },
+        {
+          "words": [
+            3,
+            4
+          ],
+          "text": "kind of",
+          "pos": "词组",
+          "ipa": "/kaɪnd əv/",
+          "zh": "有点；稍微",
+          "more": true
+        },
+        {
+          "words": [
+            5
+          ],
+          "text": "I",
+          "pos": "pron.",
+          "ipa": "/aɪ/",
+          "zh": "我",
+          "more": true
+        },
+        {
+          "words": [
+            6
+          ],
+          "text": "don't",
+          "pos": "缩写",
+          "ipa": "/dəʊnt/",
+          "zh": "= do not 不",
+          "more": true
+        },
+        {
+          "words": [
+            7
+          ],
+          "text": "know",
+          "pos": "v.",
+          "ipa": "/nəʊ/",
+          "zh": "知道",
+          "more": true
+        },
+        {
+          "words": [
+            8
+          ],
+          "text": "work",
+          "pos": "n.",
+          "ipa": "/wɜːk/",
+          "zh": "工作",
+          "more": true
+        },
+        {
+          "words": [
+            9
+          ],
+          "text": "time",
+          "pos": "n.",
+          "ipa": "/taɪm/",
+          "zh": "时间",
+          "more": true
+        },
+        {
+          "words": [
+            10
+          ],
+          "text": "nine",
+          "pos": "num.",
+          "ipa": "/naɪn/",
+          "zh": "九",
+          "more": true
+        },
+        {
+          "words": [
+            11
+          ],
+          "text": "o'clock",
+          "pos": "adv.",
+          "ipa": "/əˈklɒk/",
+          "zh": "…点钟",
+          "more": true
+        }
+      ]
     },
     {
       "id": 49,
@@ -3039,7 +6955,39 @@
           "key": "that"
         }
       ],
-      "zh": "为什么呢？"
+      "zh": "为什么呢？",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Why",
+          "pos": "adv.",
+          "ipa": "/waɪ/",
+          "zh": "为什么",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "is",
+          "pos": "v.",
+          "ipa": "/ɪz/",
+          "zh": "是",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "that",
+          "pos": "pron.",
+          "ipa": "/ðæt/",
+          "zh": "那",
+          "more": true
+        }
+      ]
     },
     {
       "id": 50,
@@ -3139,7 +7087,159 @@
           "key": "it"
         }
       ],
-      "zh": "我觉得它太浓了，劲儿太大，也可能只是我喝的方式不对。"
+      "zh": "我觉得它太浓了，劲儿太大，也可能只是我喝的方式不对。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "I",
+          "pos": "pron.",
+          "ipa": "/aɪ/",
+          "zh": "我",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "think",
+          "pos": "v.",
+          "ipa": "/θɪŋk/",
+          "zh": "认为",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "it's",
+          "pos": "缩写",
+          "ipa": "/ɪts/",
+          "zh": "= it is 它是",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "too",
+          "pos": "adv.",
+          "ipa": "/tuː/",
+          "zh": "太",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "strong",
+          "pos": "adj.",
+          "ipa": "/strɒŋ/",
+          "zh": "浓的",
+          "more": true
+        },
+        {
+          "words": [
+            5
+          ],
+          "text": "too",
+          "pos": "adv.",
+          "ipa": "/tuː/",
+          "zh": "太",
+          "more": true
+        },
+        {
+          "words": [
+            6
+          ],
+          "text": "powerful",
+          "pos": "adj.",
+          "ipa": "/ˈpaʊəfl/",
+          "zh": "强烈的",
+          "more": true
+        },
+        {
+          "words": [
+            7
+          ],
+          "text": "Or",
+          "pos": "conj.",
+          "ipa": "/ɔː(r)/",
+          "zh": "或者",
+          "more": true
+        },
+        {
+          "words": [
+            8
+          ],
+          "text": "maybe",
+          "pos": "adv.",
+          "ipa": "/ˈmeɪbi/",
+          "zh": "也许",
+          "more": true
+        },
+        {
+          "words": [
+            9
+          ],
+          "text": "just",
+          "pos": "adv.",
+          "ipa": "/dʒʌst/",
+          "zh": "只是",
+          "more": true
+        },
+        {
+          "words": [
+            10
+          ],
+          "text": "the",
+          "pos": "art.",
+          "ipa": "/ðə/",
+          "zh": "这个",
+          "more": true
+        },
+        {
+          "words": [
+            11
+          ],
+          "text": "way",
+          "pos": "n.",
+          "ipa": "/weɪ/",
+          "zh": "方式",
+          "more": true
+        },
+        {
+          "words": [
+            12
+          ],
+          "text": "I",
+          "pos": "pron.",
+          "ipa": "/aɪ/",
+          "zh": "我",
+          "more": true
+        },
+        {
+          "words": [
+            13
+          ],
+          "text": "drink",
+          "pos": "v.",
+          "ipa": "/drɪŋk/",
+          "zh": "喝",
+          "more": true
+        },
+        {
+          "words": [
+            14
+          ],
+          "text": "it",
+          "pos": "pron.",
+          "ipa": "/ɪt/",
+          "zh": "它",
+          "more": true
+        }
+      ]
     },
     {
       "id": 51,
@@ -3155,7 +7255,19 @@
           "key": "mmm"
         }
       ],
-      "zh": "嗯。"
+      "zh": "嗯。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Mmm",
+          "pos": "int.",
+          "ipa": "/m/",
+          "zh": "嗯（表示味道好）",
+          "more": true
+        }
+      ]
     },
     {
       "id": 52,
@@ -3213,7 +7325,89 @@
           "key": "coffee"
         }
       ],
-      "zh": "喝太多咖啡会怎么样？"
+      "zh": "喝太多咖啡会怎么样？",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "What",
+          "pos": "pron.",
+          "ipa": "/wɒt/",
+          "zh": "什么",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "happens",
+          "pos": "v.",
+          "ipa": "/ˈhæpənz/",
+          "zh": "发生",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "if",
+          "pos": "conj.",
+          "ipa": "/ɪf/",
+          "zh": "如果",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "you",
+          "pos": "pron.",
+          "ipa": "/juː/",
+          "zh": "你",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "drink",
+          "pos": "v.",
+          "ipa": "/drɪŋk/",
+          "zh": "喝",
+          "more": true
+        },
+        {
+          "words": [
+            5
+          ],
+          "text": "too",
+          "pos": "adv.",
+          "ipa": "/tuː/",
+          "zh": "太",
+          "more": true
+        },
+        {
+          "words": [
+            6
+          ],
+          "text": "much",
+          "pos": "adj.",
+          "ipa": "/mʌtʃ/",
+          "zh": "多",
+          "more": true
+        },
+        {
+          "words": [
+            7
+          ],
+          "text": "coffee",
+          "pos": "n.",
+          "ipa": "/ˈkɒfi/",
+          "zh": "咖啡",
+          "more": true
+        }
+      ]
     },
     {
       "id": 53,
@@ -3229,7 +7423,19 @@
           "key": "oh"
         }
       ],
-      "zh": "哦，"
+      "zh": "哦，",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Oh",
+          "pos": "int.",
+          "ipa": "/əʊ/",
+          "zh": "哦（表示明白）",
+          "more": true
+        }
+      ]
     },
     {
       "id": 54,
@@ -3293,7 +7499,90 @@
           "key": "caffeine"
         }
       ],
-      "zh": "那就很难睡着，因为里面有 caffeine，就是咖啡因。"
+      "zh": "那就很难睡着，因为里面有 caffeine，就是咖啡因。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "then",
+          "pos": "adv.",
+          "ipa": "/ðen/",
+          "zh": "那么",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "it's",
+          "pos": "缩写",
+          "ipa": "/ɪts/",
+          "zh": "= it is 它是",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "difficult",
+          "pos": "adj.",
+          "ipa": "/ˈdɪfɪkəlt/",
+          "zh": "困难的",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "to",
+          "pos": "不定式",
+          "ipa": "/tə/",
+          "zh": "不用翻译",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "sleep",
+          "pos": "v.",
+          "ipa": "/sliːp/",
+          "zh": "睡觉",
+          "more": true
+        },
+        {
+          "words": [
+            5,
+            6
+          ],
+          "text": "because of",
+          "pos": "词组",
+          "ipa": "/bɪˈkɒz əv/",
+          "zh": "因为",
+          "more": true
+        },
+        {
+          "words": [
+            7
+          ],
+          "text": "the",
+          "pos": "art.",
+          "ipa": "/ðə/",
+          "zh": "这（特指）",
+          "more": true
+        },
+        {
+          "words": [
+            8
+          ],
+          "text": "caffeine",
+          "pos": "n.",
+          "ipa": "/ˈkæfiːn/",
+          "zh": "咖啡因",
+          "more": true
+        }
+      ]
     },
     {
       "id": 55,
@@ -3435,7 +7724,229 @@
           "key": "alert"
         }
       ],
-      "zh": "Caffeine 就是咖啡和茶里那种让你清醒、有精神的化学物质，但太多了就说明你太精神了。"
+      "zh": "Caffeine 就是咖啡和茶里那种让你清醒、有精神的化学物质，但太多了就说明你太精神了。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Caffeine",
+          "pos": "n.",
+          "ipa": "/ˈkæfiːn/",
+          "zh": "咖啡因",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "is",
+          "pos": "v.",
+          "ipa": "/ɪz/",
+          "zh": "是",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "that",
+          "pos": "adj.",
+          "ipa": "/ðæt/",
+          "zh": "那个",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "chemical",
+          "pos": "n.",
+          "ipa": "/ˈkemɪkl/",
+          "zh": "化学物质",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "in",
+          "pos": "prep.",
+          "ipa": "/ɪn/",
+          "zh": "在……里",
+          "more": true
+        },
+        {
+          "words": [
+            5
+          ],
+          "text": "coffee",
+          "pos": "n.",
+          "ipa": "/ˈkɒfi/",
+          "zh": "咖啡",
+          "more": true
+        },
+        {
+          "words": [
+            6
+          ],
+          "text": "and",
+          "pos": "conj.",
+          "ipa": "/ænd/",
+          "zh": "和",
+          "more": true
+        },
+        {
+          "words": [
+            7
+          ],
+          "text": "tea",
+          "pos": "n.",
+          "ipa": "/tiː/",
+          "zh": "茶",
+          "more": true
+        },
+        {
+          "words": [
+            8
+          ],
+          "text": "that",
+          "pos": "pron.",
+          "ipa": "/ðæt/",
+          "zh": "那个",
+          "more": true
+        },
+        {
+          "words": [
+            9
+          ],
+          "text": "makes",
+          "pos": "v.",
+          "ipa": "/meɪks/",
+          "zh": "使",
+          "more": true
+        },
+        {
+          "words": [
+            10
+          ],
+          "text": "you",
+          "pos": "pron.",
+          "ipa": "/juː/",
+          "zh": "你",
+          "more": true
+        },
+        {
+          "words": [
+            11
+          ],
+          "text": "feel",
+          "pos": "v.",
+          "ipa": "/fiːl/",
+          "zh": "感觉",
+          "more": true
+        },
+        {
+          "words": [
+            12
+          ],
+          "text": "awake",
+          "pos": "adj.",
+          "ipa": "/əˈweɪk/",
+          "zh": "醒着的",
+          "more": true
+        },
+        {
+          "words": [
+            13
+          ],
+          "text": "and",
+          "pos": "conj.",
+          "ipa": "/ænd/",
+          "zh": "和",
+          "more": true
+        },
+        {
+          "words": [
+            14
+          ],
+          "text": "alert",
+          "pos": "adj.",
+          "ipa": "/əˈlɜːt/",
+          "zh": "警觉的",
+          "more": true
+        },
+        {
+          "words": [
+            15
+          ],
+          "text": "But",
+          "pos": "conj.",
+          "ipa": "/bʌt/",
+          "zh": "但是",
+          "more": true
+        },
+        {
+          "words": [
+            16
+          ],
+          "text": "too",
+          "pos": "adv.",
+          "ipa": "/tuː/",
+          "zh": "太",
+          "more": true
+        },
+        {
+          "words": [
+            17
+          ],
+          "text": "much",
+          "pos": "pron.",
+          "ipa": "/mʌtʃ/",
+          "zh": "太多",
+          "more": true
+        },
+        {
+          "words": [
+            18
+          ],
+          "text": "means",
+          "pos": "v.",
+          "ipa": "/miːnz/",
+          "zh": "意味着",
+          "more": true
+        },
+        {
+          "words": [
+            19
+          ],
+          "text": "you're",
+          "pos": "缩写",
+          "ipa": "/jʊə(r)/",
+          "zh": "= you are 你是",
+          "more": true
+        },
+        {
+          "words": [
+            20
+          ],
+          "text": "too",
+          "pos": "adv.",
+          "ipa": "/tuː/",
+          "zh": "太",
+          "more": true
+        },
+        {
+          "words": [
+            21
+          ],
+          "text": "alert",
+          "pos": "adj.",
+          "ipa": "/əˈlɜːt/",
+          "zh": "警觉的",
+          "more": true
+        }
+      ]
     },
     {
       "id": 56,
@@ -3511,7 +8022,119 @@
           "key": "me"
         }
       ],
-      "zh": "我觉得 caffeine 对我影响不大。"
+      "zh": "我觉得 caffeine 对我影响不大。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "I",
+          "pos": "pron.",
+          "ipa": "/aɪ/",
+          "zh": "我",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "don't",
+          "pos": "缩写",
+          "ipa": "/dəʊnt/",
+          "zh": "= do not 不",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "think",
+          "pos": "v.",
+          "ipa": "/θɪŋk/",
+          "zh": "认为",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "that",
+          "pos": "conj.",
+          "ipa": "/ðæt/",
+          "zh": "（引导从句）",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "caffeine",
+          "pos": "n.",
+          "ipa": "/ˈkæfiːn/",
+          "zh": "咖啡因",
+          "more": true
+        },
+        {
+          "words": [
+            5
+          ],
+          "text": "has",
+          "pos": "v.",
+          "ipa": "/hæz/",
+          "zh": "有",
+          "more": true
+        },
+        {
+          "words": [
+            6
+          ],
+          "text": "a",
+          "pos": "art.",
+          "ipa": "/ə/",
+          "zh": "一个",
+          "more": true
+        },
+        {
+          "words": [
+            7
+          ],
+          "text": "big",
+          "pos": "adj.",
+          "ipa": "/bɪɡ/",
+          "zh": "大的",
+          "more": true
+        },
+        {
+          "words": [
+            8
+          ],
+          "text": "effect",
+          "pos": "n.",
+          "ipa": "/ɪˈfekt/",
+          "zh": "影响",
+          "more": true
+        },
+        {
+          "words": [
+            9
+          ],
+          "text": "on",
+          "pos": "prep.",
+          "ipa": "/ɒn/",
+          "zh": "对",
+          "more": true
+        },
+        {
+          "words": [
+            10
+          ],
+          "text": "me",
+          "pos": "pron.",
+          "ipa": "/miː/",
+          "zh": "我",
+          "more": true
+        }
+      ]
     },
     {
       "id": 57,
@@ -3599,7 +8222,112 @@
           "key": "coffee"
         }
       ],
-      "zh": "我觉得我喝太多咖啡也睡得着。"
+      "zh": "我觉得我喝太多咖啡也睡得着。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "I",
+          "pos": "pron.",
+          "ipa": "/aɪ/",
+          "zh": "我",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "don't",
+          "pos": "缩写",
+          "ipa": "/dəʊnt/",
+          "zh": "= do not 不",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "think",
+          "pos": "v.",
+          "ipa": "/θɪŋk/",
+          "zh": "认为",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "I",
+          "pos": "pron.",
+          "ipa": "/aɪ/",
+          "zh": "我",
+          "more": true
+        },
+        {
+          "words": [
+            4,
+            5,
+            6
+          ],
+          "text": "have trouble sleeping",
+          "pos": "词组",
+          "ipa": "/hæv ˈtrʌbl ˈsliːpɪŋ/",
+          "zh": "入睡困难",
+          "more": true
+        },
+        {
+          "words": [
+            7
+          ],
+          "text": "if",
+          "pos": "conj.",
+          "ipa": "/ɪf/",
+          "zh": "如果",
+          "more": true
+        },
+        {
+          "words": [
+            8
+          ],
+          "text": "I",
+          "pos": "pron.",
+          "ipa": "/aɪ/",
+          "zh": "我",
+          "more": true
+        },
+        {
+          "words": [
+            9
+          ],
+          "text": "drink",
+          "pos": "v.",
+          "ipa": "/drɪŋk/",
+          "zh": "喝",
+          "more": true
+        },
+        {
+          "words": [
+            10,
+            11
+          ],
+          "text": "too much",
+          "pos": "词组",
+          "ipa": "/tuː mʌtʃ/",
+          "zh": "太多",
+          "more": true
+        },
+        {
+          "words": [
+            12
+          ],
+          "text": "coffee",
+          "pos": "n.",
+          "ipa": "/ˈkɒfi/",
+          "zh": "咖啡",
+          "more": true
+        }
+      ]
     },
     {
       "id": 58,
@@ -3621,7 +8349,29 @@
           "key": "strange"
         }
       ],
-      "zh": "这挺奇怪的。"
+      "zh": "这挺奇怪的。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "It's",
+          "pos": "缩写",
+          "ipa": "/ɪts/",
+          "zh": "= It is 这真是",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "strange",
+          "pos": "adj.",
+          "ipa": "/streɪndʒ/",
+          "zh": "奇怪的",
+          "more": true
+        }
+      ]
     },
     {
       "id": 59,
@@ -3685,7 +8435,99 @@
           "key": "dinner"
         }
       ],
-      "zh": "对，因为有时候我晚饭后会喝一杯浓缩咖啡。"
+      "zh": "对，因为有时候我晚饭后会喝一杯浓缩咖啡。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Yeah",
+          "pos": "int.",
+          "ipa": "/jeə/",
+          "zh": "是的",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "because",
+          "pos": "conj.",
+          "ipa": "/bɪˈkɒz/",
+          "zh": "因为",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "sometimes",
+          "pos": "adv.",
+          "ipa": "/ˈsʌmtaɪmz/",
+          "zh": "有时",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "I'll",
+          "pos": "缩写",
+          "ipa": "/aɪl/",
+          "zh": "= I will 我将",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "have",
+          "pos": "v.",
+          "ipa": "/hæv/",
+          "zh": "喝",
+          "more": true
+        },
+        {
+          "words": [
+            5
+          ],
+          "text": "an",
+          "pos": "art.",
+          "ipa": "/ən/",
+          "zh": "一个",
+          "more": true
+        },
+        {
+          "words": [
+            6
+          ],
+          "text": "espresso",
+          "pos": "n.",
+          "ipa": "/eˈspresəʊ/",
+          "zh": "浓缩咖啡",
+          "more": true
+        },
+        {
+          "words": [
+            7
+          ],
+          "text": "after",
+          "pos": "prep.",
+          "ipa": "/ˈɑːftə(r)/",
+          "zh": "在…之后",
+          "more": true
+        },
+        {
+          "words": [
+            8
+          ],
+          "text": "dinner",
+          "pos": "n.",
+          "ipa": "/ˈdɪnə(r)/",
+          "zh": "晚餐",
+          "more": true
+        }
+      ]
     },
     {
       "id": 60,
@@ -3701,7 +8543,19 @@
           "key": "really"
         }
       ],
-      "zh": "真的吗？"
+      "zh": "真的吗？",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Really",
+          "pos": "int.",
+          "ipa": "/ˈriːəli/",
+          "zh": "真的吗？",
+          "more": true
+        }
+      ]
     },
     {
       "id": 61,
@@ -3747,7 +8601,69 @@
           "key": "sleep"
         }
       ],
-      "zh": "是啊，而且我照样能睡着。"
+      "zh": "是啊，而且我照样能睡着。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Yeah",
+          "pos": "int.",
+          "ipa": "/jeə/",
+          "zh": "是的",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "And",
+          "pos": "conj.",
+          "ipa": "/ænd/",
+          "zh": "而且",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "I",
+          "pos": "pron.",
+          "ipa": "/aɪ/",
+          "zh": "我",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "can",
+          "pos": "aux.",
+          "ipa": "/kæn/",
+          "zh": "能",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "still",
+          "pos": "adv.",
+          "ipa": "/stɪl/",
+          "zh": "仍然",
+          "more": true
+        },
+        {
+          "words": [
+            5
+          ],
+          "text": "sleep",
+          "pos": "v.",
+          "ipa": "/sliːp/",
+          "zh": "睡觉",
+          "more": true
+        }
+      ]
     },
     {
       "id": 62,
@@ -3769,7 +8685,29 @@
           "key": "crazy"
         }
       ],
-      "zh": "太神奇了。"
+      "zh": "太神奇了。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "That's",
+          "pos": "缩写",
+          "ipa": "/ðæts/",
+          "zh": "= That is 那太",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "crazy",
+          "pos": "adj.",
+          "ipa": "/ˈkreɪzi/",
+          "zh": "疯狂的；难以置信的",
+          "more": true
+        }
+      ]
     },
     {
       "id": 63,
@@ -3797,7 +8735,39 @@
           "key": "me"
         }
       ],
-      "zh": "是啊，我运气好。"
+      "zh": "是啊，我运气好。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Yeah",
+          "pos": "int.",
+          "ipa": "/jeə/",
+          "zh": "是的",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "Lucky",
+          "pos": "adj.",
+          "ipa": "/ˈlʌki/",
+          "zh": "幸运的",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "me",
+          "pos": "pron.",
+          "ipa": "/miː/",
+          "zh": "我",
+          "more": true
+        }
+      ]
     },
     {
       "id": 64,
@@ -3819,7 +8789,20 @@
           "key": "you"
         }
       ],
-      "zh": "你运气真好。"
+      "zh": "你运气真好。",
+      "notes": [
+        {
+          "words": [
+            0,
+            1
+          ],
+          "text": "Lucky you",
+          "pos": "词组",
+          "ipa": "/ˈlʌki juː/",
+          "zh": "你真幸运",
+          "more": true
+        }
+      ]
     },
     {
       "id": 65,
@@ -3889,7 +8872,91 @@
           "key": "coffee"
         }
       ],
-      "zh": "Neil，你有没有试过 cut down on coffee？就是少喝点咖啡。"
+      "zh": "Neil，你有没有试过 cut down on coffee？就是少喝点咖啡。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Neil",
+          "pos": "名字",
+          "ipa": "/niːl/",
+          "zh": "人名（主持人）",
+          "more": false
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "have",
+          "pos": "aux.",
+          "ipa": "/hæv/",
+          "zh": "（构成完成时）",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "you",
+          "pos": "pron.",
+          "ipa": "/juː/",
+          "zh": "你",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "ever",
+          "pos": "adv.",
+          "ipa": "/ˈevə(r)/",
+          "zh": "曾经",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "tried",
+          "pos": "v.",
+          "ipa": "/traɪd/",
+          "zh": "尝试",
+          "more": true
+        },
+        {
+          "words": [
+            5
+          ],
+          "text": "to",
+          "pos": "不定式",
+          "ipa": "/tu/",
+          "zh": "不用翻译",
+          "more": true
+        },
+        {
+          "words": [
+            6,
+            7,
+            8
+          ],
+          "text": "cut down on",
+          "pos": "词组",
+          "ipa": "/kʌt daʊn ɒn/",
+          "zh": "减少",
+          "more": true
+        },
+        {
+          "words": [
+            9
+          ],
+          "text": "coffee",
+          "pos": "n.",
+          "ipa": "/ˈkɒfi/",
+          "zh": "咖啡",
+          "more": true
+        }
+      ]
     },
     {
       "id": 66,
@@ -3941,7 +9008,61 @@
           "key": "less"
         }
       ],
-      "zh": "Cut down on，你是说少喝点？"
+      "zh": "Cut down on，你是说少喝点？",
+      "notes": [
+        {
+          "words": [
+            0,
+            1,
+            2
+          ],
+          "text": "Cut down on",
+          "pos": "词组",
+          "ipa": "/kʌt daʊn ɒn/",
+          "zh": "减少",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "You",
+          "pos": "pron.",
+          "ipa": "/juː/",
+          "zh": "你",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "mean",
+          "pos": "v.",
+          "ipa": "/miːn/",
+          "zh": "意思是",
+          "more": true
+        },
+        {
+          "words": [
+            5
+          ],
+          "text": "have",
+          "pos": "v.",
+          "ipa": "/hæv/",
+          "zh": "喝",
+          "more": true
+        },
+        {
+          "words": [
+            6
+          ],
+          "text": "less",
+          "pos": "adj.",
+          "ipa": "/les/",
+          "zh": "更少的",
+          "more": true
+        }
+      ]
     },
     {
       "id": 67,
@@ -4053,7 +9174,143 @@
           "key": "caffeine"
         }
       ],
-      "zh": "没有，我没试过 cut down on coffee，但我试过 cut down on caffeine，就是少摄入咖啡因。"
+      "zh": "没有，我没试过 cut down on coffee，但我试过 cut down on caffeine，就是少摄入咖啡因。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "No",
+          "pos": "int.",
+          "ipa": "/nəʊ/",
+          "zh": "不",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "I",
+          "pos": "pron.",
+          "ipa": "/aɪ/",
+          "zh": "我",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "haven't",
+          "pos": "缩写",
+          "ipa": "/ˈhævnt/",
+          "zh": "= have not 没有",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "tried",
+          "pos": "v.",
+          "ipa": "/traɪd/",
+          "zh": "尝试",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "to",
+          "pos": "不定式",
+          "ipa": "/tu/",
+          "zh": "不用翻译",
+          "more": true
+        },
+        {
+          "words": [
+            5,
+            6,
+            7
+          ],
+          "text": "cut down on",
+          "pos": "词组",
+          "ipa": "/kʌt daʊn ɒn/",
+          "zh": "减少",
+          "more": true
+        },
+        {
+          "words": [
+            8
+          ],
+          "text": "coffee",
+          "pos": "n.",
+          "ipa": "/ˈkɒfi/",
+          "zh": "咖啡",
+          "more": true
+        },
+        {
+          "words": [
+            9
+          ],
+          "text": "but",
+          "pos": "conj.",
+          "ipa": "/bʌt/",
+          "zh": "但是",
+          "more": true
+        },
+        {
+          "words": [
+            10
+          ],
+          "text": "I've",
+          "pos": "缩写",
+          "ipa": "/aɪv/",
+          "zh": "= I have 我已经",
+          "more": true
+        },
+        {
+          "words": [
+            11
+          ],
+          "text": "tried",
+          "pos": "v.",
+          "ipa": "/traɪd/",
+          "zh": "尝试",
+          "more": true
+        },
+        {
+          "words": [
+            12
+          ],
+          "text": "to",
+          "pos": "不定式",
+          "ipa": "/tu/",
+          "zh": "不用翻译",
+          "more": true
+        },
+        {
+          "words": [
+            13,
+            14,
+            15
+          ],
+          "text": "cut down on",
+          "pos": "词组",
+          "ipa": "/kʌt daʊn ɒn/",
+          "zh": "减少",
+          "more": true
+        },
+        {
+          "words": [
+            16
+          ],
+          "text": "caffeine",
+          "pos": "n.",
+          "ipa": "/ˈkæfiːn/",
+          "zh": "咖啡因",
+          "more": true
+        }
+      ]
     },
     {
       "id": 68,
@@ -4069,7 +9326,19 @@
           "key": "okay"
         }
       ],
-      "zh": "好。"
+      "zh": "好。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Okay",
+          "pos": "int.",
+          "ipa": "/ˌəʊˈkeɪ/",
+          "zh": "好的",
+          "more": true
+        }
+      ]
     },
     {
       "id": 69,
@@ -4175,7 +9444,151 @@
           "key": "it"
         }
       ],
-      "zh": "所以我有段时间只喝无咖啡因咖啡，也就是我们说的 decaf，不含咖啡因的那种。"
+      "zh": "所以我有段时间只喝无咖啡因咖啡，也就是我们说的 decaf，不含咖啡因的那种。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "So",
+          "pos": "conj.",
+          "ipa": "/səʊ/",
+          "zh": "那么",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "I",
+          "pos": "pron.",
+          "ipa": "/aɪ/",
+          "zh": "我",
+          "more": true
+        },
+        {
+          "words": [
+            2,
+            3,
+            4
+          ],
+          "text": "for a while",
+          "pos": "词组",
+          "ipa": "/fɔːr ə waɪl/",
+          "zh": "一段时间",
+          "more": true
+        },
+        {
+          "words": [
+            5
+          ],
+          "text": "I",
+          "pos": "pron.",
+          "ipa": "/aɪ/",
+          "zh": "我",
+          "more": true
+        },
+        {
+          "words": [
+            6
+          ],
+          "text": "only",
+          "pos": "adv.",
+          "ipa": "/ˈəʊnli/",
+          "zh": "只",
+          "more": true
+        },
+        {
+          "words": [
+            7
+          ],
+          "text": "drank",
+          "pos": "v.",
+          "ipa": "/dræŋk/",
+          "zh": "喝",
+          "more": true
+        },
+        {
+          "words": [
+            8
+          ],
+          "text": "decaffeinated",
+          "pos": "adj.",
+          "ipa": "/diːˈkæfɪneɪtɪd/",
+          "zh": "无咖啡因的",
+          "more": true
+        },
+        {
+          "words": [
+            9
+          ],
+          "text": "coffee",
+          "pos": "n.",
+          "ipa": "/ˈkɒfi/",
+          "zh": "咖啡",
+          "more": true
+        },
+        {
+          "words": [
+            10
+          ],
+          "text": "or",
+          "pos": "conj.",
+          "ipa": "/ɔː(r)/",
+          "zh": "或者",
+          "more": true
+        },
+        {
+          "words": [
+            11
+          ],
+          "text": "decaf",
+          "pos": "n.",
+          "ipa": "/ˈdiːkæf/",
+          "zh": "无咖啡因咖啡",
+          "more": true
+        },
+        {
+          "words": [
+            12
+          ],
+          "text": "as",
+          "pos": "conj.",
+          "ipa": "/æz/",
+          "zh": "正如",
+          "more": true
+        },
+        {
+          "words": [
+            13
+          ],
+          "text": "we",
+          "pos": "pron.",
+          "ipa": "/wiː/",
+          "zh": "我们",
+          "more": true
+        },
+        {
+          "words": [
+            14
+          ],
+          "text": "call",
+          "pos": "v.",
+          "ipa": "/kɔːl/",
+          "zh": "称呼",
+          "more": true
+        },
+        {
+          "words": [
+            15
+          ],
+          "text": "it",
+          "pos": "pron.",
+          "ipa": "/ɪt/",
+          "zh": "它",
+          "more": true
+        }
+      ]
     },
     {
       "id": 70,
@@ -4191,7 +9604,19 @@
           "key": "okay"
         }
       ],
-      "zh": "好，"
+      "zh": "好，",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Okay",
+          "pos": "int.",
+          "ipa": "/ˌəʊˈkeɪ/",
+          "zh": "好的",
+          "more": true
+        }
+      ]
     },
     {
       "id": 71,
@@ -4225,7 +9650,49 @@
           "key": "that"
         }
       ],
-      "zh": "那感觉怎么样？"
+      "zh": "那感觉怎么样？",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "And",
+          "pos": "conj.",
+          "ipa": "/ænd/",
+          "zh": "那么，然后",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "how",
+          "pos": "adv.",
+          "ipa": "/haʊ/",
+          "zh": "怎么样",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "was",
+          "pos": "v.",
+          "ipa": "/wɒz/",
+          "zh": "是（过去式）",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "that",
+          "pos": "pron.",
+          "ipa": "/ðæt/",
+          "zh": "那，那个",
+          "more": true
+        }
+      ]
     },
     {
       "id": 72,
@@ -4283,7 +9750,71 @@
           "key": "time"
         }
       ],
-      "zh": "嗯，当时我倒不觉得缺了 caffeine，就是咖啡因。"
+      "zh": "嗯，当时我倒不觉得缺了 caffeine，就是咖啡因。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Well",
+          "pos": "int.",
+          "ipa": "/wel/",
+          "zh": "嗯（用于引出话）",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "I",
+          "pos": "pron.",
+          "ipa": "/aɪ/",
+          "zh": "我",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "didn't",
+          "pos": "缩写",
+          "ipa": "/ˈdɪdnt/",
+          "zh": "= did not 没有",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "miss",
+          "pos": "v.",
+          "ipa": "/mɪs/",
+          "zh": "想念",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "caffeine",
+          "pos": "n.",
+          "ipa": "/ˈkæfiːn/",
+          "zh": "咖啡因",
+          "more": true
+        },
+        {
+          "words": [
+            5,
+            6,
+            7
+          ],
+          "text": "at the time",
+          "pos": "词组",
+          "ipa": "/æt ðə taɪm/",
+          "zh": "当时",
+          "more": true
+        }
+      ]
     },
     {
       "id": 73,
@@ -4383,7 +9914,159 @@
           "key": "caffeine"
         }
       ],
-      "zh": "我觉得没坚持多久，嗯，但现在我又喝含咖啡因的东西了。"
+      "zh": "我觉得没坚持多久，嗯，但现在我又喝含咖啡因的东西了。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "I",
+          "pos": "pron.",
+          "ipa": "/aɪ/",
+          "zh": "我",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "don't",
+          "pos": "缩写",
+          "ipa": "/dəʊnt/",
+          "zh": "= do not 不",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "think",
+          "pos": "v.",
+          "ipa": "/θɪŋk/",
+          "zh": "认为",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "It",
+          "pos": "pron.",
+          "ipa": "/ɪt/",
+          "zh": "它",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "lasted",
+          "pos": "v.",
+          "ipa": "/ˈlɑːstɪd/",
+          "zh": "持续",
+          "more": true
+        },
+        {
+          "words": [
+            5
+          ],
+          "text": "for",
+          "pos": "prep.",
+          "ipa": "/fɔː(r)/",
+          "zh": "持续（一段时间）",
+          "more": true
+        },
+        {
+          "words": [
+            6
+          ],
+          "text": "a",
+          "pos": "art.",
+          "ipa": "/ə/",
+          "zh": "一（个）",
+          "more": true
+        },
+        {
+          "words": [
+            7
+          ],
+          "text": "long",
+          "pos": "adj.",
+          "ipa": "/lɒŋ/",
+          "zh": "长的",
+          "more": true
+        },
+        {
+          "words": [
+            8
+          ],
+          "text": "time",
+          "pos": "n.",
+          "ipa": "/taɪm/",
+          "zh": "时间",
+          "more": true
+        },
+        {
+          "words": [
+            9
+          ],
+          "text": "um",
+          "pos": "int.",
+          "ipa": "/ʌm/",
+          "zh": "呃（表示犹豫）",
+          "more": true
+        },
+        {
+          "words": [
+            10
+          ],
+          "text": "but",
+          "pos": "conj.",
+          "ipa": "/bʌt/",
+          "zh": "但是",
+          "more": true
+        },
+        {
+          "words": [
+            11
+          ],
+          "text": "now",
+          "pos": "adv.",
+          "ipa": "/naʊ/",
+          "zh": "现在",
+          "more": true
+        },
+        {
+          "words": [
+            12
+          ],
+          "text": "I",
+          "pos": "pron.",
+          "ipa": "/aɪ/",
+          "zh": "我",
+          "more": true
+        },
+        {
+          "words": [
+            13
+          ],
+          "text": "drink",
+          "pos": "v.",
+          "ipa": "/drɪŋk/",
+          "zh": "喝",
+          "more": true
+        },
+        {
+          "words": [
+            14
+          ],
+          "text": "caffeine",
+          "pos": "n.",
+          "ipa": "/ˈkæfiːn/",
+          "zh": "咖啡因",
+          "more": true
+        }
+      ]
     },
     {
       "id": 74,
@@ -4411,7 +10094,39 @@
           "key": "care"
         }
       ],
-      "zh": "我不在乎了。"
+      "zh": "我不在乎了。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "I",
+          "pos": "pron.",
+          "ipa": "/aɪ/",
+          "zh": "我",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "don't",
+          "pos": "缩写",
+          "ipa": "/dəʊnt/",
+          "zh": "= do not 不",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "care",
+          "pos": "v.",
+          "ipa": "/keə(r)/",
+          "zh": "在乎，在意",
+          "more": true
+        }
+      ]
     },
     {
       "id": 75,
@@ -4427,7 +10142,19 @@
           "key": "okay"
         }
       ],
-      "zh": "好，"
+      "zh": "好，",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Okay",
+          "pos": "int.",
+          "ipa": "/ˌəʊˈkeɪ/",
+          "zh": "好的",
+          "more": true
+        }
+      ]
     },
     {
       "id": 76,
@@ -4509,7 +10236,129 @@
           "key": "conversation"
         }
       ],
-      "zh": "Neil，咱们来回顾一下对话里用到的词。"
+      "zh": "Neil，咱们来回顾一下对话里用到的词。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Neil",
+          "pos": "名字",
+          "ipa": "/niːl/",
+          "zh": "人名（主持人）",
+          "more": false
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "it's",
+          "pos": "缩写",
+          "ipa": "/ɪts/",
+          "zh": "= it is 是",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "time",
+          "pos": "n.",
+          "ipa": "/taɪm/",
+          "zh": "时候",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "to",
+          "pos": "不定式",
+          "ipa": "/tuː/",
+          "zh": "不用翻译",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "recap",
+          "pos": "v.",
+          "ipa": "/ˈriːkæp/",
+          "zh": "回顾",
+          "more": true
+        },
+        {
+          "words": [
+            5
+          ],
+          "text": "the",
+          "pos": "art.",
+          "ipa": "/ðə/",
+          "zh": "这（些）",
+          "more": true
+        },
+        {
+          "words": [
+            6
+          ],
+          "text": "vocabulary",
+          "pos": "n.",
+          "ipa": "/vəˈkæbjələri/",
+          "zh": "词汇",
+          "more": true
+        },
+        {
+          "words": [
+            7
+          ],
+          "text": "we",
+          "pos": "pron.",
+          "ipa": "/wiː/",
+          "zh": "我们",
+          "more": true
+        },
+        {
+          "words": [
+            8
+          ],
+          "text": "used",
+          "pos": "v.",
+          "ipa": "/juːzd/",
+          "zh": "使用",
+          "more": true
+        },
+        {
+          "words": [
+            9
+          ],
+          "text": "in",
+          "pos": "prep.",
+          "ipa": "/ɪn/",
+          "zh": "在……里",
+          "more": true
+        },
+        {
+          "words": [
+            10
+          ],
+          "text": "the",
+          "pos": "art.",
+          "ipa": "/ðə/",
+          "zh": "这（个）",
+          "more": true
+        },
+        {
+          "words": [
+            11
+          ],
+          "text": "conversation",
+          "pos": "n.",
+          "ipa": "/ˌkɒnvəˈseɪʃn/",
+          "zh": "对话",
+          "more": true
+        }
+      ]
     },
     {
       "id": 77,
@@ -4549,7 +10398,59 @@
           "key": "take"
         }
       ],
-      "zh": "我们用了动词 take。"
+      "zh": "我们用了动词 take。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "We",
+          "pos": "pron.",
+          "ipa": "/wiː/",
+          "zh": "我们",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "used",
+          "pos": "v.",
+          "ipa": "/juːzd/",
+          "zh": "使用了",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "the",
+          "pos": "art.",
+          "ipa": "/ðə/",
+          "zh": "这个",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "verb",
+          "pos": "n.",
+          "ipa": "/vɜːb/",
+          "zh": "动词",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "take",
+          "pos": "v.",
+          "ipa": "/teɪk/",
+          "zh": "拿；取",
+          "more": true
+        }
+      ]
     },
     {
       "id": 78,
@@ -4607,7 +10508,89 @@
           "key": "coffee"
         }
       ],
-      "zh": "Neil，你的咖啡怎么喝？"
+      "zh": "Neil，你的咖啡怎么喝？",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "So",
+          "pos": "adv.",
+          "ipa": "/səʊ/",
+          "zh": "那么",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "Neil",
+          "pos": "名字",
+          "ipa": "/niːl/",
+          "zh": "人名（主持人）",
+          "more": false
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "how",
+          "pos": "adv.",
+          "ipa": "/haʊ/",
+          "zh": "怎样",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "do",
+          "pos": "aux.",
+          "ipa": "/duː/",
+          "zh": "助动词（构成疑问）",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "you",
+          "pos": "pron.",
+          "ipa": "/juː/",
+          "zh": "你",
+          "more": true
+        },
+        {
+          "words": [
+            5
+          ],
+          "text": "take",
+          "pos": "v.",
+          "ipa": "/teɪk/",
+          "zh": "喝（咖啡、茶）",
+          "more": true
+        },
+        {
+          "words": [
+            6
+          ],
+          "text": "your",
+          "pos": "pron.",
+          "ipa": "/jɔː(r)/",
+          "zh": "你的",
+          "more": true
+        },
+        {
+          "words": [
+            7
+          ],
+          "text": "coffee",
+          "pos": "n.",
+          "ipa": "/ˈkɒfi/",
+          "zh": "咖啡",
+          "more": true
+        }
+      ]
     },
     {
       "id": 79,
@@ -4695,7 +10678,139 @@
           "key": "white"
         }
       ],
-      "zh": "我喝咖啡不加奶，我知道你喝咖啡要加奶。"
+      "zh": "我喝咖啡不加奶，我知道你喝咖啡要加奶。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "I",
+          "pos": "pron.",
+          "ipa": "/aɪ/",
+          "zh": "我",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "take",
+          "pos": "v.",
+          "ipa": "/teɪk/",
+          "zh": "喝（咖啡、茶）",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "my",
+          "pos": "pron.",
+          "ipa": "/maɪ/",
+          "zh": "我的",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "coffee",
+          "pos": "n.",
+          "ipa": "/ˈkɒfi/",
+          "zh": "咖啡",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "black",
+          "pos": "adj.",
+          "ipa": "/blæk/",
+          "zh": "（咖啡）不加奶的",
+          "more": true
+        },
+        {
+          "words": [
+            5
+          ],
+          "text": "and",
+          "pos": "conj.",
+          "ipa": "/ænd/",
+          "zh": "和",
+          "more": true
+        },
+        {
+          "words": [
+            6
+          ],
+          "text": "I",
+          "pos": "pron.",
+          "ipa": "/aɪ/",
+          "zh": "我",
+          "more": true
+        },
+        {
+          "words": [
+            7
+          ],
+          "text": "know",
+          "pos": "v.",
+          "ipa": "/nəʊ/",
+          "zh": "知道",
+          "more": true
+        },
+        {
+          "words": [
+            8
+          ],
+          "text": "you",
+          "pos": "pron.",
+          "ipa": "/juː/",
+          "zh": "你",
+          "more": true
+        },
+        {
+          "words": [
+            9
+          ],
+          "text": "take",
+          "pos": "v.",
+          "ipa": "/teɪk/",
+          "zh": "喝（咖啡、茶）",
+          "more": true
+        },
+        {
+          "words": [
+            10
+          ],
+          "text": "your",
+          "pos": "pron.",
+          "ipa": "/jɔː(r)/",
+          "zh": "你的",
+          "more": true
+        },
+        {
+          "words": [
+            11
+          ],
+          "text": "coffee",
+          "pos": "n.",
+          "ipa": "/ˈkɒfi/",
+          "zh": "咖啡",
+          "more": true
+        },
+        {
+          "words": [
+            12
+          ],
+          "text": "white",
+          "pos": "adj.",
+          "ipa": "/waɪt/",
+          "zh": "（咖啡）加奶的",
+          "more": true
+        }
+      ]
     },
     {
       "id": 80,
@@ -4819,7 +10934,199 @@
           "key": "awake"
         }
       ],
-      "zh": "对，我们还听到了 caffeine，它是咖啡里的一种化学物质，会让你感觉更清醒。"
+      "zh": "对，我们还听到了 caffeine，它是咖啡里的一种化学物质，会让你感觉更清醒。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Yes",
+          "pos": "int.",
+          "ipa": "/jes/",
+          "zh": "是的",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "We",
+          "pos": "pron.",
+          "ipa": "/wiː/",
+          "zh": "我们",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "also",
+          "pos": "adv.",
+          "ipa": "/ˈɔːlsəʊ/",
+          "zh": "也",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "heard",
+          "pos": "v.",
+          "ipa": "/hɜːd/",
+          "zh": "听到",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "caffeine",
+          "pos": "n.",
+          "ipa": "/ˈkæfiːn/",
+          "zh": "咖啡因",
+          "more": true
+        },
+        {
+          "words": [
+            5
+          ],
+          "text": "which",
+          "pos": "pron.",
+          "ipa": "/wɪtʃ/",
+          "zh": "（引导定语从句）",
+          "more": true
+        },
+        {
+          "words": [
+            6
+          ],
+          "text": "is",
+          "pos": "v.",
+          "ipa": "/ɪz/",
+          "zh": "是",
+          "more": true
+        },
+        {
+          "words": [
+            7
+          ],
+          "text": "the",
+          "pos": "art.",
+          "ipa": "/ðə/",
+          "zh": "这个",
+          "more": true
+        },
+        {
+          "words": [
+            8
+          ],
+          "text": "chemical",
+          "pos": "n.",
+          "ipa": "/ˈkemɪkl/",
+          "zh": "化学物质",
+          "more": true
+        },
+        {
+          "words": [
+            9
+          ],
+          "text": "that",
+          "pos": "pron.",
+          "ipa": "/ðæt/",
+          "zh": "（引导定语从句）",
+          "more": true
+        },
+        {
+          "words": [
+            10
+          ],
+          "text": "is",
+          "pos": "v.",
+          "ipa": "/ɪz/",
+          "zh": "在",
+          "more": true
+        },
+        {
+          "words": [
+            11
+          ],
+          "text": "in",
+          "pos": "prep.",
+          "ipa": "/ɪn/",
+          "zh": "在……里",
+          "more": true
+        },
+        {
+          "words": [
+            12
+          ],
+          "text": "coffee",
+          "pos": "n.",
+          "ipa": "/ˈkɒfi/",
+          "zh": "咖啡",
+          "more": true
+        },
+        {
+          "words": [
+            13
+          ],
+          "text": "which",
+          "pos": "pron.",
+          "ipa": "/wɪtʃ/",
+          "zh": "（引导定语从句）",
+          "more": true
+        },
+        {
+          "words": [
+            14
+          ],
+          "text": "makes",
+          "pos": "v.",
+          "ipa": "/meɪks/",
+          "zh": "使",
+          "more": true
+        },
+        {
+          "words": [
+            15
+          ],
+          "text": "you",
+          "pos": "pron.",
+          "ipa": "/juː/",
+          "zh": "你",
+          "more": true
+        },
+        {
+          "words": [
+            16
+          ],
+          "text": "feel",
+          "pos": "v.",
+          "ipa": "/fiːl/",
+          "zh": "感觉",
+          "more": true
+        },
+        {
+          "words": [
+            17
+          ],
+          "text": "more",
+          "pos": "adv.",
+          "ipa": "/mɔː(r)/",
+          "zh": "更",
+          "more": true
+        },
+        {
+          "words": [
+            18
+          ],
+          "text": "awake",
+          "pos": "adj.",
+          "ipa": "/əˈweɪk/",
+          "zh": "清醒的",
+          "more": true
+        }
+      ]
     },
     {
       "id": 81,
@@ -4889,7 +11196,109 @@
           "key": "tea"
         }
       ],
-      "zh": "对，不过你也可以喝 decaffeinated coffee，也就是无咖啡因的咖啡，或者无咖啡因的茶。"
+      "zh": "对，不过你也可以喝 decaffeinated coffee，也就是无咖啡因的咖啡，或者无咖啡因的茶。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Yes",
+          "pos": "int.",
+          "ipa": "/jes/",
+          "zh": "是的",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "but",
+          "pos": "conj.",
+          "ipa": "/bʌt/",
+          "zh": "但是",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "you",
+          "pos": "pron.",
+          "ipa": "/juː/",
+          "zh": "你",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "can",
+          "pos": "aux.",
+          "ipa": "/kæn/",
+          "zh": "可以",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "also",
+          "pos": "adv.",
+          "ipa": "/ˈɔːlsəʊ/",
+          "zh": "也",
+          "more": true
+        },
+        {
+          "words": [
+            5
+          ],
+          "text": "get",
+          "pos": "v.",
+          "ipa": "/ɡet/",
+          "zh": "买到",
+          "more": true
+        },
+        {
+          "words": [
+            6
+          ],
+          "text": "decaffeinated",
+          "pos": "adj.",
+          "ipa": "/diːˈkæfɪneɪtɪd/",
+          "zh": "无咖啡因的",
+          "more": true
+        },
+        {
+          "words": [
+            7
+          ],
+          "text": "coffee",
+          "pos": "n.",
+          "ipa": "/ˈkɒfi/",
+          "zh": "咖啡",
+          "more": true
+        },
+        {
+          "words": [
+            8
+          ],
+          "text": "or",
+          "pos": "conj.",
+          "ipa": "/ɔː(r)/",
+          "zh": "或者",
+          "more": true
+        },
+        {
+          "words": [
+            9
+          ],
+          "text": "tea",
+          "pos": "n.",
+          "ipa": "/tiː/",
+          "zh": "茶",
+          "more": true
+        }
+      ]
     },
     {
       "id": 82,
@@ -4983,7 +11392,149 @@
           "key": "coffee"
         }
       ],
-      "zh": "意思就是没有咖啡因。我们一般就把它缩成 decaf，decaf coffee。"
+      "zh": "意思就是没有咖啡因。我们一般就把它缩成 decaf，decaf coffee。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Itmeans",
+          "pos": "缩写",
+          "ipa": "/ɪt ˈmiːnz/",
+          "zh": "= It means 它意思是",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "there's",
+          "pos": "缩写",
+          "ipa": "/ðeəz/",
+          "zh": "= there is 有",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "no",
+          "pos": "adj.",
+          "ipa": "/nəʊ/",
+          "zh": "没有",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "caffeine",
+          "pos": "n.",
+          "ipa": "/ˈkæfiːn/",
+          "zh": "咖啡因",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "And",
+          "pos": "conj.",
+          "ipa": "/ænd/",
+          "zh": "而且",
+          "more": true
+        },
+        {
+          "words": [
+            5
+          ],
+          "text": "we",
+          "pos": "pron.",
+          "ipa": "/wiː/",
+          "zh": "我们",
+          "more": true
+        },
+        {
+          "words": [
+            6
+          ],
+          "text": "usually",
+          "pos": "adv.",
+          "ipa": "/ˈjuːʒuəli/",
+          "zh": "通常",
+          "more": true
+        },
+        {
+          "words": [
+            7
+          ],
+          "text": "shorten",
+          "pos": "v.",
+          "ipa": "/ˈʃɔːtn/",
+          "zh": "缩短",
+          "more": true
+        },
+        {
+          "words": [
+            8
+          ],
+          "text": "that",
+          "pos": "pron.",
+          "ipa": "/ðæt/",
+          "zh": "那个",
+          "more": true
+        },
+        {
+          "words": [
+            9
+          ],
+          "text": "just",
+          "pos": "adv.",
+          "ipa": "/dʒʌst/",
+          "zh": "只是",
+          "more": true
+        },
+        {
+          "words": [
+            10
+          ],
+          "text": "to",
+          "pos": "不定式",
+          "ipa": "/tuː/",
+          "zh": "不用翻译",
+          "more": true
+        },
+        {
+          "words": [
+            11
+          ],
+          "text": "decaf",
+          "pos": "n.",
+          "ipa": "/ˈdiːkæf/",
+          "zh": "无咖啡因咖啡",
+          "more": true
+        },
+        {
+          "words": [
+            12
+          ],
+          "text": "decaf",
+          "pos": "n.",
+          "ipa": "/ˈdiːkæf/",
+          "zh": "无咖啡因咖啡",
+          "more": true
+        },
+        {
+          "words": [
+            13
+          ],
+          "text": "coffee",
+          "pos": "n.",
+          "ipa": "/ˈkɒfi/",
+          "zh": "咖啡",
+          "more": true
+        }
+      ]
     },
     {
       "id": 83,
@@ -5095,7 +11646,161 @@
           "key": "something"
         }
       ],
-      "zh": "对，我们还听到了短语动词 cut down on，意思就是少来点某个东西。"
+      "zh": "对，我们还听到了短语动词 cut down on，意思就是少来点某个东西。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Yes",
+          "pos": "int.",
+          "ipa": "/jes/",
+          "zh": "是的",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "We",
+          "pos": "pron.",
+          "ipa": "/wiː/",
+          "zh": "我们",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "also",
+          "pos": "adv.",
+          "ipa": "/ˈɔːlsəʊ/",
+          "zh": "也",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "heard",
+          "pos": "v.",
+          "ipa": "/hɜːd/",
+          "zh": "听到",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "the",
+          "pos": "art.",
+          "ipa": "/ðə/",
+          "zh": "这个",
+          "more": true
+        },
+        {
+          "words": [
+            5
+          ],
+          "text": "phrasal",
+          "pos": "adj.",
+          "ipa": "/ˈfreɪzl/",
+          "zh": "短语的",
+          "more": true
+        },
+        {
+          "words": [
+            6
+          ],
+          "text": "verb",
+          "pos": "n.",
+          "ipa": "/vɜːb/",
+          "zh": "动词",
+          "more": true
+        },
+        {
+          "words": [
+            7,
+            8,
+            9
+          ],
+          "text": "cut down on",
+          "pos": "词组",
+          "ipa": "/kʌt daʊn ɒn/",
+          "zh": "减少",
+          "more": true
+        },
+        {
+          "words": [
+            10
+          ],
+          "text": "which",
+          "pos": "pron.",
+          "ipa": "/wɪtʃ/",
+          "zh": "这（指代前文）",
+          "more": true
+        },
+        {
+          "words": [
+            11
+          ],
+          "text": "means",
+          "pos": "v.",
+          "ipa": "/miːnz/",
+          "zh": "意思是",
+          "more": true
+        },
+        {
+          "words": [
+            12
+          ],
+          "text": "you",
+          "pos": "pron.",
+          "ipa": "/juː/",
+          "zh": "你",
+          "more": true
+        },
+        {
+          "words": [
+            13
+          ],
+          "text": "have",
+          "pos": "v.",
+          "ipa": "/hæv/",
+          "zh": "有",
+          "more": true
+        },
+        {
+          "words": [
+            14
+          ],
+          "text": "less",
+          "pos": "adj.",
+          "ipa": "/les/",
+          "zh": "更少的",
+          "more": true
+        },
+        {
+          "words": [
+            15
+          ],
+          "text": "of",
+          "pos": "prep.",
+          "ipa": "/əv/",
+          "zh": "……的",
+          "more": true
+        },
+        {
+          "words": [
+            16
+          ],
+          "text": "something",
+          "pos": "pron.",
+          "ipa": "/ˈsʌmθɪŋ/",
+          "zh": "某事物",
+          "more": true
+        }
+      ]
     },
     {
       "id": 84,
@@ -5159,7 +11864,81 @@
           "key": "on"
         }
       ],
-      "zh": "对，你也可以说 cut back on。"
+      "zh": "对，你也可以说 cut back on。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Yep",
+          "pos": "int.",
+          "ipa": "/jep/",
+          "zh": "是的",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "And",
+          "pos": "conj.",
+          "ipa": "/ænd/",
+          "zh": "而且",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "you",
+          "pos": "pron.",
+          "ipa": "/juː/",
+          "zh": "你",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "can",
+          "pos": "aux.",
+          "ipa": "/kæn/",
+          "zh": "可以",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "also",
+          "pos": "adv.",
+          "ipa": "/ˈɔːlsəʊ/",
+          "zh": "也",
+          "more": true
+        },
+        {
+          "words": [
+            5
+          ],
+          "text": "say",
+          "pos": "v.",
+          "ipa": "/seɪ/",
+          "zh": "说",
+          "more": true
+        },
+        {
+          "words": [
+            6,
+            7,
+            8
+          ],
+          "text": "cut back on",
+          "pos": "词组",
+          "ipa": "/kʌt bæk ɒn/",
+          "zh": "减少",
+          "more": true
+        }
+      ]
     },
     {
       "id": 85,
@@ -5199,7 +11978,59 @@
           "key": "thing"
         }
       ],
-      "zh": "意思一样。"
+      "zh": "意思一样。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "It",
+          "pos": "pron.",
+          "ipa": "/ɪt/",
+          "zh": "它",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "means",
+          "pos": "v.",
+          "ipa": "/miːnz/",
+          "zh": "意思是",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "the",
+          "pos": "art.",
+          "ipa": "/ðə/",
+          "zh": "这个",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "same",
+          "pos": "adj.",
+          "ipa": "/seɪm/",
+          "zh": "相同的",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "thing",
+          "pos": "n.",
+          "ipa": "/θɪŋ/",
+          "zh": "事情",
+          "more": true
+        }
+      ]
     },
     {
       "id": 86,
@@ -5215,7 +12046,19 @@
           "key": "okay"
         }
       ],
-      "zh": "好，"
+      "zh": "好，",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Okay",
+          "pos": "int.",
+          "ipa": "/ˌəʊˈkeɪ/",
+          "zh": "好的",
+          "more": true
+        }
+      ]
     },
     {
       "id": 87,
@@ -5309,7 +12152,122 @@
           "key": "english"
         }
       ],
-      "zh": "好了，这期 Real Easy English 聊咖啡就到这儿。"
+      "zh": "好了，这期 Real Easy English 聊咖啡就到这儿。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Well",
+          "pos": "int.",
+          "ipa": "/wel/",
+          "zh": "嗯（用于引出话题）",
+          "more": true
+        },
+        {
+          "words": [
+            1,
+            2
+          ],
+          "text": "that is",
+          "pos": "缩写",
+          "ipa": "/ðæt ɪz/",
+          "zh": "= that is 那是",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "the",
+          "pos": "art.",
+          "ipa": "/ðə/",
+          "zh": "这（用于特指）",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "end",
+          "pos": "n.",
+          "ipa": "/end/",
+          "zh": "结束",
+          "more": true
+        },
+        {
+          "words": [
+            5
+          ],
+          "text": "of",
+          "pos": "prep.",
+          "ipa": "/əv/",
+          "zh": "……的",
+          "more": true
+        },
+        {
+          "words": [
+            6
+          ],
+          "text": "this",
+          "pos": "pron.",
+          "ipa": "/ðɪs/",
+          "zh": "这个",
+          "more": true
+        },
+        {
+          "words": [
+            7
+          ],
+          "text": "conversation",
+          "pos": "n.",
+          "ipa": "/ˌkɒnvəˈseɪʃn/",
+          "zh": "谈话",
+          "more": true
+        },
+        {
+          "words": [
+            8
+          ],
+          "text": "about",
+          "pos": "prep.",
+          "ipa": "/əˈbaʊt/",
+          "zh": "关于",
+          "more": true
+        },
+        {
+          "words": [
+            9
+          ],
+          "text": "coffee",
+          "pos": "n.",
+          "ipa": "/ˈkɒfi/",
+          "zh": "咖啡",
+          "more": true
+        },
+        {
+          "words": [
+            10
+          ],
+          "text": "in",
+          "pos": "prep.",
+          "ipa": "/ɪn/",
+          "zh": "在……里",
+          "more": true
+        },
+        {
+          "words": [
+            11,
+            12,
+            13
+          ],
+          "text": "Real Easy English",
+          "pos": "名字",
+          "ipa": "/rɪəl ˈiːzi ˈɪŋɡlɪʃ/",
+          "zh": "节目名",
+          "more": false
+        }
+      ]
     },
     {
       "id": 88,
@@ -5421,7 +12379,161 @@
           "key": "do"
         }
       ],
-      "zh": "对，如果大家想看更多 Real Easy English 的节目，他们该怎么做呢？"
+      "zh": "对，如果大家想看更多 Real Easy English 的节目，他们该怎么做呢？",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Yes",
+          "pos": "int.",
+          "ipa": "/jes/",
+          "zh": "是的",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "and",
+          "pos": "conj.",
+          "ipa": "/ænd/",
+          "zh": "并且",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "if",
+          "pos": "conj.",
+          "ipa": "/ɪf/",
+          "zh": "如果",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "people",
+          "pos": "n.",
+          "ipa": "/ˈpiːpl/",
+          "zh": "人们",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "want",
+          "pos": "v.",
+          "ipa": "/wɒnt/",
+          "zh": "想要",
+          "more": true
+        },
+        {
+          "words": [
+            5
+          ],
+          "text": "to",
+          "pos": "不定式",
+          "ipa": "/tu/",
+          "zh": "不用翻译",
+          "more": true
+        },
+        {
+          "words": [
+            6
+          ],
+          "text": "watch",
+          "pos": "v.",
+          "ipa": "/wɒtʃ/",
+          "zh": "观看",
+          "more": true
+        },
+        {
+          "words": [
+            7
+          ],
+          "text": "more",
+          "pos": "adj.",
+          "ipa": "/mɔː(r)/",
+          "zh": "更多的",
+          "more": true
+        },
+        {
+          "words": [
+            8
+          ],
+          "text": "episodes",
+          "pos": "n.",
+          "ipa": "/ˈepɪsəʊdz/",
+          "zh": "集（节目）",
+          "more": true
+        },
+        {
+          "words": [
+            9
+          ],
+          "text": "of",
+          "pos": "prep.",
+          "ipa": "/ɒv/",
+          "zh": "……的",
+          "more": true
+        },
+        {
+          "words": [
+            10,
+            11,
+            12
+          ],
+          "text": "Real Easy English",
+          "pos": "名字",
+          "ipa": "/rɪəl ˈiːzi ˈɪŋɡlɪʃ/",
+          "zh": "节目名",
+          "more": false
+        },
+        {
+          "words": [
+            13
+          ],
+          "text": "what",
+          "pos": "pron.",
+          "ipa": "/wɒt/",
+          "zh": "什么",
+          "more": true
+        },
+        {
+          "words": [
+            14
+          ],
+          "text": "should",
+          "pos": "aux.",
+          "ipa": "/ʃʊd/",
+          "zh": "应该",
+          "more": true
+        },
+        {
+          "words": [
+            15
+          ],
+          "text": "they",
+          "pos": "pron.",
+          "ipa": "/ðeɪ/",
+          "zh": "他们",
+          "more": true
+        },
+        {
+          "words": [
+            16
+          ],
+          "text": "do",
+          "pos": "v.",
+          "ipa": "/duː/",
+          "zh": "做",
+          "more": true
+        }
+      ]
     },
     {
       "id": 89,
@@ -5551,7 +12663,200 @@
           "key": "learned"
         }
       ],
-      "zh": "他们应该去我们的网站 bbclearningenglish com，在那儿可以找到免费的学习单，测一测自己学到了什么。"
+      "zh": "他们应该去我们的网站 bbclearningenglish com，在那儿可以找到免费的学习单，测一测自己学到了什么。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "They",
+          "pos": "pron.",
+          "ipa": "/ðeɪ/",
+          "zh": "他们",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "should",
+          "pos": "aux.",
+          "ipa": "/ʃʊd/",
+          "zh": "应该",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "go",
+          "pos": "v.",
+          "ipa": "/ɡəʊ/",
+          "zh": "去",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "to",
+          "pos": "prep.",
+          "ipa": "/tuː/",
+          "zh": "到",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "our",
+          "pos": "pron.",
+          "ipa": "/ɑː(r)/",
+          "zh": "我们的",
+          "more": true
+        },
+        {
+          "words": [
+            5
+          ],
+          "text": "website",
+          "pos": "n.",
+          "ipa": "/ˈwebsaɪt/",
+          "zh": "网站",
+          "more": true
+        },
+        {
+          "words": [
+            6,
+            7
+          ],
+          "text": "bbclearningenglish com",
+          "pos": "名字",
+          "ipa": "/ˌbiːbiːˈsiː ˈlɜːnɪŋ ˈɪŋɡlɪʃ kɒm/",
+          "zh": "网站名",
+          "more": false
+        },
+        {
+          "words": [
+            8
+          ],
+          "text": "where",
+          "pos": "adv.",
+          "ipa": "/weə(r)/",
+          "zh": "在那里",
+          "more": true
+        },
+        {
+          "words": [
+            9
+          ],
+          "text": "they",
+          "pos": "pron.",
+          "ipa": "/ðeɪ/",
+          "zh": "他们",
+          "more": true
+        },
+        {
+          "words": [
+            10
+          ],
+          "text": "can",
+          "pos": "aux.",
+          "ipa": "/kæn/",
+          "zh": "能",
+          "more": true
+        },
+        {
+          "words": [
+            11
+          ],
+          "text": "find",
+          "pos": "v.",
+          "ipa": "/faɪnd/",
+          "zh": "找到",
+          "more": true
+        },
+        {
+          "words": [
+            12
+          ],
+          "text": "a",
+          "pos": "art.",
+          "ipa": "/ə/",
+          "zh": "一个",
+          "more": true
+        },
+        {
+          "words": [
+            13
+          ],
+          "text": "free",
+          "pos": "adj.",
+          "ipa": "/friː/",
+          "zh": "免费的",
+          "more": true
+        },
+        {
+          "words": [
+            14
+          ],
+          "text": "worksheet",
+          "pos": "n.",
+          "ipa": "/ˈwɜːkʃiːt/",
+          "zh": "练习纸",
+          "more": true
+        },
+        {
+          "words": [
+            15
+          ],
+          "text": "to",
+          "pos": "不定式",
+          "ipa": "/tuː/",
+          "zh": "不用翻译",
+          "more": true
+        },
+        {
+          "words": [
+            16
+          ],
+          "text": "test",
+          "pos": "v.",
+          "ipa": "/test/",
+          "zh": "测试",
+          "more": true
+        },
+        {
+          "words": [
+            17
+          ],
+          "text": "what",
+          "pos": "pron.",
+          "ipa": "/wɒt/",
+          "zh": "什么",
+          "more": true
+        },
+        {
+          "words": [
+            18
+          ],
+          "text": "they've",
+          "pos": "缩写",
+          "ipa": "/ðeɪv/",
+          "zh": "= they have 他们已经",
+          "more": true
+        },
+        {
+          "words": [
+            19
+          ],
+          "text": "learned",
+          "pos": "v.",
+          "ipa": "/lɜːnd/",
+          "zh": "学到",
+          "more": true
+        }
+      ]
     },
     {
       "id": 90,
@@ -5579,7 +12884,30 @@
           "key": "now"
         }
       ],
-      "zh": "先再见啦。"
+      "zh": "先再见啦。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Goodbye",
+          "pos": "int.",
+          "ipa": "/ˌɡʊdˈbaɪ/",
+          "zh": "再见",
+          "more": true
+        },
+        {
+          "words": [
+            1,
+            2
+          ],
+          "text": "for now",
+          "pos": "词组",
+          "ipa": "/fə naʊ/",
+          "zh": "暂时，现在",
+          "more": true
+        }
+      ]
     },
     {
       "id": 91,
@@ -5595,7 +12923,19 @@
           "key": "goodbye"
         }
       ],
-      "zh": "再见。"
+      "zh": "再见。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Goodbye",
+          "pos": "int.",
+          "ipa": "/ˌɡʊdˈbaɪ/",
+          "zh": "再见",
+          "more": true
+        }
+      ]
     },
     {
       "id": 92,
@@ -5629,7 +12969,49 @@
           "key": "programs"
         }
       ],
-      "zh": "想听更多简单节目吗？"
+      "zh": "想听更多简单节目吗？",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Want",
+          "pos": "v.",
+          "ipa": "/wɒnt/",
+          "zh": "想要",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "more",
+          "pos": "adj.",
+          "ipa": "/mɔː(r)/",
+          "zh": "更多的",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "easy",
+          "pos": "adj.",
+          "ipa": "/ˈiːzi/",
+          "zh": "容易的",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "programs",
+          "pos": "n.",
+          "ipa": "/ˈprəʊɡræmz/",
+          "zh": "节目",
+          "more": true
+        }
+      ]
     },
     {
       "id": 93,
@@ -5681,7 +13063,79 @@
           "key": "website"
         }
       ],
-      "zh": "我们网站上还有更多内容可以看。"
+      "zh": "我们网站上还有更多内容可以看。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "There's",
+          "pos": "缩写",
+          "ipa": "/ðeəz/",
+          "zh": "= There is 有",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "more",
+          "pos": "pron.",
+          "ipa": "/mɔː(r)/",
+          "zh": "更多的东西",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "to",
+          "pos": "不定式",
+          "ipa": "/tu/",
+          "zh": "不用翻译",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "explore",
+          "pos": "v.",
+          "ipa": "/ɪkˈsplɔː(r)/",
+          "zh": "探索",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "on",
+          "pos": "prep.",
+          "ipa": "/ɒn/",
+          "zh": "在……上",
+          "more": true
+        },
+        {
+          "words": [
+            5
+          ],
+          "text": "our",
+          "pos": "pron.",
+          "ipa": "/ɑː(r)/",
+          "zh": "我们的",
+          "more": true
+        },
+        {
+          "words": [
+            6
+          ],
+          "text": "website",
+          "pos": "n.",
+          "ipa": "/ˈwebsaɪt/",
+          "zh": "网站",
+          "more": true
+        }
+      ]
     },
     {
       "id": 94,
@@ -5763,7 +13217,111 @@
           "key": "topics"
         }
       ],
-      "zh": "试试 Easy English Conversations，练习自我介绍和其他入门话题。"
+      "zh": "试试 Easy English Conversations，练习自我介绍和其他入门话题。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Try",
+          "pos": "v.",
+          "ipa": "/traɪ/",
+          "zh": "试试",
+          "more": true
+        },
+        {
+          "words": [
+            1,
+            2,
+            3
+          ],
+          "text": "Easy English Conversations",
+          "pos": "名字",
+          "ipa": "/ˈiːzi ˈɪŋɡlɪʃ ˌkɒnvəˈseɪʃnz/",
+          "zh": "节目名",
+          "more": false
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "to",
+          "pos": "不定式",
+          "ipa": "/tu/",
+          "zh": "不用翻译",
+          "more": true
+        },
+        {
+          "words": [
+            5
+          ],
+          "text": "practice",
+          "pos": "v.",
+          "ipa": "/ˈpræktɪs/",
+          "zh": "练习",
+          "more": true
+        },
+        {
+          "words": [
+            6
+          ],
+          "text": "introducing",
+          "pos": "v.",
+          "ipa": "/ˌɪntrəˈdjuːsɪŋ/",
+          "zh": "介绍",
+          "more": true
+        },
+        {
+          "words": [
+            7
+          ],
+          "text": "yourself",
+          "pos": "pron.",
+          "ipa": "/jɔːˈself/",
+          "zh": "你自己",
+          "more": true
+        },
+        {
+          "words": [
+            8
+          ],
+          "text": "and",
+          "pos": "conj.",
+          "ipa": "/ænd/",
+          "zh": "和",
+          "more": true
+        },
+        {
+          "words": [
+            9
+          ],
+          "text": "other",
+          "pos": "adj.",
+          "ipa": "/ˈʌðə(r)/",
+          "zh": "其他的",
+          "more": true
+        },
+        {
+          "words": [
+            10
+          ],
+          "text": "beginner",
+          "pos": "n.",
+          "ipa": "/bɪˈɡɪnə(r)/",
+          "zh": "初学者",
+          "more": true
+        },
+        {
+          "words": [
+            11
+          ],
+          "text": "topics",
+          "pos": "n.",
+          "ipa": "/ˈtɒpɪks/",
+          "zh": "话题",
+          "more": true
+        }
+      ]
     },
     {
       "id": 95,
@@ -5845,7 +13403,111 @@
           "key": "challenge"
         }
       ],
-      "zh": "或者通过我们好玩的挑战系列来学，比如 London Letter Challenge。"
+      "zh": "或者通过我们好玩的挑战系列来学，比如 London Letter Challenge。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Or",
+          "pos": "conj.",
+          "ipa": "/ɔː(r)/",
+          "zh": "或者",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "learn",
+          "pos": "v.",
+          "ipa": "/lɜːn/",
+          "zh": "学习",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "through",
+          "pos": "prep.",
+          "ipa": "/θruː/",
+          "zh": "通过",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "our",
+          "pos": "pron.",
+          "ipa": "/ɑː(r)/",
+          "zh": "我们的",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "exciting",
+          "pos": "adj.",
+          "ipa": "/ɪkˈsaɪtɪŋ/",
+          "zh": "令人兴奋的",
+          "more": true
+        },
+        {
+          "words": [
+            5
+          ],
+          "text": "challenge",
+          "pos": "n.",
+          "ipa": "/ˈtʃælɪndʒ/",
+          "zh": "挑战",
+          "more": true
+        },
+        {
+          "words": [
+            6
+          ],
+          "text": "series",
+          "pos": "n.",
+          "ipa": "/ˈsɪəriːz/",
+          "zh": "系列",
+          "more": true
+        },
+        {
+          "words": [
+            7
+          ],
+          "text": "like",
+          "pos": "prep.",
+          "ipa": "/laɪk/",
+          "zh": "像",
+          "more": true
+        },
+        {
+          "words": [
+            8
+          ],
+          "text": "the",
+          "pos": "art.",
+          "ipa": "/ðə/",
+          "zh": "这个",
+          "more": true
+        },
+        {
+          "words": [
+            9,
+            10,
+            11
+          ],
+          "text": "London Letter Challenge",
+          "pos": "名字",
+          "ipa": "/ˈlʌndən ˈletə(r) ˈtʃælɪndʒ/",
+          "zh": "节目名",
+          "more": false
+        }
+      ]
     },
     {
       "id": 96,
@@ -5987,7 +13649,202 @@
           "key": "you"
         }
       ],
-      "zh": "当然，我们也有 Real Easy English 的视频版，你可以看主持人，还有字幕帮忙。"
+      "zh": "当然，我们也有 Real Easy English 的视频版，你可以看主持人，还有字幕帮忙。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "And",
+          "pos": "conj.",
+          "ipa": "/ænd/",
+          "zh": "而且",
+          "more": true
+        },
+        {
+          "words": [
+            1,
+            2
+          ],
+          "text": "of course",
+          "pos": "词组",
+          "ipa": "/əv kɔːs/",
+          "zh": "当然",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "we",
+          "pos": "pron.",
+          "ipa": "/wiː/",
+          "zh": "我们",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "have",
+          "pos": "v.",
+          "ipa": "/hæv/",
+          "zh": "有",
+          "more": true
+        },
+        {
+          "words": [
+            5
+          ],
+          "text": "video",
+          "pos": "n.",
+          "ipa": "/ˈvɪdiəʊ/",
+          "zh": "视频",
+          "more": true
+        },
+        {
+          "words": [
+            6
+          ],
+          "text": "episodes",
+          "pos": "n.",
+          "ipa": "/ˈepɪsəʊdz/",
+          "zh": "集，剧集",
+          "more": true
+        },
+        {
+          "words": [
+            7
+          ],
+          "text": "of",
+          "pos": "prep.",
+          "ipa": "/əv/",
+          "zh": "……的",
+          "more": true
+        },
+        {
+          "words": [
+            8,
+            9,
+            10
+          ],
+          "text": "Real Easy English",
+          "pos": "名字",
+          "ipa": "/rɪəl ˈiːzi ˈɪŋɡlɪʃ/",
+          "zh": "节目名",
+          "more": false
+        },
+        {
+          "words": [
+            11
+          ],
+          "text": "so",
+          "pos": "conj.",
+          "ipa": "/səʊ/",
+          "zh": "所以",
+          "more": true
+        },
+        {
+          "words": [
+            12
+          ],
+          "text": "you",
+          "pos": "pron.",
+          "ipa": "/juː/",
+          "zh": "你",
+          "more": true
+        },
+        {
+          "words": [
+            13
+          ],
+          "text": "can",
+          "pos": "aux.",
+          "ipa": "/kæn/",
+          "zh": "能，可以",
+          "more": true
+        },
+        {
+          "words": [
+            14
+          ],
+          "text": "watch",
+          "pos": "v.",
+          "ipa": "/wɒtʃ/",
+          "zh": "观看",
+          "more": true
+        },
+        {
+          "words": [
+            15
+          ],
+          "text": "our",
+          "pos": "pron.",
+          "ipa": "/ɑː(r)/",
+          "zh": "我们的",
+          "more": true
+        },
+        {
+          "words": [
+            16
+          ],
+          "text": "presenters",
+          "pos": "n.",
+          "ipa": "/prɪˈzentəz/",
+          "zh": "主持人",
+          "more": true
+        },
+        {
+          "words": [
+            17
+          ],
+          "text": "with",
+          "pos": "prep.",
+          "ipa": "/wɪð/",
+          "zh": "带有",
+          "more": true
+        },
+        {
+          "words": [
+            18
+          ],
+          "text": "subtitles",
+          "pos": "n.",
+          "ipa": "/ˈsʌbtaɪtlz/",
+          "zh": "字幕",
+          "more": true
+        },
+        {
+          "words": [
+            19
+          ],
+          "text": "to",
+          "pos": "不定式",
+          "ipa": "/tuː/",
+          "zh": "不用翻译",
+          "more": true
+        },
+        {
+          "words": [
+            20
+          ],
+          "text": "help",
+          "pos": "v.",
+          "ipa": "/help/",
+          "zh": "帮助",
+          "more": true
+        },
+        {
+          "words": [
+            21
+          ],
+          "text": "you",
+          "pos": "pron.",
+          "ipa": "/juː/",
+          "zh": "你",
+          "more": true
+        }
+      ]
     },
     {
       "id": 97,
@@ -6075,7 +13932,121 @@
           "key": "com"
         }
       ],
-      "zh": "在我们网站 bbc learningenglish com 上能找到所有简单的播客和视频。"
+      "zh": "在我们网站 bbc learningenglish com 上能找到所有简单的播客和视频。",
+      "notes": [
+        {
+          "words": [
+            0
+          ],
+          "text": "Find",
+          "pos": "v.",
+          "ipa": "/faɪnd/",
+          "zh": "找到",
+          "more": true
+        },
+        {
+          "words": [
+            1
+          ],
+          "text": "all",
+          "pos": "adj.",
+          "ipa": "/ɔːl/",
+          "zh": "所有的",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "our",
+          "pos": "pron.",
+          "ipa": "/ɑː(r)/",
+          "zh": "我们的",
+          "more": true
+        },
+        {
+          "words": [
+            3
+          ],
+          "text": "easy",
+          "pos": "adj.",
+          "ipa": "/ˈiːzi/",
+          "zh": "容易的",
+          "more": true
+        },
+        {
+          "words": [
+            4
+          ],
+          "text": "podcasts",
+          "pos": "n.",
+          "ipa": "/ˈpɒdkɑːsts/",
+          "zh": "播客",
+          "more": true
+        },
+        {
+          "words": [
+            5
+          ],
+          "text": "and",
+          "pos": "conj.",
+          "ipa": "/ænd/",
+          "zh": "和",
+          "more": true
+        },
+        {
+          "words": [
+            6
+          ],
+          "text": "videos",
+          "pos": "n.",
+          "ipa": "/ˈvɪdiəʊz/",
+          "zh": "视频",
+          "more": true
+        },
+        {
+          "words": [
+            7
+          ],
+          "text": "on",
+          "pos": "prep.",
+          "ipa": "/ɒn/",
+          "zh": "在……上",
+          "more": true
+        },
+        {
+          "words": [
+            8
+          ],
+          "text": "our",
+          "pos": "pron.",
+          "ipa": "/ɑː(r)/",
+          "zh": "我们的",
+          "more": true
+        },
+        {
+          "words": [
+            9
+          ],
+          "text": "website",
+          "pos": "n.",
+          "ipa": "/ˈwebsaɪt/",
+          "zh": "网站",
+          "more": true
+        },
+        {
+          "words": [
+            10,
+            11,
+            12
+          ],
+          "text": "bbc learningenglish com",
+          "pos": "名字",
+          "ipa": "/ˌbiː biː ˈsiː ˈlɜːnɪŋ ˈɪŋɡlɪʃ ˌkɒm/",
+          "zh": "网站名",
+          "more": false
+        }
+      ]
     }
   ],
   "glossary": {

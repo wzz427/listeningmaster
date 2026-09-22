@@ -1,17 +1,18 @@
-"""备课时用大模型生成的内容：每句的中文翻译、哪些词是生词、按话题分的段。
+"""备课时用大模型生成的内容：每句的中文翻译、每个词点开看的那一行、哪些词是生词、按话题分的段。
 
 决策 D3：只在备课阶段离线跑一次，结果写进课程文件；播放器不调接口。
 决策 D12：第一版就要中文释义，所以这一步排在播放器前面。
 决策 D22：正文按话题切成两分钟左右一段，一段一段精听；每段一个中文小标题。
-决策 D29、D30：点词看的讲解（连最简单的一行都）不在这里生成，孩子点了才现查（pipeline/explain.py）；备课要快，几分钟以内。
+决策 D30：每个词点开看的那一行（词性、英式音标、这句里的意思）在这里整句写好（pipeline/explain.py 的 prepare），点词马上出来；
+展开的常见意思、搭配、例句不在这里写，孩子点了展开才查（决策 D29）。备课要快，几分钟以内。
 决策 D27：单个词的朗读从发音词典里拷谷歌英音（pipeline/tts.py）；词典里没有的词和词组点了才让百炼 Emily 读。
 内容好不好靠提示词：claude 每换一批材料抽查、改提示词（owner 2026-09-22）。
 
 原始返回存在 lessons/<课>/teach_raw.json，方便复查模型到底说了什么。
 
-重跑时默认复用上一版 lesson.json 里已有的翻译、词条和分段，只给新出现的句子和词调模型。
+重跑时默认复用上一版 lesson.json 里已有的翻译、每个词的那一行、生词和分段，只给新出现的句子和词调模型。
 这样改了句子起止时间（refine_bounds.py）之后重建课程文件，不会把 owner 审过的中文换掉。
-要全部重新生成就加 --fresh；只重切分段、中文不动就加 --resplit。
+要全部重新生成就加 --fresh；只重切分段、中文不动就加 --resplit；改了那一行的提示词、只重写每个词的那一行就加 --renote。
 """
 
 import json
@@ -23,6 +24,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from llm import call  # noqa: E402
+import explain  # noqa: E402
 import tts  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -142,16 +144,17 @@ def normalize(token: str) -> str:
 
 
 
-def load_previous(lesson_dir: Path) -> tuple[dict[str, str], dict[str, dict], dict[str, str]]:
-    """上一版课程文件里已有的内容：{英文句子: 中文}、词条、{每段第一句的英文: 小标题}。"""
+def load_previous(lesson_dir: Path) -> tuple[dict[str, str], dict[str, dict], dict[str, str], dict[str, list]]:
+    """上一版课程文件里已有的内容：{英文句子: 中文}、词条、{每段第一句的英文: 小标题}、{英文句子: 每个词的那一行}。"""
     path = lesson_dir / "lesson.json"
     if not path.exists():
-        return {}, {}, {}
+        return {}, {}, {}, {}
     old = json.loads(path.read_text(encoding="utf-8"))
     text_of = {s["id"]: s["text"] for s in old["sentences"]}
     return ({s["text"]: s["zh"] for s in old["sentences"] if s.get("zh")},
             {w: {"hard": bool(g.get("hard"))} for w, g in old.get("glossary", {}).items()},
-            {text_of[x["first"]]: x["title"] for x in old.get("sections", [])})
+            {text_of[x["first"]]: x["title"] for x in old.get("sections", [])},
+            {s["text"]: s["notes"] for s in old["sentences"] if s.get("notes")})
 
 
 def reuse_sections(old: dict[str, str], body: list[dict]) -> list[dict] | None:
@@ -165,14 +168,16 @@ def reuse_sections(old: dict[str, str], body: list[dict]) -> list[dict] | None:
                   key=lambda x: x["first"])
 
 
-def build(lesson: str, fresh: bool = False, resplit: bool = False) -> None:
+def build(lesson: str, fresh: bool = False, resplit: bool = False, renote: bool = False) -> None:
     lesson_dir = ROOT / "lessons" / lesson
     timeline = json.loads((lesson_dir / "timeline.json").read_text(encoding="utf-8"))
     sentences = timeline["sentences"]
     context = " ".join(s["text"] for s in sentences)
 
     forms = sorted({normalize(w["text"]) for s in sentences for w in s["words"]} - {""})
-    known_zh, glossary, old_sections = ({}, {}, {}) if fresh else load_previous(lesson_dir)
+    known_zh, glossary, old_sections, known_notes = ({}, {}, {}, {}) if fresh else load_previous(lesson_dir)
+    if renote:
+        known_notes = {}
     for s in sentences:
         for w in s["words"]:
             w["key"] = normalize(w["text"])
@@ -185,9 +190,9 @@ def build(lesson: str, fresh: bool = False, resplit: bool = False) -> None:
     if todo_words:
         glossary.update(mark_hard(todo_words, sentences, context))
     zh_map = {s["id"]: new_zh.get(s["id"]) or known_zh.get(s["text"], "") for s in sentences}
+    notes = explain.prepare(sentences, known_notes)
 
-
-    body = [s for s in sentences if s["speaker"] != OUTSIDE]
+    body =[s for s in sentences if s["speaker"] != OUTSIDE]
     cuts = None if resplit else reuse_sections(old_sections, body)
     print("分段：沿用上一版" if cuts else "分段：让模型按话题切")
     sections = with_last(cuts or split_sections(body), body)
@@ -199,6 +204,7 @@ def build(lesson: str, fresh: bool = False, resplit: bool = False) -> None:
 
     for s in sentences:
         s["zh"] = zh_map.get(s["id"], "")
+        s["notes"] = notes[s["text"]]
 
     lesson_data = {
         "lesson": lesson,
@@ -222,4 +228,5 @@ def build(lesson: str, fresh: bool = False, resplit: bool = False) -> None:
 if __name__ == "__main__":
     sys.stdout.reconfigure(encoding="utf-8")
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
-    build(args[0] if args else "260821", fresh="--fresh" in sys.argv, resplit="--resplit" in sys.argv)
+    build(args[0] if args else "260821", fresh="--fresh" in sys.argv, resplit="--resplit" in sys.argv,
+          renote="--renote" in sys.argv)

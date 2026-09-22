@@ -201,13 +201,18 @@ def run(page, shots: Path | None) -> None:
     page.click("#zhBtn")
     check("A7b3 中文能显示出来", page.is_visible("#zh") and len(page.inner_text("#zh")) > 1,
           page.inner_text("#zh")[:30])
-    mores = []  # 展开的内容什么时候去查的：点「展开」之前一次都不该有
+    asks, mores = [], []  # 点词时去查了几次那一行、几次展开的
+    page.on("request", lambda r: asks.append(r.url) if r.url.endswith("/api/explain") else None)
     page.on("request", lambda r: mores.append(r.url) if r.url.endswith("/api/more") else None)
-    with page.expect_response(lambda r: r.url.endswith("/api/explain")) as asked:
-        page.click("#text w >> nth=1")
+    page.click("#text w >> nth=1")
+    page.wait_for_timeout(80)
     loaded = "!document.getElementById('wordZh').classList.contains('loading')"
-    page.wait_for_function(loaded, timeout=20000)
-    check("A7r 点了词才去查讲解（不在备课时把每个词都讲一遍，决策 D29）", asked.value.ok, f"{asked.value.status}")
+    check("A7r 那一行备课时就写好了，点词马上出来，不用去查（决策 D30）",
+          not asks and page.evaluate(loaded), f"查了 {len(asks)} 次")
+    missing = page.evaluate("lesson.sentences.reduce((n, s) => n + s.words.filter((w, k) => "
+                            "!(s.notes || []).some((x) => x.words.includes(k))).length, 0)")
+    total = page.evaluate("lesson.sentences.reduce((n, s) => n + s.words.length, 0)")
+    check("A7u 备课时每个词都写了那一行", missing <= total * 0.02, f"{total} 个词里漏了 {missing} 个")
     line = page.inner_text(".word-line")
     check("A7 点词出现一行：词性、英式音标、这句里的意思（决策 D30）",
           page.is_visible("#wordbox") and page.is_visible("#wordPos") and len(page.inner_text("#wordPos")) >= 2
@@ -223,6 +228,12 @@ def run(page, shots: Path | None) -> None:
     check("A7e 单词卡不挡住中文翻译",
           box_w["y"] + box_w["height"] <= card_w["y"] or box_w["y"] >= card_w["y"] + card_w["height"])
     shot(page, shots, "3-text-word")
+    page.evaluate("delete notes[`${cur().id}:2`]; 0")  # 装作备课漏了第 3 个词
+    with page.expect_response(lambda r: r.url.endswith("/api/explain")) as asked:
+        page.click("#text w >> nth=2")
+    page.wait_for_function(loaded, timeout=20000)
+    check("A7v 备课漏了的词，点了再补查", asked.value.ok and len(page.inner_text("#wordZh")) >= 1
+          and "没查到" not in page.inner_text("#wordZh"), f"{page.inner_text('#wordText')} → {page.inner_text('.word-line')}")
     check("A7j 单词卡上只有朗读，没有「这句里的原声」（切不准，2026-09-22 拿掉了）",
           page.locator("#wordRaw").count() == 0 and page.is_visible("#wordTts"))
     page.evaluate("window.__spoke = 0; if (window.speechSynthesis) speechSynthesis.speak = () => window.__spoke++; 0")  # 末尾不能是函数，不然 Playwright 会调它
@@ -257,7 +268,7 @@ def run(page, shots: Path | None) -> None:
     check("A7n 点词组里的一个词，讲的是整个词组，词组里的词一起亮",
           page.inner_text("#wordText").lower().startswith("cut down on") and page.locator("#text w.picked").count() == 3,
           f"{page.inner_text('#wordText')}：{page.inner_text('.word-line')[:40]}（亮了 {page.locator('#text w.picked').count()} 个词）")
-    check("A7o 点词只查那一行；展开的内容先收着，也还没去查（决策 D30）",
+    check("A7o 点词只出那一行；展开的内容先收着，也还没去查（决策 D30）",
           page.is_hidden("#wordMore") and page.is_visible("#wordMoreBtn") and not mores, f"已经查了 {len(mores)} 次展开")
     with page.expect_response(lambda r: r.url.endswith("/api/more"), timeout=30000) as got_more:
         page.click("#wordMoreBtn")
@@ -276,8 +287,7 @@ def run(page, shots: Path | None) -> None:
           got.value.ok and got.value.url.endswith("/tts/bailian_emily/cut_down_on.mp3"),
           got.value.url.split("/lessons/")[-1])
     page.keyboard.press("Escape")
-    asks = []
-    page.on("request", lambda r: asks.append(r.url) if r.url.endswith("/api/explain") else None)
+    asks.clear()
     page.click("#text w >> nth=0")
     page.wait_for_timeout(300)
     mores.clear()

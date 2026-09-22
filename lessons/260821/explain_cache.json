@@ -1,47 +1,38 @@
 {
- "13:1": {
-  "words": [
-   1
-  ],
-  "text": "don't",
-  "pos": "缩写",
-  "ipa": "/dəʊnt/",
-  "zh": "= do not 不",
-  "more": true
- },
  "66:0": {
   "words": [
    0,
    1,
    2
   ],
-  "text": "cut down on",
+  "text": "Cut down on",
   "pos": "词组",
   "ipa": "/kʌt daʊn ɒn/",
   "zh": "减少",
   "more": true,
   "detail": {
    "senses": [
-    "减少"
+    "减少",
+    "砍倒"
    ],
    "used": 1,
    "collocations": [
-    {
-     "en": "cut down on coffee",
-     "zh": "少喝咖啡"
-    },
     {
      "en": "cut down on sugar",
      "zh": "少吃糖"
     },
     {
+     "en": "cut down on coffee",
+     "zh": "少喝咖啡"
+    },
+    {
      "en": "cut down on spending",
-     "zh": "减少开支"
+     "zh": "减少花销"
     }
    ],
    "example": {
-    "en": "I need to cut down on sweets.",
-    "zh": "我需要少吃甜食。"
+    "en": "I want to cut down on junk food.",
+    "zh": "我想少吃垃圾食品。"
    }
   }
  },
@@ -51,33 +42,34 @@
    1,
    2
   ],
-  "text": "cut down on",
+  "text": "Cut down on",
   "pos": "词组",
   "ipa": "/kʌt daʊn ɒn/",
   "zh": "减少",
   "more": true,
   "detail": {
    "senses": [
-    "减少"
+    "减少",
+    "砍倒"
    ],
    "used": 1,
    "collocations": [
-    {
-     "en": "cut down on coffee",
-     "zh": "少喝咖啡"
-    },
     {
      "en": "cut down on sugar",
      "zh": "少吃糖"
     },
     {
+     "en": "cut down on coffee",
+     "zh": "少喝咖啡"
+    },
+    {
      "en": "cut down on spending",
-     "zh": "减少开支"
+     "zh": "减少花销"
     }
    ],
    "example": {
-    "en": "I need to cut down on sweets.",
-    "zh": "我需要少吃甜食。"
+    "en": "I want to cut down on junk food.",
+    "zh": "我想少吃垃圾食品。"
    }
   }
  },
@@ -87,33 +79,34 @@
    1,
    2
   ],
-  "text": "cut down on",
+  "text": "Cut down on",
   "pos": "词组",
   "ipa": "/kʌt daʊn ɒn/",
   "zh": "减少",
   "more": true,
   "detail": {
    "senses": [
-    "减少"
+    "减少",
+    "砍倒"
    ],
    "used": 1,
    "collocations": [
-    {
-     "en": "cut down on coffee",
-     "zh": "少喝咖啡"
-    },
     {
      "en": "cut down on sugar",
      "zh": "少吃糖"
     },
     {
+     "en": "cut down on coffee",
+     "zh": "少喝咖啡"
+    },
+    {
      "en": "cut down on spending",
-     "zh": "减少开支"
+     "zh": "减少花销"
     }
    ],
    "example": {
-    "en": "I need to cut down on sweets.",
-    "zh": "我需要少吃甜食。"
+    "en": "I want to cut down on junk food.",
+    "zh": "我想少吃垃圾食品。"
    }
   }
  }

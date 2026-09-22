@@ -50,6 +50,7 @@ let sectionCount = 0;
 
 async function boot() {
   lesson = await (await fetch(BASE + 'lesson.json')).json();
+  loadNotes();
   body = lesson.sentences.filter((s) => s.speaker !== OUTSIDE);
   body.forEach((s) => {
     if (!(s.speaker in speakerClass)) speakerClass[s.speaker] = Object.keys(speakerClass).length ? 'b' : 'a';
@@ -518,14 +519,21 @@ $('timeline').addEventListener('click', (e) => playOne(sentenceAt(e.clientX)));
  * 原来还有「这句里的原声」，2026-09-22 拿掉了（决策 D24）：识别给的词时间偏晚、每个词偏得不一样，
  * 在真的 Chrome 里录下放出来的声音交给机器耳朵听，切出来的大多是半个词加下一个词的开头。
  * 想听这个词在句子里怎么读，看着文字按「重听本句」：正在读的词会亮，还能放慢。 */
-/* 点词时现查（决策 D29、D30，owner 2026-09-22）：一份材料几千个词，孩子真正点的也就十来个，所以点了才让本地服务去问大模型。
- * 点词先出一行，像词典的词条：词性、英式音标、这句里的中文意思，一秒左右回来。
- * 点「展开」才去查常见意思（标出这句用的是哪个）、常见搭配、例句——展开的更少，不跟着那一行一起查。
+/* 点词的讲解分两步（决策 D30，owner 2026-09-22）：
+ * 点词先出一行，像词典的词条：词性、英式音标、这句里的中文意思。备课时每个词都写好了（lesson.json 每句的 notes），
+ * 点了马上出来；备课漏了的，点了再让本地服务补查。
+ * 点「展开」才去查常见意思（标出这句用的是哪个）、常见搭配、例句（决策 D29）：点展开的更少，不该每个词都写。
  * 查过的服务那边存着，再点马上出来。
  * 词属于词组（cut down on）时，点其中哪个词都讲整个词组、读整个词组，词组里的词一起亮。 */
-const notes = {};         // 这一课查过的：'句子id:词序号' → 那一行（展开过的带着 detail）
+const notes = {};         // '句子id:词序号' → 那一行（展开过的带着 detail）
 let asking = 0;           // 连着点了几个词，只认最后一个的结果
 let shown = null;         // 单词卡上现在是哪一句的哪个词：{ s, i, note }
+
+function loadNotes() {
+  lesson.sentences.forEach((s) => (s.notes || []).forEach((note) => {
+    note.words.forEach((k) => { notes[`${s.id}:${k}`] = note; });
+  }));
+}
 
 async function api(path, body) {
   const r = await fetch(path, {
