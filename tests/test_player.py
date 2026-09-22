@@ -47,9 +47,11 @@ def wait_paused(page, timeout=10000) -> None:
     page.wait_for_function("audio.paused", timeout=timeout)
 
 
-def goto_body(page, n: int) -> None:
-    """跳到正文第 n 句（从 0 数），和孩子点进度条是一回事。"""
-    page.evaluate(f"gotoSentence(lesson.sentences.indexOf(body[{n}]))")
+def goto_body(page, n: int, flow: bool = False) -> None:
+    """跳到正文第 n 句（从 0 数）。
+    默认只播这一句，和孩子点上一句、下一句、进度条是一回事；flow=True 从这句开始连续往下播。"""
+    fn = "playFrom" if flow else "playOne"
+    page.evaluate(f"{fn}(lesson.sentences.indexOf(body[{n}]))")
 
 
 def in_sentence(t: float, s: dict, slack: float = 0.3) -> bool:
@@ -91,8 +93,8 @@ def run(page, shots: Path | None) -> None:
     check("A15 下面那条只画当前这段，每句一小段", page.locator(".seg").count() == in_part < total,
           f"{page.locator('.seg').count()} 小段 / 这段 {in_part} 句 / 整集 {total} 句")
 
-    print("\n【默认连续播放】")
-    goto_body(page, 3)
+    print("\n【按播放键是连续播】")
+    goto_body(page, 3, flow=True)
     wait_playing(page)
     page.wait_for_function(f"audio.currentTime > {body[4]['start'] + 0.3}", timeout=10000)
     check("A16 播完一句不停，接着播下一句", playing(page) and "第 5 句" in page.inner_text("#counter"),
@@ -142,37 +144,49 @@ def run(page, shots: Path | None) -> None:
     t = now(page)
     check("A3b 刚开始就按重听，回到上一句（反应延迟保护）", in_sentence(t, body[7]),
           f"现在 {t:.2f} 秒，上一句是 {body[7]['start']:.2f}-{body[7]['end']:.2f}")
+    wait_paused(page)
+    stopped = page.evaluate("window.__pauseAt")
+    check("A3c 重听只播这一句，播完就停", abs(stopped - body[7]["end"]) < 0.04,
+          f"停在 {stopped:.3f} 秒，句末 {body[7]['end']:.3f} 秒")
 
-    print("\n【每句停一下（打开开关后）】")
-    page.click("#settingsBtn")
-    page.click("label:has(#autoPause)")
-    page.keyboard.press("Escape")
-    check("A1 开关能打开", page.evaluate("document.getElementById('autoPause').checked"))
-    # 段末那句停下来是「这段听完了」，不算这里要验的每句停
+    print("\n【按句子键只播一句】")
+    check("A1 设置里没有「每句播完停一下」开关了", page.locator("#autoPause").count() == 0)
+    # 挑一句短的，它和后面两句都不是段末（段末那句连续播到这里会换成「这段听完了」，另有用例）
     section_ends = {x["last"] for x in page.evaluate("lesson.sections")}
-    short = min((i for i in range(3, len(body) - 1) if body[i]["id"] not in section_ends),
-                key=lambda i: body[i]["end"] - body[i]["start"])
-    goto_body(page, short)
+    usable = [i for i in range(3, len(body) - 3)
+              if all(body[j]["id"] not in section_ends for j in (i, i + 1, i + 2))]
+    short = min(usable, key=lambda i: body[i]["end"] - body[i]["start"])
+    goto_body(page, short - 1, flow=True)
+    wait_playing(page)
+    page.click("#nextBtn")  # 连续播着按下一句
     wait_paused(page)
     stopped = page.evaluate("window.__pauseAt")
     over = stopped - body[short]["end"]
-    check("A1a 播到句末自动停住，不往下一句多播", -0.05 <= over <= 0.03,
+    check("A1a 连续播着按下一句，只播那一句，播完停在句末，不往下一句多播", -0.05 <= over <= 0.03,
           f"停在 {stopped:.3f} 秒，句末 {body[short]['end']:.3f} 秒，多播 {over * 1000:+.0f} 毫秒")
     check("A1b 停之前音量已经渐弱到零（不会带进下一句的声音）",
           page.evaluate("window.__gainAtPause") < 0.05,
           f"停的那一刻音量 {page.evaluate('window.__gainAtPause'):.3f}")
-    check("A1c 停住后按钮写着「下一句」", page.inner_text("#playLabel") == "下一句",
-          page.inner_text("#playLabel"))
-    page.click("#playBtn")
-    page.wait_for_timeout(300)
-    check("A1d 再按一下进了下一句", in_sentence(now(page), body[short + 1]), f"现在 {now(page):.2f} 秒")
+    check("A1c 停住后播放键写着「播放」，状态牌写着「停在这句末尾」",
+          page.inner_text("#playLabel") == "播放" and page.inner_text("#stateTag") == "停在这句末尾",
+          f"{page.inner_text('#playLabel')} / {page.inner_text('#stateTag')}")
+    page.click("#nextBtn")
+    page.wait_for_timeout(150)
+    check("A1d 再按下一句，只播下一句", in_sentence(now(page), body[short + 1])
+          and page.inner_text("#stateTag") == "只播这一句",
+          f"现在 {now(page):.2f} 秒，{page.inner_text('#stateTag')}")
     wait_paused(page)
-    page.click("#settingsBtn")
-    page.click("label:has(#autoPause)")
-    page.keyboard.press("Escape")
+    stopped = page.evaluate("window.__pauseAt")
+    check("A1e 播完那句又停住", abs(stopped - body[short + 1]["end"]) < 0.04,
+          f"停在 {stopped:.3f} 秒，句末 {body[short + 1]['end']:.3f} 秒")
+    page.click("#playBtn")
+    page.wait_for_function(f"audio.currentTime > {body[short + 3]['start'] + 0.1}", timeout=15000)
+    check("A1f 停在句末按播放，从下一句开始连续往下播", playing(page),
+          f"已播到 {now(page):.2f} 秒，越过了第 {short + 3} 句的开头 {body[short + 3]['start']:.2f} 秒")
+    page.click("#playBtn")
 
     print("\n【看文字 · 看中文 · 点词】")
-    goto_body(page, 10)
+    goto_body(page, 10, flow=True)
     page.wait_for_timeout(200)
     check("A7b 没看英文之前，看中文的按钮不出现", page.is_hidden("#zhBtn"))
     page.click("#textBtn")
@@ -265,7 +279,7 @@ def sections_part(page, shots: Path | None, body: list[dict]) -> None:
           f"{page.locator('.part').count()} 块，其中正文 {page.locator('.part.section').count()} 段")
 
     k2, p2 = nth[2]
-    page.evaluate(f"gotoSentence({p2['first'] + 2})")
+    page.evaluate(f"playOne({p2['first'] + 2})")
     page.wait_for_timeout(200)
     segs = page.evaluate("[...document.querySelectorAll('.seg')].map((e) => Number(e.dataset.i))")
     check("A23 跳到第 2 段的句子，下面那条换成第 2 段",
@@ -281,7 +295,7 @@ def sections_part(page, shots: Path | None, body: list[dict]) -> None:
           playing(page) and in_sentence(now(page), sentences[p3["first"]]), f"现在 {now(page):.2f} 秒")
 
     _, p1 = nth[1]
-    page.evaluate(f"gotoSentence({p1['last'] - 1})")
+    page.evaluate(f"playFrom({p1['last'] - 1})")
     wait_paused(page, timeout=15000)
     stopped = page.evaluate("window.__pauseAt")
     end1 = sentences[p1["last"]]["end"]
@@ -299,7 +313,7 @@ def sections_part(page, shots: Path | None, body: list[dict]) -> None:
     check("A26 按「这段再听一遍」，回到这段开头", in_sentence(now(page), sentences[p1["first"]]),
           f"现在 {now(page):.2f} 秒")
 
-    page.evaluate(f"gotoSentence({p1['last']})")
+    page.evaluate(f"playFrom({p1['last']})")
     wait_paused(page, timeout=15000)
     page.keyboard.press(" ")
     page.wait_for_timeout(300)
@@ -307,8 +321,14 @@ def sections_part(page, shots: Path | None, body: list[dict]) -> None:
           playing(page) and in_sentence(now(page), sentences[p2["first"]]) and page.inner_text("#partNo") == "第 2 段",
           f"现在 {now(page):.2f} 秒，{page.inner_text('#partNo')}")
 
+    page.evaluate(f"playOne({p1['last']})")
+    wait_paused(page, timeout=15000)
+    check("A25e 一句一句听到段末最后一句，不换成「这段听完了」，看文字按钮还在",
+          page.is_hidden("#sectionEnd") and page.is_visible("#textBtn")
+          and page.inner_text("#stateTag") == "停在这句末尾", page.inner_text("#stateTag"))
+
     _, plast = nth[len(sections)]
-    page.evaluate(f"gotoSentence({plast['last']})")
+    page.evaluate(f"playFrom({plast['last']})")
     wait_paused(page, timeout=15000)
     check("A28 最后一段播完写「这集听完了」，按钮是「从第 1 段开始」",
           page.inner_text("#endTitle") == "这集听完了"

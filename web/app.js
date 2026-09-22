@@ -1,7 +1,10 @@
 /* 按句子播放的听力播放器。规格见 specs/SPEC-001-player.md。
  *
  * 几条要记住的理由：
- * - 默认一直往下播；「每句播完停一下」是开关，默认关（owner 2026-09-21 拍板，决策 D16）。
+ * - 两种播法，按哪个键就是哪种（owner 2026-09-22 提出并拍板，决策 D23）：
+ *   按播放键是连续播，一直往下播到段末；按上一句、下一句、重听本句、点进度条或全文里的某一句，
+ *   只播那一句，播完停在句末；停在句末再按播放，从下一句接着连续播。
+ *   孩子按「重听」「上一句」就是想抠这一句，不该一直往下跑。原来设置里的「每句播完停一下」因此删了。
  * - 正文按话题分成两分钟左右一段（D22）。进度条分两层：上面一条是整集，看得见自己在第几段；
  *   下面一条只画当前这段，每一小段是一句话，颜色区分说话人（R15、R20）。
  *   整集画在一条上太密：6 分钟挤在 900 像素里，最短的句子不到 2 像素，点不中。
@@ -64,7 +67,6 @@ async function boot() {
   $('title').textContent = lesson.title || '听力练习';
   $('source').textContent = lesson.source || '';
   records = readJSON(recordKey(), {});
-  $('autoPause').checked = localStorage.getItem(settingKey('autoPause')) === 'on';
   $('autoSlow').checked = localStorage.getItem(settingKey('autoSlow')) !== 'off';
   buildLegend();
   buildOverview();
@@ -161,13 +163,14 @@ function start(seconds, { stop = null, kind = null } = {}) {
 
 function resume() {
   ensureGraph();
+  if (stopKind === 'sentence') {  // 按播放就是连续播：只播一句的停点作废
+    stopAt = null;
+    stopKind = null;
+    fadedFor = null;
+  }
   if (gain) gain.gain.setValueAtTime(0, ctx.currentTime);
   audio.play();
   rampGain(1, FADE_IN);
-}
-
-function sentenceStopWanted() {
-  return $('autoPause').checked || !$('text').hidden;
 }
 
 /* 每一帧：该停就停，跟上当前是第几句，画进度 */
@@ -175,8 +178,10 @@ function tick() {
   const t = audio.currentTime;
 
   if (!audio.paused) {
+    // 只播一句时 stopAt 就是句末。连续播时也有两种情况停在这句末尾：
+    // 他点开了文字（卡在这句了，接着播文字两秒就被冲掉，R17）；这句是一段的最后一句（R21）
     const target = stopAt !== null ? stopAt
-      : ($('autoPause').checked || isSectionLast()) ? cur().end : null;
+      : (!$('text').hidden || isSectionLast()) ? cur().end : null;
     if (target !== null) {
       const remain = (target - t) / audio.playbackRate;
       if (fadedFor !== target && remain <= FADE + 0.025) {
@@ -202,7 +207,7 @@ function tick() {
 }
 
 function reachStop() {
-  const kind = stopKind || 'sentence';
+  const kind = stopKind || 'flow';  // 'flow'：连续播时停下（看着文字，或到了段末）
   audio.pause();
   stopAt = null;
   stopKind = null;
@@ -217,19 +222,32 @@ function reachStop() {
     }
   } else {
     atSentenceEnd = true;
-    atSectionEnd = isSectionLast();
+    // 一段听完才换成「这段再听一遍 / 听下一段」；一句一句听到段末不换，免得挡住看文字
+    atSectionEnd = kind === 'flow' && isSectionLast();
   }
   render();
 }
 
-/* ---------- 跳句 ---------- */
+/* ---------- 跳句：两种播法 ---------- */
 
-function gotoSentence(i, { flash = true } = {}) {
-  idx = Math.max(0, Math.min(lesson.sentences.length - 1, i));
+const clampIndex = (i) => Math.max(0, Math.min(lesson.sentences.length - 1, i));
+
+/* 只播第 i 句，播完停在句末：上一句、下一句、点进度条上的一句、点全文里的一句 */
+function playOne(i) {
+  idx = clampIndex(i);
+  hideText();
+  start(cur().start, { stop: cur().end, kind: 'sentence' });
+  render();
+  flashSegment(idx);
+}
+
+/* 从第 i 句开始连续往下播：停在句末按播放、点整集那条上的一段、这段再听一遍、听下一段 */
+function playFrom(i) {
+  idx = clampIndex(i);
   hideText();
   start(cur().start);
   render();
-  if (flash) flashSegment(idx);
+  flashSegment(idx);
 }
 
 function replayCurrent() {
@@ -244,18 +262,19 @@ function replayCurrent() {
     setRate(SLOW);
     record(() => ({ slowed: true }));
   }
-  start(cur().start, sentenceStopWanted() ? { stop: cur().end, kind: 'sentence' } : {});
+  start(cur().start, { stop: cur().end, kind: 'sentence' });  // 重听只播这一句
   render();
   flashSegment(idx);
 }
 
+/* 播放键：在播就暂停；停着就连续往下播 */
 function togglePlay() {
   if (!audio.paused) {
     audio.pause();
   } else if (atSectionEnd) {
-    gotoSentence(nextSection().first);  // 一段听完，按播放就是听下一段
+    playFrom(nextSection().first);  // 一段听完，按播放就是听下一段
   } else if (atSentenceEnd) {
-    gotoSentence(idx + 1);   // 停在句末，按播放就是进下一句
+    playFrom(idx + 1);   // 停在句末，按播放就从下一句接着连续播
   } else {
     resume();
   }
@@ -289,15 +308,19 @@ function render() {
   $('iconPlay').toggleAttribute('hidden', playing);
   $('iconPause').toggleAttribute('hidden', !playing);
   $('playLabel').textContent = playing ? '暂停'
-    : atSectionEnd ? (last ? '从头听' : '下一段')
-    : atSentenceEnd ? '下一句' : '播放';
+    : atSectionEnd ? (last ? '从头听' : '下一段') : '播放';
 
+  // 状态牌说清楚现在是哪种播法、播完会不会停
   const tag = $('stateTag');
-  const [label, stop] = atSectionEnd ? ['这段听完了', true]
-    : atSentenceEnd ? ['停在这句末尾', true]
-    : sentenceStopWanted() ? ['这句播完会停', true]
-    : isSectionLast() ? ['这段播完会停', true]
-    : ['连续播放', false];
+  const [label, stop] = playing
+    ? (stopKind === 'sentence' ? ['只播这一句', true]
+      : stopKind === 'word' ? ['播这个词', true]
+      : !$('text').hidden ? ['这句播完会停', true]
+      : isSectionLast() ? ['这段播完会停', true]
+      : ['连续播放', false])
+    : (atSectionEnd ? ['这段听完了', true]
+      : atSentenceEnd ? ['停在这句末尾', true]
+      : ['暂停中', false]);
   tag.textContent = label;
   tag.classList.toggle('stop', stop);
 
@@ -369,11 +392,7 @@ function showText() {
   $('zhBtn').hidden = false;
   $('textBtn').innerHTML = '收起文字 <kbd>T</kbd>';
   record(() => ({ sawText: true }));
-  // 看了文字说明卡在这句了：这句播完就停，让他读、点词、重听
-  if (!audio.paused && stopAt === null) {
-    stopAt = s.end;
-    stopKind = 'sentence';
-  }
+  // 看了文字说明卡在这句了：连续播时这句播完就停（在 tick 里判断），让他读、点词、重听
   render();
 }
 
@@ -386,10 +405,6 @@ function hideText() {
   $('zhBtn').textContent = '看中文';
   $('textBtn').innerHTML = '看文字 <kbd>T</kbd>';
   $('wordbox').hidden = true;
-  if (stopKind === 'sentence' && !$('autoPause').checked) {
-    stopAt = null;
-    stopKind = null;
-  }
 }
 
 function highlightSpeaking(t) {
@@ -419,7 +434,7 @@ function buildOverview() {
     el.setAttribute('aria-label', el.title);
     el.innerHTML = '<span class="fill"></span><span class="label"></span>';
     el.querySelector('.label').textContent = p.kind === 'section' ? p.n : p.title;
-    el.onclick = () => gotoSentence(p.first);
+    el.onclick = () => playFrom(p.first);  // 点一段：从那段开头连续听
     box.appendChild(el);
   });
 }
@@ -508,7 +523,7 @@ $('timeline').addEventListener('pointerleave', () => {
   $('tip').hidden = true;
   document.querySelectorAll('.seg.hover').forEach((el) => el.classList.remove('hover'));
 });
-$('timeline').addEventListener('click', (e) => gotoSentence(sentenceAt(e.clientX)));
+$('timeline').addEventListener('click', (e) => playOne(sentenceAt(e.clientX)));
 
 /* ---------- 单词 ---------- */
 
@@ -572,13 +587,7 @@ function buildFullText() {
       li.querySelector('.t').textContent = clock(s.start - p.t0);
       li.querySelector('b').textContent = s.speaker === OUTSIDE ? '' : s.speaker;
       li.querySelector('.s').appendChild(document.createTextNode(s.text));
-      li.onclick = () => {
-        idx = i;
-        hideText();
-        start(s.start, { stop: s.end, kind: 'sentence' });  // 只播这一句，方便听开头结尾
-        render();
-        flashSegment(i);
-      };
+      li.onclick = () => playOne(i);  // 只播这一句，方便听开头结尾
       list.appendChild(li);
     }
   });
@@ -589,10 +598,10 @@ function buildFullText() {
 
 $('playBtn').onclick = togglePlay;
 $('replayBtn').onclick = replayCurrent;
-$('prevBtn').onclick = () => gotoSentence(idx - 1);
-$('nextBtn').onclick = () => gotoSentence(idx + 1);
-$('nextSectionBtn').onclick = () => gotoSentence(nextSection().first);
-$('againSectionBtn').onclick = () => gotoSentence(part().first);
+$('prevBtn').onclick = () => playOne(idx - 1);
+$('nextBtn').onclick = () => playOne(idx + 1);
+$('nextSectionBtn').onclick = () => playFrom(nextSection().first);
+$('againSectionBtn').onclick = () => playFrom(part().first);
 $('againBtn').onclick = () => {
   setRate(1);
   $('againBtn').classList.remove('nudge');
@@ -620,10 +629,6 @@ $('settingsBtn').onclick = (e) => {
   $('settingsBtn').setAttribute('aria-expanded', String(!panel.hidden));
 };
 $('settings').onclick = (e) => e.stopPropagation();
-$('autoPause').onchange = (e) => {
-  localStorage.setItem(settingKey('autoPause'), e.target.checked ? 'on' : 'off');
-  render();
-};
 $('autoSlow').onchange = (e) =>
   localStorage.setItem(settingKey('autoSlow'), e.target.checked ? 'on' : 'off');
 $('exportBtn').onclick = () => {
@@ -661,8 +666,8 @@ document.addEventListener('keydown', (e) => {
   if (e.target.tagName === 'INPUT' || e.ctrlKey || e.metaKey || e.altKey) return;
   const actions = {
     ' ': togglePlay,
-    ArrowLeft: () => gotoSentence(idx - 1),
-    ArrowRight: () => gotoSentence(idx + 1),
+    ArrowLeft: () => playOne(idx - 1),
+    ArrowRight: () => playOne(idx + 1),
     r: replayCurrent,
     R: replayCurrent,
     t: () => $('textBtn').click(),
