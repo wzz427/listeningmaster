@@ -20,7 +20,7 @@
 | 在 Bash 里用 Python 脚本批量替换代码，报 `AssertionError`、要找的文字对不上 | 代码里的 `\n` 这类反斜杠转义被吃掉一层，没查清是哪一层吃的。2026-09-22 犯了两次 | 要找的文字里有反斜杠时，一律改用 Edit 工具逐处改；要整段退回就 `git show <提交>:<文件>` |
 | 百炼语音合成读单词，头一个音读坏（need 读成 aid、drank 读成 rank） | 直接给小写的单个词，模型不当成一句话读 | 首字母大写再加句号（「Drank.」），见 `pipeline/tts.py` 的 `spoken()` |
 | 机器耳朵判朗读、判句首，结果忽对忽错 | 单听一个词很容易听岔（to→two、know→no）；同一段声音换个采样率（16k 和 48k）它就一会儿听到 I'm、一会儿听不到 | 机器耳朵只用来排先后、挑可疑的，拍板靠人耳（`tts.py check`、`bounds_manual.json`） |
-| 句子开头被切，机器耳朵往前挪也找不回来 | 上一句的结尾标晚了，把这句开头占了；往前找不许越过上一句结尾 | 看上一句结尾之前有没有一段静音，有就把两句的分界挪到静音里；人耳确认后写进 `lessons/<课>/bounds_manual.json`（第 48 句，2026-09-22） |
+| 以为找到了两句之间的静音，挪了分界，owner 一听把上一句的词切掉了 | 又是 k、t、p 的坑：interesting 的 t 发音前嘴先闭住，那 0.03 秒安静得像句间空当（第 47、48 句，2026-09-22，同一个坑踩第二次） | 按音量找到的「静音」只能当候选，挪不挪由人耳定；人耳定下的写进 `lessons/<课>/bounds_manual.json`。说话人自己吞掉的音（第 5 句 I'm、第 48 句 I）怎么切都找不回来 |
 | Playwright 的 `page.evaluate` 莫名其妙把桩函数调了一次 | 传进去的字符串最后一个表达式是函数（`x.speak = () => ...`），Playwright 会把它当函数调用 | 字符串末尾加 `; 0` |
 | ffmpeg 切出来的一段全是静音 | 在 `-i` 后面用 `-ss` 截取时，滤镜里的时间还是原音频的时间，`afade=t=out:st=1.45` 从第 1.45 秒起全压成零 | 用 `atrim=start=..:end=..,asetpts=PTS-STARTPTS` 截取并把时间归零，再接 `afade` |
 | 百炼报找不到文件或地址无效 | 录音文件转写模型只收公网地址，不收本地路径 | 用 `dashscope.utils.oss_utils.upload_file` 传到临时存储，并加请求头 `X-DashScope-OssResourceResolve: enable` |

@@ -14,7 +14,7 @@
 - 挪到头也听不到的（多半是机器耳朵自己的毛病，比如 Itmeans、I've 听成 I），保持原样，写进报告给人耳查。
 
 人耳说了算：lessons/<课>/bounds_manual.json 里是 owner 用耳朵确认过的起止点，最后照它改，盖过上面机器挪的结果。
-机器耳朵也有听错的时候（第 76 句 Neil 明明在，它听不到），也有找不回来的（第 48 句，见那个文件里的说明）。
+机器耳朵也有听错的时候（第 76 句 Neil 明明在，它听不到）；说话人自己吞掉的音它也当成切掉了（第 5 句 I'm、第 48 句 I）。
 只改了 bounds_manual.json、不想重新调识别接口时：<pywork python> pipeline/ear_bounds.py <课> --manual
 
 在流程里排在 refine_bounds.py 之后、teach.py 之前。原地改 lessons/<课>/timeline.json，报告写到 ear_report.md。
