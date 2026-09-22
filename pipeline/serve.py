@@ -4,9 +4,13 @@
 浏览器要跳到第 25 秒，必须能只取那一段；拿不到就跳不动，表现是「点下一句还是只播第一句」。
 见 docs/lessons.md 2026-09-12 那条。
 
+还管两个接口：孩子点词时现查讲解、现读朗读（pipeline/explain.py，决策 D29）。
+密钥只在这个本地服务里用，网页拿不到；以后上服务器，放到网关上。
+
 用法：<pywork python> pipeline/serve.py [端口]
 """
 
+import json
 import os
 import re
 import sys
@@ -16,6 +20,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 CHUNK = 64 * 1024
+LESSON_NAME = re.compile(r"[0-9A-Za-z_-]+")   # 课名只许这些字符，防止借路径读到别的文件
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 
 class RangeHandler(SimpleHTTPRequestHandler):
@@ -69,6 +75,32 @@ class RangeHandler(SimpleHTTPRequestHandler):
                     break
                 self.wfile.write(chunk)
                 remaining -= len(chunk)
+
+    def do_POST(self) -> None:  # noqa: N802
+        """点词时现查（pipeline/explain.py）：/api/explain 讲解，/api/speak 现读。密钥只在这里用，不给网页。"""
+        try:
+            body = json.loads(self.rfile.read(int(self.headers.get("Content-Length") or 0)) or b"{}")
+            lesson = str(body.get("lesson", ""))
+            if not LESSON_NAME.fullmatch(lesson) or not (ROOT / "lessons" / lesson / "lesson.json").exists():
+                self.send_json(404, {"error": "没有这一课"})
+                return
+            import explain
+            if self.path == "/api/explain":
+                self.send_json(200, explain.explain(lesson, int(body["sentence"]), int(body["word"])))
+            elif self.path == "/api/speak":
+                self.send_json(200, {"file": explain.speak(lesson, str(body.get("key", "")), str(body.get("text", "")))})
+            else:
+                self.send_json(404, {"error": "没有这个接口"})
+        except Exception as e:  # 只回错误的种类，不回详情：详情里可能带着请求头（红线：密钥不进报错）
+            self.send_json(500, {"error": type(e).__name__})
+
+    def send_json(self, code: int, data: dict) -> None:
+        raw = json.dumps(data, ensure_ascii=False).encode("utf-8")
+        self.send_response(code)
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.send_header("Content-Length", str(len(raw)))
+        self.end_headers()
+        self.wfile.write(raw)
 
     def log_message(self, format: str, *args) -> None:  # noqa: A002
         pass  # 安静点

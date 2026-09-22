@@ -200,8 +200,13 @@ def run(page, shots: Path | None) -> None:
     page.click("#zhBtn")
     check("A7b3 中文能显示出来", page.is_visible("#zh") and len(page.inner_text("#zh")) > 1,
           page.inner_text("#zh")[:30])
-    page.click("#text w >> nth=1")
-    check("A7 点词出现释义", page.is_visible("#wordbox") and len(page.inner_text("#wordZh")) > 0,
+    with page.expect_response(lambda r: r.url.endswith("/api/explain")) as asked:
+        page.click("#text w >> nth=1")
+    loaded = "!document.getElementById('wordZh').classList.contains('loading')"
+    page.wait_for_function(loaded, timeout=20000)
+    check("A7r 点了词才去查讲解（不在备课时把每个词都讲一遍，决策 D29）", asked.value.ok, f"{asked.value.status}")
+    check("A7 点词出现讲解", page.is_visible("#wordbox") and len(page.inner_text("#wordZh")) > 3
+          and "没查到" not in page.inner_text("#wordZh"),
           f"{page.inner_text('#wordText')} → {page.inner_text('#wordZh')}")
     page.wait_for_timeout(250)  # 等弹出动画走完再截图
     box_w, card_w = page.locator("#wordbox").bounding_box(), page.locator("#zh").bounding_box()
@@ -214,8 +219,8 @@ def run(page, shots: Path | None) -> None:
     with page.expect_response(lambda r: "/tts/" in r.url) as got:
         page.click("#wordTts")
     page.wait_for_function("voice.currentTime > 0.1", timeout=5000)
-    check("A7k 点「听朗读」播的是备课时生成好的文件，不用浏览器自带的朗读（大陆不翻墙读不出来）",
-          got.value.ok and page.evaluate("window.__spoke") == 0,
+    check("A7k 单个词的「听朗读」放的是发音词典里拷来的谷歌英音，不用浏览器自带的朗读（大陆不翻墙读不出来）",
+          got.value.ok and "/tts/google_en-GB/" in got.value.url and page.evaluate("window.__spoke") == 0,
           f"{got.value.url.split('/lessons/')[-1]}（{got.value.status}），浏览器朗读被叫了 {page.evaluate('window.__spoke')} 次")
     page.keyboard.press("Escape")
     page.click("#replayBtn")
@@ -229,8 +234,42 @@ def run(page, shots: Path | None) -> None:
     files = page.evaluate("(lesson.tts || {}).files || {}")
     keys = set(page.evaluate("lesson.sentences.flatMap((s) => s.words.map((w) => w.key)).filter(Boolean)"))
     here = Path(__file__).resolve().parent.parent / "lessons" / LESSON
-    missing = sorted(k for k in keys if k not in files or not (here / files[k]).exists())
-    check("A7m 课文里每个词都有朗读文件", not missing, f"缺 {len(missing)} 个：{missing[:5]}")
+    broken = sorted(k for k, f in files.items() if not (here / f).exists())
+    check("A7m 备课时从发音词典拷来的朗读文件都在；词典里没有的点了再读",
+          not broken and len(files) >= 0.9 * len(keys), f"拷来 {len(files)} 个 / 课文 {len(keys)} 个词，坏的 {broken[:5]}")
+
+    # 词组：第 66 句 Cut down on, You mean have less? 点第二个词 down
+    n66 = page.evaluate("lesson.sentences.findIndex((s) => s.id === 66)")
+    page.evaluate(f"playOne({n66}); audio.pause()")
+    page.click("#textBtn")
+    page.click("#text w >> nth=1")
+    page.wait_for_function(loaded, timeout=20000)
+    check("A7n 点词组里的一个词，讲的是整个词组，词组里的词一起亮",
+          page.inner_text("#wordText").lower().startswith("cut down on") and page.locator("#text w.picked").count() == 3,
+          f"{page.inner_text('#wordText')}：{page.inner_text('#wordZh')[:30]}（亮了 {page.locator('#text w.picked').count()} 个词）")
+    check("A7o 讲解默认只显示这句里的意思，展开的内容先收着", page.is_hidden("#wordMore") and page.is_visible("#wordMoreBtn"))
+    page.click("#wordMoreBtn")
+    page.wait_for_timeout(250)
+    box = page.locator("#wordbox").bounding_box()
+    check("A7p 点展开，看到常见意思（标出这句用的）、搭配、例句，卡片没出屏幕",
+          page.is_visible("#wordMore") and page.locator("#moreSenses li.used").count() == 1
+          and page.locator("#moreColl li").count() >= 1 and len(page.inner_text("#moreEx")) > 3
+          and box["y"] >= 0 and box["y"] + box["height"] <= page.viewport_size["height"],
+          f"{page.locator('#moreSenses li').count()} 个意思，{page.locator('#moreColl li').count()} 个搭配")
+    shot(page, shots, "3b-word-more")
+    with page.expect_response(lambda r: "/tts/" in r.url, timeout=30000) as got:
+        page.click("#wordTts")
+    check("A7q 词组的朗读读整个词组（百炼 Emily 现读，存下来）",
+          got.value.ok and got.value.url.endswith("/tts/bailian_emily/cut_down_on.mp3"),
+          got.value.url.split("/lessons/")[-1])
+    page.keyboard.press("Escape")
+    asks = []
+    page.on("request", lambda r: asks.append(r.url) if r.url.endswith("/api/explain") else None)
+    page.click("#text w >> nth=0")
+    page.wait_for_timeout(300)
+    check("A7s 点词组里的另一个词，直接出来，不再去查", not asks and page.inner_text("#wordText").lower().startswith("cut down on"),
+          f"又查了 {len(asks)} 次")
+    page.keyboard.press("Escape")
 
     print("\n【记录】")
     goto_body(page, 12)
@@ -268,6 +307,7 @@ def run(page, shots: Path | None) -> None:
     avatar = page.evaluate("document.getElementById('avatar').className")
     check("A20 头像颜色跟着说话人走", avatar == f"avatar {names[body[20]['speaker']]}",
           f"{body[20]['speaker']} → {avatar}")
+    page.wait_for_timeout(500)  # 面板滑入、播放器让位都有动画，走完再量（早量了会时过时不过）
     grid = page.locator("#timeline").bounding_box()
     drawer = page.locator("#fullPanel").bounding_box()
     check("A18b 打开全文时，进度条不被挡住", grid["x"] + grid["width"] <= drawer["x"] + 1,

@@ -1,9 +1,11 @@
-"""用大模型生成教学内容：每句的中文翻译、每个词在本集语境里的中文意思、按话题分的段。
+"""备课时用大模型生成的内容：每句的中文翻译、每个词在本集里的简短中文意思（标出生词）、按话题分的段。
 
 决策 D3：只在备课阶段离线跑一次，结果写进课程文件；播放器不调接口。
 决策 D12：第一版就要中文释义，所以这一步排在播放器前面。
 决策 D22：正文按话题切成两分钟左右一段，一段一段精听；每段一个中文小标题。
-规则 R13（specs/SPEC-001-player.md）：生成的内容要 owner 审过才给孩子用。
+决策 D29：点词看的讲解不在这里生成，孩子点了才现查（pipeline/explain.py）；备课要快，几分钟以内。
+决策 D27：单个词的朗读从发音词典里拷谷歌英音（pipeline/tts.py）；词典里没有的词和词组点了才让百炼 Emily 读。
+内容好不好靠提示词：claude 每换一批材料抽查、改提示词（owner 2026-09-22）。
 
 原始返回存在 lessons/<课>/teach_raw.json，方便复查模型到底说了什么。
 
@@ -127,6 +129,7 @@ def normalize(token: str) -> str:
     return re.sub(r"[^a-z0-9']", "", token.lower().replace("\u2019", "'"))
 
 
+
 def load_previous(lesson_dir: Path) -> tuple[dict[str, str], dict[str, dict], dict[str, str]]:
     """上一版课程文件里已有的内容：{英文句子: 中文}、词条、{每段第一句的英文: 小标题}。"""
     path = lesson_dir / "lesson.json"
@@ -158,6 +161,9 @@ def build(lesson: str, fresh: bool = False, resplit: bool = False) -> None:
 
     forms = sorted({normalize(w["text"]) for s in sentences for w in s["words"]} - {""})
     known_zh, glossary, old_sections = ({}, {}, {}) if fresh else load_previous(lesson_dir)
+    for s in sentences:
+        for w in s["words"]:
+            w["key"] = normalize(w["text"])
     todo_sentences = [s for s in sentences if s["text"] not in known_zh]
     todo_words = [w for w in forms if w not in glossary]
     print(f"{len(sentences)} 句，{len(forms)} 个不同的词；"
@@ -167,6 +173,7 @@ def build(lesson: str, fresh: bool = False, resplit: bool = False) -> None:
     if todo_words:
         glossary.update(gloss(todo_words, context))
     zh_map = {s["id"]: new_zh.get(s["id"]) or known_zh.get(s["text"], "") for s in sentences}
+
 
     body = [s for s in sentences if s["speaker"] != OUTSIDE]
     cuts = None if resplit else reuse_sections(old_sections, body)
@@ -180,8 +187,6 @@ def build(lesson: str, fresh: bool = False, resplit: bool = False) -> None:
 
     for s in sentences:
         s["zh"] = zh_map.get(s["id"], "")
-        for w in s["words"]:
-            w["key"] = normalize(w["text"])
 
     lesson_data = {
         "lesson": lesson,
@@ -192,8 +197,8 @@ def build(lesson: str, fresh: bool = False, resplit: bool = False) -> None:
         "sections": sections,
         "sentences": sentences,
         "glossary": glossary,
-        # 单词朗读：备课时生成好的文件，孩子那边不连任何外部服务（决策 D26）
-        "tts": {"voice": tts.VOICES[tts.VOICE], "files": tts.build(lesson_dir, sorted(glossary))},
+        # 单词朗读：备课时存好的文件，孩子那边不连任何外部服务（决策 D27）
+        "tts": {"voice": tts.LABEL, "files": tts.build(lesson_dir, sorted(glossary))},
     }
     (lesson_dir / "lesson.json").write_text(
         json.dumps(lesson_data, ensure_ascii=False, indent=2), encoding="utf-8")

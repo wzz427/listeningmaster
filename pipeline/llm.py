@@ -30,11 +30,15 @@ def call(model: str, system: str, user: str) -> tuple[dict, float]:
         client = OpenAI(api_key=read_key("qwen"),
                         base_url="https://dashscope.aliyuncs.com/compatible-mode/v1")
     started = time.time()
+    # deepseek-flash 默认开着思考模式：一次 1.5 秒、先想 186 个字；关掉 0.4 秒（2026-09-22 量的）。
+    # owner 要求不开（点词时现查，要快）
+    extra = {"thinking": {"type": "disabled"}} if model.startswith("deepseek") else {}
     completion = client.chat.completions.create(
         model=model,
         messages=[{"role": "system", "content": system}, {"role": "user", "content": user}],
         response_format={"type": "json_object"},
         temperature=0.3,
+        extra_body=extra,
     )
     text = completion.choices[0].message.content
     return json.loads(_strip_fence(text)), time.time() - started

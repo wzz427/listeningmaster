@@ -1,0 +1,167 @@
+{
+ "13:1": {
+  "words": [
+   1,
+   3
+  ],
+  "text": "more",
+  "here": "这里指数量更多，整句说我不喝超过两杯咖啡。",
+  "more": {
+   "senses": [
+    "更多的",
+    "再一个"
+   ],
+   "used": 1,
+   "collocations": [
+    {
+     "en": "more than",
+     "zh": "超过"
+    },
+    {
+     "en": "no more",
+     "zh": "不再有"
+    },
+    {
+     "en": "a bit more",
+     "zh": "再多一点"
+    }
+   ],
+   "example": {
+    "en": "I need more time to finish this.",
+    "zh": "我需要更多时间完成这个。"
+   }
+  }
+ },
+ "13:3": {
+  "words": [
+   1,
+   3
+  ],
+  "text": "more",
+  "here": "这里指数量更多，整句说我不喝超过两杯咖啡。",
+  "more": {
+   "senses": [
+    "更多的",
+    "再一个"
+   ],
+   "used": 1,
+   "collocations": [
+    {
+     "en": "more than",
+     "zh": "超过"
+    },
+    {
+     "en": "no more",
+     "zh": "不再有"
+    },
+    {
+     "en": "a bit more",
+     "zh": "再多一点"
+    }
+   ],
+   "example": {
+    "en": "I need more time to finish this.",
+    "zh": "我需要更多时间完成这个。"
+   }
+  }
+ },
+ "66:0": {
+  "words": [
+   0,
+   1,
+   2
+  ],
+  "text": "cut down on",
+  "here": "这里是问“cut down on”是不是“少喝点”的意思。整句在确认这个词组的意思。",
+  "more": {
+   "senses": [
+    "减少、少吃少喝"
+   ],
+   "used": 1,
+   "collocations": [
+    {
+     "en": "cut down on sugar",
+     "zh": "少吃糖"
+    },
+    {
+     "en": "cut down on coffee",
+     "zh": "少喝咖啡"
+    },
+    {
+     "en": "cut down on spending",
+     "zh": "减少花销"
+    }
+   ],
+   "example": {
+    "en": "I need to cut down on sweets.",
+    "zh": "我得少吃点甜食。"
+   }
+  }
+ },
+ "66:1": {
+  "words": [
+   0,
+   1,
+   2
+  ],
+  "text": "cut down on",
+  "here": "这里是问“cut down on”是不是“少喝点”的意思。整句在确认这个词组的意思。",
+  "more": {
+   "senses": [
+    "减少、少吃少喝"
+   ],
+   "used": 1,
+   "collocations": [
+    {
+     "en": "cut down on sugar",
+     "zh": "少吃糖"
+    },
+    {
+     "en": "cut down on coffee",
+     "zh": "少喝咖啡"
+    },
+    {
+     "en": "cut down on spending",
+     "zh": "减少花销"
+    }
+   ],
+   "example": {
+    "en": "I need to cut down on sweets.",
+    "zh": "我得少吃点甜食。"
+   }
+  }
+ },
+ "66:2": {
+  "words": [
+   0,
+   1,
+   2
+  ],
+  "text": "cut down on",
+  "here": "这里是问“cut down on”是不是“少喝点”的意思。整句在确认这个词组的意思。",
+  "more": {
+   "senses": [
+    "减少、少吃少喝"
+   ],
+   "used": 1,
+   "collocations": [
+    {
+     "en": "cut down on sugar",
+     "zh": "少吃糖"
+    },
+    {
+     "en": "cut down on coffee",
+     "zh": "少喝咖啡"
+    },
+    {
+     "en": "cut down on spending",
+     "zh": "减少花销"
+    }
+   ],
+   "example": {
+    "en": "I need to cut down on sweets.",
+    "zh": "我得少吃点甜食。"
+   }
+  }
+ }
+}

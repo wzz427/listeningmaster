@@ -518,42 +518,126 @@ $('timeline').addEventListener('click', (e) => playOne(sentenceAt(e.clientX)));
  * 原来还有「这句里的原声」，2026-09-22 拿掉了（决策 D24）：识别给的词时间偏晚、每个词偏得不一样，
  * 在真的 Chrome 里录下放出来的声音交给机器耳朵听，切出来的大多是半个词加下一个词的开头。
  * 想听这个词在句子里怎么读，看着文字按「重听本句」：正在读的词会亮，还能放慢。 */
+/* 点词时现查（决策 D29，owner 2026-09-22）：一份材料几千个词，孩子真正点的也就十来个，所以点了才让本地服务去问大模型，
+ * 一两秒回来；查过的服务那边存着，再点马上出来。讲的格式是 owner 定的（D28）：先看这个词在这句里的意思，
+ * 点「展开」再看常见意思（标出这句用的是哪个）、常见搭配、例句。
+ * 词属于词组（cut down on）时，点其中哪个词都讲整个词组、读整个词组，词组里的词一起亮。 */
+const notes = {};         // 这一课查过的：'句子id:词序号' → 讲解
+let asking = 0;           // 连着点了几个词，只认最后一个的结果
+
+async function api(path, body) {
+  const r = await fetch(path, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(Object.assign({ lesson: LESSON }, body)),
+  });
+  if (!r.ok) throw new Error(`${path} ${r.status}`);
+  return r.json();
+}
+
 function openWord(i, tag) {
-  const w = cur().words[i];
-  const g = lesson.glossary[w.key] || {};
+  const s = cur();
+  const w = s.words[i];
   const clean = w.text.replace(/^[^A-Za-z']+|[^A-Za-z']+$/g, '');
+  const ticket = ++asking;
+  showNote(s, i, { words: [i], text: clean, here: null, more: null });
+  $('wordbox').hidden = false;
+  placeWordbox(tag);
+  record((old) => ({ words: old.words.indexOf(w.key) < 0 ? old.words.concat(w.key) : old.words }));
+  const known = notes[`${s.id}:${i}`];
+  if (known) { showNote(s, i, known); return; }
+  api('/api/explain', { sentence: s.id, word: i }).then((note) => {
+    note.words.forEach((k) => { notes[`${s.id}:${k}`] = note; });
+    if (ticket === asking && cur() === s && !$('wordbox').hidden) showNote(s, i, note);
+  }).catch(() => {
+    if (ticket !== asking) return;
+    $('wordZh').textContent = '没查到，点这里再试一次';
+    $('wordZh').className = 'retry';
+    $('wordZh').onclick = () => openWord(i, tag);
+  });
+}
+
+/* 把一条讲解填进单词卡；here 为空表示还在查 */
+function showNote(s, i, note) {
+  const members = note.words.length > 1 ? note.words : [i];
+  const tags = document.querySelectorAll('#text w');
   document.querySelectorAll('.sentence w.picked').forEach((el) => el.classList.remove('picked'));
-  tag.classList.add('picked');
-  $('wordText').textContent = clean;
-  $('wordZh').textContent = g.zh || '（这个词没有释义）';
-  $('wordHard').hidden = !g.hard;
+  members.forEach((k) => tags[k] && tags[k].classList.add('picked'));
+  $('wordText').textContent = note.text;
+  $('wordZh').textContent = note.here || '正在查';
+  $('wordZh').className = note.here ? '' : 'loading';
+  $('wordZh').onclick = null;
+  $('wordHard').hidden = !members.some((k) => (lesson.glossary[s.words[k].key] || {}).hard);
+  fillMore(note.here ? note.more : null);
+  // 单个词先用发音词典里的；词组和词典里没有的，点了再让本地服务现读
+  const key = members.length > 1 ? note.text : s.words[i].key;
+  $('wordTts').hidden = false;
+  $('wordTts').onclick = () => speakKey(key.toLowerCase(), note.text);
+  if (!$('wordbox').hidden) placeWordbox(tags[members[0]]);
+}
+
+function fillMore(more) {
+  $('wordMore').hidden = true;
+  $('wordMoreBtn').hidden = !more;
+  $('wordMoreBtn').textContent = '展开';
+  $('wordMoreBtn').setAttribute('aria-expanded', 'false');
+  if (!more) return;
+  const esc = (t) => String(t || '').replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+  $('moreSenses').innerHTML = (more.senses || []).map((x, k) => (k + 1 === more.used
+    ? `<li class="used">${esc(x)}<em>这句用的</em></li>` : `<li>${esc(x)}</li>`)).join('');
+  $('moreColl').innerHTML = (more.collocations || [])
+    .map((c) => `<li><b>${esc(c.en)}</b><span>${esc(c.zh)}</span></li>`).join('');
+  const ex = more.example || {};
+  $('moreEx').innerHTML = `<b>${esc(ex.en)}</b><span>${esc(ex.zh)}</span>`;
+}
+
+/* 优先弹在词的上方，别盖住下面的中文和按钮；空间紧就贴近一点，实在放不下再放下方；
+ * 上下都放不下（展开后很高、屏幕又矮）就贴着屏幕顶，卡片里面滚动 */
+function placeWordbox(tag) {
   const box = $('wordbox');
-  box.hidden = false;
+  box.dataset.for = Array.prototype.indexOf.call(document.querySelectorAll('#text w'), tag);
   const r = tag.getBoundingClientRect();
   const width = box.offsetWidth;
   box.style.left = `${Math.min(window.innerWidth - width - 16, Math.max(16, r.left + r.width / 2 - width / 2))}px`;
-  // 优先弹在词的上方，别盖住下面的中文和按钮；空间紧就贴近一点，实在放不下再放下方
-  const room = r.top - box.offsetHeight;
-  box.style.top = room >= 12 ? `${room - Math.min(14, room - 4)}px`
-    : `${Math.min(window.innerHeight - box.offsetHeight - 12, r.bottom + 14)}px`;
-  const file = lesson.tts && lesson.tts.files[w.key];
-  $('wordTts').hidden = !file;
-  $('wordTts').onclick = () => speakWord(file);
-  record((old) => ({ words: old.words.indexOf(w.key) < 0 ? old.words.concat(w.key) : old.words }));
+  const h = box.offsetHeight;
+  const room = r.top - h;
+  if (room >= 12) box.style.top = `${room - Math.min(14, room - 4)}px`;
+  else if (r.bottom + 14 + h <= window.innerHeight - 12) box.style.top = `${r.bottom + 14}px`;
+  else box.style.top = `${Math.max(12, window.innerHeight - h - 12)}px`;
 }
 
-/* 朗读：备课时用百炼生成好的文件（Emily · 英音女声，决策 D26），这里只播文件，不连任何外部服务。
+$('wordMoreBtn').onclick = () => {
+  const open = $('wordMore').hidden;
+  $('wordMore').hidden = !open;
+  $('wordMoreBtn').textContent = open ? '收起' : '展开';
+  $('wordMoreBtn').setAttribute('aria-expanded', String(open));
+  const tag = document.querySelectorAll('#text w')[Number($('wordbox').dataset.for)];
+  if (tag) placeWordbox(tag);
+};
+
+/* 朗读：单个词放备课时从发音词典拷来的谷歌英音；词组和词典里没有的，本地服务让百炼 Emily 现读、存下来（决策 D27）。
  * 不用浏览器自带的朗读：用哪个声音随浏览器和系统变，owner 的 Chrome 挑中的是谷歌的联网声音，
  * 中国大陆不翻墙读不出来（demand.md 的网络约束）。 */
 const voice = new Audio();
 
-function speakWord(file) {
+async function speakKey(key, text) {
   if (!audio.paused) {  // 句子正在放就先停下，两个声音叠在一起听不清
     audio.pause();
     render();
   }
+  let file = lesson.tts.files[key];
+  if (!file) {
+    $('wordTts').classList.add('busy');
+    try {
+      file = (await api('/api/speak', { key, text })).file;
+      lesson.tts.files[key] = file;
+    } catch (e) {
+      return;
+    } finally {
+      $('wordTts').classList.remove('busy');
+    }
+  }
   voice.src = BASE + file;
-  voice.play();
+  voice.play().catch(() => {});
 }
 
 /* ---------- 全文：按段列出每一句，点一句只播这一句 ---------- */
