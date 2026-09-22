@@ -43,7 +43,7 @@ def wait_playing(page) -> None:
     page.wait_for_function("!audio.paused", timeout=5000)
 
 
-def wait_paused(page, timeout=10000) -> None:
+def wait_paused(page, timeout=20000) -> None:  # 最长的一句 11 秒
     page.wait_for_function("audio.paused", timeout=timeout)
 
 
@@ -75,9 +75,6 @@ def run(page, shots: Path | None) -> None:
     total = len(page.evaluate("lesson.sentences"))
     page.evaluate("audio.addEventListener('pause', () => { window.__pauseAt = audio.currentTime; "
                   "window.__gainAtPause = gain ? gain.gain.value : 1; })")
-    # 播单词原声停下后，播放器马上跳回原位，暂停时读到的已是跳回去的位置；所以每一帧记下最后播到哪
-    page.evaluate("(function loop() { if (!audio.paused) window.__lastPlaying = audio.currentTime; "
-                  "requestAnimationFrame(loop); })()")
     page.wait_for_timeout(800)  # 等进场动画走完再截图
     shot(page, shots, "1-opened")
 
@@ -211,55 +208,8 @@ def run(page, shots: Path | None) -> None:
     check("A7e 单词卡不挡住中文翻译",
           box_w["y"] + box_w["height"] <= card_w["y"] or box_w["y"] >= card_w["y"] + card_w["height"])
     shot(page, shots, "3-text-word")
-    word = body[10]["words"][1]
-    check("A7f 能单独切开的词，按钮写「这句里的原声」，没有连读提示",
-          word["clip"] == [1, 1] and page.inner_text("#wordRaw") == "这句里的原声" and page.is_hidden("#wordNote"),
-          f"{word['text']}：{page.inner_text('#wordRaw')}")
-    before = now(page)
-    page.click("#wordRaw")
-    page.wait_for_timeout(120)
-    t = now(page)
-    check("A7c 播原声时，音频跳到了这个词的切口", abs(t - word["start"]) < 0.2,
-          f"现在 {t:.2f} 秒，这个词从 {word['start']:.2f} 秒开始")
-    wait_paused(page)
-    stopped = page.evaluate("window.__lastPlaying")
-    check("A7c2 播到这个词的切口就停，前后不多放（不带进相邻词的碎片）", word["end"] - 0.05 <= stopped <= word["end"] + 0.005,
-          f"最后播到 {stopped:.3f} 秒，切口在 {word['end']:.3f} 秒")
-    page.wait_for_timeout(100)
-    check("A7d 播完这个词，回到原来的位置", abs(now(page) - before) < 0.05,
-          f"回到 {now(page):.2f} 秒，原来 {before:.2f} 秒")
-
-    # 连读切不开的词：播连着读的那一小串
-    n, k = next((n, k) for n, s in enumerate(body) for k, w in enumerate(s["words"])
-                if w["clip"] and w["clip"][0] != w["clip"][1])
-    first, last = body[n]["words"][k]["clip"]
-    chunk = " ".join(w["text"] for w in body[n]["words"][first:last + 1])
-    goto_body(page, n)
-    page.click("#textBtn")
-    page.click(f"#text w >> nth={k}")
-    check("A7g 连读的词，提示「这里连着读」并写出那一小串，按钮写「听连读的原声」",
-          page.inner_text("#wordNote") == f"这里连着读：{chunk}" and page.inner_text("#wordRaw") == "听连读的原声",
-          f"{body[n]['words'][k]['text']}：{page.inner_text('#wordNote')}")
-    page.click("#wordRaw")
-    page.wait_for_timeout(80)
-    t = now(page)
-    wait_paused(page)
-    stopped = page.evaluate("window.__lastPlaying")
-    start_t, end_t = body[n]["words"][first]["start"], body[n]["words"][last]["end"]
-    check("A7h 播的是整串，从第一个词的切口播到最后一个词的切口",
-          abs(t - start_t) < 0.15 and end_t - 0.05 <= stopped <= end_t + 0.005,
-          f"从 {t:.2f} 秒播到 {stopped:.3f} 秒，那一串是 {start_t:.2f}-{end_t:.2f}")
-    page.wait_for_timeout(300)
-    shot(page, shots, "3b-linked-word")
-
-    # 连得太长、切不出来的词：不给原声
-    n, k = next((n, k) for n, s in enumerate(body) for k, w in enumerate(s["words"]) if w["clip"] is None)
-    goto_body(page, n)
-    page.click("#textBtn")
-    page.click(f"#text w >> nth={k}")
-    check("A7i 切不出来的词，不给原声按钮，写明原因",
-          page.is_hidden("#wordRaw") and "切不出来" in page.inner_text("#wordNote"),
-          f"{body[n]['words'][k]['text']}：{page.inner_text('#wordNote')}")
+    check("A7j 单词卡上只有朗读，没有「这句里的原声」（切不准，2026-09-22 拿掉了）",
+          page.locator("#wordRaw").count() == 0 and page.is_visible("#wordTts"))
     page.keyboard.press("Escape")
 
     print("\n【记录】")

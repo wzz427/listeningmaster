@@ -21,7 +21,6 @@ const LESSON = new URLSearchParams(location.search).get('lesson') || '260821';
 const BASE = `../lessons/${LESSON}/`;
 const OUTSIDE = '片头片尾';
 const BACK_GRACE = 1.0;   // 本句才播了这么久以内按重听，视为想听上一句
-const WORD_FADE = 0.015;  // 播单词原声，切口已在空隙里，收尾渐弱短一点，别吃掉词尾
 const FADE = 0.04;        // 停之前渐弱这么久（秒）
 const FADE_IN = 0.015;    // 每次开始播渐强这么久，免得跳转时「啪」一声
 const SLOW = 0.8;
@@ -35,11 +34,10 @@ let idx = 0;              // 当前是 lesson.sentences 的第几句
 let rate = 1;
 let records = {};
 let stopAt = null;        // 这次播放要在哪一秒停（null 表示不停）
-let stopKind = null;      // 'sentence' 停在句末 · 'word' 播完一个词
+let stopKind = null;      // 'sentence'：只播一句，停在句末
 let fadedFor = null;      // 已经为哪个停点安排过渐弱
 let atSentenceEnd = false;
 let atSectionEnd = false; // 停在一段的末尾，卡片上换成「这段再听一遍 / 听下一段」
-let resumeAfterWord = null;
 let ctx = null;
 let gain = null;
 const speakerClass = {};  // 说话人 → 'a' / 'b'
@@ -156,7 +154,7 @@ function start(seconds, { stop = null, kind = null } = {}) {
   fadedFor = null;
   if (gain) gain.gain.setValueAtTime(0, ctx.currentTime);
   audio.currentTime = seconds;
-  audio.playbackRate = kind === 'word' ? 1 : rate;
+  audio.playbackRate = rate;
   audio.play();
   rampGain(1, FADE_IN);
 }
@@ -184,8 +182,7 @@ function tick() {
       : (!$('text').hidden || isSectionLast()) ? cur().end : null;
     if (target !== null) {
       const remain = (target - t) / audio.playbackRate;
-      const fade = stopKind === 'word' ? WORD_FADE : FADE;
-      if (fadedFor !== target && remain <= fade + 0.025) {
+      if (fadedFor !== target && remain <= FADE + 0.025) {
         rampGain(0, remain);
         fadedFor = target;
       }
@@ -193,7 +190,7 @@ function tick() {
     }
   }
 
-  if (!audio.paused && stopKind !== 'word') {
+  if (!audio.paused) {
     const here = lesson.sentences.findIndex((s) => t >= s.start && t < s.end);
     if (here >= 0 && here !== idx) {
       idx = here;
@@ -213,19 +210,9 @@ function reachStop() {
   stopAt = null;
   stopKind = null;
   fadedFor = null;
-  if (kind === 'word') {
-    audio.playbackRate = rate;
-    if (resumeAfterWord) {
-      audio.currentTime = resumeAfterWord.time;
-      atSentenceEnd = resumeAfterWord.atEnd;
-      atSectionEnd = resumeAfterWord.sectionEnd;
-      resumeAfterWord = null;
-    }
-  } else {
-    atSentenceEnd = true;
-    // 一段听完才换成「这段再听一遍 / 听下一段」；一句一句听到段末不换，免得挡住看文字
-    atSectionEnd = kind === 'flow' && isSectionLast();
-  }
+  atSentenceEnd = true;
+  // 一段听完才换成「这段再听一遍 / 听下一段」；一句一句听到段末不换，免得挡住看文字
+  atSectionEnd = kind === 'flow' && isSectionLast();
   render();
 }
 
@@ -284,7 +271,7 @@ function togglePlay() {
 
 function setRate(value) {
   rate = value;
-  if (stopKind !== 'word') audio.playbackRate = rate;
+  audio.playbackRate = rate;
   document.querySelectorAll('.speed-btn').forEach((b) => {
     b.classList.toggle('on', Number(b.dataset.rate) === rate);
   });
@@ -315,7 +302,6 @@ function render() {
   const tag = $('stateTag');
   const [label, stop] = playing
     ? (stopKind === 'sentence' ? ['只播这一句', true]
-      : stopKind === 'word' ? ['播这个词', true]
       : !$('text').hidden ? ['这句播完会停', true]
       : isSectionLast() ? ['这段播完会停', true]
       : ['连续播放', false])
@@ -528,31 +514,19 @@ $('timeline').addEventListener('click', (e) => playOne(sentenceAt(e.clientX)));
 
 /* ---------- 单词 ---------- */
 
-/* 点词时播哪一段原声：备课时按音量切好了（pipeline/refine_bounds.py 的 refine_words）。
- * 切口都在词和词之间的空隙里，所以前后不再多放。连读切不开的，播连着读的那一小串；
- * 连得太长的不给，让他听整句。以前前后各多放 0.06 秒，带进了相邻词的碎片（2026-09-22 owner 听出来的）。 */
+/* 点词：看这个词在这句里的中文意思，听朗读。
+ * 原来还有「这句里的原声」，2026-09-22 拿掉了（决策 D24）：识别给的词时间偏晚、每个词偏得不一样，
+ * 在真的 Chrome 里录下放出来的声音交给机器耳朵听，切出来的大多是半个词加下一个词的开头。
+ * 想听这个词在句子里怎么读，看着文字按「重听本句」：正在读的词会亮，还能放慢。 */
 function openWord(i, tag) {
-  const words = cur().words;
-  const w = words[i];
+  const w = cur().words[i];
   const g = lesson.glossary[w.key] || {};
   const clean = w.text.replace(/^[^A-Za-z']+|[^A-Za-z']+$/g, '');
-  const clip = w.clip === undefined ? [i, i] : w.clip;  // 旧课程文件没有 clip：只播这个词
-  const linked = !!clip && clip[0] !== clip[1];
   document.querySelectorAll('.sentence w.picked').forEach((el) => el.classList.remove('picked'));
   tag.classList.add('picked');
   $('wordText').textContent = clean;
   $('wordZh').textContent = g.zh || '（这个词没有释义）';
   $('wordHard').hidden = !g.hard;
-  $('wordRaw').hidden = !clip;
-  $('wordRaw').textContent = linked ? '听连读的原声' : '这句里的原声';
-  const note = $('wordNote');
-  note.hidden = !!clip && !linked;
-  note.textContent = clip ? '这里连着读：' : '这里和前后连着读，切不出来。点「原速再听一遍」听整句。';
-  if (linked) {
-    const b = document.createElement('b');
-    b.textContent = words.slice(clip[0], clip[1] + 1).map((x) => x.text).join(' ');
-    note.appendChild(b);
-  }
   const box = $('wordbox');
   box.hidden = false;
   const r = tag.getBoundingClientRect();
@@ -563,12 +537,6 @@ function openWord(i, tag) {
   box.style.top = room >= 12 ? `${room - Math.min(14, room - 4)}px`
     : `${Math.min(window.innerHeight - box.offsetHeight - 12, r.bottom + 14)}px`;
   $('wordTts').onclick = () => speak(clean);
-  $('wordRaw').onclick = () => {
-    resumeAfterWord = {
-      time: audio.paused ? audio.currentTime : cur().start, atEnd: atSentenceEnd, sectionEnd: atSectionEnd,
-    };
-    start(words[clip[0]].start, { stop: words[clip[1]].end, kind: 'word' });
-  };
   record((old) => ({ words: old.words.indexOf(w.key) < 0 ? old.words.concat(w.key) : old.words }));
 }
 
