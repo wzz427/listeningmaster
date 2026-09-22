@@ -161,11 +161,11 @@ def check_page(lesson: str) -> None:
 
     lesson_dir = ROOT / "lessons" / lesson
     data = json.loads((lesson_dir / "lesson.json").read_text(encoding="utf-8"))
-    files, glossary = data["tts"]["files"], data["glossary"]
+    files = data["tts"]["files"]
     keys = sorted(files)
     with ThreadPoolExecutor(4) as pool:
         heard = list(pool.map(lambda k: hear(lesson_dir / files[k]), keys))
-    items = [{"key": k, "file": f"../{files[k]}", "zh": glossary.get(k, {}).get("zh", ""),
+    items = [{"key": k, "file": f"../{files[k]}",
               "heard": h, "ok": words_of(h) == words_of(k)} for k, h in zip(keys, heard)]
     out = lesson_dir / "tts_check"
     out.mkdir(exist_ok=True)

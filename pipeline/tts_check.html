@@ -71,7 +71,7 @@ document.getElementById('lead').textContent =
 function card(x) {
   const el = document.createElement('div');
   el.className = 'w' + (marked.has(x.key) ? ' bad' : '');
-  const sub = x.ok ? x.zh : `机器听成 <i>${x.heard.replace(/</g, '')}</i>`;
+  const sub = x.ok ? '' : `机器听成 <i>${x.heard.replace(/</g, '')}</i>`;
   el.innerHTML = `<button class="play"><span class="en">${x.key}</span><span class="sub">${sub}</span></button>`
     + `<button class="mark">${marked.has(x.key) ? '不对 ✓' : '不对'}</button>`;
   el.querySelector('.play').onclick = () => {

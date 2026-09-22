@@ -77,7 +77,8 @@ class RangeHandler(SimpleHTTPRequestHandler):
                 remaining -= len(chunk)
 
     def do_POST(self) -> None:  # noqa: N802
-        """点词时现查（pipeline/explain.py）：/api/explain 讲解，/api/speak 现读。密钥只在这里用，不给网页。"""
+        """点词时现查（pipeline/explain.py）：/api/explain 那一行，/api/more 展开的，/api/speak 现读。
+        密钥只在这里用，不给网页。"""
         try:
             body = json.loads(self.rfile.read(int(self.headers.get("Content-Length") or 0)) or b"{}")
             lesson = str(body.get("lesson", ""))
@@ -87,6 +88,8 @@ class RangeHandler(SimpleHTTPRequestHandler):
             import explain
             if self.path == "/api/explain":
                 self.send_json(200, explain.explain(lesson, int(body["sentence"]), int(body["word"])))
+            elif self.path == "/api/more":
+                self.send_json(200, explain.explain_more(lesson, int(body["sentence"]), int(body["word"])))
             elif self.path == "/api/speak":
                 self.send_json(200, {"file": explain.speak(lesson, str(body.get("key", "")), str(body.get("text", "")))})
             else:

@@ -6080,1298 +6080,780 @@
   ],
   "glossary": {
     "a": {
-      "lemma": "a",
-      "zh": "一个",
       "hard": false
     },
     "about": {
-      "lemma": "about",
-      "zh": "关于",
       "hard": false
     },
     "after": {
-      "lemma": "after",
-      "zh": "在…之后",
       "hard": false
     },
     "afternoon": {
-      "lemma": "afternoon",
-      "zh": "下午",
       "hard": false
     },
     "alert": {
-      "lemma": "alert",
-      "zh": "清醒机敏的",
       "hard": true
     },
     "alertness": {
-      "lemma": "alertness",
-      "zh": "清醒状态",
       "hard": true
     },
     "all": {
-      "lemma": "all",
-      "zh": "都",
       "hard": false
     },
     "also": {
-      "lemma": "also",
-      "zh": "也",
       "hard": false
     },
     "am": {
-      "lemma": "be",
-      "zh": "是",
       "hard": false
     },
     "an": {
-      "lemma": "a",
-      "zh": "一个",
       "hard": false
     },
     "and": {
-      "lemma": "and",
-      "zh": "和",
       "hard": false
     },
     "anymore": {
-      "lemma": "anymore",
-      "zh": "不再",
       "hard": false
     },
     "are": {
-      "lemma": "be",
-      "zh": "是",
       "hard": false
     },
     "as": {
-      "lemma": "as",
-      "zh": "正如",
       "hard": false
     },
     "at": {
-      "lemma": "at",
-      "zh": "在",
       "hard": false
     },
     "awake": {
-      "lemma": "awake",
-      "zh": "醒着的",
       "hard": false
     },
     "back": {
-      "lemma": "back",
-      "zh": "减少（短语）",
       "hard": true
     },
     "bad": {
-      "lemma": "bad",
-      "zh": "不好",
       "hard": false
     },
     "bbc": {
-      "lemma": "bbc",
-      "zh": "英国广播公司",
       "hard": false
     },
     "bbclearningenglish": {
-      "lemma": "bbclearningenglish",
-      "zh": "BBC英语学习",
       "hard": false
     },
     "be": {
-      "lemma": "be",
-      "zh": "是",
       "hard": false
     },
     "because": {
-      "lemma": "because",
-      "zh": "因为",
       "hard": false
     },
     "beginner": {
-      "lemma": "beginner",
-      "zh": "初学者的",
       "hard": false
     },
     "big": {
-      "lemma": "big",
-      "zh": "大的",
       "hard": false
     },
     "bit": {
-      "lemma": "bit",
-      "zh": "有点",
       "hard": false
     },
     "black": {
-      "lemma": "black",
-      "zh": "不加奶的",
       "hard": true
     },
     "both": {
-      "lemma": "both",
-      "zh": "两个都",
       "hard": false
     },
     "but": {
-      "lemma": "but",
-      "zh": "但是",
       "hard": false
     },
     "caffeine": {
-      "lemma": "caffeine",
-      "zh": "咖啡因",
       "hard": true
     },
     "call": {
-      "lemma": "call",
-      "zh": "称作",
       "hard": false
     },
     "can": {
-      "lemma": "can",
-      "zh": "能",
       "hard": false
     },
     "care": {
-      "lemma": "care",
-      "zh": "在乎",
       "hard": false
     },
     "challenge": {
-      "lemma": "challenge",
-      "zh": "挑战",
       "hard": false
     },
     "chemical": {
-      "lemma": "chemical",
-      "zh": "化学物质",
       "hard": true
     },
     "coffee": {
-      "lemma": "coffee",
-      "zh": "咖啡",
       "hard": false
     },
     "coffees": {
-      "lemma": "coffee",
-      "zh": "几杯咖啡",
       "hard": true
     },
     "com": {
-      "lemma": "com",
-      "zh": "网站域名后缀",
       "hard": false
     },
     "conversation": {
-      "lemma": "conversation",
-      "zh": "对话",
       "hard": false
     },
     "conversations": {
-      "lemma": "conversation",
-      "zh": "对话（复数）",
       "hard": false
     },
     "cool": {
-      "lemma": "cool",
-      "zh": "凉了",
       "hard": false
     },
     "course": {
-      "lemma": "course",
-      "zh": "当然",
       "hard": false
     },
     "crazy": {
-      "lemma": "crazy",
-      "zh": "太不可思议",
       "hard": false
     },
     "cup": {
-      "lemma": "cup",
-      "zh": "一杯",
       "hard": false
     },
     "cups": {
-      "lemma": "cup",
-      "zh": "杯子（复数）",
       "hard": false
     },
     "cut": {
-      "lemma": "cut",
-      "zh": "减少（短语）",
       "hard": true
     },
     "day": {
-      "lemma": "day",
-      "zh": "一天",
       "hard": false
     },
     "decaf": {
-      "lemma": "decaf",
-      "zh": "无咖啡因咖啡",
       "hard": true
     },
     "decaffeinated": {
-      "lemma": "decaffeinated",
-      "zh": "无咖啡因的",
       "hard": true
     },
     "didn't": {
-      "lemma": "do",
-      "zh": "没有（did not）",
       "hard": false
     },
     "difficult": {
-      "lemma": "difficult",
-      "zh": "困难的",
       "hard": false
     },
     "dinner": {
-      "lemma": "dinner",
-      "zh": "晚餐",
       "hard": false
     },
     "do": {
-      "lemma": "do",
-      "zh": "（助动词）",
       "hard": false
     },
     "don't": {
-      "lemma": "do",
-      "zh": "不（do not）",
       "hard": false
     },
     "down": {
-      "lemma": "down",
-      "zh": "减少（短语）",
       "hard": true
     },
     "download": {
-      "lemma": "download",
-      "zh": "下载",
       "hard": false
     },
     "drank": {
-      "lemma": "drink",
-      "zh": "喝（过去式）",
       "hard": false
     },
     "drink": {
-      "lemma": "drink",
-      "zh": "喝",
       "hard": false
     },
     "each": {
-      "lemma": "each",
-      "zh": "互相",
       "hard": false
     },
     "easy": {
-      "lemma": "easy",
-      "zh": "容易的",
       "hard": false
     },
     "effect": {
-      "lemma": "effect",
-      "zh": "影响",
       "hard": false
     },
     "end": {
-      "lemma": "end",
-      "zh": "结尾",
       "hard": false
     },
     "energy": {
-      "lemma": "energy",
-      "zh": "精力",
       "hard": false
     },
     "english": {
-      "lemma": "English",
-      "zh": "英语",
       "hard": false
     },
     "enjoying": {
-      "lemma": "enjoy",
-      "zh": "享受",
       "hard": false
     },
     "episodes": {
-      "lemma": "episode",
-      "zh": "集",
       "hard": false
     },
     "especially": {
-      "lemma": "especially",
-      "zh": "尤其",
       "hard": false
     },
     "espresso": {
-      "lemma": "espresso",
-      "zh": "浓缩咖啡",
       "hard": true
     },
     "ever": {
-      "lemma": "ever",
-      "zh": "曾经",
       "hard": false
     },
     "example": {
-      "lemma": "example",
-      "zh": "例如",
       "hard": false
     },
     "exciting": {
-      "lemma": "exciting",
-      "zh": "令人兴奋的",
       "hard": false
     },
     "explore": {
-      "lemma": "explore",
-      "zh": "探索",
       "hard": false
     },
     "feel": {
-      "lemma": "feel",
-      "zh": "感觉",
       "hard": false
     },
     "find": {
-      "lemma": "find",
-      "zh": "找到",
       "hard": false
     },
     "finished": {
-      "lemma": "finish",
-      "zh": "喝完",
       "hard": false
     },
     "first": {
-      "lemma": "first",
-      "zh": "一大早",
       "hard": true
     },
     "for": {
-      "lemma": "for",
-      "zh": "为了",
       "hard": false
     },
     "free": {
-      "lemma": "free",
-      "zh": "免费的",
       "hard": false
     },
     "georgie": {
-      "lemma": "Georgie",
-      "zh": "乔治（人名）",
       "hard": false
     },
     "get": {
-      "lemma": "get",
-      "zh": "买到",
       "hard": false
     },
     "go": {
-      "lemma": "go",
-      "zh": "去",
       "hard": false
     },
     "good": {
-      "lemma": "good",
-      "zh": "好的",
       "hard": false
     },
     "goodbye": {
-      "lemma": "goodbye",
-      "zh": "再见",
       "hard": false
     },
     "got": {
-      "lemma": "get",
-      "zh": "变得（凉）",
       "hard": true
     },
     "grumpy": {
-      "lemma": "grumpy",
-      "zh": "脾气不好；烦躁",
       "hard": true
     },
     "happens": {
-      "lemma": "happen",
-      "zh": "发生",
       "hard": false
     },
     "has": {
-      "lemma": "have",
-      "zh": "有",
       "hard": false
     },
     "have": {
-      "lemma": "have",
-      "zh": "喝（咖啡）",
       "hard": false
     },
     "haven't": {
-      "lemma": "have",
-      "zh": "还没有",
       "hard": false
     },
     "heard": {
-      "lemma": "hear",
-      "zh": "听说过",
       "hard": false
     },
     "hello": {
-      "lemma": "hello",
-      "zh": "你好",
       "hard": false
     },
     "help": {
-      "lemma": "help",
-      "zh": "帮助",
       "hard": false
     },
     "hi": {
-      "lemma": "hi",
-      "zh": "嗨；你好",
       "hard": false
     },
     "home": {
-      "lemma": "home",
-      "zh": "家",
       "hard": false
     },
     "honey": {
-      "lemma": "honey",
-      "zh": "蜂蜜",
       "hard": false
     },
     "hot": {
-      "lemma": "hot",
-      "zh": "热的",
       "hard": false
     },
     "how": {
-      "lemma": "how",
-      "zh": "怎样",
       "hard": false
     },
     "i": {
-      "lemma": "I",
-      "zh": "我",
       "hard": false
     },
     "i'll": {
-      "lemma": "will",
-      "zh": "我会",
       "hard": false
     },
     "i'm": {
-      "lemma": "be",
-      "zh": "我是；我在",
       "hard": false
     },
     "i've": {
-      "lemma": "have",
-      "zh": "我已经",
       "hard": false
     },
     "if": {
-      "lemma": "if",
-      "zh": "如果",
       "hard": false
     },
     "in": {
-      "lemma": "in",
-      "zh": "在……里",
       "hard": false
     },
     "interesting": {
-      "lemma": "interesting",
-      "zh": "有趣的",
       "hard": false
     },
     "introducing": {
-      "lemma": "introduce",
-      "zh": "介绍",
       "hard": false
     },
     "is": {
-      "lemma": "be",
-      "zh": "是",
       "hard": false
     },
     "it": {
-      "lemma": "it",
-      "zh": "它",
       "hard": false
     },
     "it's": {
-      "lemma": "it is",
-      "zh": "它是；它很",
       "hard": false
     },
     "itmeans": {
-      "lemma": "mean",
-      "zh": "意思是",
       "hard": false
     },
     "just": {
-      "lemma": "just",
-      "zh": "只是",
       "hard": false
     },
     "kind": {
-      "lemma": "kind",
-      "zh": "有点；大概",
       "hard": true
     },
     "know": {
-      "lemma": "know",
-      "zh": "知道",
       "hard": false
     },
     "lasted": {
-      "lemma": "last",
-      "zh": "持续了",
       "hard": true
     },
     "learn": {
-      "lemma": "learn",
-      "zh": "学习",
       "hard": false
     },
     "learned": {
-      "lemma": "learn",
-      "zh": "学到",
       "hard": false
     },
     "learning": {
-      "lemma": "learn",
-      "zh": "学习",
       "hard": false
     },
     "learningenglish": {
-      "lemma": "learningenglish",
-      "zh": "BBC学英语",
       "hard": false
     },
     "less": {
-      "lemma": "less",
-      "zh": "更少",
       "hard": false
     },
     "letter": {
-      "lemma": "letter",
-      "zh": "信",
       "hard": false
     },
     "like": {
-      "lemma": "like",
-      "zh": "喜欢",
       "hard": false
     },
     "london": {
-      "lemma": "London",
-      "zh": "伦敦",
       "hard": false
     },
     "long": {
-      "lemma": "long",
-      "zh": "长的",
       "hard": false
     },
     "lucky": {
-      "lemma": "lucky",
-      "zh": "幸运的",
       "hard": false
     },
     "make": {
-      "lemma": "make",
-      "zh": "做；泡（咖啡）",
       "hard": false
     },
     "makes": {
-      "lemma": "make",
-      "zh": "使；让",
       "hard": false
     },
     "many": {
-      "lemma": "many",
-      "zh": "多少",
       "hard": false
     },
     "maybe": {
-      "lemma": "maybe",
-      "zh": "也许",
       "hard": false
     },
     "me": {
-      "lemma": "me",
-      "zh": "我",
       "hard": false
     },
     "mean": {
-      "lemma": "mean",
-      "zh": "意思是",
       "hard": false
     },
     "means": {
-      "lemma": "mean",
-      "zh": "意思是",
       "hard": false
     },
     "milk": {
-      "lemma": "milk",
-      "zh": "牛奶",
       "hard": false
     },
     "mine": {
-      "lemma": "mine",
-      "zh": "我的（咖啡）",
       "hard": false
     },
     "miss": {
-      "lemma": "miss",
-      "zh": "想念；怀念",
       "hard": false
     },
     "mmm": {
-      "lemma": "mmm",
-      "zh": "嗯",
       "hard": false
     },
     "moment": {
-      "lemma": "moment",
-      "zh": "时刻",
       "hard": false
     },
     "more": {
-      "lemma": "more",
-      "zh": "更多",
       "hard": false
     },
     "morning": {
-      "lemma": "morning",
-      "zh": "早上",
       "hard": false
     },
     "much": {
-      "lemma": "much",
-      "zh": "多少",
       "hard": false
     },
     "my": {
-      "lemma": "my",
-      "zh": "我的",
       "hard": false
     },
     "need": {
-      "lemma": "need",
-      "zh": "需要",
       "hard": false
     },
     "neil": {
-      "lemma": "Neil",
-      "zh": "尼尔",
       "hard": false
     },
     "never": {
-      "lemma": "never",
-      "zh": "从不",
       "hard": false
     },
     "nine": {
-      "lemma": "nine",
-      "zh": "九",
       "hard": false
     },
     "no": {
-      "lemma": "no",
-      "zh": "没有",
       "hard": false
     },
     "not": {
-      "lemma": "not",
-      "zh": "不",
       "hard": false
     },
     "now": {
-      "lemma": "now",
-      "zh": "现在",
       "hard": false
     },
     "o'clock": {
-      "lemma": "o'clock",
-      "zh": "点钟",
       "hard": false
     },
     "occasionally": {
-      "lemma": "occasionally",
-      "zh": "偶尔",
       "hard": true
     },
     "of": {
-      "lemma": "of",
-      "zh": "……的",
       "hard": false
     },
     "office": {
-      "lemma": "office",
-      "zh": "办公室",
       "hard": false
     },
     "oh": {
-      "lemma": "oh",
-      "zh": "哦",
       "hard": false
     },
     "okay": {
-      "lemma": "okay",
-      "zh": "好的；好吧",
       "hard": false
     },
     "on": {
-      "lemma": "on",
-      "zh": "在……上",
       "hard": false
     },
     "one": {
-      "lemma": "one",
-      "zh": "一",
       "hard": false
     },
     "only": {
-      "lemma": "only",
-      "zh": "只",
       "hard": false
     },
     "or": {
-      "lemma": "or",
-      "zh": "或者",
       "hard": false
     },
     "other": {
-      "lemma": "other",
-      "zh": "互相",
       "hard": false
     },
     "our": {
-      "lemma": "our",
-      "zh": "我们的",
       "hard": false
     },
     "people": {
-      "lemma": "people",
-      "zh": "人们",
       "hard": false
     },
     "phrasal": {
-      "lemma": "phrasal",
-      "zh": "短语的",
       "hard": true
     },
     "podcast": {
-      "lemma": "podcast",
-      "zh": "播客",
       "hard": true
     },
     "podcasts": {
-      "lemma": "podcast",
-      "zh": "播客",
       "hard": true
     },
     "powerful": {
-      "lemma": "powerful",
-      "zh": "劲大；太浓",
       "hard": true
     },
     "practice": {
-      "lemma": "practice",
-      "zh": "练习",
       "hard": false
     },
     "prefer": {
-      "lemma": "prefer",
-      "zh": "更喜欢",
       "hard": false
     },
     "presenters": {
-      "lemma": "presenter",
-      "zh": "主持人",
       "hard": true
     },
     "programs": {
-      "lemma": "program",
-      "zh": "节目",
       "hard": false
     },
     "put": {
-      "lemma": "put",
-      "zh": "加；放",
       "hard": false
     },
     "real": {
-      "lemma": "real",
-      "zh": "真实的",
       "hard": false
     },
     "really": {
-      "lemma": "really",
-      "zh": "真的；非常",
       "hard": false
     },
     "recap": {
-      "lemma": "recap",
-      "zh": "回顾；总结",
       "hard": true
     },
     "recommend": {
-      "lemma": "recommend",
-      "zh": "推荐",
       "hard": false
     },
     "regain": {
-      "lemma": "regain",
-      "zh": "恢复",
       "hard": true
     },
     "right": {
-      "lemma": "right",
-      "zh": "对",
       "hard": false
     },
     "sad": {
-      "lemma": "sad",
-      "zh": "难过",
       "hard": false
     },
     "same": {
-      "lemma": "same",
-      "zh": "相同",
       "hard": false
     },
     "say": {
-      "lemma": "say",
-      "zh": "说",
       "hard": false
     },
     "second": {
-      "lemma": "second",
-      "zh": "第二",
       "hard": false
     },
     "series": {
-      "lemma": "series",
-      "zh": "系列节目",
       "hard": false
     },
     "shame": {
-      "lemma": "shame",
-      "zh": "可惜",
       "hard": true
     },
     "shorten": {
-      "lemma": "shorten",
-      "zh": "缩短",
       "hard": true
     },
     "should": {
-      "lemma": "should",
-      "zh": "应该",
       "hard": false
     },
     "sleep": {
-      "lemma": "sleep",
-      "zh": "睡觉",
       "hard": false
     },
     "sleeping": {
-      "lemma": "sleep",
-      "zh": "睡觉",
       "hard": false
     },
     "so": {
-      "lemma": "so",
-      "zh": "那么；所以",
       "hard": false
     },
     "some": {
-      "lemma": "some",
-      "zh": "一些",
       "hard": false
     },
     "something": {
-      "lemma": "something",
-      "zh": "某事；某物",
       "hard": false
     },
     "sometimes": {
-      "lemma": "sometimes",
-      "zh": "有时",
       "hard": false
     },
     "still": {
-      "lemma": "still",
-      "zh": "仍然",
       "hard": false
     },
     "strange": {
-      "lemma": "strange",
-      "zh": "奇怪",
       "hard": false
     },
     "strong": {
-      "lemma": "strong",
-      "zh": "浓；劲大",
       "hard": true
     },
     "subtitles": {
-      "lemma": "subtitle",
-      "zh": "字幕",
       "hard": true
     },
     "sugar": {
-      "lemma": "sugar",
-      "zh": "糖",
       "hard": false
     },
     "surprising": {
-      "lemma": "surprising",
-      "zh": "令人惊讶",
       "hard": false
     },
     "sweeter": {
-      "lemma": "sweet",
-      "zh": "更甜",
       "hard": false
     },
     "take": {
-      "lemma": "take",
-      "zh": "喝咖啡时加什么",
       "hard": true
     },
     "talking": {
-      "lemma": "talk",
-      "zh": "谈论",
       "hard": false
     },
     "tea": {
-      "lemma": "tea",
-      "zh": "茶",
       "hard": false
     },
     "terrible": {
-      "lemma": "terrible",
-      "zh": "糟糕",
       "hard": false
     },
     "test": {
-      "lemma": "test",
-      "zh": "测试",
       "hard": false
     },
     "than": {
-      "lemma": "than",
-      "zh": "比",
       "hard": false
     },
     "thank": {
-      "lemma": "thank",
-      "zh": "谢谢",
       "hard": false
     },
     "that": {
-      "lemma": "that",
-      "zh": "那个；那",
       "hard": false
     },
     "that's": {
-      "lemma": "that is",
-      "zh": "真是；那是",
       "hard": false
     },
     "the": {
-      "lemma": "the",
-      "zh": "这个；那个",
       "hard": false
     },
     "them": {
-      "lemma": "they",
-      "zh": "他们；它们",
       "hard": false
     },
     "then": {
-      "lemma": "then",
-      "zh": "然后；那么",
       "hard": false
     },
     "there's": {
-      "lemma": "there is",
-      "zh": "有",
       "hard": false
     },
     "they": {
-      "lemma": "they",
-      "zh": "他们",
       "hard": false
     },
     "they've": {
-      "lemma": "they have",
-      "zh": "他们已经",
       "hard": false
     },
     "thing": {
-      "lemma": "thing",
-      "zh": "事情；东西",
       "hard": false
     },
     "think": {
-      "lemma": "think",
-      "zh": "认为",
       "hard": false
     },
     "this": {
-      "lemma": "this",
-      "zh": "这个",
       "hard": false
     },
     "through": {
-      "lemma": "through",
-      "zh": "通过",
       "hard": false
     },
     "time": {
-      "lemma": "time",
-      "zh": "时间",
       "hard": false
     },
     "tired": {
-      "lemma": "tired",
-      "zh": "累的",
       "hard": false
     },
     "to": {
-      "lemma": "to",
-      "zh": "到；向；不定式",
       "hard": false
     },
     "too": {
-      "lemma": "too",
-      "zh": "太；也",
       "hard": false
     },
     "topics": {
-      "lemma": "topic",
-      "zh": "话题",
       "hard": false
     },
     "tried": {
-      "lemma": "try",
-      "zh": "尝试过",
       "hard": false
     },
     "trouble": {
-      "lemma": "trouble",
-      "zh": "困难",
       "hard": false
     },
     "try": {
-      "lemma": "try",
-      "zh": "试试",
       "hard": false
     },
     "two": {
-      "lemma": "two",
-      "zh": "二；两",
       "hard": false
     },
     "um": {
-      "lemma": "um",
-      "zh": "嗯",
       "hard": false
     },
     "used": {
-      "lemma": "use",
-      "zh": "用过；过去常常",
       "hard": true
     },
     "usually": {
-      "lemma": "usually",
-      "zh": "通常",
       "hard": false
     },
     "verb": {
-      "lemma": "verb",
-      "zh": "动词",
       "hard": false
     },
     "version": {
-      "lemma": "version",
-      "zh": "版本",
       "hard": false
     },
     "very": {
-      "lemma": "very",
-      "zh": "非常",
       "hard": false
     },
     "video": {
-      "lemma": "video",
-      "zh": "视频",
       "hard": false
     },
     "videos": {
-      "lemma": "video",
-      "zh": "视频",
       "hard": false
     },
     "vocabulary": {
-      "lemma": "vocabulary",
-      "zh": "词汇",
       "hard": false
     },
     "want": {
-      "lemma": "want",
-      "zh": "想要",
       "hard": false
     },
     "was": {
-      "lemma": "be",
-      "zh": "是",
       "hard": false
     },
     "watch": {
-      "lemma": "watch",
-      "zh": "观看",
       "hard": false
     },
     "way": {
-      "lemma": "way",
-      "zh": "方式",
       "hard": false
     },
     "we": {
-      "lemma": "we",
-      "zh": "我们",
       "hard": false
     },
     "we're": {
-      "lemma": "we are",
-      "zh": "我们是",
       "hard": false
     },
     "website": {
-      "lemma": "website",
-      "zh": "网站",
       "hard": false
     },
     "welcome": {
-      "lemma": "welcome",
-      "zh": "欢迎",
       "hard": false
     },
     "well": {
-      "lemma": "well",
-      "zh": "好；嗯",
       "hard": false
     },
     "what": {
-      "lemma": "what",
-      "zh": "什么",
       "hard": false
     },
     "when": {
-      "lemma": "when",
-      "zh": "什么时候",
       "hard": false
     },
     "where": {
-      "lemma": "where",
-      "zh": "哪里",
       "hard": false
     },
     "which": {
-      "lemma": "which",
-      "zh": "哪一个",
       "hard": false
     },
     "while": {
-      "lemma": "while",
-      "zh": "一段时间",
       "hard": true
     },
     "white": {
-      "lemma": "white",
-      "zh": "加牛奶的",
       "hard": true
     },
     "why": {
-      "lemma": "why",
-      "zh": "为什么",
       "hard": false
     },
     "with": {
-      "lemma": "with",
-      "zh": "带有；加",
       "hard": false
     },
     "work": {
-      "lemma": "work",
-      "zh": "工作",
       "hard": false
     },
     "worksheet": {
-      "lemma": "worksheet",
-      "zh": "练习纸",
       "hard": true
     },
     "would": {
-      "lemma": "would",
-      "zh": "会；愿意",
       "hard": false
     },
     "yeah": {
-      "lemma": "yeah",
-      "zh": "是的；嗯",
       "hard": false
     },
     "yep": {
-      "lemma": "yep",
-      "zh": "是的；嗯",
       "hard": true
     },
     "yes": {
-      "lemma": "yes",
-      "zh": "是的",
       "hard": false
     },
     "you": {
-      "lemma": "you",
-      "zh": "你",
       "hard": false
     },
     "you're": {
-      "lemma": "you are",
-      "zh": "你是",
       "hard": false
     },
     "your": {
-      "lemma": "your",
-      "zh": "你的",
       "hard": false
     },
     "yours": {
-      "lemma": "yours",
-      "zh": "你的（咖啡）",
       "hard": false
     },
     "yourself": {
-      "lemma": "yourself",
-      "zh": "你自己",
       "hard": false
     }
   },

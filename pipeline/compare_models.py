@@ -9,7 +9,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from teach import gloss, translate  # noqa: E402
+from teach import mark_hard, translate  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 MODELS = ["qwen3.8-flash", "deepseek-flash"]
@@ -47,7 +47,7 @@ def main(lesson: str) -> None:
         started = time.time()
         results[model] = {
             "zh": translate(sample, context, model),
-            "gloss": gloss(SAMPLE_WORDS, context, model),
+            "hard": mark_hard(SAMPLE_WORDS, sentences, context, model),
             "secs": 0.0,
         }
         results[model]["secs"] = time.time() - started
@@ -63,15 +63,13 @@ def main(lesson: str) -> None:
         row = [s["text"]] + [results[m]["zh"].get(s["id"], "") for m in MODELS]
         lines.append("| " + " | ".join(row) + " |")
 
-    lines += ["", "## 单词释义（括号里是模型判断这个词对 B1 学生算不算生词）", "",
+    lines += ["", "## 生词判断（备课时只判生词，意思等孩子点了再查）", "",
               "| 词 | " + " | ".join(MODELS) + " |",
               "|---|" + "---|" * len(MODELS)]
     for w in SAMPLE_WORDS:
         row = [w]
         for m in MODELS:
-            item = results[m]["gloss"].get(w, {})
-            mark = "生词" if item.get("hard") else "不算"
-            row.append(f"{item.get('zh', '—')}（{mark}）")
+            row.append("生词" if results[m]["hard"].get(w, {}).get("hard") else "不算")
         lines.append("| " + " | ".join(row) + " |")
 
     lines += ["", "## 耗时", "",

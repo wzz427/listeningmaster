@@ -29,6 +29,14 @@
   font-weight: 500;
   font-display: swap;
 }
+/* 音标：Literata 和 DM Mono 都没有 ə、ʊ、ˈ 这些符号，缺了浏览器会东拼西凑换字体。
+ * 这是 Noto Serif 裁到只剩英文字母和音标符号的一份（34KB，OFL 许可） */
+@font-face {
+  font-family: "Noto Serif IPA";
+  src: url("fonts/noto-serif-ipa-400.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
 
 :root {
   --ink: #111318;
@@ -415,11 +423,19 @@ body.playing .t-btn.play .t-icon { animation: breathe 2.4s ease-in-out infinite;
   background: var(--surface-2); border: 1px solid var(--line); color: var(--cream-2);
   font-size: 18px; line-height: 1;
 }
-.word-here { margin: 10px 0 14px; font-size: 16.5px; line-height: 1.6; color: var(--cream); }
-.word-label {
-  display: inline-block; margin-right: 8px; padding: 1px 8px; border-radius: 6px; vertical-align: 1px;
-  font-size: 12px; color: var(--amber-2); background: rgba(242, 169, 78, .12);
+/* 一行，像词典的词条：词性（斜体、琥珀色）· 英式音标 · 这句里的意思 */
+.word-line {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px;
+  margin: 8px 0 16px; line-height: 1.5;
 }
+.word-pos { font: italic 500 16px/1.4 var(--en); color: var(--amber-2); }
+.word-pos.cn {  /* 词组、名字、缩写：中文不能斜体，做成小标签 */
+  font: 400 12px/1 var(--cn); padding: 4px 8px; border-radius: 6px;
+  background: rgba(242, 169, 78, .12); align-self: center;
+}
+.word-ipa { font: 400 16.5px/1.4 "Noto Serif IPA", var(--en); color: var(--cream-2); letter-spacing: .01em; }
+.word-zh { font-size: 17px; color: var(--cream); }
+.word-pos[hidden], .word-ipa[hidden] { display: none; }
 /* 展开：常见意思、搭配、例句。卡片比屏幕高时这里面滚动 */
 .word-more {
   margin: -2px 0 14px; padding-top: 12px; border-top: 1px dashed var(--line-2);
@@ -441,8 +457,9 @@ body.playing .t-btn.play .t-icon { animation: breathe 2.4s ease-in-out infinite;
 .word-more ul li span, .more-ex span { font-size: 13.5px; color: var(--cream-2); }
 .more-ex { margin: 0; display: flex; flex-direction: column; gap: 2px; }
 .more-ex b { font-style: italic; }
-#wordZh.loading { color: var(--muted); animation: waiting 1.1s ease-in-out infinite; }
-#wordZh.retry { color: var(--amber-2); cursor: pointer; text-decoration: underline dotted; text-underline-offset: 4px; }
+.more-wait { margin: 0 0 4px; font-size: 14.5px; }
+.word-zh.loading, .more-wait.loading { color: var(--muted); animation: waiting 1.1s ease-in-out infinite; }
+.word-zh.retry, .more-wait.retry { color: var(--amber-2); cursor: pointer; text-decoration: underline dotted; text-underline-offset: 4px; }
 .word-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 .pill.ghost { background: transparent; }
 .pill.busy { opacity: .55; pointer-events: none; }

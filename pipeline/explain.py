@@ -1,8 +1,9 @@
-"""孩子点词时现查：讲这个词（词组）在这句里的意思，展开看常见意思、搭配、例句；词组和词典里没有的词现读。
+"""孩子点词时现查。分两步：点词只查一行（词性、英式音标、这句里的中文意思），点「展开」才查常见意思、搭配、例句；
+词组和词典里没有的词现读。
 
 为什么点了才查（owner 2026-09-22，决策 D29）：一份材料几千个词，孩子真正点的也就十来个，
-不该在备课时把每个词都讲一遍；备课要快，几分钟以内。
-由 pipeline/serve.py 的 /api/explain、/api/speak 调；密钥只在本地服务里，网页里没有（以后上服务器，放网关）。
+不该在备课时把每个词都讲一遍；备课要快，几分钟以内。展开的更少，所以详细的也等点了展开再查（决策 D30）。
+由 pipeline/serve.py 的 /api/explain、/api/more、/api/speak 调；密钥只在本地服务里，网页里没有（以后上服务器，放网关）。
 查过的存在 lessons/<课>/explain_cache.json，同一处再点、别的孩子点同一处都直接返回。
 
 讲得好不好靠提示词（owner：不挑错，不给孩子标「电脑生成」，写对提示词就行）。
@@ -25,25 +26,41 @@ ROOT = Path(__file__).resolve().parent.parent
 MODEL = "deepseek-flash"   # 不开思考模式（llm.call 里关的），一次不到一秒
 LOCK = threading.Lock()
 
-PROMPT = """你在帮一个刚通过剑桥 PET（B1）、听力偏弱的中国初中生听英语。他听的时候点了句子里的一个词，想知道它在这句里是什么意思。
+WHO = "你在帮一个刚通过剑桥 PET（B1）、听力偏弱的中国初中生听英语。"
 
-按下面的要求讲：
-1. 先看点的这个词是不是和旁边的词组成固定说法：短语动词（cut down on、give up）、固定词组（at the moment、a bit、first thing in the morning）、打招呼之类的套话（How are you）。是的话讲整个词组，words 写词组里每个词的序号；不是就只讲这个词，words 只写它自己的序号。
-2. here：一两句中文，不超过 45 个字。先说它在这句里的意思，再结合前后文点明这句在说什么。要贴着这句话讲，别泛泛地背词典。
-3. more：给想多了解的孩子看。
-   - senses：这个词（词组）最常用的意思，1 到 3 个，每个不超过 12 个字，按常用程度排。只写中学生常会遇到的真实意思，拿不准的不写，宁少勿错。
-     每个意思都要真能放进一句常见的英文里用；别把近义词的意思安到它头上（「讲某种语言」是 speak，不是 say），
-     也别把搭配、用量当成一个意思（「一勺糖」不是 sugar 的意思）。只有一个常见意思就只写一个。
-   - used：这句用的是 senses 里的第几个（从 1 数），这句的意思一定要在 senses 里。
-   - collocations：这个意思最常见的搭配 2 到 3 个，英文加中文，英文要是英语母语的人真会这么说的。
-   - example：一个新例句，别照抄原句，用 B1 学生认识的词，不超过 12 个词，英文加中文。
-   冠词、代词、介词、连词、be 动词这类虚词，还有人名、地名、节目名：more 写 null，here 一句话说清它在这句里的作用或者指的是谁。
-4. 中文要口语、简单，少用语法术语，孩子是初中生。
+# 第一步：点词就出来的一行。owner 2026-09-22：原来那句「这句里……」都在复述句子，没有意义；
+# 改成词典那样一行：词性、音标、简单的中文意思
+LINE = WHO + """他听的时候点了句子里的一个词，要看一行像词典那样的解释。按下面写：
+1. 先看点的这个词是不是和旁边的词组成固定说法：短语动词（cut down on、give up）、固定词组（at the moment、a bit、first thing in the morning）、打招呼之类的套话（How are you、That's it、Oh well）。是的话讲整个词组，words 写词组里每个词的序号，text 写整个词组；不是就只讲这个词，words 只写它自己的序号。
+2. pos：词性，按它在这句里的用法定，用中国词典的写法：n. v. adj. adv. prep. conj. pron. num. art. int. aux.（finished 在 I've finished my coffee 里是 v.）。词组写「词组」；人名、地名、节目名写「名字」；I've、that's、don't 这类缩写写「缩写」。
+3. ipa：英式音标，和牛津、剑桥词典里的英音一样，前后加斜线，两个音节以上标重音。注句子里的这个形式（finished 注 /ˈfɪnɪʃt/，不注 finish）。词组注整个词组。
+4. zh：它在这句里的中文意思，像词典的释义，不超过 10 个字。只写这个词的意思，不复述句子，不说这句在讲什么。一个词有几个意思时只写这句用的那个。
+   缩写写完整写法再跟中文，如「= I have」。人名写中文译名，括号里说是谁，如「尼尔（主持人）」。
+5. more：值不值得展开看常见意思、搭配和例句。名字写 false，别的都写 true。
 
 例子：句子 You take your coffee black. 点了 black（序号 4），输出
-{"words":[4],"text":"black","here":"这里指咖啡不加牛奶，就是黑咖啡。这句在说你喝咖啡不加奶。","more":{"senses":["黑色的","（咖啡）不加奶的"],"used":2,"collocations":[{"en":"black coffee","zh":"黑咖啡"},{"en":"drink it black","zh":"不加奶喝"}],"example":{"en":"I always have my tea black.","zh":"我喝茶从来不加奶。"}}}
+{"words":[4],"text":"black","pos":"adj.","ipa":"/blæk/","zh":"（咖啡）不加奶的","more":true}
+句子 I gave up sugar last year. 点了 up（序号 2），输出
+{"words":[1,2],"text":"gave up","pos":"词组","ipa":"/ɡeɪv ʌp/","zh":"戒掉","more":true}
 
-只输出 JSON：{"words":[序号],"text":"...","here":"...","more":{...} 或 null}"""
+只输出 JSON：{"words":[序号],"text":"...","pos":"...","ipa":"/.../","zh":"...","more":true 或 false}"""
+
+# 第二步：点「展开」才查
+MORE = WHO + """他点了句子里的一个词（或词组），看过了它在这句里的意思，又点了「展开」想多了解一点。
+给你句子、前后句、这个词（词组）和它在这句里的意思（zh）。按下面写：
+- senses：这个词（词组）最常用的意思，1 到 3 个，每个不超过 12 个字，按常用程度排。只写中学生常会遇到的真实意思，拿不准的不写，宁少勿错。
+  每个意思都要真能放进一句常见的英文里用；别把近义词的意思安到它头上（「讲某种语言」是 speak，不是 say），
+  也别把搭配、用量当成一个意思（「一勺糖」不是 sugar 的意思）。只有一个常见意思就只写一个。
+  冠词、代词、介词、连词、be 动词这类虚词，senses 写它最常见的用法（of 写「……的」）。
+- used：这句用的是 senses 里的第几个（从 1 数）。这句里的意思一定要在 senses 里。
+- collocations：这句这个意思最常见的搭配 2 到 3 个，英文加中文，英文要是英语母语的人真会这么说的。
+- example：一个新例句，别照抄原句，用 B1 学生认识的词，不超过 12 个词，英文加中文。
+中文要口语、简单，少用语法术语，孩子是初中生。
+
+例子：句子 You take your coffee black.，词 black，这句里的意思「（咖啡）不加奶的」，输出
+{"senses":["黑色的","（咖啡）不加奶的"],"used":2,"collocations":[{"en":"black coffee","zh":"黑咖啡"},{"en":"drink it black","zh":"不加奶喝"}],"example":{"en":"I always have my tea black.","zh":"我喝茶从来不加奶。"}}
+
+只输出 JSON：{"senses":[...],"used":数字,"collocations":[{"en":"...","zh":"..."}],"example":{"en":"...","zh":"..."}}"""
 
 
 def _cache_path(lesson: str) -> Path:
@@ -63,49 +80,84 @@ def _load(lesson: str) -> dict:
     return json.loads((ROOT / "lessons" / lesson / "lesson.json").read_text(encoding="utf-8"))
 
 
-def ask(sentences: list[dict], n: int, i: int) -> dict:
-    """调模型讲第 n 句的第 i 个词，返回整理好的讲解。"""
-    s = sentences[n]
-    payload = {
-        "before": sentences[n - 1]["text"] if n else "",
-        "sentence": s["text"],
-        "after": sentences[n + 1]["text"] if n + 1 < len(sentences) else "",
-        "words": [{"i": k, "w": w["text"].strip(".,?!;:\"")} for k, w in enumerate(s["words"])],
-        "clicked": i,
-    }
-    for attempt in range(3):  # 偶尔返回的 JSON 不完整，再要一次
+def _bare(word: dict) -> str:
+    return word["text"].strip(".,?!;:\"")
+
+
+def _ask(prompt: str, payload: dict) -> dict:
+    for _ in range(2):  # 偶尔返回的 JSON 不完整，再要一次
         try:
-            data, _ = call(MODEL, PROMPT, json.dumps(payload, ensure_ascii=False))
-            break
+            return call(MODEL, prompt, json.dumps(payload, ensure_ascii=False))[0]
         except ValueError:
-            if attempt == 2:
-                raise
+            pass
+    return call(MODEL, prompt, json.dumps(payload, ensure_ascii=False))[0]
+
+
+def _context(sentences: list[dict], n: int) -> dict:
+    return {"before": sentences[n - 1]["text"] if n else "",
+            "sentence": sentences[n]["text"],
+            "after": sentences[n + 1]["text"] if n + 1 < len(sentences) else ""}
+
+
+def ask(sentences: list[dict], n: int, i: int) -> dict:
+    """调模型给第 n 句的第 i 个词写一行：词性、音标、这句里的意思。"""
+    s = sentences[n]
+    data = _ask(LINE, {**_context(sentences, n),
+                       "words": [{"i": k, "w": _bare(w)} for k, w in enumerate(s["words"])], "clicked": i})
     words = sorted({int(k) for k in data.get("words") or [] if 0 <= int(k) < len(s["words"])} | {i})
     if max(words) - min(words) > 5:  # 拼得太远的不当词组
         words = [i]
-    more = data.get("more") or None
-    if more and not (isinstance(more.get("used"), int) and 1 <= more["used"] <= len(more.get("senses") or [])):
-        more["used"] = None
-    text = data.get("text", "").strip() if len(words) > 1 else s["words"][i]["text"].strip(".,?!;:\"")
-    return {"words": words, "text": text, "here": (data.get("here") or "").strip(), "more": more}
+    text = (data.get("text") or "").strip() if len(words) > 1 else ""
+    ipa = (data.get("ipa") or "").strip().strip("/[] ")
+    return {"words": words, "text": text or _bare(s["words"][i]), "pos": (data.get("pos") or "").strip(),
+            "ipa": f"/{ipa}/" if ipa else "", "zh": (data.get("zh") or "").strip(),
+            "more": data.get("more") is not False}
 
 
-def explain(lesson: str, sid: int, i: int) -> dict:
-    """第 sid 句第 i 个词的讲解；查过的直接返回。"""
-    key = f"{sid}:{i}"
-    with LOCK:
-        cache = _read_cache(lesson)
-    if key in cache:
-        return cache[key]
+def ask_more(sentences: list[dict], n: int, note: dict) -> dict:
+    """调模型写展开的内容：常见意思（标出这句用的第几个）、搭配、例句。"""
+    data = _ask(MORE, {**_context(sentences, n), "word": note["text"], "pos": note["pos"], "zh": note["zh"]})
+    senses = [str(x).strip() for x in data.get("senses") or [] if str(x).strip()]
+    used = data.get("used")
+    return {"senses": senses, "used": used if isinstance(used, int) and 1 <= used <= len(senses) else None,
+            "collocations": [c for c in data.get("collocations") or [] if isinstance(c, dict) and c.get("en")],
+            "example": data.get("example") if isinstance(data.get("example"), dict) else None}
+
+
+def _where(lesson: str, sid: int) -> tuple[list[dict], int]:
     sentences = _load(lesson)["sentences"]
-    n = next(k for k, s in enumerate(sentences) if s["id"] == sid)
-    note = ask(sentences, n, i)
+    return sentences, next(k for k, s in enumerate(sentences) if s["id"] == sid)
+
+
+def _store(lesson: str, sid: int, note: dict) -> None:
     with LOCK:
         cache = _read_cache(lesson)
         for k in note["words"]:  # 词组里的每个词都指向同一条，点哪个都不用再查
             cache[f"{sid}:{k}"] = note
         _write_cache(lesson, cache)
+
+
+def explain(lesson: str, sid: int, i: int) -> dict:
+    """第 sid 句第 i 个词的那一行；查过的直接返回（展开过的连展开的一起带上）。"""
+    with LOCK:
+        note = _read_cache(lesson).get(f"{sid}:{i}")
+    if note:
+        return note
+    sentences, n = _where(lesson, sid)
+    note = ask(sentences, n, i)
+    _store(lesson, sid, note)
     return note
+
+
+def explain_more(lesson: str, sid: int, i: int) -> dict:
+    """点了「展开」：第 sid 句第 i 个词的常见意思、搭配、例句。"""
+    note = explain(lesson, sid, i)
+    if note.get("detail"):
+        return note["detail"]
+    sentences, n = _where(lesson, sid)
+    note = {**note, "detail": ask_more(sentences, n, note)}
+    _store(lesson, sid, note)
+    return note["detail"]
 
 
 def speak(lesson: str, key: str, text: str) -> str:
@@ -121,21 +173,27 @@ def speak(lesson: str, key: str, text: str) -> str:
     return rel
 
 
-def sample(lesson: str, count: int) -> None:
-    """随机抽几个词现查，打印出来给 claude 看提示词写得好不好（不进缓存）。"""
+def sample(lesson: str, count: int, more: bool) -> None:
+    """随机抽几个词现查，打印出来给 claude 看提示词写得好不好（不进缓存）。加 --more 连展开的一起查。"""
     sentences = _load(lesson)["sentences"]
     picks = [(n, i) for n, s in enumerate(sentences) for i, w in enumerate(s["words"]) if w["key"]]
     for n, i in random.sample(picks, count):
         started = time.time()
         note = ask(sentences, n, i)
+        spent = time.time() - started
         print(f"\n第 {sentences[n]['id']} 句｜{sentences[n]['text']}\n  点 {sentences[n]['words'][i]['text']}"
-              f"（{time.time() - started:.1f} 秒）→ {json.dumps(note, ensure_ascii=False)}")
+              f"（{spent:.1f} 秒）→ {note['text']}  {note['pos']}  {note['ipa']}  {note['zh']}"
+              f"{'' if note['more'] else '  （不展开）'}")
+        if more and note["more"]:
+            started = time.time()
+            detail = ask_more(sentences, n, note)
+            print(f"  展开（{time.time() - started:.1f} 秒）→ {json.dumps(detail, ensure_ascii=False)}")
 
 
 if __name__ == "__main__":
     sys.stdout.reconfigure(encoding="utf-8")
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     if args[:1] == ["sample"]:
-        sample(args[1] if len(args) > 1 else "260821", int(args[2]) if len(args) > 2 else 12)
+        sample(args[1] if len(args) > 1 else "260821", int(args[2]) if len(args) > 2 else 12, "--more" in sys.argv)
     else:
         print(__doc__)

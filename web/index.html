@@ -123,14 +123,17 @@
     <span id="wordHard" class="badge" hidden>生词</span>
     <button id="wordClose" class="close-btn" aria-label="关闭">×</button>
   </div>
-  <p class="word-here"><span class="word-label">这句里</span><span id="wordZh"></span></p>
+  <p class="word-line"><span id="wordPos" class="word-pos"></span><span id="wordIpa" class="word-ipa"></span><span id="wordZh" class="word-zh"></span></p>
   <div id="wordMore" class="word-more" hidden>
-    <h4>常见意思</h4>
-    <ol id="moreSenses"></ol>
-    <h4>常见搭配</h4>
-    <ul id="moreColl"></ul>
-    <h4>例句</h4>
-    <p id="moreEx" class="more-ex"></p>
+    <p id="moreWait" class="more-wait" hidden></p>
+    <div id="moreBody">
+      <h4>常见意思</h4>
+      <ol id="moreSenses"></ol>
+      <h4>常见搭配</h4>
+      <ul id="moreColl"></ul>
+      <h4>例句</h4>
+      <p id="moreEx" class="more-ex"></p>
+    </div>
   </div>
   <div class="word-actions">
     <button id="wordTts" class="pill" title="谷歌翻译的英音朗读，备课时存好的">听朗读</button>

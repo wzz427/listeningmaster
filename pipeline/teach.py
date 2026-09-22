@@ -1,9 +1,9 @@
-"""备课时用大模型生成的内容：每句的中文翻译、每个词在本集里的简短中文意思（标出生词）、按话题分的段。
+"""备课时用大模型生成的内容：每句的中文翻译、哪些词是生词、按话题分的段。
 
 决策 D3：只在备课阶段离线跑一次，结果写进课程文件；播放器不调接口。
 决策 D12：第一版就要中文释义，所以这一步排在播放器前面。
 决策 D22：正文按话题切成两分钟左右一段，一段一段精听；每段一个中文小标题。
-决策 D29：点词看的讲解不在这里生成，孩子点了才现查（pipeline/explain.py）；备课要快，几分钟以内。
+决策 D29、D30：点词看的讲解（连最简单的一行都）不在这里生成，孩子点了才现查（pipeline/explain.py）；备课要快，几分钟以内。
 决策 D27：单个词的朗读从发音词典里拷谷歌英音（pipeline/tts.py）；词典里没有的词和词组点了才让百炼 Emily 读。
 内容好不好靠提示词：claude 每换一批材料抽查、改提示词（owner 2026-09-22）。
 
@@ -18,6 +18,7 @@ import json
 import math
 import re
 import sys
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -54,29 +55,40 @@ def translate(sentences: list[dict], context: str, model: str = MODEL) -> dict[i
     return out
 
 
-def gloss(words: list[str], context: str, model: str = MODEL) -> dict[str, dict]:
-    out: dict[str, dict] = {}
-    for i in range(0, len(words), WORDS_PER_CALL):
-        chunk = words[i:i + WORDS_PER_CALL]
-        data, _ = call(
+def mark_hard(words: list[str], sentences: list[dict], context: str, model: str = MODEL) -> dict[str, dict]:
+    """挑出 B1 学生可能不认识的词，播放器里标成生词。
+
+    每个词的意思不在这里写（owner 2026-09-22：别在备课时把每个词都解释一遍）：孩子点了才现查（pipeline/explain.py）。
+    每个词带上它出现的那句：只给一串词，模型看不出它在这里怎么用，cut down on 里的 cut、down 就挑不出来（2026-09-22 试的）。
+    """
+    where: dict[str, str] = {}
+    for s in sentences:
+        for w in s["words"]:
+            where.setdefault(normalize(w["text"]), s["text"])
+    out = {w: {"hard": False} for w in words}
+
+    def one(i: int) -> dict:
+        chunk = [{"w": w, "in": where.get(w, "")} for w in words[i:i + WORDS_PER_CALL]]
+        return call(
             model,
-            WHO + "给每个词写它在这一集里的意思：lemma 是原形，zh 是中文意思（不超过 12 个字，"
-                  "有多个意思时只给这一集里用到的那个）。"
-                  "hard 表示：这个词本身，或者它在这一集里的这个意思，B1（剑桥 PET）水平的学生"
-                  "可能不认识。常见词用在特殊意思上也算生词，例如 take your coffee black 里的 "
-                  "take、black。"
-                  '原样保留 w 字段。只输出 JSON：'
-                  '{"items":[{"w":"...","lemma":"...","zh":"...","hard":true}]}',
+            WHO + "从下面的词里挑出生词，播放器会把它们标出来。生词只有两种："
+                  "一是这个词本身 B1（剑桥 PET）水平的学生多半不认识；"
+                  "二是常见词，但在这一集里用的是不常见的意思，或者是固定说法的一部分，"
+                  "例如 take your coffee black 里的 take、black，give up 里的 give、up。"
+                  "每个词后面 in 是它出现的那句，一个词一个词看它在那句里是怎么用的。"
+                  "PET 词表里的常见词用的是常见意思，就不算（important、problem、weekend 这类都不算）；"
+                  "人名、网址里的词、嗯啊之类的语气声也不算。宁少勿多。"
+                  '每个词都要答，w 原样写。只输出 JSON：{"items":[{"w":"...","hard":false}]}',
             f"这一集的完整内容：\n{context}\n\n"
-            f"要解释的词：\n{json.dumps(chunk, ensure_ascii=False)}",
-        )
-        for item in data["items"]:
-            out[item["w"]] = {
-                "lemma": item.get("lemma", item["w"]),
-                "zh": item["zh"].strip(),
-                "hard": bool(item.get("hard", False)),
-            }
-        print(f"  词条进度 {min(i + WORDS_PER_CALL, len(words))}/{len(words)}")
+            f"词：\n{json.dumps(chunk, ensure_ascii=False)}",
+        )[0]
+
+    with ThreadPoolExecutor(4) as pool:  # 几批同时问，一集两三百个词几秒钟
+        for data in pool.map(one, range(0, len(words), WORDS_PER_CALL)):
+            for item in data.get("items") or []:
+                if item.get("w") in out:
+                    out[item["w"]]["hard"] = item.get("hard") is True
+    print(f"  挑生词：{len(words)} 个词里挑出 {sum(g['hard'] for g in out.values())} 个")
     return out
 
 
@@ -138,7 +150,7 @@ def load_previous(lesson_dir: Path) -> tuple[dict[str, str], dict[str, dict], di
     old = json.loads(path.read_text(encoding="utf-8"))
     text_of = {s["id"]: s["text"] for s in old["sentences"]}
     return ({s["text"]: s["zh"] for s in old["sentences"] if s.get("zh")},
-            old.get("glossary", {}),
+            {w: {"hard": bool(g.get("hard"))} for w, g in old.get("glossary", {}).items()},
             {text_of[x["first"]]: x["title"] for x in old.get("sections", [])})
 
 
@@ -171,7 +183,7 @@ def build(lesson: str, fresh: bool = False, resplit: bool = False) -> None:
 
     new_zh = translate(todo_sentences, context) if todo_sentences else {}
     if todo_words:
-        glossary.update(gloss(todo_words, context))
+        glossary.update(mark_hard(todo_words, sentences, context))
     zh_map = {s["id"]: new_zh.get(s["id"]) or known_zh.get(s["text"], "") for s in sentences}
 
 

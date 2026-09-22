@@ -9,6 +9,7 @@
 不验函数内部怎么写的（指南第七章第 1 条）。
 """
 
+import re
 import sys
 import threading
 from pathlib import Path
@@ -200,14 +201,23 @@ def run(page, shots: Path | None) -> None:
     page.click("#zhBtn")
     check("A7b3 中文能显示出来", page.is_visible("#zh") and len(page.inner_text("#zh")) > 1,
           page.inner_text("#zh")[:30])
+    mores = []  # 展开的内容什么时候去查的：点「展开」之前一次都不该有
+    page.on("request", lambda r: mores.append(r.url) if r.url.endswith("/api/more") else None)
     with page.expect_response(lambda r: r.url.endswith("/api/explain")) as asked:
         page.click("#text w >> nth=1")
     loaded = "!document.getElementById('wordZh').classList.contains('loading')"
     page.wait_for_function(loaded, timeout=20000)
     check("A7r 点了词才去查讲解（不在备课时把每个词都讲一遍，决策 D29）", asked.value.ok, f"{asked.value.status}")
-    check("A7 点词出现讲解", page.is_visible("#wordbox") and len(page.inner_text("#wordZh")) > 3
-          and "没查到" not in page.inner_text("#wordZh"),
-          f"{page.inner_text('#wordText')} → {page.inner_text('#wordZh')}")
+    line = page.inner_text(".word-line")
+    check("A7 点词出现一行：词性、英式音标、这句里的意思（决策 D30）",
+          page.is_visible("#wordbox") and page.is_visible("#wordPos") and len(page.inner_text("#wordPos")) >= 2
+          and re.fullmatch(r"/[^/]+/", page.inner_text("#wordIpa")) is not None
+          and len(page.inner_text("#wordZh")) >= 1 and "没查到" not in line and "这句里" not in page.inner_text("#wordbox"),
+          f"{page.inner_text('#wordText')} → {line}")
+    faces = page.evaluate("document.fonts.load('16px \"Noto Serif IPA\"', 'ˈəʊ').then((f) => f.length)")
+    family = page.evaluate("getComputedStyle(document.getElementById('wordIpa')).fontFamily")
+    check("A7t 音标用带音标符号的字体（放在本地，不连外网）", faces >= 1 and family.startswith('"Noto Serif IPA"'),
+          f"载入 {faces} 个字体，{family}")
     page.wait_for_timeout(250)  # 等弹出动画走完再截图
     box_w, card_w = page.locator("#wordbox").bounding_box(), page.locator("#zh").bounding_box()
     check("A7e 单词卡不挡住中文翻译",
@@ -246,13 +256,16 @@ def run(page, shots: Path | None) -> None:
     page.wait_for_function(loaded, timeout=20000)
     check("A7n 点词组里的一个词，讲的是整个词组，词组里的词一起亮",
           page.inner_text("#wordText").lower().startswith("cut down on") and page.locator("#text w.picked").count() == 3,
-          f"{page.inner_text('#wordText')}：{page.inner_text('#wordZh')[:30]}（亮了 {page.locator('#text w.picked').count()} 个词）")
-    check("A7o 讲解默认只显示这句里的意思，展开的内容先收着", page.is_hidden("#wordMore") and page.is_visible("#wordMoreBtn"))
-    page.click("#wordMoreBtn")
+          f"{page.inner_text('#wordText')}：{page.inner_text('.word-line')[:40]}（亮了 {page.locator('#text w.picked').count()} 个词）")
+    check("A7o 点词只查那一行；展开的内容先收着，也还没去查（决策 D30）",
+          page.is_hidden("#wordMore") and page.is_visible("#wordMoreBtn") and not mores, f"已经查了 {len(mores)} 次展开")
+    with page.expect_response(lambda r: r.url.endswith("/api/more"), timeout=30000) as got_more:
+        page.click("#wordMoreBtn")
+    page.wait_for_function("!document.getElementById('moreBody').hidden", timeout=20000)
     page.wait_for_timeout(250)
     box = page.locator("#wordbox").bounding_box()
-    check("A7p 点展开，看到常见意思（标出这句用的）、搭配、例句，卡片没出屏幕",
-          page.is_visible("#wordMore") and page.locator("#moreSenses li.used").count() == 1
+    check("A7p 点展开才去查，看到常见意思（标出这句用的）、搭配、例句，卡片没出屏幕",
+          got_more.value.ok and page.is_visible("#wordMore") and page.locator("#moreSenses li.used").count() == 1
           and page.locator("#moreColl li").count() >= 1 and len(page.inner_text("#moreEx")) > 3
           and box["y"] >= 0 and box["y"] + box["height"] <= page.viewport_size["height"],
           f"{page.locator('#moreSenses li').count()} 个意思，{page.locator('#moreColl li').count()} 个搭配")
@@ -267,8 +280,13 @@ def run(page, shots: Path | None) -> None:
     page.on("request", lambda r: asks.append(r.url) if r.url.endswith("/api/explain") else None)
     page.click("#text w >> nth=0")
     page.wait_for_timeout(300)
-    check("A7s 点词组里的另一个词，直接出来，不再去查", not asks and page.inner_text("#wordText").lower().startswith("cut down on"),
-          f"又查了 {len(asks)} 次")
+    mores.clear()
+    page.click("#wordMoreBtn")
+    page.wait_for_timeout(300)
+    check("A7s 点词组里的另一个词，那一行和展开的都直接出来，不再去查",
+          not asks and not mores and page.inner_text("#wordText").lower().startswith("cut down on")
+          and page.locator("#moreSenses li").count() >= 1 and page.is_visible("#moreSenses"),
+          f"又查了 {len(asks)} 次那一行、{len(mores)} 次展开")
     page.keyboard.press("Escape")
 
     print("\n【记录】")

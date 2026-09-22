@@ -518,12 +518,14 @@ $('timeline').addEventListener('click', (e) => playOne(sentenceAt(e.clientX)));
  * 原来还有「这句里的原声」，2026-09-22 拿掉了（决策 D24）：识别给的词时间偏晚、每个词偏得不一样，
  * 在真的 Chrome 里录下放出来的声音交给机器耳朵听，切出来的大多是半个词加下一个词的开头。
  * 想听这个词在句子里怎么读，看着文字按「重听本句」：正在读的词会亮，还能放慢。 */
-/* 点词时现查（决策 D29，owner 2026-09-22）：一份材料几千个词，孩子真正点的也就十来个，所以点了才让本地服务去问大模型，
- * 一两秒回来；查过的服务那边存着，再点马上出来。讲的格式是 owner 定的（D28）：先看这个词在这句里的意思，
- * 点「展开」再看常见意思（标出这句用的是哪个）、常见搭配、例句。
+/* 点词时现查（决策 D29、D30，owner 2026-09-22）：一份材料几千个词，孩子真正点的也就十来个，所以点了才让本地服务去问大模型。
+ * 点词先出一行，像词典的词条：词性、英式音标、这句里的中文意思，一秒左右回来。
+ * 点「展开」才去查常见意思（标出这句用的是哪个）、常见搭配、例句——展开的更少，不跟着那一行一起查。
+ * 查过的服务那边存着，再点马上出来。
  * 词属于词组（cut down on）时，点其中哪个词都讲整个词组、读整个词组，词组里的词一起亮。 */
-const notes = {};         // 这一课查过的：'句子id:词序号' → 讲解
+const notes = {};         // 这一课查过的：'句子id:词序号' → 那一行（展开过的带着 detail）
 let asking = 0;           // 连着点了几个词，只认最后一个的结果
+let shown = null;         // 单词卡上现在是哪一句的哪个词：{ s, i, note }
 
 async function api(path, body) {
   const r = await fetch(path, {
@@ -539,7 +541,7 @@ function openWord(i, tag) {
   const w = s.words[i];
   const clean = w.text.replace(/^[^A-Za-z']+|[^A-Za-z']+$/g, '');
   const ticket = ++asking;
-  showNote(s, i, { words: [i], text: clean, here: null, more: null });
+  showNote(s, i, { words: [i], text: clean, loading: true });
   $('wordbox').hidden = false;
   placeWordbox(tag);
   record((old) => ({ words: old.words.indexOf(w.key) < 0 ? old.words.concat(w.key) : old.words }));
@@ -551,23 +553,34 @@ function openWord(i, tag) {
   }).catch(() => {
     if (ticket !== asking) return;
     $('wordZh').textContent = '没查到，点这里再试一次';
-    $('wordZh').className = 'retry';
+    $('wordZh').className = 'word-zh retry';
     $('wordZh').onclick = () => openWord(i, tag);
   });
 }
 
-/* 把一条讲解填进单词卡；here 为空表示还在查 */
+/* 把那一行填进单词卡；loading 表示还在查 */
 function showNote(s, i, note) {
   const members = note.words.length > 1 ? note.words : [i];
   const tags = document.querySelectorAll('#text w');
   document.querySelectorAll('.sentence w.picked').forEach((el) => el.classList.remove('picked'));
   members.forEach((k) => tags[k] && tags[k].classList.add('picked'));
+  shown = { s, i, note };
   $('wordText').textContent = note.text;
-  $('wordZh').textContent = note.here || '正在查';
-  $('wordZh').className = note.here ? '' : 'loading';
+  const pos = note.loading ? '' : note.pos || '';
+  $('wordPos').textContent = pos;
+  $('wordPos').className = /[一-鿿]/.test(pos) ? 'word-pos cn' : 'word-pos';  // 词组、名字、缩写
+  $('wordPos').hidden = !pos;
+  $('wordIpa').textContent = note.loading ? '' : note.ipa || '';
+  $('wordIpa').hidden = note.loading || !note.ipa;
+  $('wordZh').textContent = note.loading ? '正在查' : note.zh;
+  $('wordZh').className = note.loading ? 'word-zh loading' : 'word-zh';
   $('wordZh').onclick = null;
   $('wordHard').hidden = !members.some((k) => (lesson.glossary[s.words[k].key] || {}).hard);
-  fillMore(note.here ? note.more : null);
+  $('wordMore').hidden = true;
+  $('wordMoreBtn').hidden = !!note.loading || note.more === false;  // 人名这类不用展开
+  $('wordMoreBtn').textContent = '展开';
+  $('wordMoreBtn').setAttribute('aria-expanded', 'false');
+  if (note.detail) fillMore(note.detail);
   // 单个词先用发音词典里的；词组和词典里没有的，点了再让本地服务现读
   const key = members.length > 1 ? note.text : s.words[i].key;
   $('wordTts').hidden = false;
@@ -575,19 +588,37 @@ function showNote(s, i, note) {
   if (!$('wordbox').hidden) placeWordbox(tags[members[0]]);
 }
 
+/* 点了「展开」才去查；查过的（这个词组里点哪个词都算）直接显示 */
+function loadMore(at) {
+  $('moreBody').hidden = true;
+  $('moreWait').hidden = false;
+  $('moreWait').textContent = '正在查';
+  $('moreWait').className = 'more-wait loading';
+  $('moreWait').onclick = null;
+  api('/api/more', { sentence: at.s.id, word: at.i }).then((detail) => {
+    at.note.detail = detail;
+    if (shown === at && !$('wordbox').hidden) {
+      fillMore(detail);
+      replaceWordbox();
+    }
+  }).catch(() => {
+    if (shown !== at) return;
+    $('moreWait').textContent = '没查到，点这里再试一次';
+    $('moreWait').className = 'more-wait retry';
+    $('moreWait').onclick = () => loadMore(at);
+  });
+}
+
 function fillMore(more) {
-  $('wordMore').hidden = true;
-  $('wordMoreBtn').hidden = !more;
-  $('wordMoreBtn').textContent = '展开';
-  $('wordMoreBtn').setAttribute('aria-expanded', 'false');
-  if (!more) return;
   const esc = (t) => String(t || '').replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
   $('moreSenses').innerHTML = (more.senses || []).map((x, k) => (k + 1 === more.used
     ? `<li class="used">${esc(x)}<em>这句用的</em></li>` : `<li>${esc(x)}</li>`)).join('');
   $('moreColl').innerHTML = (more.collocations || [])
     .map((c) => `<li><b>${esc(c.en)}</b><span>${esc(c.zh)}</span></li>`).join('');
   const ex = more.example || {};
-  $('moreEx').innerHTML = `<b>${esc(ex.en)}</b><span>${esc(ex.zh)}</span>`;
+  $('moreEx').innerHTML = ex.en ? `<b>${esc(ex.en)}</b><span>${esc(ex.zh)}</span>` : '';
+  $('moreWait').hidden = true;
+  $('moreBody').hidden = false;
 }
 
 /* 优先弹在词的上方，别盖住下面的中文和按钮；空间紧就贴近一点，实在放不下再放下方；
@@ -605,13 +636,19 @@ function placeWordbox(tag) {
   else box.style.top = `${Math.max(12, window.innerHeight - h - 12)}px`;
 }
 
+/* 卡片高度变了（展开、收起、查回来了），按原来那个词重新摆一次 */
+function replaceWordbox() {
+  const tag = document.querySelectorAll('#text w')[Number($('wordbox').dataset.for)];
+  if (tag) placeWordbox(tag);
+}
+
 $('wordMoreBtn').onclick = () => {
   const open = $('wordMore').hidden;
   $('wordMore').hidden = !open;
   $('wordMoreBtn').textContent = open ? '收起' : '展开';
   $('wordMoreBtn').setAttribute('aria-expanded', String(open));
-  const tag = document.querySelectorAll('#text w')[Number($('wordbox').dataset.for)];
-  if (tag) placeWordbox(tag);
+  if (open && shown && !shown.note.detail) loadMore(shown);
+  replaceWordbox();
 };
 
 /* 朗读：单个词放备课时从发音词典拷来的谷歌英音；词组和词典里没有的，本地服务让百炼 Emily 现读、存下来（决策 D27）。
