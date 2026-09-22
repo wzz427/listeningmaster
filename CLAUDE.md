@@ -46,7 +46,7 @@
 - 验声音：`<pywork python> tests/test_audio.py`——录下真的 Chrome 放出来的每一句，交给机器耳朵听开头结尾对不对，做一页试听给人耳抽查，约 5 分钟、几分钱。**改了句子边界或播放器的停法就跑**。只核对数字发现不了声音问题（`docs/lessons.md` 2026-09-22）。
 - 启动播放器：双击 `start-player.bat`，或跑 `<pywork python> pipeline/serve.py 8765`，再打开 http://localhost:8765/web/ 。这个本地服务还管点词补查、展开、现读词组（`pipeline/explain.py`），密钥只在它这里。**不要用 `python -m http.server`**：它不支持从文件中间取一段，音频跳不动（见 `docs/lessons.md`）。
 - 备课（接一份新材料）：六个程序依次跑，顺序、每步出什么、跑完查什么，照 `specs/SPEC-002-prep-pipeline.md`「流程」和「接一份新材料：操作手册」。备课要在几分钟以内（owner 2026-09-22）。
-- 发音词典（换电脑时建一次）：`pipeline/tts.py library` 把常用词的谷歌英音取到仓库外并排的 `WordsAudio/`，要翻墙；`--top 50000` 取 5 万（2 万的实测 1 小时、230MB，5 万约 2.5 小时、575MB）；断了重跑接着取。
+- 发音词典（换电脑时建一次）：`pipeline/tts.py library` 把常用词的谷歌英音取到仓库外并排的 `WordsAudio/`，要翻墙；`--top 50000` 取 5 万（实测约 2.5 小时、587MB、没有失败，2026-09-23 取完）；断了重跑接着取。
 
 ## 干这件事进哪
 

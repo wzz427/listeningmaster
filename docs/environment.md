@@ -41,7 +41,7 @@
 2. 装包：`<pywork python> -m pip install dashscope openai pypdf numpy wordfreq imageio-ffmpeg playwright fonttools brotli`，再 `<pywork python> -m playwright install chromium`。装完 `<pywork python> -m pip check`，要显示没有冲突。
 3. 装 Google Chrome（验声音要用）。
 4. 拷仓库；在根目录放 `api-keys.txt`，里面 `#qwen` 下一行是百炼的密钥、`#deepseek` 下一行是 DeepSeek 的。只在程序里读，不许打印、不许 cat（CLAUDE.md 红线）。
-5. 发音词典：直接把旧电脑的 `WordsAudio/` 整个拷过来最省事；没有就开翻墙跑 `<pywork python> pipeline/tts.py library --top 50000`（约 2.5 小时、约 575MB，断了重跑接着取）。
+5. 发音词典：直接把旧电脑的 `WordsAudio/` 整个拷过来最省事；没有就开翻墙跑 `<pywork python> pipeline/tts.py library --top 50000`（实测约 2.5 小时、587MB，断了重跑接着取）。
 6. 自检：`tests/test_docs.py`（不到 1 秒）→ `tests/test_player.py`（不到 1 分钟，64 项全过）→ 双击 `start-player.bat` 能听。要验声音再跑 `tests/test_audio.py`。
 
 孩子和家长那边的电脑只需要浏览器和一个起本地服务的办法（现在是 `start-player.bat`），不需要翻墙、不需要密钥以外的任何东西；以后上服务器，连密钥都不用放他们那边（SPEC-000「以后」）。
