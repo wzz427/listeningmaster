@@ -20,6 +20,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from llm import call  # noqa: E402
+import tts  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 MODEL = "deepseek-flash"   # 选型见 lessons/260821/model_compare.md
@@ -191,6 +192,8 @@ def build(lesson: str, fresh: bool = False, resplit: bool = False) -> None:
         "sections": sections,
         "sentences": sentences,
         "glossary": glossary,
+        # 单词朗读：备课时生成好的文件，孩子那边不连任何外部服务（决策 D26）
+        "tts": {"voice": tts.VOICES[tts.VOICE], "files": tts.build(lesson_dir, sorted(glossary))},
     }
     (lesson_dir / "lesson.json").write_text(
         json.dumps(lesson_data, ensure_ascii=False, indent=2), encoding="utf-8")
