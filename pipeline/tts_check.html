@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>朗读抽听</title>
+<!-- tts.py check 生成：__DATA__ 换成这一集每个词的朗读文件和机器耳朵听到的 -->
+<style>
+  @font-face { font-family: "Literata"; src: url("../../../web/fonts/literata-latin-wght-normal.woff2") format("woff2"); font-weight: 200 900; }
+  @font-face { font-family: "DM Mono"; src: url("../../../web/fonts/dm-mono-latin-400-normal.woff2") format("woff2"); }
+  :root {
+    --ink: #111318; --card: #181b22; --line: rgba(255, 240, 215, .1); --line-2: rgba(255, 240, 215, .18);
+    --cream: #f1e8d8; --cream-2: #c9bfae; --muted: #8b857a; --amber: #f2a94e; --amber-ink: #2a1a06; --bad: #ef8b73;
+    --cn: "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei UI", "Microsoft YaHei", sans-serif;
+    --en: "Literata", Georgia, serif; --mono: "DM Mono", Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 36px 16px 110px; background: var(--ink); color: var(--cream); font: 15px/1.65 var(--cn);
+         -webkit-font-smoothing: antialiased; }
+  main { max-width: 900px; margin: 0 auto; }
+  h1 { font-size: 24px; margin: 0 0 8px; }
+  .lead { color: var(--cream-2); margin: 0 0 8px; }
+  h2 { font-size: 16px; margin: 30px 0 4px; }
+  h2 small { color: var(--muted); font-weight: 400; font-size: 13px; margin-left: 8px; }
+  .hint { color: var(--muted); font-size: 13.5px; margin: 0 0 12px; }
+  .grid { display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); }
+  .w { display: flex; align-items: stretch; background: var(--card); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+  .w.playing { border-color: var(--amber); }
+  .w.bad { border-color: var(--bad); background: rgba(239, 139, 115, .08); }
+  .w .play { flex: 1; min-width: 0; text-align: left; background: none; border: 0; color: inherit; padding: 9px 12px; cursor: pointer; font: inherit; }
+  .w .en { display: block; font: 600 16px/1.3 var(--en); }
+  .w .sub { display: block; font-size: 12px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .w .sub i { font-style: normal; color: var(--cream-2); font-family: var(--mono); }
+  .w .mark { flex: none; width: 52px; background: none; border: 0; border-left: 1px solid var(--line); color: var(--muted);
+             font: 12.5px/1.2 var(--cn); cursor: pointer; }
+  .w .mark:hover { color: var(--cream); }
+  .w.bad .mark { color: var(--bad); font-weight: 600; }
+  .result { position: fixed; left: 16px; right: 16px; bottom: 14px; max-width: 900px; margin: 0 auto;
+            background: #1f222b; border: 1px solid var(--line-2); border-radius: 18px; padding: 12px 14px 12px 18px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, .55); display: flex; gap: 12px; align-items: center; }
+  .result p { margin: 0; flex: 1; min-width: 0; font-size: 14px; color: var(--cream-2); }
+  .result p b { color: var(--cream); }
+  .result button { flex: none; background: var(--amber); color: var(--amber-ink); border: 0; border-radius: 999px;
+                   padding: 9px 16px; font: 600 14px/1 var(--cn); cursor: pointer; }
+  @media (max-width: 520px) { .grid { grid-template-columns: 1fr 1fr; } .result { flex-direction: column; align-items: stretch; } }
+</style>
+</head>
+<body>
+<main>
+  <h1>朗读抽听</h1>
+  <p class="lead" id="lead"></p>
+  <h2>机器耳朵听着不对的<small id="nBad"></small></h2>
+  <p class="hint">机器单听一个词很容易听岔（to 听成 two、know 听成 no），这里多数其实没问题，但请先把这一组都听一遍。灰字是机器听成了什么。</p>
+  <div class="grid" id="bad"></div>
+  <h2>机器听着对的<small id="nOk"></small></h2>
+  <p class="hint">抽十几个听听就行。</p>
+  <div class="grid" id="ok"></div>
+</main>
+<div class="result"><p id="summary"></p><button id="copy">复制这一行</button></div>
+<script>
+const DATA = __DATA__;
+const STORE = 'tts_check:' + location.pathname;
+const marked = new Set((() => { try { return JSON.parse(localStorage.getItem(STORE) || '[]'); } catch (e) { return []; } })());
+const player = new Audio();
+let playingEl = null;
+player.onended = () => { if (playingEl) playingEl.classList.remove('playing'); };
+
+document.getElementById('lead').textContent =
+  `播放器里点一个词再点「听朗读」，放的就是这些文件（${DATA.voice}，电脑合成）。点词听，读得不对就点右边的「不对」，最后把最下面那一行发给我。`;
+
+function card(x) {
+  const el = document.createElement('div');
+  el.className = 'w' + (marked.has(x.key) ? ' bad' : '');
+  const sub = x.ok ? x.zh : `机器听成 <i>${x.heard.replace(/</g, '')}</i>`;
+  el.innerHTML = `<button class="play"><span class="en">${x.key}</span><span class="sub">${sub}</span></button>`
+    + `<button class="mark">${marked.has(x.key) ? '不对 ✓' : '不对'}</button>`;
+  el.querySelector('.play').onclick = () => {
+    if (playingEl) playingEl.classList.remove('playing');
+    player.src = x.file;
+    player.play();
+    el.classList.add('playing');
+    playingEl = el;
+  };
+  el.querySelector('.mark').onclick = (e) => {
+    if (marked.has(x.key)) marked.delete(x.key); else marked.add(x.key);
+    el.classList.toggle('bad', marked.has(x.key));
+    e.currentTarget.textContent = marked.has(x.key) ? '不对 ✓' : '不对';
+    try { localStorage.setItem(STORE, JSON.stringify([...marked])); } catch (err) { /* 存不了就算了 */ }
+    summarize();
+  };
+  return el;
+}
+
+const bad = DATA.items.filter((x) => !x.ok);
+const ok = DATA.items.filter((x) => x.ok);
+bad.forEach((x) => document.getElementById('bad').appendChild(card(x)));
+ok.forEach((x) => document.getElementById('ok').appendChild(card(x)));
+document.getElementById('nBad').textContent = `${bad.length} 个`;
+document.getElementById('nOk').textContent = `${ok.length} 个`;
+
+function line() {
+  const list = DATA.items.map((x) => x.key).filter((k) => marked.has(k));
+  return list.length ? `朗读不对的词（${list.length} 个）：${list.join('、')}` : '朗读听过了，没有不对的';
+}
+function summarize() {
+  document.getElementById('summary').innerHTML = `<b>${line()}</b>`;
+}
+document.getElementById('copy').onclick = async (e) => {
+  try { await navigator.clipboard.writeText(line()); e.target.textContent = '复制好了'; }
+  catch (err) { e.target.textContent = '复制不了，请手动选中'; }
+  setTimeout(() => { e.target.textContent = '复制这一行'; }, 1600);
+};
+summarize();
+</script>
+</body>
+</html>

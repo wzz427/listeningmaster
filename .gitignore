@@ -13,3 +13,5 @@ lessons/*/audio_16k.wav
 # 试听和声音检查的输出，随时能重新生成
 lessons/*/tts_try/
 lessons/*/audio_check/
+lessons/*/bounds_try/
+lessons/*/tts_check/

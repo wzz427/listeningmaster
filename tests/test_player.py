@@ -210,7 +210,27 @@ def run(page, shots: Path | None) -> None:
     shot(page, shots, "3-text-word")
     check("A7j 单词卡上只有朗读，没有「这句里的原声」（切不准，2026-09-22 拿掉了）",
           page.locator("#wordRaw").count() == 0 and page.is_visible("#wordTts"))
+    page.evaluate("window.__spoke = 0; if (window.speechSynthesis) speechSynthesis.speak = () => window.__spoke++; 0")  # 末尾不能是函数，不然 Playwright 会调它
+    with page.expect_response(lambda r: "/tts/" in r.url) as got:
+        page.click("#wordTts")
+    page.wait_for_function("voice.currentTime > 0.1", timeout=5000)
+    check("A7k 点「听朗读」播的是备课时生成好的文件，不用浏览器自带的朗读（大陆不翻墙读不出来）",
+          got.value.ok and page.evaluate("window.__spoke") == 0,
+          f"{got.value.url.split('/lessons/')[-1]}（{got.value.status}），浏览器朗读被叫了 {page.evaluate('window.__spoke')} 次")
     page.keyboard.press("Escape")
+    page.click("#replayBtn")
+    page.wait_for_function("!audio.paused", timeout=3000)
+    page.click("#text w >> nth=1")
+    page.click("#wordTts")
+    page.wait_for_timeout(100)
+    check("A7l 句子正在放时点「听朗读」，句子先停下，不叠在一起", page.evaluate("audio.paused"),
+          f"停在 {now(page):.2f} 秒")
+    page.keyboard.press("Escape")
+    files = page.evaluate("(lesson.tts || {}).files || {}")
+    keys = set(page.evaluate("lesson.sentences.flatMap((s) => s.words.map((w) => w.key)).filter(Boolean)"))
+    here = Path(__file__).resolve().parent.parent / "lessons" / LESSON
+    missing = sorted(k for k in keys if k not in files or not (here / files[k]).exists())
+    check("A7m 课文里每个词都有朗读文件", not missing, f"缺 {len(missing)} 个：{missing[:5]}")
 
     print("\n【记录】")
     goto_body(page, 12)

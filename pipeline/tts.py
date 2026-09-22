@@ -9,6 +9,8 @@ owner 的 Chrome 用的是 Google UK English Female，是谷歌的联网声音�
   文件放在 lessons/<课>/tts/<声音>/，换声音就会整套重做。
 - 试听：<pywork python> pipeline/tts.py try —— 用几个声音读几个本集的词，写到 lessons/<课>/tts_try/，
   在 http://localhost:8765/lessons/<课>/tts_try/ 打开，还能看出浏览器自带朗读用的是哪个声音。
+- 抽听：<pywork python> pipeline/tts.py check —— 每集生成完朗读后跑一次，写到 lessons/<课>/tts_check/，
+  owner 点着听、把读得不对的标出来；标出来的词删掉它的文件、改 spoken() 的写法后重跑 teach.py 就会重做。
 密钥从 pipeline/keys.py 读，不打印（红线）。
 """
 
@@ -98,10 +100,34 @@ def try_page(lesson: str) -> None:
     print(f"试听页：http://localhost:8765/lessons/{lesson}/tts_try/")
 
 
+def check_page(lesson: str) -> None:
+    """给 owner 一页抽听朗读：机器耳朵先听一遍，它听着不对的排前面。
+    机器耳朵单听一个词不可靠（to 听成 two、know 听成 no，2026-09-22），只用来排先后，好不好由人耳定。"""
+    from ear import hear, words_of
+
+    lesson_dir = ROOT / "lessons" / lesson
+    data = json.loads((lesson_dir / "lesson.json").read_text(encoding="utf-8"))
+    files, glossary = data["tts"]["files"], data["glossary"]
+    keys = sorted(files)
+    with ThreadPoolExecutor(4) as pool:
+        heard = list(pool.map(lambda k: hear(lesson_dir / files[k]), keys))
+    items = [{"key": k, "file": f"../{files[k]}", "zh": glossary.get(k, {}).get("zh", ""),
+              "heard": h, "ok": words_of(h) == words_of(k)} for k, h in zip(keys, heard)]
+    out = lesson_dir / "tts_check"
+    out.mkdir(exist_ok=True)
+    page = (Path(__file__).resolve().parent / "tts_check.html").read_text(encoding="utf-8")
+    page = page.replace("__DATA__", json.dumps({"voice": data["tts"]["voice"], "items": items}, ensure_ascii=False))
+    (out / "index.html").write_text(page, encoding="utf-8")
+    print(f"机器耳朵听着不对的 {sum(not x['ok'] for x in items)} 个 / 共 {len(items)} 个")
+    print(f"抽听页：http://localhost:8765/lessons/{lesson}/tts_check/")
+
+
 if __name__ == "__main__":
     sys.stdout.reconfigure(encoding="utf-8")
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     if args[:1] == ["try"]:
         try_page(args[1] if len(args) > 1 else "260821")
+    elif args[:1] == ["check"]:
+        check_page(args[1] if len(args) > 1 else "260821")
     else:
         print(__doc__)

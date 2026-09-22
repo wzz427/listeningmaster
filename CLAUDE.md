@@ -36,10 +36,10 @@
 
 - Python：`C:\Users\wzzpk\.conda\envs\pywork\python.exe`（conda 环境 pywork，不在 PATH 上，用绝对路径调用；装包用 `<该路径> -m pip install`）。不要用系统 Python，也不要另建环境。
 - 机器：Windows 11，显卡 RTX 500 Ada（4GB 显存）。
-- 测试：`<pywork python> tests/test_player.py`——用 Playwright 真的开浏览器、真的点按钮、真的看音频播到第几秒，52 项，不到 1 分钟。**改完播放器必须跑**。加 `--show` 能看见浏览器窗口，加 `--shots <目录>` 存截图看界面。Playwright 和 chromium 已经装在 pywork 里。
+- 测试：`<pywork python> tests/test_player.py`——用 Playwright 真的开浏览器、真的点按钮、真的看音频播到第几秒，55 项，不到 1 分钟。**改完播放器必须跑**。加 `--show` 能看见浏览器窗口，加 `--shots <目录>` 存截图看界面。Playwright 和 chromium 已经装在 pywork 里。
 - 验声音：`<pywork python> tests/test_audio.py`——录下真的 Chrome 放出来的每一句，交给机器耳朵听开头结尾对不对，做一页试听给人耳抽查，约 5 分钟、几分钱。**改了句子边界或播放器的停法就跑**。只核对数字发现不了声音问题（`docs/lessons.md` 2026-09-22）。
 - 启动播放器：双击 `start-player.bat`，或跑 `<pywork python> pipeline/serve.py 8765`，再打开 http://localhost:8765/web/ 。**不要用 `python -m http.server`**：它不支持从文件中间取一段，音频跳不动（见 `docs/lessons.md`）。
-- 备课（一集跑一次，依次）：`pipeline/audio.py` 转音频 → `pipeline/asr_probe.py` 识别 → `pipeline/align.py` 对齐讲稿 → `pipeline/refine_bounds.py` 按音量精修句子边界 → `pipeline/ear_bounds.py` 机器耳朵复查句子开头结尾 → `pipeline/teach.py` 生成中文、按话题分段（默认复用上一版已有的中文和分段，`--fresh` 全部重来，`--resplit` 只重切分段）。
+- 备课（一集跑一次，依次）：`pipeline/audio.py` 转音频 → `pipeline/asr_probe.py` 识别 → `pipeline/align.py` 对齐讲稿 → `pipeline/refine_bounds.py` 按音量精修句子边界 → `pipeline/ear_bounds.py` 机器耳朵复查句子开头结尾，最后照 `lessons/<课>/bounds_manual.json`（人耳确认过的）改 → `pipeline/teach.py` 生成中文、按话题分段、生成单词朗读（默认复用上一版已有的中文、分段和朗读文件，`--fresh` 全部重来，`--resplit` 只重切分段）→ `pipeline/tts.py check` 做朗读抽听页给 owner。只改了人耳确认文件：`ear_bounds.py <课> --manual` 再跑 `teach.py`。
 
 ## 干这件事进哪
 

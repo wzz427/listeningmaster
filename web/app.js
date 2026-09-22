@@ -536,19 +536,24 @@ function openWord(i, tag) {
   const room = r.top - box.offsetHeight;
   box.style.top = room >= 12 ? `${room - Math.min(14, room - 4)}px`
     : `${Math.min(window.innerHeight - box.offsetHeight - 12, r.bottom + 14)}px`;
-  $('wordTts').onclick = () => speak(clean);
+  const file = lesson.tts && lesson.tts.files[w.key];
+  $('wordTts').hidden = !file;
+  $('wordTts').onclick = () => speakWord(file);
   record((old) => ({ words: old.words.indexOf(w.key) < 0 ? old.words.concat(w.key) : old.words }));
 }
 
-function speak(text) {
-  if (!window.speechSynthesis) return;
-  const u = new SpeechSynthesisUtterance(text);
-  u.lang = 'en-GB';
-  const voices = speechSynthesis.getVoices();
-  const voice = voices.find((v) => v.lang === 'en-GB') || voices.find((v) => v.lang.indexOf('en') === 0);
-  if (voice) u.voice = voice;
-  speechSynthesis.cancel();
-  speechSynthesis.speak(u);
+/* 朗读：备课时用百炼生成好的文件（Emily · 英音女声，决策 D26），这里只播文件，不连任何外部服务。
+ * 不用浏览器自带的朗读：用哪个声音随浏览器和系统变，owner 的 Chrome 挑中的是谷歌的联网声音，
+ * 中国大陆不翻墙读不出来（demand.md 的网络约束）。 */
+const voice = new Audio();
+
+function speakWord(file) {
+  if (!audio.paused) {  // 句子正在放就先停下，两个声音叠在一起听不清
+    audio.pause();
+    render();
+  }
+  voice.src = BASE + file;
+  voice.play();
 }
 
 /* ---------- 全文：按段列出每一句，点一句只播这一句 ---------- */

@@ -13,6 +13,10 @@
 - 最后一个词没听到：句末每次往后挪 0.04 秒再听，不越过下一句的开头，取最近的听得到的位置再往后留 0.03 秒。
 - 挪到头也听不到的（多半是机器耳朵自己的毛病，比如 Itmeans、I've 听成 I），保持原样，写进报告给人耳查。
 
+人耳说了算：lessons/<课>/bounds_manual.json 里是 owner 用耳朵确认过的起止点，最后照它改，盖过上面机器挪的结果。
+机器耳朵也有听错的时候（第 76 句 Neil 明明在，它听不到），也有找不回来的（第 48 句，见那个文件里的说明）。
+只改了 bounds_manual.json、不想重新调识别接口时：<pywork python> pipeline/ear_bounds.py <课> --manual
+
 在流程里排在 refine_bounds.py 之后、teach.py 之前。原地改 lessons/<课>/timeline.json，报告写到 ear_report.md。
 要调百炼识别接口，一集花一两毛钱。
 """
@@ -51,6 +55,31 @@ def onset(db: np.ndarray, at: float, floor: float) -> float:
     while k > lo and db[k - 1] > quiet:
         k -= 1
     return k * FRAME
+
+
+def apply_manual(lesson_dir: Path, sentences: list[dict]) -> list[str]:
+    """照 bounds_manual.json 改人耳确认过的起止点，返回改了哪些（给报告用）。"""
+    path = lesson_dir / "bounds_manual.json"
+    if not path.exists():
+        return []
+    by_id = {s["id"]: s for s in sentences}
+    done = []
+    for sid, fix in json.loads(path.read_text(encoding="utf-8"))["sentences"].items():
+        s = by_id[int(sid)]
+        for side in ("start", "end"):
+            if side in fix and s[side] != fix[side]:
+                done.append(f"第 {sid} 句{'开头' if side == 'start' else '结尾'} {s[side]:.2f} → {fix[side]:.2f}")
+                s[side] = fix[side]
+    return done
+
+
+def manual_only(lesson: str) -> None:
+    lesson_dir = ROOT / "lessons" / lesson
+    timeline_path = lesson_dir / "timeline.json"
+    timeline = json.loads(timeline_path.read_text(encoding="utf-8"))
+    done = apply_manual(lesson_dir, timeline["sentences"])
+    timeline_path.write_text(json.dumps(timeline, ensure_ascii=False, indent=2), encoding="utf-8")
+    print("\n".join(done) if done else "人耳确认过的起止点都已经是这样了，没有要改的")
 
 
 def main(lesson: str) -> None:
@@ -114,6 +143,7 @@ def main(lesson: str) -> None:
                 else:
                     unfixed.append((s["id"], "结尾", s["text"], " ".join(heard[i])))
 
+    manual = apply_manual(lesson_dir, sentences)
     timeline_path.write_text(json.dumps(timeline, ensure_ascii=False, indent=2), encoding="utf-8")
     lines = [f"# 机器耳朵查句子边界 · {lesson}", "",
              f"听了 {len(body)} 句。挪好了 {len(fixed)} 处，挪到头也没听到的 {len(unfixed)} 处（要人耳查）。", "",
@@ -121,10 +151,12 @@ def main(lesson: str) -> None:
     lines += [f"| {sid} | {side} | {old:.2f} | {new:.2f} | {text} |" for sid, side, old, new, text in fixed]
     lines += ["", "## 挪到头也没听到的", "", "| 句 | 哪头 | 这句 | 机器听到 |", "|---|---|---|---|"]
     lines += [f"| {sid} | {side} | {text} | {got} |" for sid, side, text, got in unfixed]
+    lines += ["", "## 照人耳确认的改（bounds_manual.json）", ""] + [f"- {x}" for x in manual or ["没有要改的"]]
     (lesson_dir / "ear_report.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
     print("\n".join(lines[2:]))
 
 
 if __name__ == "__main__":
     sys.stdout.reconfigure(encoding="utf-8")
-    main(sys.argv[1] if len(sys.argv) > 1 else "260821")
+    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    (manual_only if "--manual" in sys.argv else main)(args[0] if args else "260821")
