@@ -163,5 +163,102 @@
     "zh": "我得少吃点甜食。"
    }
   }
+ },
+ "12:3": {
+  "words": [
+   3
+  ],
+  "text": "moment",
+  "here": "这里指一个时刻，就是喝完第二杯咖啡的时候。这句在说喝完第二杯咖啡后就没得喝了，所以很难过。",
+  "more": {
+   "senses": [
+    "片刻，瞬间",
+    "时刻，时候"
+   ],
+   "used": 1,
+   "collocations": [
+    {
+     "en": "at the moment",
+     "zh": "此刻，目前"
+    },
+    {
+     "en": "for a moment",
+     "zh": "一会儿"
+    },
+    {
+     "en": "in a moment",
+     "zh": "马上，立刻"
+    }
+   ],
+   "example": {
+    "en": "Wait a moment, please.",
+    "zh": "请等一会儿。"
+   }
+  }
+ },
+ "12:6": {
+  "words": [
+   6
+  ],
+  "text": "finished",
+  "here": "这里指喝完了第二杯咖啡。整句说一天第二杯咖啡喝完就没了，有点难过。",
+  "more": {
+   "senses": [
+    "完成",
+    "吃完",
+    "用完"
+   ],
+   "used": 1,
+   "collocations": [
+    {
+     "en": "finish homework",
+     "zh": "完成作业"
+    },
+    {
+     "en": "finish a meal",
+     "zh": "吃完一顿饭"
+    },
+    {
+     "en": "finish doing sth",
+     "zh": "做完某事"
+    }
+   ],
+   "example": {
+    "en": "I finished my homework before dinner.",
+    "zh": "我在晚饭前完成了作业。"
+   }
+  }
+ },
+ "12:8": {
+  "words": [
+   8
+  ],
+  "text": "second",
+  "here": "这里指第二杯咖啡。这句在说喝完今天第二杯咖啡就很难过，因为不能再喝了。",
+  "more": {
+   "senses": [
+    "第二的",
+    "秒"
+   ],
+   "used": 1,
+   "collocations": [
+    {
+     "en": "second time",
+     "zh": "第二次"
+    },
+    {
+     "en": "second cup",
+     "zh": "第二杯"
+    },
+    {
+     "en": "second one",
+     "zh": "第二个"
+    }
+   ],
+   "example": {
+    "en": "This is my second cup of tea today.",
+    "zh": "这是我今天第二杯茶。"
+   }
+  }
  }
 }
