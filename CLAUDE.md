@@ -7,7 +7,7 @@
 
 - 一句话：给听力偏弱的孩子做一个按句子播放的英语听力工具，听不懂能跳回本句重听、按需看文字、点词查义和听发音。
 - 首要用户：owner 的孩子，刚过剑桥 PET（B1），听力在及格线附近。其次是几位熟人家长的孩子。
-- 需求总源：`demand.md`；阶段：起步。
+- 需求总源：`demand.md`（owner 的原话）；总需求和模块表：`specs/SPEC-000-overview.md`；阶段：起步。
 
 ## 第一条
 
@@ -35,30 +35,33 @@
 
 - Python：`C:\Users\wzzpk\.conda\envs\pywork\python.exe`（conda 环境 pywork，不在 PATH 上，用绝对路径调用；装包用 `<该路径> -m pip install`）。不要用系统 Python，也不要另建环境。
 - 机器：Windows 11，显卡 RTX 500 Ada（4GB 显存）。
-- 测试：`<pywork python> tests/test_player.py`——用 Playwright 真的开浏览器、真的点按钮、真的看音频播到第几秒，64 项，不到 1 分钟。**改完播放器必须跑**。加 `--show` 能看见浏览器窗口，加 `--shots <目录>` 存截图看界面。Playwright 和 chromium 已经装在 pywork 里。
+- 测试（什么时候跑哪份、看什么，全在 `docs/workflow.md`「验证」）：`<pywork python> tests/test_player.py`——用 Playwright 真的开浏览器、真的点按钮、真的看音频播到第几秒，64 项，不到 1 分钟。**改完播放器必须跑**。加 `--show` 能看见浏览器窗口，加 `--shots <目录>` 存截图看界面。Playwright 和 chromium 已经装在 pywork 里。改了文档或加删文件跑 `tests/test_docs.py`（不到 1 秒）：文档里写到的文件、字段、验收编号和代码对不上就报错。
 - 验声音：`<pywork python> tests/test_audio.py`——录下真的 Chrome 放出来的每一句，交给机器耳朵听开头结尾对不对，做一页试听给人耳抽查，约 5 分钟、几分钱。**改了句子边界或播放器的停法就跑**。只核对数字发现不了声音问题（`docs/lessons.md` 2026-09-22）。
-- 启动播放器：双击 `start-player.bat`，或跑 `<pywork python> pipeline/serve.py 8765`，再打开 http://localhost:8765/web/ 。这个本地服务还管点词现查讲解、现读词组（`pipeline/explain.py`），密钥只在它这里。**不要用 `python -m http.server`**：它不支持从文件中间取一段，音频跳不动（见 `docs/lessons.md`）。
-- 备课（一集跑一次，依次）：`pipeline/audio.py` 转音频 → `pipeline/asr_probe.py` 识别 → `pipeline/align.py` 对齐讲稿 → `pipeline/refine_bounds.py` 按音量精修句子边界 → `pipeline/ear_bounds.py` 机器耳朵复查句子开头结尾，最后照 `lessons/<课>/bounds_manual.json`（人耳确认过的）改 → `pipeline/teach.py` 生成每句中文、每个词点开看的那一行（词性、音标、意思）、挑生词、按话题分段、从发音词典拷朗读（默认复用上一版已有的，`--fresh` 全部重来，`--resplit` 只重切分段，`--renote` 只重写每个词的那一行）。备课要在几分钟以内（owner 2026-09-22），点「展开」看的详细讲解不在这里做。只改了人耳确认文件：`ear_bounds.py <课> --manual` 再跑 `teach.py`。
+- 启动播放器：双击 `start-player.bat`，或跑 `<pywork python> pipeline/serve.py 8765`，再打开 http://localhost:8765/web/ 。这个本地服务还管点词补查、展开、现读词组（`pipeline/explain.py`），密钥只在它这里。**不要用 `python -m http.server`**：它不支持从文件中间取一段，音频跳不动（见 `docs/lessons.md`）。
+- 备课（接一份新材料）：六个程序依次跑，顺序、每步出什么、跑完查什么，照 `specs/SPEC-002-prep-pipeline.md`「流程」和「接一份新材料：操作手册」。备课要在几分钟以内（owner 2026-09-22）。
 - 发音词典（换电脑时建一次）：`pipeline/tts.py library` 把常用词的谷歌英音取到仓库外并排的 `WordsAudio/`，要翻墙；`--top 50000` 取 5 万（2 万的实测 1 小时、230MB，5 万约 2.5 小时、575MB）；断了重跑接着取。
 
 ## 干这件事进哪
 
 | 干什么 | 进哪 |
 |---|---|
+| 整体要做成什么、分几块、每块归哪份规格 | `specs/SPEC-000-overview.md` |
 | 接下来动哪件 / 销账 / 开新活 | `docs/debts.md` |
 | 接手 / 上一段为什么这么改 | `docs/handoff.md` |
 | 撞报错 | `docs/lessons.md` |
 | 为什么这么选 | `docs/decisions.md` |
-| 接需求 / 写规格 | `demand.md` → `specs/`（先对话再写） |
+| 接需求 / 写规格 / 改已有功能 | `demand.md` → SPEC-000 找它归哪份 → 那份规格（先对话再写；流程见 `docs/workflow.md`） |
+| 文件是干什么的 / 课程文件格式 / 接口 / 外部服务 | `docs/architecture.md` |
+| 怎么验（界面、声音、模型写的内容） | `docs/workflow.md`「验证」 |
 | 竞品和听力教学研究怎么说 | `docs/research.md` |
 | 调百炼语音识别 | `docs/refs/qwen-asr-api.md`（官方文档存档） |
 | 原始素材 | `materials/<期号>/`（音频 + 讲稿 + 练习） |
-| 备课程序 | `pipeline/` |
+| 备课程序 | `pipeline/`；接新材料照 `specs/SPEC-002-prep-pipeline.md` 的操作手册 |
 | 播放器 | `web/`（三个文件：index.html、style.css、app.js） |
 | 验播放器改得对不对 | `tests/test_player.py` |
-| 改点词讲解的提示词 | `pipeline/explain.py`：那一行的规则在 `RULES`（备课整句写用 `LINES`，漏了补查用 `LINE`），改完 `teach.py <课> --renote`；展开的在 `MORE`，改完删 `lessons/<课>/explain_cache.json`。抽查 `explain.py sample <课> <句数> --more` |
+| 改点词讲解的提示词（`specs/SPEC-006-word-card.md`） | `pipeline/explain.py`：那一行的规则在 `RULES`（备课整句写用 `LINES`，漏了补查用 `LINE`），改完 `teach.py <课> --renote`；展开的在 `MORE`，改完删 `lessons/<课>/explain_cache.json`。抽查 `explain.py sample <课> <句数> --more` |
 | 改界面 | 先加载 frontend-design 技能（owner 2026-09-21 要求按真正的前端设计标准做）；改完跑 `tests/test_player.py --shots <目录>` 看截图 |
-| 量句子边界干不干净 | 先听：`tests/test_audio.py`；再量：`pipeline/measure_bounds.py`（只看音量，会被骗） |
+| 句子边界切得准不准 | `specs/SPEC-004-sentence-bounds.md`；先听：`tests/test_audio.py`；再量：`pipeline/measure_bounds.py`（只看音量，会被骗） |
 | 压缩上下文 | `/warp` |
 
 ## 节奏

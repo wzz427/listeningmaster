@@ -38,7 +38,7 @@ def probe(src: Path) -> str:
 def to_m4a(src: Path, dst: Path) -> Path:
     """转成 m4a 给播放器用。
 
-    规则 R14（specs/SPEC-001-player.md）：MP3 尤其是变码率的，在浏览器里跳到指定时间会偏，
+    规则 R4（specs/SPEC-002-prep-pipeline.md）：MP3 尤其是变码率的，在浏览器里跳到指定时间会偏，
     「回到句首」就会跑掉。m4a 的时间索引更准。
     """
     dst.parent.mkdir(parents=True, exist_ok=True)

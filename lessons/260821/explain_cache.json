@@ -109,5 +109,106 @@
     "zh": "我想少吃垃圾食品。"
    }
   }
+ },
+ "18:19": {
+  "words": [
+   19
+  ],
+  "text": "regain",
+  "pos": "v.",
+  "ipa": "/rɪˈɡeɪn/",
+  "zh": "恢复",
+  "more": true,
+  "detail": {
+   "senses": [
+    "重新获得",
+    "恢复"
+   ],
+   "used": 2,
+   "collocations": [
+    {
+     "en": "regain energy",
+     "zh": "恢复精力"
+    },
+    {
+     "en": "regain confidence",
+     "zh": "重拾信心"
+    },
+    {
+     "en": "regain control",
+     "zh": "重新控制"
+    }
+   ],
+   "example": {
+    "en": "After a short rest, I regained my energy.",
+    "zh": "休息一会儿后，我恢复了精力。"
+   }
+  }
+ },
+ "18:8": {
+  "words": [
+   8
+  ],
+  "text": "morning",
+  "pos": "n.",
+  "ipa": "/ˈmɔːnɪŋ/",
+  "zh": "早晨",
+  "more": true,
+  "detail": {
+   "senses": [
+    "早晨",
+    "上午"
+   ],
+   "used": 1,
+   "collocations": [
+    {
+     "en": "in the morning",
+     "zh": "在早晨"
+    },
+    {
+     "en": "good morning",
+     "zh": "早上好"
+    },
+    {
+     "en": "early morning",
+     "zh": "清晨"
+    }
+   ],
+   "example": {
+    "en": "I drink coffee every morning.",
+    "zh": "我每天早上喝咖啡。"
+   }
+  }
+ },
+ "18:23": {
+  "words": [
+   23
+  ],
+  "text": "alertness",
+  "pos": "n.",
+  "ipa": "/əˈlɜːtnəs/",
+  "zh": "警觉",
+  "more": true,
+  "detail": {
+   "senses": [
+    "警觉",
+    "机敏"
+   ],
+   "used": 1,
+   "collocations": [
+    {
+     "en": "mental alertness",
+     "zh": "头脑警觉"
+    },
+    {
+     "en": "increase alertness",
+     "zh": "提高警觉"
+    }
+   ],
+   "example": {
+    "en": "Coffee helps me stay alert in class.",
+    "zh": "咖啡帮我在课上保持清醒。"
+   }
+  }
  }
 }
