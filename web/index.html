@@ -19,6 +19,8 @@
     </div>
   </div>
   <div class="top-actions">
+    <!-- 有 claude 钉住的新版本才出现（SPEC-008 R5）；悬停写着多了什么 -->
+    <button id="updateBtn" class="update-btn" hidden><i class="lamp" aria-hidden="true"></i>更新</button>
     <button id="fullBtn" class="ghost-btn">全文</button>
     <button id="settingsBtn" class="icon-btn" aria-label="设置" aria-expanded="false">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>
@@ -149,6 +151,26 @@
   <p class="drawer-note">点任意一句，只播这一句，播完就停。带小圆点的是重听过的句子。</p>
   <ol id="fullList"></ol>
 </aside>
+
+<!-- 换版本（SPEC-008）：这一页旧了（R8）、上一次没换成（R6）、正在更新（R5） -->
+<div class="notices">
+  <div id="stale" class="notice" role="status" hidden>
+    <i class="lamp" aria-hidden="true"></i>
+    <span>播放器换了新版本，这一页还是旧的。</span>
+    <button id="staleRefresh" class="notice-btn">刷新</button>
+  </div>
+  <div id="updateFailed" class="notice bad" role="alert" hidden>
+    <span id="updateFailedText"></span>
+    <button id="updateFailedClose" class="close-btn" aria-label="关闭">×</button>
+  </div>
+</div>
+<div id="updating" class="retune" role="alert" hidden>
+  <div class="retune-card">
+    <div class="retune-dial" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+    <h2>正在更新</h2>
+    <p id="updatingText">几秒钟就好。换完页面会自己回来，停在刚才那一句。</p>
+  </div>
+</div>
 
 <audio id="audio" preload="auto"></audio>
 <script src="app.js"></script>

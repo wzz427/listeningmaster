@@ -7,6 +7,9 @@
 
 | 症状 | 一句话因 | 修法 |
 |---|---|---|
+| 起了第二个本地服务，端口明明被占着却不报错，请求一会儿到新的、一会儿到旧的 | Python 自带的 HTTPServer 打开了「地址可复用」，在 Windows 上等于允许两个服务同时占一个端口 | `pipeline/serve.py` 的 `Server` 在 Windows 上关掉它；起服务前先看端口有没有人 |
+| bat 跑完一个程序后执行出乱码命令，`'ng' is not recognized as an internal or external command` | 那个程序改写了 bat 自己，命令行按旧的字节位置接着读 | 调程序那一行末尾加 `& exit /b`；要循环就放进 Python |
+| 播放器点播放没反应，没有任何报错 | `app.js` 里新加的函数和已有的同名（`resume`），后写的把先写的盖掉了 | 加函数前先搜一下这个名字；`tests/test_player.py` 当场抓到 |
 | 密钥出现在对话里 | 想「遮蔽后再打印」，遮蔽规则没覆盖新格式 | 任何情况下都不打印密钥文件，读取只走 `pipeline/keys.py` |
 | `conda install ffmpeg` 报 `UnicodeDecodeError('gbk'...)` 后整体回滚 | 它顺带装的图形库在中文 Windows 上跑不完安装脚本 | 改用 `pip install imageio-ffmpeg`，它自带一个独立的 ffmpeg |
 | 终端里中文变成乱码 | Windows 控制台默认不是 UTF-8 | 程序入口加 `sys.stdout.reconfigure(encoding="utf-8")` |
@@ -31,6 +34,20 @@
 | 百炼报找不到文件或地址无效 | 录音文件转写模型只收公网地址，不收本地路径 | 用 `dashscope.utils.oss_utils.upload_file` 传到临时存储，并加请求头 `X-DashScope-OssResourceResolve: enable` |
 
 ## 全部（新的在上）
+
+### 2026-09-24 · Windows 上两个本地服务能同时占一个端口
+
+- 症状：做体验版时想确认「旧的黑窗口没关、又双击了一次」会怎样。拿一个开了「地址可复用」的套接字去绑 owner 正在用的 8765，绑上了，不报错。
+- 根因：`http.server.HTTPServer.allow_reuse_address = 1`，它会打开 `SO_REUSEADDR`；Windows 上这个选项允许第二个套接字绑同一个地址和端口（Linux 上不会）。于是今天双击两次 `start-player.bat`，就有两个服务一起收请求，谁收到随机。不开这个选项去绑，报 `10048`。
+- 修法：`pipeline/serve.py` 里的 `Server` 在 Windows 上把 `allow_reuse_address` 设成 False；`pipeline/stable_copy.py run` 起服务前先看 8765 有没有人，是体验版就直接开网页，是别的就让 owner 关掉旧窗口。
+- 怎么确认：同一段检查，不开选项绑 8765 报 `10048`、开了绑得上（2026-09-24）。
+
+### 2026-09-24 · 运行中被改写的 bat 会执行出乱码命令
+
+- 症状：实验里一个 bat 调 Python，Python 把这个 bat 改写成更长的新内容；Python 退出后命令行报 `'ng' is not recognized as an internal or external command`，接着执行了新文件的后半截。
+- 根因：命令行不是一次读完 bat，而是执行完一行再按字节位置读下一行；文件变了，位置就落在别处。换版本时 `git checkout` 正会改写 `start-player.bat`。量化项目的启动脚本在 bat 里循环，同样会撞上。
+- 修法：调程序的那一行末尾加 `& exit /b`（整行先解析完，程序退出后直接退出，不再读文件）；起服务、换版本、再起服务的循环放进 `pipeline/stable_copy.py run`。
+- 怎么确认：同一个实验，加了 `& exit /b` 的那份什么都不再执行；`tests/test_stable_copy.py` A41 盯着这两行。
 
 ### 2026-09-22 · 单词原声 owner 两次听出不对，我两次都没发现
 

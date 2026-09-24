@@ -18,6 +18,7 @@ from playwright.sync_api import sync_playwright
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "pipeline"))
 from serve import make_server  # noqa: E402
+import stable_copy  # noqa: E402
 
 PORT = 8799
 URL = f"http://127.0.0.1:{PORT}/web/"
@@ -346,6 +347,125 @@ def run(page, shots: Path | None) -> None:
     t = page.evaluate("window.__pauseAt")
     check("A18 点一句只播这一句，播到句末就停", abs(t - body[20]["end"]) < 0.04,
           f"停在 {t:.3f} 秒，句末 {body[20]['end']:.3f} 秒")
+    page.keyboard.press("Escape")
+    update_part(page, shots)
+
+
+def update_part(page, shots: Path | None) -> None:
+    """SPEC-008：页面上的「更新」和「这一页旧了」。会刷新页面，所以放在最后。
+    接口 /api/version、/api/update 的回答在这里伪造（page.route）；真服务怎么停、怎么换版本在 tests/test_stable_copy.py。"""
+    print("\n【换版本】")
+    real = page.evaluate("myVersion")
+    check("A30 没有新版本时看不到「更新」，也没有别的提示",
+          page.is_hidden("#updateBtn") and page.is_hidden("#stale") and page.is_hidden("#updateFailed"),
+          f"服务报的版本{'有' if real else '说不清'}")
+
+    v1, v2 = "1a2b3c4d5e6f7a8b9c0d1a2b3c4d5e6f7a8b9c0d", "9f8e7d6c5b4a3f2e1d0c9f8e7d6c5b4a3f2e1d0c"
+    what = "单词卡上多了例句的朗读"
+    state = {"answer": {}, "down": False}
+
+    def answer(version, waiting=False, failed=None):
+        state["answer"] = {"version": version, "copy": "stable", "failed": failed,
+                           "update": {"waiting": waiting, "what": what if waiting else ""}}
+
+    def fake_version(route):
+        if state["down"]:
+            route.abort()
+        else:
+            route.fulfill(json=state["answer"])
+
+    page.route("**/api/version", fake_version)
+    page.route("**/api/update", lambda route: route.fulfill(status=202, json={"ok": True}))
+    ask = "document.dispatchEvent(new Event('visibilitychange')); 0"   # 切回这个页签时页面会马上问一次
+
+    def settle():
+        page.evaluate(ask)
+        page.wait_for_timeout(400)
+
+    def reloaded():
+        page.wait_for_function("window.__beforeReload === undefined && lesson !== null "
+                               "&& document.querySelectorAll('.seg').length > 0", timeout=15000)
+        page.wait_for_timeout(500)
+
+    def texts() -> str:
+        return page.evaluate("document.body.innerText + ' ' + [...document.querySelectorAll('[title]')]"
+                             ".map((e) => e.title).join(' ')")
+
+    def shows(selector: str) -> bool:   # 等它出现，等不到判没出现（不让整个测试崩掉）
+        try:
+            page.wait_for_selector(selector, state="visible", timeout=3000)
+            return True
+        except Exception:  # noqa: BLE001
+            return False
+
+    answer(real, waiting=True)
+    page.evaluate(ask)
+    check("A32 页面开着时才钉的新版本，不刷新也会出现「更新」", shows("#updateBtn"))
+    title = page.get_attribute("#updateBtn", "title") or ""
+    check("A31 有新版本时「更新」出现，悬停写着这一版多了什么", what in title, title.replace("\n", " / "))
+    check("A36 服务的版本没变，不挂「这一页旧了」", page.is_hidden("#stale"))
+
+    answer(None)
+    settle()
+    no_version = page.is_hidden("#stale")
+    state["down"] = True
+    settle()
+    state["down"] = False
+    check("A37 服务说不清是哪一版、或者问不到（正在重启），都不挂「这一页旧了」",
+          no_version and page.is_hidden("#stale"))
+
+    answer(v2, waiting=True)
+    page.evaluate(ask)
+    check("A35 服务换了版本，这一页自己挂出「这一页旧了」", shows("#stale") and "还是旧的" in page.inner_text("#stale"),
+          page.inner_text("#stale"))
+    page.wait_for_timeout(700)  # 等淡入走完再截图
+    shot(page, shots, "9-stale-and-update")
+    seen = texts()
+
+    answer(v2)
+    goto_body(page, 20)
+    wait_paused(page)
+    where = page.inner_text("#counter")
+    page.evaluate("window.__beforeReload = 1; 0")
+    page.click("#staleRefresh")
+    reloaded()
+    check("A38 点「刷新」，页面刷新后回到原来那一句，提示没了",
+          page.inner_text("#counter") == where and page.is_hidden("#stale"),
+          f"{where} → {page.inner_text('#counter')}")
+
+    sorry = "新版本没有换成，还是原来那一版，照常能用。告诉 claude，他来处理。"
+    answer(v2, failed=sorry)
+    settle()
+    check("A34 上一次没换成，页面上有一句人话", page.is_visible("#updateFailed")
+          and page.inner_text("#updateFailedText") == sorry, page.inner_text("#updateFailedText"))
+    seen += texts()
+
+    answer(v2, waiting=True)
+    settle()
+    goto_body(page, 30)
+    wait_paused(page)
+    where = page.inner_text("#counter")
+    page.evaluate("window.__beforeReload = 1; 0")
+    page.click("#updateBtn")
+    page.wait_for_selector("#updating", state="visible", timeout=3000)
+    shown = page.inner_text("#updating")
+    page.wait_for_timeout(700)
+    shot(page, shots, "10-updating")
+    seen += texts()
+    state["down"] = True                    # 服务停下、换版本
+    page.wait_for_timeout(2500)
+    answer(v1)                              # 起回来了，是新的一版
+    state["down"] = False
+    reloaded()
+    check("A33 点「更新」出现「正在更新」，服务回来后页面自己刷新、停在原来那一句",
+          "正在更新" in shown and page.inner_text("#counter") == where
+          and page.is_hidden("#updating") and page.is_hidden("#updateBtn"),
+          f"{where} → {page.inner_text('#counter')}")
+    seen += texts()
+    leaked = [v[:7] for v in (real, v1, v2) if v and v[:7] in seen]
+    check("A39 屏幕上和悬停提示里都找不到版本号", not leaked, "、".join(leaked))
+    page.unroute("**/api/version")
+    page.unroute("**/api/update")
 
 
 def sections_part(page, shots: Path | None, body: list[dict]) -> None:
@@ -441,7 +561,10 @@ def main() -> int:
     print(f"\n通过 {len(passes)} 项，未通过 {len(failures)} 项")
     if failures:
         print("未通过：" + "、".join(failures))
-    return 1 if failures else 0
+        return 1
+    # 全过：记下这次测的是哪份代码。钉版本送给 owner 之前要核对它（SPEC-008 R4）
+    stable_copy.record_test_pass(Path(__file__).resolve().parent.parent, len(passes))
+    return 0
 
 
 if __name__ == "__main__":

@@ -16,3 +16,11 @@ lessons/*/audio_check/
 lessons/*/bounds_try/
 lessons/*/tts_check/
 lessons/*/tts_compare/
+
+# 体验版和开发版（specs/SPEC-008-stable-and-dev.md）：体验版根上的标记、钉住的版本、换版本的结果和记录；
+# 开发版根上 tests/test_player.py 全过时记下的代码指纹
+/.lm-stable-copy
+/.stable-invite.json*
+/.stable-outcome.json*
+/.stable-history.jsonl
+/.player-tests-passed.json*

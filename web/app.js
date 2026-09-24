@@ -16,6 +16,7 @@
  * - 文字默认不显示，显示时给整句；看了文字就停在这句末尾，方便他读、点词、重听（R5、D17）。
  * - 看过文字后提示原速再听一遍，否则就变成读课文（R6）。中文藏在看过英文之后（R7b）。
  * - 不问孩子懂没懂，只记他的动作（R9）。
+ * - 换版本（SPEC-008）：开着的这一页知道自己旧了、页面上的「更新」，见文件末尾「换版本」一节。
  */
 
 const LESSON = new URLSearchParams(location.search).get('lesson') || '260821';
@@ -72,6 +73,7 @@ async function boot() {
   buildOverview();
   buildFullText();
   idx = Math.max(0, lesson.sentences.indexOf(body[0]));
+  backToPlace();
   setRate(1);
   render();
   requestAnimationFrame(tick);
@@ -784,7 +786,7 @@ audio.addEventListener('play', render);
 audio.addEventListener('pause', render);
 
 document.addEventListener('keydown', (e) => {
-  if (e.target.tagName === 'INPUT' || e.ctrlKey || e.metaKey || e.altKey) return;
+  if (updating || e.target.tagName === 'INPUT' || e.ctrlKey || e.metaKey || e.altKey) return;
   const actions = {
     ' ': togglePlay,
     ArrowLeft: () => playOne(idx - 1),
@@ -801,4 +803,103 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
+/* ---------- 换版本（SPEC-008） ----------
+ * - 服务换了版本，一直开着的这一页照样能用，只是新做的东西安静地不在，看的人会以为「这个功能没做」。
+ *   所以页面记下打开时服务是哪一版，每分钟问一次、切回这个页签马上问一次，换了就在顶上挂一条提示。
+ *   不自动刷新：孩子可能正听着（R8，决策 D35）。问不到（服务正在重启）、说不清是哪一版，都不挂。
+ * - 「更新」只在 claude 钉了一版、还没换过去时出现（R5，决策 D34）：平时不在，孩子的屏幕上不多一个用不上的按钮。
+ *   点了服务停几秒、换完起回来，页面自己刷新，回到刚才那一句。
+ * - 服务报的版本只拿来比，不显示（R9）。
+ */
+
+const ASK_EVERY = 60000;
+const RESUME = `listening:${LESSON}:resume`;
+let myVersion;            // 这一页打开时服务是哪一版：undefined 还没问到，null 说不清
+let updating = false;
+let failedClosed = '';    // 他关掉过的那句「没换成」，同一句不再挂
+
+async function askVersion() {
+  try {
+    const r = await fetch('/api/version', { cache: 'no-store' });
+    return r.ok ? await r.json() : null;
+  } catch {
+    return null;
+  }
+}
+
+async function checkVersion() {
+  if (updating) return;
+  const v = await askVersion();
+  if (!v || updating) return;                           // 问不到不等于旧了
+  const version = v.version || null;
+  if (myVersion === undefined) myVersion = version;
+  else if (myVersion && version && version !== myVersion) $('stale').hidden = false;  // 挂上就不撤
+  const waiting = Boolean(v.update && v.update.waiting);
+  $('updateBtn').hidden = !waiting;
+  $('updateBtn').title = waiting ? `有新版本：${v.update.what}\n点一下换过去，几秒钟后页面自己回来。` : '';
+  const failed = v.failed || '';
+  $('updateFailedText').textContent = failed;
+  $('updateFailed').hidden = !failed || failed === failedClosed;
+}
+
+/* 刷新前记下在哪一句，刷新后回到这一句（只在这个页签里记，关了就没了） */
+function reloadHere() {
+  try { sessionStorage.setItem(RESUME, String(cur().id)); } catch { /* 记不下就从头开始 */ }
+  location.reload();
+}
+
+function backToPlace() {
+  let id = null;
+  try {
+    id = sessionStorage.getItem(RESUME);
+    sessionStorage.removeItem(RESUME);
+  } catch {
+    return;
+  }
+  const i = lesson.sentences.findIndex((s) => String(s.id) === id);
+  if (i >= 0) idx = i;
+}
+
+async function update() {
+  $('updateBtn').disabled = true;
+  let r = null;
+  try { r = await fetch('/api/update', { method: 'POST' }); } catch { /* 下面一起说 */ }
+  if (!r || r.status !== 202) {
+    $('updateBtn').disabled = false;
+    $('updateFailedText').textContent = '现在换不了。关掉那个黑窗口，重新双击 start-player.bat，再点一次「更新」。';
+    $('updateFailed').hidden = false;
+    checkVersion();
+    return;
+  }
+  updating = true;
+  audio.pause();
+  $('wordbox').hidden = true;
+  $('updating').hidden = false;
+  // 服务先停、再起回来。起回来的标志：中间断过一次，或者报的版本变了（停得太快、一次都没问到断的时候）
+  const deadline = Date.now() + 180000;
+  let sawDown = false;
+  while (Date.now() < deadline) {
+    await new Promise((ok) => setTimeout(ok, 1000));
+    const v = await askVersion();
+    if (!v) { sawDown = true; continue; }
+    if (sawDown || v.version !== myVersion) { reloadHere(); return; }
+  }
+  $('updatingText').textContent = '等了三分钟它还没回来。看一眼那个黑窗口，或者关掉它、重新双击 start-player.bat。';
+}
+
+function watchVersion() {
+  $('updateBtn').addEventListener('click', update);
+  $('staleRefresh').addEventListener('click', reloadHere);
+  $('updateFailedClose').addEventListener('click', () => {
+    failedClosed = $('updateFailedText').textContent;
+    $('updateFailed').hidden = true;
+  });
+  checkVersion();
+  setInterval(checkVersion, ASK_EVERY);
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') checkVersion();
+  });
+}
+
 boot();
+watchVersion();

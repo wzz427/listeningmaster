@@ -52,13 +52,15 @@
 | `pipeline/llm.py` | 调大模型的统一口：deepseek 开头走 DeepSeek，qwen 开头走百炼兼容接口；关掉 deepseek 的思考模式 | SPEC-000 R5 |
 | `pipeline/keys.py` | 从 `api-keys.txt` 读密钥，只读进内存 | SPEC-000 R2 |
 | `pipeline/serve.py` | 本地服务，见下面「本地服务」 | SPEC-001 R12 |
+| `pipeline/stable_copy.py` | 体验版和开发版：建体验版、钉版本、换版本（失败退回、留下孩子用出来的数据）、退回上一版、双击后起服务的循环；见下面「两份代码」 | SPEC-008 |
 | `pipeline/compare_models.py` | 一次性：比较两个模型写的中文和生词判断，出 `model_compare.md` | SPEC-005 |
 | `web/index.html`、`web/style.css`、`web/app.js` | 播放器，见下面「播放器」 | SPEC-001 |
 | `web/fonts/` | 放在本地的字体：Literata（英文正文）、DM Mono（数字）、Noto Serif 裁出来的音标字体，各带许可证 | SPEC-001 R22、SPEC-006 R8 |
 | `tests/test_player.py` | 播放器的自动检查（Playwright），编号对应各规格的 A 编号 | `docs/workflow.md` |
 | `tests/test_audio.py` | 验声音：录下真的 Chrome 放出来的声音，对时间、机器耳朵听、出试听页 | SPEC-004 R7 |
 | `tests/test_docs.py` | 文档和代码对不对得上 | `docs/workflow.md` |
-| `start-player.bat` | 双击：打开浏览器，起本地服务 | — |
+| `tests/test_stable_copy.py` | 换版本的自动检查：临时目录里造真的仓库和体验版，真的切版本、真的起服务 | SPEC-008 |
+| `start-player.bat` | 双击：旁边有体验版就转去体验版，然后调 `pipeline/stable_copy.py run` 起服务、打开浏览器。只放英文字符 | SPEC-008 R2 |
 | `.claude/commands/warp.md` | 压缩上下文之前的收尾命令 | — |
 | `api-keys.txt` | 密钥，不进仓库（`.gitignore` 第一行） | SPEC-000 R2 |
 
@@ -107,6 +109,11 @@
   - `POST /api/more` `{sentence, word}` → 展开的内容，查过的存进缓存。
   - `POST /api/speak` `{key, text}` → `{file}`：词组或词典里没有的词的朗读文件，没有就让 Emily 现读、存下来。
   - 出错只回 `{"error": 错误的种类}`，不回详情：详情里可能带着请求头（SPEC-000 R2）。
+- 换版本的两个接口（SPEC-008），不带 `lesson`：
+  - `GET /api/version` → `{version, copy, update: {waiting, what}, failed}`：服务起来时是哪个提交（页面拿它判断自己旧没旧，不显示）、是体验版还是开发版、有没有一版等 owner 点「更新」和那一版多了什么、上一次没换成的那句话。钉住的是哪个提交不给。
+  - `POST /api/update` → 202 后服务以退出码 7 停下；没有要换的、或者服务不是 `--managed` 起的，回 409。
+- 命令行：`serve.py [端口] [--open] [--managed]`。`--open` 起来后打开浏览器；`--managed` 表示有 `stable_copy.py run` 负责换完版本把它拉起来。开发版旁边有体验版时，开发版拿 8765 当场拒绝。
+- 独占端口：Python 自带的 HTTPServer 在 Windows 上允许两个服务同时占一个端口，这里关掉了（`docs/lessons.md` 2026-09-24）。
 
 ## 播放器（`web/`）
 
@@ -115,6 +122,15 @@
 - 声音走 Web Audio 的音量节点，停之前在上面做渐弱（SPEC-001 R16）；验声音时在同一个节点后面接录音（`tests/test_audio.py`）。
 - 学习记录和设置存在浏览器本地（`localStorage`，按课名分开），「导出」存成文件（决策 D9）。
 - 字体全在 `web/fonts/`，中文用系统字体（决策 D19）。
+- 换版本（SPEC-008）：每分钟、切回页签时问一次 `/api/version`；服务换了版本挂「这一页旧了」；有钉住的版本才出现「更新」。刷新前把当前句子记在 `sessionStorage`，刷新后回到这一句。
+
+## 两份代码（SPEC-008）
+
+- 开发版：这个仓库目录，claude 改。体验版：旁边的 `WorkSpace\ListeningMaster-stable`，这个仓库的第二个工作目录（`git worktree`，不挂分支），owner 和孩子用，一个字不手改。两份共用一个 git 仓库，体验版能切到开发版里的任何提交。
+- 双击任何一份里的 `start-player.bat`，起的都是体验版，地址 http://localhost:8765/web/ 。
+- 新版本怎么过去：claude `stable_copy.py invite` 钉一版（要求 `tests/test_player.py` 对这份代码全过，它全过时把代码指纹记在开发版根上的 `.player-tests-passed.json`）→ 钉的记录写在体验版根上的 `.stable-invite.json` → 页面出现「更新」→ owner 点 → 服务以 7 退出 → `stable_copy.py run` 换版本（`git checkout`）、在空闲端口试起一次、失败就退回 → 再起服务。结果写 `.stable-outcome.json`，每换一次记一行 `.stable-history.jsonl`。这几个文件都不进仓库。
+- 孩子用出来的数据住在体验版里：`lessons/<课>/explain_cache.json` 里点词补查和展开查到的、`lessons/<课>/tts/` 下现读的。换版本时留下（SPEC-008 R7）。学习记录在浏览器里，按 `localhost:8765` 存。
+- 密钥：体验版里的 `api-keys.txt` 是换版本时从开发版拷的（只比字节）。发音词典 `WordsAudio/` 两份共用（和两个目录并排）。
 
 ## 外部服务
 

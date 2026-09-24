@@ -42,9 +42,10 @@
 
 - Python：`C:\Users\wzzpk\.conda\envs\pywork\python.exe`（conda 环境 pywork，不在 PATH 上，用绝对路径调用；装包用 `<该路径> -m pip install`）。不要用系统 Python，也不要另建环境。
 - 机器：Windows 11，显卡 RTX 500 Ada（4GB 显存）。
-- 测试（什么时候跑哪份、看什么，全在 `docs/workflow.md`「验证」）：`<pywork python> tests/test_player.py`——用 Playwright 真的开浏览器、真的点按钮、真的看音频播到第几秒，64 项，不到 1 分钟。**改完播放器必须跑**。加 `--show` 能看见浏览器窗口，加 `--shots <目录>` 存截图看界面。Playwright 和 chromium 已经装在 pywork 里。改了文档或加删文件跑 `tests/test_docs.py`（不到 1 秒）：文档里写到的文件、字段、验收编号和代码对不上就报错。
+- 测试（什么时候跑哪份、看什么，全在 `docs/workflow.md`「验证」）：`<pywork python> tests/test_player.py`——用 Playwright 真的开浏览器、真的点按钮、真的看音频播到第几秒，74 项，不到 1 分钟。**改完播放器必须跑**。加 `--show` 能看见浏览器窗口，加 `--shots <目录>` 存截图看界面。Playwright 和 chromium 已经装在 pywork 里。改了文档或加删文件跑 `tests/test_docs.py`（不到 1 秒）：文档里写到的文件、字段、验收编号和代码对不上就报错。
 - 验声音：`<pywork python> tests/test_audio.py`——录下真的 Chrome 放出来的每一句，交给机器耳朵听开头结尾对不对，做一页试听给人耳抽查，约 5 分钟、几分钱。**改了句子边界或播放器的停法就跑**。只核对数字发现不了声音问题（`docs/lessons.md` 2026-09-22）。
-- 启动播放器：双击 `start-player.bat`，或跑 `<pywork python> pipeline/serve.py 8765`，再打开 http://localhost:8765/web/ 。这个本地服务还管点词补查、展开、现读词组（`pipeline/explain.py`），密钥只在它这里。**不要用 `python -m http.server`**：它不支持从文件中间取一段，音频跳不动（见 `docs/lessons.md`）。
+- 两份代码：owner 和孩子用旁边的体验版 `ListeningMaster-stable`（8765，一个字不手改），claude 只改这个目录（开发版）。双击 `start-player.bat` 起的是体验版。新版本经 `pipeline/stable_copy.py invite` 钉给他、他点页面上的「更新」过去（`specs/SPEC-008-stable-and-dev.md` 操作手册）。改了换版本的代码跑 `tests/test_stable_copy.py`（约半分钟）。
+- 自己看效果：`<pywork python> pipeline/serve.py 8766`，打开 http://localhost:8766/web/ 。这个本地服务还管点词补查、展开、现读词组（`pipeline/explain.py`），密钥只在它这里。**不要用 `python -m http.server`**：它不支持从文件中间取一段，音频跳不动（见 `docs/lessons.md`）。
 - 备课（接一份新材料）：六个程序依次跑，顺序、每步出什么、跑完查什么，照 `specs/SPEC-002-prep-pipeline.md`「流程」和「接一份新材料：操作手册」。备课要在几分钟以内（owner 2026-09-22）。
 - 发音词典（换电脑时建一次）：`pipeline/tts.py library` 把常用词的谷歌英音取到仓库外并排的 `WordsAudio/`，要翻墙；`--top 50000` 取 5 万（实测约 2.5 小时、587MB、没有失败，2026-09-23 取完）；断了重跑接着取。
 
@@ -67,6 +68,7 @@
 | 备课程序 | `pipeline/`；接新材料照 `specs/SPEC-002-prep-pipeline.md` 的操作手册 |
 | 播放器 | `web/`（三个文件：index.html、style.css、app.js） |
 | 验播放器改得对不对 | `tests/test_player.py` |
+| 交一版给 owner 试、体验版出了问题、退回上一版 | `specs/SPEC-008-stable-and-dev.md`「操作手册」 |
 | 改点词讲解的提示词（`specs/SPEC-006-word-card.md`） | `pipeline/explain.py`：那一行的规则在 `RULES`（备课整句写用 `LINES`，漏了补查用 `LINE`），改完 `teach.py <课> --renote`；展开的在 `MORE`，改完删 `lessons/<课>/explain_cache.json`。抽查 `explain.py sample <课> <句数> --more` |
 | 改界面 | 先加载 frontend-design 技能（owner 2026-09-21 要求按真正的前端设计标准做）；改完跑 `tests/test_player.py --shots <目录>` 看截图 |
 | 句子边界切得准不准 | `specs/SPEC-004-sentence-bounds.md`；先听：`tests/test_audio.py`；再量：`pipeline/measure_bounds.py`（只看音量，会被骗） |
