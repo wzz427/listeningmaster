@@ -13,6 +13,7 @@
  * - 需要停在句末时，提前几十毫秒把音量渐弱到零再停，不然会带进下一句开头的声音。
  *   有十几处两句贴得太紧，句子边界挪到哪都不够，只能靠这里收得准（见 docs/lessons.md）。
  * - 重听有 1 秒的反应延迟保护：人按键慢半拍，不保护就总跳错句（R3）。
+ * - 两条进度条都能拖（R23）：拖的时候声音先停；松手后原来在播就按原来的播法接着播，暂停着就停在那儿。
  * - 文字默认不显示，显示时给整句；看了文字就停在这句末尾，方便他读、点词、重听（R5、D17）。
  * - 看过文字后提示原速再听一遍，否则就变成读课文（R6）。中文藏在看过英文之后（R7b）。
  * - 不问孩子懂没懂，只记他的动作（R9）。
@@ -177,7 +178,7 @@ function resume() {
 
 /* 每一帧：该停就停，跟上当前是第几句，画进度 */
 function tick() {
-  const t = audio.currentTime;
+  const t = scrub && scrub.moved ? scrub.t : audio.currentTime;  // 正在拖：画拖到的位置
 
   if (!audio.paused) {
     // 只播一句时 stopAt 就是句末。连续播时也有两种情况停在这句末尾：
@@ -425,7 +426,7 @@ function buildOverview() {
     el.setAttribute('aria-label', el.title);
     el.innerHTML = '<span class="fill"></span><span class="label"></span>';
     el.querySelector('.label').textContent = p.kind === 'section' ? p.n : p.title;
-    el.onclick = () => playFrom(p.first);  // 点一段：从那段开头连续听
+    el.onclick = () => { if (!justDragged()) playFrom(p.first); };  // 点一段：从那段开头连续听
     box.appendChild(el);
   });
 }
@@ -497,24 +498,129 @@ function buildLegend() {
   legend.insertAdjacentHTML('beforeend', '<span><i class="stuck-dot"></i>重听过的句子</span>');
 }
 
-$('timeline').addEventListener('pointermove', (e) => {
-  const i = sentenceAt(e.clientX);
+/* 指到下面那条上：提示指着的是第几句、从哪儿开始；正在拖时写拖到的时间（和左上角的时间一样） */
+function showTip(clientX) {
+  const dragging = scrub && scrub.moved && scrub.bar === 'timeline';
+  const i = dragging ? idx : sentenceAt(clientX);
   const s = lesson.sentences[i];
   const p = parts[shownPart];
   const tip = $('tip');
   const rect = $('timeline').getBoundingClientRect();
-  tip.innerHTML = `<b>第 ${i - p.first + 1} 句</b>${s.speaker === OUTSIDE ? '' : s.speaker} · ${clock(s.start - p.t0)}`;
-  tip.style.left = `${Math.min(rect.width - 70, Math.max(70, e.clientX - rect.left))}px`;
+  const at = dragging ? scrub.t : s.start;
+  tip.innerHTML = `<b>第 ${i - p.first + 1} 句</b>${s.speaker === OUTSIDE ? '' : s.speaker} · ${clock(at - p.t0)}`;
+  tip.style.left = `${Math.min(rect.width - 70, Math.max(70, clientX - rect.left))}px`;
   tip.hidden = false;
   document.querySelectorAll('.seg.hover').forEach((el) => el.classList.remove('hover'));
   const seg = document.querySelector(`.seg[data-i="${i}"]`);
   if (seg) seg.classList.add('hover');
+}
+
+$('timeline').addEventListener('pointermove', (e) => {
+  if (!(scrub && scrub.moved)) showTip(e.clientX);  // 正在拖：由 moveScrub 算完位置再写
 });
 $('timeline').addEventListener('pointerleave', () => {
   $('tip').hidden = true;
   document.querySelectorAll('.seg.hover').forEach((el) => el.classList.remove('hover'));
 });
-$('timeline').addEventListener('click', (e) => playOne(sentenceAt(e.clientX)));
+$('timeline').addEventListener('click', (e) => { if (!justDragged()) playOne(sentenceAt(e.clientX)); });
+
+/* ---------- 拖进度（R23） ----------
+ * 下面那条在这一段里拖，上面整集那条能拖到别的段。按下后挪过 4 像素才算拖，不然还是「点」（R15）。
+ * 拖的时候声音先停：一边拖一边放原来位置的声音，屏幕上的句子和耳朵听到的对不上。
+ * 松手：原来在播，就从落点按原来的播法接着播——连续播的接着连续播；只播一句的播到落点那句的句末停
+ * （孩子拖回去多半是想把这句里没听清的几个词再听一遍）。原来暂停着，就停在落点不播（owner 2026-09-24）。
+ */
+
+const DRAG_FROM = 4;      // 按下后挪过这么多像素才算拖
+let scrub = null;         // 正在拖：{ bar, el, id, x0, moved, t, wasPlaying, oneSentence }
+let draggedAt = -1e9;     // 上一次松手的时刻：紧跟着的那次 click 不算点
+
+const justDragged = () => performance.now() - draggedAt < 400;
+
+/* 下面那条：横坐标 → 这一段里的时间 */
+function timeOnTimeline(clientX) {
+  const p = parts[shownPart];
+  const rect = $('timeline').getBoundingClientRect();
+  const f = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+  return Math.min(p.t0 + f * (p.t1 - p.t0), p.t1 - 0.01);  // 拖到最右端也还在这一段里
+}
+
+/* 上面整集那条：横坐标 → 整集里的时间。算法和画进度（drawProgress）反过来，拖到哪、那一块就填到哪 */
+function timeOnParts(clientX) {
+  let best = null;
+  let bestGap = Infinity;
+  document.querySelectorAll('.part').forEach((el) => {
+    const r = el.getBoundingClientRect();
+    const gap = clientX < r.left ? r.left - clientX : clientX > r.right ? clientX - r.right : 0;
+    if (gap < bestGap) { best = { el, r }; bestGap = gap; }
+  });
+  const q = parts[Number(best.el.dataset.k)];
+  const f = Math.max(0, Math.min(1, (clientX - best.r.left) / best.r.width));
+  return Math.min(q.t0 + f * (q.t1 - q.t0), q.t1 - 0.01);
+}
+
+/* 落在哪一句：正在说的那句；落在两句之间的空当，算接下来那句。在下面那条上拖，只在这一段里找 */
+function sentenceAtTime(t, from = 0, to = lesson.sentences.length - 1) {
+  for (let i = from; i <= to; i++) if (t < lesson.sentences[i].end) return i;
+  return to;
+}
+
+function beginScrub(e, bar) {
+  if (e.button !== 0 || !lesson || updating) return;
+  scrub = { bar, el: e.currentTarget, id: e.pointerId, x0: e.clientX, moved: false };
+}
+
+function moveScrub(e) {
+  if (!scrub || e.pointerId !== scrub.id) return;
+  if (!scrub.moved) {
+    if (Math.abs(e.clientX - scrub.x0) < DRAG_FROM) return;
+    scrub.moved = true;
+    scrub.el.setPointerCapture(e.pointerId);
+    scrub.wasPlaying = !audio.paused;
+    scrub.oneSentence = stopKind === 'sentence';
+    atSentenceEnd = false;  // 状态牌别再写「停在这句末尾」
+    atSectionEnd = false;
+    audio.pause();
+    $('wordbox').hidden = true;
+    document.body.classList.add('scrubbing');
+  }
+  scrub.t = scrub.bar === 'timeline' ? timeOnTimeline(e.clientX) : timeOnParts(e.clientX);
+  const p = parts[shownPart];
+  const i = scrub.bar === 'timeline' ? sentenceAtTime(scrub.t, p.first, p.last) : sentenceAtTime(scrub.t);
+  if (i !== idx) {
+    idx = i;
+    hideText();
+    render();  // 拖到了别的段，下面那条跟着换
+  }
+  if (scrub.bar === 'timeline') showTip(e.clientX);
+}
+
+function endScrub(e) {
+  if (!scrub || e.pointerId !== scrub.id) return;
+  const s = scrub;
+  scrub = null;
+  if (!s.moved) return;  // 没拖动：是一次点，交给 click
+  draggedAt = performance.now();
+  document.body.classList.remove('scrubbing');
+  if (s.wasPlaying) {
+    start(s.t, s.oneSentence ? { stop: cur().end, kind: 'sentence' } : {});
+  } else {
+    atSentenceEnd = false;
+    atSectionEnd = false;
+    stopAt = null;
+    stopKind = null;
+    fadedFor = null;
+    audio.currentTime = s.t;  // 暂停着：只挪位置，不播
+  }
+  render();
+}
+
+[['timeline', $('timeline')], ['parts', $('parts')]].forEach(([bar, el]) => {
+  el.addEventListener('pointerdown', (e) => beginScrub(e, bar));
+  el.addEventListener('pointermove', moveScrub);
+  el.addEventListener('pointerup', endScrub);
+  el.addEventListener('pointercancel', endScrub);
+});
 
 /* ---------- 单词 ---------- */
 

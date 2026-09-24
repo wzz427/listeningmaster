@@ -348,7 +348,120 @@ def run(page, shots: Path | None) -> None:
     check("A18 点一句只播这一句，播到句末就停", abs(t - body[20]["end"]) < 0.04,
           f"停在 {t:.3f} 秒，句末 {body[20]['end']:.3f} 秒")
     page.keyboard.press("Escape")
+    drag_part(page, shots)
     update_part(page, shots)
+
+
+def drag_part(page, shots: Path | None) -> None:
+    """SPEC-001 R23：两条进度条都能拖。用真的鼠标按下、拖动、松开。"""
+    print("\n【拖进度】")
+    sentences = page.evaluate("lesson.sentences")
+    parts = page.evaluate("parts")
+
+    def bar() -> dict:
+        return page.locator("#timeline").bounding_box()
+
+    def x_of(t: float) -> float:   # 下面那条上，时间 t 在哪个横坐标
+        q = parts[page.evaluate("shownPart")]
+        box = bar()
+        return box["x"] + (t - q["t0"]) / (q["t1"] - q["t0"]) * box["width"]
+
+    def playhead_x() -> float:
+        box = page.locator("#playhead").bounding_box()
+        return box["x"] + box["width"] / 2
+
+    def press_and_drag(x0: float, x1: float, y: float, release: bool = True) -> None:
+        page.mouse.move(x0, y)
+        page.mouse.down()
+        page.mouse.move(x0 + (8 if x1 > x0 else -8), y, steps=2)
+        page.mouse.move(x1, y, steps=10)
+        if release:
+            page.mouse.up()
+        page.wait_for_timeout(300)
+
+    def longest_in_shown(skip: set[int]) -> int:
+        q = parts[page.evaluate("shownPart")]
+        pool = [i for i in range(q["first"], q["last"] + 1) if i not in skip]
+        return max(pool, key=lambda i: sentences[i]["end"] - sentences[i]["start"])
+
+    # A52 / A56：暂停着拖，松手停在松手的位置，不播，也没被当成点了一下
+    goto_body(page, 3)
+    wait_paused(page)
+    here = page.evaluate("idx")
+    j = longest_in_shown({here})
+    target = sentences[j]["start"] + 0.6 * (sentences[j]["end"] - sentences[j]["start"])
+    y = bar()["y"] + bar()["height"] / 2
+    press_and_drag(playhead_x(), x_of(target), y, release=False)
+    page.wait_for_timeout(200)
+    shot(page, shots, "11-dragging")
+    page.mouse.up()
+    page.wait_for_timeout(400)
+    t = now(page)
+    check("A52 暂停时在下面那条上拖，松手停在松手的位置、不播",
+          not playing(page) and abs(t - target) < 0.3 and page.evaluate("idx") == j
+          and page.inner_text("#stateTag") == "暂停中",
+          f"松手处 {target:.2f} 秒，现在 {t:.2f} 秒，{page.inner_text('#stateTag')}")
+    check("A56 拖完松手没有被当成点了一下（没跳回句首、没开始播）",
+          not playing(page) and t - sentences[j]["start"] > 0.5, f"句首 {sentences[j]['start']:.2f} 秒")
+    page.click("#playBtn")
+    wait_playing(page)
+    page.wait_for_timeout(300)
+    t2 = now(page)
+    tag = page.inner_text("#stateTag")
+    page.click("#playBtn")
+    check("A52b 松手后按播放，从松手的位置连续往下播", target - 0.1 <= t2 <= target + 1.2 and tag == "连续播放",
+          f"按播放后 {t2:.2f} 秒，{tag}")
+
+    # A53：连续播着拖，松手从落点接着连续播（过了那句的句末也不停）
+    k = longest_in_shown({j})
+    target = sentences[k]["end"] - 0.8
+    page.click("#playBtn")
+    wait_playing(page)
+    press_and_drag(playhead_x(), x_of(target), y, release=False)
+    paused_while_dragging = not playing(page)
+    page.mouse.up()
+    page.wait_for_timeout(300)
+    t = now(page)
+    started = playing(page) and target - 0.1 <= t <= target + 0.8
+    page.wait_for_function(f"audio.currentTime > {sentences[k]['end'] + 0.3}", timeout=10000)
+    check("A53 连续播着拖：拖的时候声音先停，松手从落点接着连续播，过了句末也不停",
+          paused_while_dragging and started and playing(page) and page.inner_text("#stateTag") != "只播这一句",
+          f"落点 {target:.2f} 秒，松手后 {t:.2f} 秒，句末 {sentences[k]['end']:.2f} 秒，现在 {now(page):.2f} 秒")
+    page.click("#playBtn")
+
+    # A54：只播一句时拖到别的句子，从落点播到那句句末停
+    goto_body(page, 1)
+    wait_playing(page)
+    m = longest_in_shown({page.evaluate("idx"), j, k})
+    target = sentences[m]["start"] + 0.3 * (sentences[m]["end"] - sentences[m]["start"])
+    press_and_drag(playhead_x(), x_of(target), y)
+    t = now(page)
+    tag = page.inner_text("#stateTag")
+    try:
+        wait_paused(page)
+        stopped = page.evaluate("window.__pauseAt")
+    except Exception:  # noqa: BLE001  一直没停：判未通过，别让整个测试崩掉
+        stopped = float("nan")
+        page.click("#playBtn")
+    check("A54 只播一句时拖到别的句子，从落点播到那句句末就停",
+          target - 0.1 <= t <= target + 0.8 and tag == "只播这一句" and abs(stopped - sentences[m]["end"]) < 0.05,
+          f"落点 {target:.2f} 秒，松手后 {t:.2f} 秒，停在 {stopped:.2f} 秒，句末 {sentences[m]['end']:.2f} 秒")
+
+    # A55：在上面整集那条上拖到第 3 段，下面那条跟着换成第 3 段，停在松手的位置
+    k3 = next(n for n, q in enumerate(parts) if q["kind"] == "section" and q["n"] == 3)
+    q3 = parts[k3]
+    from_box = page.locator(f".part[data-k='{page.evaluate('partOf[idx]')}']").bounding_box()
+    to_box = page.locator(f".part[data-k='{k3}']").bounding_box()
+    target = q3["t0"] + 0.5 * (q3["t1"] - q3["t0"])
+    py = from_box["y"] + from_box["height"] / 2
+    press_and_drag(from_box["x"] + from_box["width"] / 2, to_box["x"] + to_box["width"] / 2, py)
+    t = now(page)
+    per_px = (q3["t1"] - q3["t0"]) / to_box["width"]
+    firsts = page.evaluate("[...document.querySelectorAll('.seg')].map((e) => Number(e.dataset.i))")
+    check("A55 在上面整集那条上拖到第 3 段，下面那条换成第 3 段，停在松手的位置、不播",
+          not playing(page) and page.inner_text("#partNo") == "第 3 段" and abs(t - target) < max(0.6, 3 * per_px)
+          and min(firsts) == q3["first"] and max(firsts) == q3["last"],
+          f"松手处 {target:.2f} 秒，现在 {t:.2f} 秒，{page.inner_text('#partNo')}")
 
 
 def update_part(page, shots: Path | None) -> None:

@@ -284,7 +284,7 @@ body.playing .bars i { opacity: .9; animation: eq 1s ease-in-out infinite; }
 }
 .part-count { flex: none; font-size: 12.5px; color: var(--muted); }
 
-.parts { display: flex; gap: 5px; height: 24px; margin: 0 0 22px; }
+.parts { display: flex; gap: 5px; height: 24px; margin: 0 0 22px; touch-action: pan-y; }
 .part {
   position: relative; flex: 1 1 0; min-width: 26px; padding: 0;
   border-radius: 7px; overflow: hidden;
@@ -339,8 +339,13 @@ body.playing .bars i { opacity: .9; animation: eq 1s ease-in-out infinite; }
 }
 .playhead i {
   position: absolute; left: 50%; top: -5px; width: 10px; height: 10px; margin-left: -5px;
-  border-radius: 50%; background: var(--cream);
+  border-radius: 50%; background: var(--cream); transition: transform .15s;
 }
+/* 拖进度（SPEC-001 R23）：指到条上，竖线顶上的圆点放大一点，看得出能拖；拖着时竖线更亮 */
+.timeline:hover .playhead i { transform: scale(1.3); }
+body.scrubbing, body.scrubbing * { cursor: grabbing !important; user-select: none; }
+body.scrubbing .playhead { width: 3px; margin-left: -1.5px; box-shadow: 0 0 16px rgba(255, 240, 215, .85); }
+body.scrubbing .playhead i { transform: scale(1.45); }
 .tip {
   position: absolute; bottom: 48px; transform: translateX(-50%);
   background: #22252e; border: 1px solid var(--line-2); border-radius: 10px;
