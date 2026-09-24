@@ -383,7 +383,7 @@ def update_part(page, shots: Path | None) -> None:
         page.wait_for_timeout(400)
 
     def reloaded():
-        page.wait_for_function("window.__beforeReload === undefined && lesson !== null "
+        page.wait_for_function("window.__beforeReload === undefined && typeof lesson !== 'undefined' && lesson !== null "
                                "&& document.querySelectorAll('.seg').length > 0", timeout=15000)
         page.wait_for_timeout(500)
 
