@@ -498,7 +498,7 @@ function buildLegend() {
   legend.insertAdjacentHTML('beforeend', '<span><i class="stuck-dot"></i>重听过的句子</span>');
 }
 
-/* 指到下面那条上：提示指着的是第几句、从哪儿开始；正在拖时写拖到的时间（和左上角的时间一样） */
+/* 指到下面那条上：提示指着的是第几句、从哪儿开始；正在拖时写拖到的时间（和右下角的时间一样） */
 function showTip(clientX) {
   const dragging = scrub && scrub.moved && scrub.bar === 'timeline';
   const i = dragging ? idx : sentenceAt(clientX);
@@ -509,20 +509,41 @@ function showTip(clientX) {
   const at = dragging ? scrub.t : s.start;
   tip.innerHTML = `<b>第 ${i - p.first + 1} 句</b>${s.speaker === OUTSIDE ? '' : s.speaker} · ${clock(at - p.t0)}`;
   tip.style.left = `${Math.min(rect.width - 70, Math.max(70, clientX - rect.left))}px`;
+  tip.classList.remove('above');
   tip.hidden = false;
   document.querySelectorAll('.seg.hover').forEach((el) => el.classList.remove('hover'));
   const seg = document.querySelector(`.seg[data-i="${i}"]`);
   if (seg) seg.classList.add('hover');
 }
 
+function hideTip() {
+  $('tip').hidden = true;
+  $('tip').classList.remove('above');
+  document.querySelectorAll('.seg.hover').forEach((el) => el.classList.remove('hover'));
+}
+
+/* 指到上面整集那条：提示指着第几段、整集进行到第几分钟（共几分钟）；正在拖时跟着落点走 */
+function showPartsTip(clientX) {
+  const t = timeOnParts(clientX);
+  const q = parts[partOf[sentenceAtTime(t)]];
+  const total = audio.duration || lesson.sentences[lesson.sentences.length - 1].end;
+  const tip = $('tip');
+  const rect = $('parts').getBoundingClientRect();
+  tip.innerHTML = `<b>${q.kind === 'section' ? `第 ${q.n} 段` : q.title}</b>${clock(t)} / ${clock(total)}`;
+  tip.style.left = `${Math.min(rect.width - 70, Math.max(70, clientX - rect.left))}px`;
+  tip.classList.add('above');
+  tip.hidden = false;
+}
+
 $('timeline').addEventListener('pointermove', (e) => {
   if (!(scrub && scrub.moved)) showTip(e.clientX);  // 正在拖：由 moveScrub 算完位置再写
 });
-$('timeline').addEventListener('pointerleave', () => {
-  $('tip').hidden = true;
-  document.querySelectorAll('.seg.hover').forEach((el) => el.classList.remove('hover'));
-});
+$('timeline').addEventListener('pointerleave', hideTip);
 $('timeline').addEventListener('click', (e) => { if (!justDragged()) playOne(sentenceAt(e.clientX)); });
+$('parts').addEventListener('pointermove', (e) => {
+  if (!(scrub && scrub.moved)) showPartsTip(e.clientX);
+});
+$('parts').addEventListener('pointerleave', hideTip);
 
 /* ---------- 拖进度（R23） ----------
  * 下面那条在这一段里拖，上面整集那条能拖到别的段。按下后挪过 4 像素才算拖，不然还是「点」（R15）。
@@ -593,6 +614,7 @@ function moveScrub(e) {
     render();  // 拖到了别的段，下面那条跟着换
   }
   if (scrub.bar === 'timeline') showTip(e.clientX);
+  else showPartsTip(e.clientX);
 }
 
 function endScrub(e) {

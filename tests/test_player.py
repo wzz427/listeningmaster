@@ -60,6 +60,12 @@ def in_sentence(t: float, s: dict, slack: float = 0.3) -> bool:
     return s["start"] - slack <= t <= s["end"] + slack
 
 
+def clock_text(seconds: float) -> str:
+    """和 app.js 的 clock 一样：秒数写成 m:ss。"""
+    m, s = divmod(max(0, int(seconds)), 60)
+    return f"{m}:{s:02d}"
+
+
 def shot(page, shots: Path | None, name: str) -> None:
     if shots:
         shots.mkdir(parents=True, exist_ok=True)
@@ -85,6 +91,9 @@ def run(page, shots: Path | None) -> None:
     check("A11 一打开就停在正文第一句", page.inner_text("#counter").startswith("第 1 段 · 第 1 句"),
           page.inner_text("#counter"))
     check("A2 默认不显示英文", page.is_hidden("#text"))
+    check("A59 卡片平时只有声浪，没有常驻的引导文字",
+          "先用耳朵" not in page.inner_text("#card") and page.locator("#hint .bars i").count() == 7,
+          page.inner_text("#card").strip()[:30])
     page.click("#playBtn")
     wait_playing(page)
     page.wait_for_timeout(300)
@@ -448,13 +457,19 @@ def drag_part(page, shots: Path | None) -> None:
           f"落点 {target:.2f} 秒，松手后 {t:.2f} 秒，停在 {stopped:.2f} 秒，句末 {sentences[m]['end']:.2f} 秒")
 
     # A55：在上面整集那条上拖到第 3 段，下面那条跟着换成第 3 段，停在松手的位置
+    # A58b：拖着的时候，提示写着指着第几段、整集进行到第几分钟
     k3 = next(n for n, q in enumerate(parts) if q["kind"] == "section" and q["n"] == 3)
     q3 = parts[k3]
     from_box = page.locator(f".part[data-k='{page.evaluate('partOf[idx]')}']").bounding_box()
     to_box = page.locator(f".part[data-k='{k3}']").bounding_box()
     target = q3["t0"] + 0.5 * (q3["t1"] - q3["t0"])
     py = from_box["y"] + from_box["height"] / 2
-    press_and_drag(from_box["x"] + from_box["width"] / 2, to_box["x"] + to_box["width"] / 2, py)
+    press_and_drag(from_box["x"] + from_box["width"] / 2, to_box["x"] + to_box["width"] / 2, py, release=False)
+    tip = page.inner_text("#tip")
+    check("A58b 在整集那条上拖着，提示第几段和整集时间",
+          "第 3 段" in tip and "/" in tip, tip)
+    page.mouse.up()
+    page.wait_for_timeout(300)
     t = now(page)
     per_px = (q3["t1"] - q3["t0"]) / to_box["width"]
     firsts = page.evaluate("[...document.querySelectorAll('.seg')].map((e) => Number(e.dataset.i))")
@@ -462,6 +477,26 @@ def drag_part(page, shots: Path | None) -> None:
           not playing(page) and page.inner_text("#partNo") == "第 3 段" and abs(t - target) < max(0.6, 3 * per_px)
           and min(firsts) == q3["first"] and max(firsts) == q3["last"],
           f"松手处 {target:.2f} 秒，现在 {t:.2f} 秒，{page.inner_text('#partNo')}")
+
+    # A57 / A58：圆点上方（条顶之外）也能按住拖；时间读数是「当前 / 这段总长」，拖着的时候跟着走
+    goto_body(page, 5)
+    wait_paused(page)
+    n = longest_in_shown(set())
+    target = sentences[n]["start"] + 0.5 * (sentences[n]["end"] - sentences[n]["start"])
+    above = bar()["y"] - 10  # 条顶上方 10px：竖线圆点越出条外 6px，这里在圆点的上面
+    press_and_drag(playhead_x(), x_of(target), above, release=False)
+    page.wait_for_timeout(200)
+    live = page.inner_text(".times").strip()
+    page.mouse.up()
+    page.wait_for_timeout(300)
+    t = now(page)
+    q = parts[page.evaluate("shownPart")]
+    check("A57 竖线圆点的上方也能按住拖，松手停到拖到的地方",
+          not playing(page) and abs(t - target) < 0.3 and page.evaluate("idx") == n,
+          f"落点 {target:.2f} 秒，现在 {t:.2f} 秒")
+    check("A58 时间读数写成「当前 / 这段总长」，拖着的时候跟着走",
+          live == f"{clock_text(target - q['t0'])} / {clock_text(q['t1'] - q['t0'])}",
+          f"拖着时读数是「{live}」，该是「{clock_text(target - q['t0'])} / {clock_text(q['t1'] - q['t0'])}」")
 
 
 def update_part(page, shots: Path | None) -> None:

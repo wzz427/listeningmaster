@@ -207,15 +207,21 @@ h1 { margin: 0; font: 600 20px/1.2 var(--en); letter-spacing: .01em; }
   display: flex; flex-direction: column;
 }
 .hint { margin: auto 0; text-align: center; color: var(--muted); }
-.hint p { margin: 18px 0 0; font-size: 14.5px; }
-.hint b { color: var(--cream-2); font-weight: 600; }
 
-/* 不给文字时，用一排跳动的音量条表示「正在听」 */
+/* 不给文字时，用一排跳动的音量条表示「正在听」。暂停时高低不等地伏着，像一段安静的波形，
+   不再是一排一样高的点（owner 2026-09-26：那句常驻引导删了，声浪独自撑着卡片的中间） */
 .bars { display: flex; justify-content: center; align-items: center; gap: 6px; height: 54px; }
 .bars i {
-  width: 6px; height: 10px; border-radius: 3px; background: var(--amber);
+  width: 6px; border-radius: 3px; background: var(--amber);
   opacity: .35; transition: height .3s, opacity .3s;
 }
+.bars i:nth-child(1) { height: 8px; }
+.bars i:nth-child(2) { height: 18px; }
+.bars i:nth-child(3) { height: 11px; }
+.bars i:nth-child(4) { height: 22px; }
+.bars i:nth-child(5) { height: 13px; }
+.bars i:nth-child(6) { height: 19px; }
+.bars i:nth-child(7) { height: 9px; }
 body.playing .bars i { opacity: .9; animation: eq 1s ease-in-out infinite; }
 .bars i:nth-child(2) { animation-delay: -.2s !important; }
 .bars i:nth-child(3) { animation-delay: -.55s !important; }
@@ -284,7 +290,10 @@ body.playing .bars i { opacity: .9; animation: eq 1s ease-in-out infinite; }
 }
 .part-count { flex: none; font-size: 12.5px; color: var(--muted); }
 
-.parts { display: flex; gap: 5px; height: 24px; margin: 0 0 22px; touch-action: pan-y; }
+.parts { position: relative; display: flex; gap: 5px; height: 24px; margin: 0 0 22px; touch-action: pan-y; }
+/* 拖的热区（owner 2026-09-26：竖线圆点稍微靠上一点就按不住）：两条条的热区都往四周外扩一圈，
+   圆点（越出条外）上方、条的下沿也能按住拖；触屏的指头也够得着 */
+.parts::before { content: ""; position: absolute; left: 0; right: 0; top: -8px; bottom: -8px; }
 .part {
   position: relative; flex: 1 1 0; min-width: 26px; padding: 0;
   border-radius: 7px; overflow: hidden;
@@ -303,15 +312,19 @@ body.playing .bars i { opacity: .9; animation: eq 1s ease-in-out infinite; }
 .part.current .fill { background: rgba(242, 169, 78, .3); }
 .part.current .label { color: var(--amber-2); }
 
+/* 时间读数：右下角一行「当前 / 这段总长」（如 1:00 / 1:57），拖着进度时变琥珀色、数字跟着走 */
 .times {
-  display: flex; justify-content: space-between;
+  text-align: right;
   font: 400 12.5px/1 var(--mono); color: var(--muted); margin: 0 2px 10px;
+  font-variant-numeric: tabular-nums;
 }
 #timeNow { color: var(--cream-2); }
+body.scrubbing .times, body.scrubbing .times #timeNow { color: var(--amber-2); }
 .timeline {
   position: relative; height: 40px; cursor: pointer;
   border-radius: 12px; touch-action: none;
 }
+.timeline::before { content: ""; position: absolute; left: -10px; right: -10px; top: -14px; bottom: -6px; }
 .segments { position: absolute; inset: 8px 0; }
 .segments.swap { animation: fade .35s ease both; }
 .seg {
@@ -338,7 +351,7 @@ body.playing .bars i { opacity: .9; animation: eq 1s ease-in-out infinite; }
   box-shadow: 0 0 10px rgba(255, 240, 215, .5);
 }
 .playhead i {
-  position: absolute; left: 50%; top: -5px; width: 10px; height: 10px; margin-left: -5px;
+  position: absolute; left: 50%; top: -6px; width: 12px; height: 12px; margin-left: -6px;
   border-radius: 50%; background: var(--cream); transition: transform .15s;
 }
 /* 拖进度（SPEC-001 R23）：指到条上，竖线顶上的圆点放大一点，看得出能拖；拖着时竖线更亮 */
@@ -353,6 +366,7 @@ body.scrubbing .playhead i { transform: scale(1.45); }
   box-shadow: 0 12px 30px rgba(0, 0, 0, .4);
 }
 .tip b { font-weight: 600; color: var(--amber-2); margin-right: 6px; font-variant-numeric: tabular-nums; }
+.tip.above { bottom: 100px; }  /* 指着上面整集那条时摆得更高，不压着这条的时间读数 */
 
 .legend {
   display: flex; flex-wrap: wrap; gap: 18px; margin: 10px 2px 0;
