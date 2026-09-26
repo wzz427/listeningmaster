@@ -1,7 +1,7 @@
 # 调研报告：以听力为牵引的课程设计
 
-> 答什么：把「在按句播放器的基础上做一门以听力为牵引的英语课」的教学研究依据查清楚，供课程方案 `docs/course.md` 引用。
-> 谁何时读：改课程方案、写预习／练习／复盘的规格前读。摘要和更早的调研在 `docs/research.md`。
+> 答什么：把「在按句播放器的基础上做一门以听力为牵引的英语课」的教学研究依据查清楚，供课程方案 `docs/listening-led-course.md` 引用。
+> 谁何时读：改课程方案、写预习／练习／复盘的规格前读。摘要和更早的调研在 `docs/research/2026-09-12-products-teaching-tech-survey.md`。
 > 状态：2026-09-26 初版（claude）。方法：网络调研；一手来源尽量给链接。证据强度不一，弱证据在文中标明，引用前先看「证据强度说明」。
 
 ## 一、要回答的问题
@@ -38,7 +38,7 @@
 
 **Vandergrift & Goh 的教学序列**（*Teaching and Learning Second Language Listening: Metacognition in Action*, 2012）：①听前预测、激活图式 → ②第一遍听、验证预测 → ③第二遍听、补漏 → ④对照文字找差异、再听 → ⑤反思断在哪、哪招有用。
 
-**实证**：这套循环的教学实验里，听力弱的学习者进步显著大于对照组（Vandergrift & Tafaghodtari 2010，见 `docs/research.md` 三.7）。
+**实证**：这套循环的教学实验里，听力弱的学习者进步显著大于对照组（Vandergrift & Tafaghodtari 2010，见 `docs/research/2026-09-12-products-teaching-tech-survey.md` 三.7）。
 
 **对本课的含义**：我们的六步闭环（预习→盲听→精听→复听→练习→复盘）就是这套循环加练习和复盘：预习承担①，盲听承担②③，精听承担④（逐级提示＋看文字），复盘承担⑤。
 
@@ -52,7 +52,7 @@
 
 ## 六、听中：文字（字幕）怎么用
 
-- 看英文字幕对理解和词汇都有明显帮助（Montero Perez 2013 元分析，理解效果量 g=0.99，见 `docs/research.md` 三.4）。
+- 看英文字幕对理解和词汇都有明显帮助（Montero Perez 2013 元分析，理解效果量 g=0.99，见 `docs/research/2026-09-12-products-teaching-tech-survey.md` 三.4）。
 - **只显示关键词的字幕，效果不比没有字幕好**，学习者还觉得干扰——要给就给整句（决策 D6 的依据）。
 - 字幕帮的是理解，不等于练了耳朵：**看完文字必须回原速再听**（决策 D7 的依据）。
 
@@ -77,7 +77,7 @@
 
 ## 十、竞品：他们的「课」是什么
 
-材料取自 `docs/research.md` 一、二（2026-09-12 调研），这里换成课程视角看：
+材料取自 `docs/research/2026-09-12-products-teaching-tech-survey.md` 一、二（2026-09-12 调研），这里换成课程视角看：
 
 | 产品 | 它的「课」怎么组织 | 从教学设计看缺什么 |
 |---|---|---|
@@ -118,14 +118,14 @@
 - Goh, C. (2000). A cognitive perspective on language learners' listening comprehension problems. [ERIC EJ601557](https://eric.ed.gov/?id=EJ601557)
 - Nation, I. S. P. (2007). The four strands. *Innovation in Language Learning and Teaching*, 1(1), 2–12. [PDF](https://www.scribd.com/doc/293691230/Four-Strands-Paul-Nation)；Nation (2013). *What Should Every EFL Teacher Know?* Compass.
 - Vandergrift, L. & Goh, C. (2012). *Teaching and Learning Second Language Listening: Metacognition in Action*. Routledge.
-- Vandergrift, L. & Tafaghodtari, M. H. (2010). 见 `docs/research.md` 三.7。
+- Vandergrift, L. & Tafaghodtari, M. H. (2010). 见 `docs/research/2026-09-12-products-teaching-tech-survey.md` 三.7。
 - Chang, A. C.-S. & Read, J. (2006). [ERIC EJ753072](https://eric.ed.gov/?id=EJ753072)
-- Elkhafaifi, H. (2005). 见 `docs/research.md` 三.5。
-- Montero Perez, K. et al. (2013; 2014). 见 `docs/research.md` 三.4。
-- van Zeeland, H. & Schmitt, N. (2013). 见 `docs/research.md` 三.5。
-- Kiany, G. R. & Shiramiry, S. (2002). 见 `docs/research.md` 三.6。
-- Hamada, Y. (2016). 见 `docs/research.md` 三.6。
+- Elkhafaifi, H. (2005). 见 `docs/research/2026-09-12-products-teaching-tech-survey.md` 三.5。
+- Montero Perez, K. et al. (2013; 2014). 见 `docs/research/2026-09-12-products-teaching-tech-survey.md` 三.4。
+- van Zeeland, H. & Schmitt, N. (2013). 见 `docs/research/2026-09-12-products-teaching-tech-survey.md` 三.5。
+- Kiany, G. R. & Shiramiry, S. (2002). 见 `docs/research/2026-09-12-products-teaching-tech-survey.md` 三.6。
+- Hamada, Y. (2016). 见 `docs/research/2026-09-12-products-teaching-tech-survey.md` 三.6。
 - Krashen, S. D. (1996). The case for narrow listening. *System*, 24(1), 97–100. [全文](http://sdkrashen.com/content/articles/the_case_for_narrow_listening.pdf)、[ScienceDirect](https://www.sciencedirect.com/science/article/pii/0346251X9500054N)
 - Renandya, W. A. & Farrell, T. S. C. (2011). 'Teacher, the tape is too fast!' *ELT Journal*, 65(1).
 - Rodrigo, V. 等（窄听后续）：[Kennesaw](https://digitalcommons.kennesaw.edu/cgi/viewcontent.cgi?article=1190&context=dimensions)；Chang（窄听界定）：[CORE](https://core.ac.uk/download/pdf/230363786.pdf)
-- 竞品材料：`docs/research.md` 一、二（2026-09-12 调研，来源链接在彼处）。
+- 竞品材料：`docs/research/2026-09-12-products-teaching-tech-survey.md` 一、二（2026-09-12 调研，来源链接在彼处）。

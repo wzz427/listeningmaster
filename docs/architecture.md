@@ -35,7 +35,7 @@
 | `AGENTS.md` | ZCode 自动读到的入口：指针、开机三步、红线摘录；第一读物仍是 `CLAUDE.md`（决策 D36） | — |
 | `idea.txt` | owner 起步时写的最初想法，只作历史 | — |
 | `specs/` | 规格：`SPEC-000-overview.md` 是总需求和模块表，其余一块一份；`SPEC-template.md` 是空模板 | — |
-| `docs/` | 本文、`workflow.md`（开发流程和验证）、`environment.md`（开发环境和工具）、`decisions.md`、`lessons.md`、`debts.md`、`handoff.md`、`research.md`；`refs/qwen-asr-api.md` 是百炼识别的官方文档存档；`history/` 放整批搬走的旧交接记录 | — |
+| `docs/` | 本文、`workflow.md`（开发流程和验证）、`environment.md`（开发环境和工具）、`decisions.md`、`lessons.md`、`debts.md`、`handoff.md`、`listening-led-course.md`（课程方案：理念、一集六步、单元阶段）；`research/` 放调研产出——`2026-09-12-products-teaching-tech-survey.md` 是三轮调研摘要（产品、教学研究、技术），报告一篇一文件、文件名带日期前缀（D46）；`refs/qwen-asr-api.md` 是百炼识别的官方文档存档；`history/` 放整批搬走的旧交接记录 | — |
 | `materials/<课>/` | 原始素材：音频、讲稿、练习 | SPEC-002 |
 | `lessons/<课>/` | 备好的一集，见下面「每一集的文件」 | SPEC-002 |
 | `pipeline/audio.py` | 转音频：16k 单声道 wav（识别、量音量用）、m4a（播放器用）；用 imageio-ffmpeg 自带的 ffmpeg | SPEC-002 |

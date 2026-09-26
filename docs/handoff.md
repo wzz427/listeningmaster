@@ -6,12 +6,13 @@
 
 ## 现在在哪（最新在上）
 
-### 2026-09-26 · 人设升级资深英语课程老师；调研出课程方案 `docs/course.md`
+### 2026-09-26 · 人设升级资深英语课程老师；调研出课程方案 `docs/listening-led-course.md`
 
 - owner 2026-09-26：「先做课程。你把自己当成资深英语老师去做调研和研究，出方案再来跟我说计划；不要反过来问我，我就是个等着老师教的学生。」理念他定向：以听力为牵引，带动英语综合能力。人设、理念、工作方式写进 `CLAUDE.md`「你是谁」和 AGENTS.md（D45）。
-- 调研（补 `docs/research.md` 五）：Nation 四股线、Vandergrift & Goh 元认知循环完整序列、Krashen 窄听、泛听操作参数；已有的 Field 诊断、Goh 解码、字幕、听前、听写研究直接复用。
-- 方案全文 `docs/course.md`：理念四条、学生画像（第一批就是 owner 和孩子）、一集六步闭环（预习→整段盲听→逐句精听→**原速复听**（新加的一环，练流畅）→卡点练习→自动复盘）、单元＝同系列 4 到 6 集窄听、一周 2 到 3 集、4 到 6 周 PET 测一次、材料阶梯（Real Easy English→The English We Speak/6 Minute English→B1+）、落地路线（SPEC-009 预习页→SPEC-010 课后练习→SPEC-011 复盘统计，跟读以后）。`tests/test_docs.py` 的 CURRENT_DOCS 把 course.md 管上。
-- owner 随后要求：调研报告也要写成文档、住 `docs/research/` 文件夹。已建 `docs/research/listening-led-course-design.md`（十三个部分：问题、解码断点、四股线、元认知循环、听前/听中/听后、泛听窄听、动机、竞品课程视角、证据强度、十条设计推论、参考文献）；`docs/research.md` 改成摘要＋索引，报告也进了 CURRENT_DOCS。以后每次调研一篇报告放这里。
+- 调研（补 `docs/research/2026-09-12-products-teaching-tech-survey.md` 五）：Nation 四股线、Vandergrift & Goh 元认知循环完整序列、Krashen 窄听、泛听操作参数；已有的 Field 诊断、Goh 解码、字幕、听前、听写研究直接复用。
+- 方案全文 `docs/listening-led-course.md`：理念四条、学生画像（第一批就是 owner 和孩子）、一集六步闭环（预习→整段盲听→逐句精听→**原速复听**（新加的一环，练流畅）→卡点练习→自动复盘）、单元＝同系列 4 到 6 集窄听、一周 2 到 3 集、4 到 6 周 PET 测一次、材料阶梯（Real Easy English→The English We Speak/6 Minute English→B1+）、落地路线（SPEC-009 预习页→SPEC-010 课后练习→SPEC-011 复盘统计，跟读以后）。`tests/test_docs.py` 的 CURRENT_DOCS 把 course.md 管上。
+- owner 随后要求：调研报告也要写成文档、住 `docs/research/` 文件夹。已建课程设计调研报告（十三个部分：问题、解码断点、四股线、元认知循环、听前/听中/听后、泛听窄听、动机、竞品课程视角、证据强度、十条设计推论、参考文献）；调研摘要改成摘要＋索引，报告也进了 CURRENT_DOCS。以后每次调研一篇报告放这里。
+- owner 再批文件名：course、research 这类一词笼统名不许用，调研性质的文档要住 `docs/research/`。已改（D46，规矩进 CLAUDE.md 红线）：课程方案 `course.md`→`docs/listening-led-course.md`；调研摘要 `research.md` 挪进文件夹改名 `docs/research/2026-09-12-products-teaching-tech-survey.md`；报告加日期前缀 `docs/research/2026-09-26-listening-led-course-design.md`；全仓引用跟着改。教训：批量替换用 Python 走的——shell 循环在 Windows 路径上吃反斜杠又吃 CRLF，两次没成，别再用。
 - 下一步从哪接：owner 过目方案（本会话的汇报消息就是）→ 点头或提修改 → 写 SPEC-009 预习页动工。
 
 ### 2026-09-26 · owner 拍板两件、抛出方向之问：先做课程，还是先定客户端/网页

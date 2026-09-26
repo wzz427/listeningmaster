@@ -42,7 +42,7 @@ BBC 的讲稿 PDF（`pipeline/transcript.py`）：去掉页眉页脚和版权声
 
 ## 决策依据
 
-- 先识别再对齐讲稿，而不是把讲稿喂给识别当提示：讲稿不是逐字稿，喂进去容易编出没说的话（`docs/research.md` 四）。
+- 先识别再对齐讲稿，而不是把讲稿喂给识别当提示：讲稿不是逐字稿，喂进去容易编出没说的话（`docs/research/2026-09-12-products-teaching-tech-survey.md` 四）。
 - 不在本地跑识别模型（WhisperX 等）：要装环境、显存只有 4GB，家长那边也复制不了（决策 D2）。
 
 ## 改版记录
