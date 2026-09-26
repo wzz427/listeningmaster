@@ -174,7 +174,8 @@ h1 { margin: 0; font: 600 20px/1.2 var(--en); letter-spacing: .01em; }
 }
 
 .now { animation: rise .6s .08s ease both; }
-/* 位置一行（owner 2026-09-26）：说话人、本段标题、第几句、状态牌，原来分三处 */
+/* 位置一行（owner 2026-09-26，两轮）：左边谁在说 + 状态牌；右边在哪一段（段号+标题+第几句），
+   两侧是 ‹ › 段导航——导航的就是「第几段」这个东西 */
 .who { display: flex; align-items: center; gap: 12px; margin: 0 6px 14px; min-width: 0; }
 .avatar {
   flex: none;
@@ -189,12 +190,6 @@ h1 { margin: 0; font: 600 20px/1.2 var(--en); letter-spacing: .01em; }
 .avatar.b { background: var(--spk-b); }
 .avatar.o { background: var(--spk-o); color: var(--cream-2); }
 .speaker-name { flex: none; font: 600 18px/1.25 var(--en); }
-.who-part {
-  flex: 1; min-width: 0;
-  font-size: 14.5px; color: var(--cream-2);
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-.counter { flex: none; font: 400 13px/1.4 var(--cn); color: var(--muted); font-variant-numeric: tabular-nums; }
 .state-tag {
   flex: none;
   font-size: 12.5px; color: var(--cream-2);
@@ -202,6 +197,23 @@ h1 { margin: 0; font: 600 20px/1.2 var(--en); letter-spacing: .01em; }
   background: var(--surface);
 }
 .state-tag.stop { color: var(--amber-2); border-color: rgba(242, 169, 78, .35); }
+.where { margin-left: auto; display: flex; align-items: center; gap: 10px; min-width: 0; }
+.counter {
+  min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  font-size: 14.5px; color: var(--cream-2); font-variant-numeric: tabular-nums;
+}
+.who-sent { flex: none; font: 400 13px/1.4 var(--cn); color: var(--muted); font-variant-numeric: tabular-nums; }
+.who-sent[hidden] { display: none; }
+.part-nav {
+  flex: none; width: 40px; height: 40px; border-radius: 50%;
+  background: var(--surface); border: 1px solid var(--line);
+  display: grid; place-items: center;
+  transition: border-color .2s, background .2s, opacity .2s;
+}
+.part-nav svg { width: 18px; height: 18px; fill: none; stroke: var(--cream-2); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.part-nav:hover:not(:disabled) { border-color: var(--line-2); background: var(--surface-2); }
+.part-nav:hover:not(:disabled) svg { stroke: var(--amber-2); }
+.part-nav:disabled { opacity: .25; cursor: default; }
 
 .card {
   position: relative;

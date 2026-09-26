@@ -36,9 +36,19 @@
     <div class="who">
       <span id="avatar" class="avatar">·</span>
       <span id="speaker" class="speaker-name">—</span>
-      <span id="partTitle" class="who-part"></span>
-      <span id="counter" class="counter">第 0 句 / 共 0 句</span>
       <span id="stateTag" class="state-tag">连续播放</span>
+      <!-- 右边：在哪一段 + 段导航（owner 2026-09-26：段名和段号、句数是一组；整集条删了要有直接的切换）。
+           点 ‹ › 从那段开头连续播，到头的那边灰掉（SPEC-001 R24） -->
+      <div class="where">
+        <button id="prevPartBtn" class="part-nav" aria-label="上一段">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5.5 8 12l6.5 6.5"/></svg>
+        </button>
+        <span id="counter" class="counter">第 0 段</span>
+        <span id="partTitle" class="who-sent"></span>
+        <button id="nextPartBtn" class="part-nav" aria-label="下一段">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 5.5 16 12l-6.5 6.5"/></svg>
+        </button>
+      </div>
     </div>
 
     <div id="card" class="card">

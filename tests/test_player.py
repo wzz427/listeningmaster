@@ -88,7 +88,7 @@ def run(page, shots: Path | None) -> None:
 
     print("\n【打开页面】")
     check("A0 页面加载没有报错", not errors, "; ".join(errors[:2]))
-    check("A11 一打开就停在正文第一句", page.inner_text("#counter").startswith("第 1 段 · 第 1 句"),
+    check("A11 一打开就停在正文第一句", page.inner_text("#counter").startswith("第 1 段"),
           page.inner_text("#counter"))
     check("A2 默认不显示英文", page.is_hidden("#text"))
     check("A59 卡片平时只有声浪，没有常驻的引导文字",
@@ -108,8 +108,8 @@ def run(page, shots: Path | None) -> None:
     goto_body(page, 3, flow=True)
     wait_playing(page)
     page.wait_for_function(f"audio.currentTime > {body[4]['start'] + 0.3}", timeout=10000)
-    check("A16 播完一句不停，接着播下一句", playing(page) and "第 5 句" in page.inner_text("#counter"),
-          f"{page.inner_text('#counter')}，{'在播' if playing(page) else '停了'}")
+    check("A16 播完一句不停，接着播下一句", playing(page) and "第 5 句" in page.inner_text("#partTitle"),
+          f"{page.inner_text('#partTitle')}，{'在播' if playing(page) else '停了'}")
 
     print("\n【上一句 · 下一句 · 进度条】")
     page.click("#nextBtn")
@@ -621,11 +621,32 @@ def sections_part(page, shots: Path | None, body: list[dict]) -> None:
     page.evaluate(f"playOne({p2['first'] + 2})")
     page.wait_for_timeout(200)
     segs = page.evaluate("[...document.querySelectorAll('.seg')].map((e) => Number(e.dataset.i))")
-    check("A60b 跳到别的段，这一行和下面那条都跟着换",
+    n2 = p2["last"] - p2["first"] + 1
+    check("A60b 跳到别的段，右边的段信息和下面那条都跟着换",
           segs == list(range(p2["first"], p2["last"] + 1))
-          and page.inner_text("#counter").startswith("第 2 段")
-          and page.inner_text("#partTitle").strip("· ") == p2["title"],
+          and page.inner_text("#counter") == f"第 2 段 · {p2['title']}"
+          and page.inner_text("#partTitle") == f"第 3 句 / 共 {n2} 句",
           f"{page.inner_text('#counter')}，{len(segs)} 小段")
+
+    # A61 / A61b：上一段、下一段导航（owner 2026-09-26：整集分段条删了，要有直接的切换）
+    _, p1 = nth[1]
+    page.click("#prevPartBtn")
+    page.wait_for_timeout(300)
+    check("A61 点「上一段」，从上一段开头连续播，右边的段信息跟着换",
+          playing(page) and in_sentence(now(page), sentences[p1["first"]])
+          and page.inner_text("#counter") == f"第 1 段 · {p1['title']}",
+          f"现在 {now(page):.2f} 秒，{page.inner_text('#counter')}")
+    page.click("#nextPartBtn")
+    page.wait_for_timeout(300)
+    check("A61 点「下一段」，从下一段开头连续播",
+          playing(page) and in_sentence(now(page), sentences[p2["first"]])
+          and page.inner_text("#counter") == f"第 2 段 · {p2['title']}",
+          f"现在 {now(page):.2f} 秒，{page.inner_text('#counter')}")
+    page.evaluate("audio.pause()")
+    head = page.evaluate("idx = parts[0]['first']; render(); document.getElementById('prevPartBtn').disabled")
+    tail = page.evaluate("idx = parts.at(-1)['first']; render(); document.getElementById('nextPartBtn').disabled")
+    check("A61b 到头的那一边不可点：最前面「上一段」灰着，最后面「下一段」灰着",
+          head and tail, f"上一段灰={head}，下一段灰={tail}")
 
     _, p1 = nth[1]
     page.evaluate(f"playFrom({p1['last'] - 1})")

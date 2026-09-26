@@ -284,11 +284,17 @@ function render() {
   $('speaker').textContent = s.speaker;
   $('avatar').textContent = s.speaker === OUTSIDE ? '♪' : s.speaker.slice(0, 1);
   $('avatar').className = `avatar ${cls(s)}`;
-  // 位置一行（owner 2026-09-26）：说话人 + 本段标题 + 第几句，原来分三处
-  $('partTitle').textContent = p.kind === 'section' ? `· ${p.title}` : '';
-  $('counter').textContent = p.kind === 'section'
-    ? `第 ${p.n} 段 · 第 ${idx - p.first + 1} 句 / 共 ${p.last - p.first + 1} 句`
-    : `${p.title}，不算正文`;
+  // 位置一行（owner 2026-09-26 两轮）：左边谁在说；右边在哪一段（段号+标题+第几句），
+  // 段名和段号、句数是一组，不跟在人名后面
+  $('counter').textContent = p.kind === 'section' ? `第 ${p.n} 段 · ${p.title}` : `${p.title}，不算正文`;
+  $('partTitle').textContent = p.kind === 'section' ? `第 ${idx - p.first + 1} 句 / 共 ${p.last - p.first + 1} 句` : '';
+  $('partTitle').hidden = p.kind !== 'section';
+  const k = partOf[idx];
+  $('prevPartBtn').disabled = k <= 0;
+  $('nextPartBtn').disabled = k >= parts.length - 1;
+  const partName = (q) => (q.kind === 'section' ? `第 ${q.n} 段` : q.title);
+  $('prevPartBtn').title = k > 0 ? `上一段：${partName(parts[k - 1])}` : '';
+  $('nextPartBtn').title = k + 1 < parts.length ? `下一段：${partName(parts[k + 1])}` : '';
   // 矢量图标不认 .hidden 属性，要直接改 hidden 这个标记
   $('iconPlay').toggleAttribute('hidden', playing);
   $('iconPause').toggleAttribute('hidden', !playing);
@@ -771,6 +777,15 @@ $('playBtn').onclick = togglePlay;
 $('replayBtn').onclick = replayCurrent;
 $('prevBtn').onclick = () => playOne(idx - 1);
 $('nextBtn').onclick = () => playOne(idx + 1);
+/* 段导航（R24，owner 2026-09-26）：点了从那段开头连续播——播放类的动作（R1），和原来点整集条上的一段一样 */
+$('prevPartBtn').onclick = () => {
+  const k = partOf[idx];
+  if (k > 0) playFrom(parts[k - 1].first);
+};
+$('nextPartBtn').onclick = () => {
+  const k = partOf[idx];
+  if (k + 1 < parts.length) playFrom(parts[k + 1].first);
+};
 $('nextSectionBtn').onclick = () => playFrom(nextSection().first);
 $('againSectionBtn').onclick = () => playFrom(part().first);
 $('textBtn').onclick = () => {
