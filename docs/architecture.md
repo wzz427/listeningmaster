@@ -61,7 +61,7 @@
 | `tests/test_docs.py` | 文档和代码对不对得上 | `docs/workflow.md` |
 | `tests/test_stable_copy.py` | 换版本的自动检查：临时目录里造真的仓库和体验版，真的切版本、真的起服务 | SPEC-008 |
 | `start-player.bat` | 双击：旁边有体验版就转去体验版，然后调 `pipeline/stable_copy.py run` 起服务、打开浏览器。只放英文字符 | SPEC-008 R2 |
-| `.claude/commands/warp.md` | 压缩上下文之前的收尾命令 | — |
+| `.zcode/commands/wrap.md` | 收尾命令 `/wrap`：压缩上下文之前把只活在对话里的东西写到盘上、扫文档、提交 | — |
 | `api-keys.txt` | 密钥，不进仓库（`.gitignore` 第一行） | SPEC-000 R2 |
 
 ## 每一集的文件（`lessons/<课>/`）

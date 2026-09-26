@@ -70,9 +70,9 @@
 | 验播放器改得对不对 | `tests/test_player.py` |
 | 交一版给 owner 试、体验版出了问题、退回上一版 | `specs/SPEC-008-stable-and-dev.md`「操作手册」 |
 | 改点词讲解的提示词（`specs/SPEC-006-word-card.md`） | `pipeline/explain.py`：那一行的规则在 `RULES`（备课整句写用 `LINES`，漏了补查用 `LINE`），改完 `teach.py <课> --renote`；展开的在 `MORE`，改完删 `lessons/<课>/explain_cache.json`。抽查 `explain.py sample <课> <句数> --more` |
-| 改界面 | 先加载 frontend-design 技能（owner 2026-09-21 要求按真正的前端设计标准做）；改完跑 `tests/test_player.py --shots <目录>` 看截图 |
+| 改界面 | 按真正的前端设计标准做（owner 2026-09-21 要求）；改完跑 `tests/test_player.py --shots <目录>` 看截图 |
 | 句子边界切得准不准 | `specs/SPEC-004-sentence-bounds.md`；先听：`tests/test_audio.py`；再量：`pipeline/measure_bounds.py`（只看音量，会被骗） |
-| 压缩上下文 | `/warp` |
+| 压缩上下文 | `/wrap` |
 
 ## 节奏
 

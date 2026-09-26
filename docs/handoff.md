@@ -6,6 +6,17 @@
 
 ## 现在在哪（最新在上）
 
+### 2026-09-26 · 移交到 ZCode；收尾命令 /warp 改造成 /wrap
+
+- 项目从 Claude Code 移交到 ZCode（owner 2026-09-26）。收尾命令照他要求改造并改名 `/wrap`（他觉得 warp 像是拼错了）。
+- 做了什么：
+  - 新命令在 `.zcode/commands/wrap.md`（ZCode 读仓库的 `.zcode/commands/`），内容照原 `/warp` 五步：判能不能收 → 把只活在对话里的东西写下来 → 扫文档 → 提交 → 五句话给 owner。改了一处：ZCode 的压缩是自动的（上下文满了自动摘要），不说「敲 /compact」。
+  - 旧 `.claude/commands/warp.md` 删除；引用跟着改：`CLAUDE.md`、`docs/architecture.md`、`docs/workflow.md`、`docs/environment.md`；`tests/test_docs.py` 查路径的清单从 `.claude/` 换成 `.zcode/`。
+  - 顺手清了两处 Claude Code 专属的话：environment.md 工具行改成 ZCode；「改界面前先加载 frontend-design 技能」在 ZCode 里没有这个技能，改成只写标准（owner 2026-09-21 的要求不变）。
+- 实测：`tests/test_docs.py` 20 项全过；把 wrap.md 改名藏起来重跑，两份文档的路径检查当场报错，恢复后全过——新命令文件已进对账。
+- 遗留的移交小事：ZCode 不自动读 `CLAUDE.md`（Claude Code 的入口文件名），靠记忆里的开机顺序兜着；要不要加一份 `AGENTS.md` 指过去，等 owner 定。
+- 下一步从哪接：不变——owner 回来双击 `start-player.bat` 点「更新」（拖进度那一版还钉着），孩子试用第一集。
+
 ### 2026-09-24 · 体验版和开发版分开；进度条能拖
 
 - owner 问改代码时能不能照常用，指了量化项目 SPEC-023 到 025，说「开工吧」；中途出门前又加了一件：进度条竖线拖不动。

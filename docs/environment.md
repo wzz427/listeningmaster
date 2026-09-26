@@ -23,7 +23,7 @@
 | 发音词典 | 仓库外并排的 `WordsAudio/`（和 `ListeningMaster/` 同在 `WorkSpace/` 下） | 5 万词的谷歌英音，备课时拷用（SPEC-007 R5） |
 | 密钥文件 | 仓库根目录 `api-keys.txt`，不进仓库 | 百炼、DeepSeek 的密钥（`docs/architecture.md`「密钥」） |
 | 翻墙工具 | 这台电脑上有 | **只**在建发音词典时要用；别的一律不许依赖（SPEC-000 R1） |
-| Claude Code | owner 用它和 claude 一起开发 | 仓库里的 `/warp` 命令在 `.claude/commands/warp.md`；改界面前加载 frontend-design 技能（CLAUDE.md） |
+| ZCode | owner 用它和 AI 一起开发（2026-09-26 从 Claude Code 移交过来） | 仓库里的 `/wrap` 命令在 `.zcode/commands/wrap.md`；改界面按真正的前端设计标准做（CLAUDE.md） |
 
 ## 端口
 
