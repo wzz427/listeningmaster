@@ -6,17 +6,18 @@
  *   按播放键是连续播，一直往下播到段末；按上一句、下一句、重听本句、点进度条或全文里的某一句，
  *   只播那一句，播完停在句末；停在句末再按播放，从下一句接着连续播。
  *   孩子按「重听」「上一句」就是想抠这一句，不该一直往下跑。原来设置里的「每句播完停一下」因此删了。
- * - 正文按话题分成两分钟左右一段（D22）。进度条分两层：上面一条是整集，看得见自己在第几段；
- *   下面一条只画当前这段，每一小段是一句话，颜色区分说话人（R15；怎么分段见 SPEC-005）。
- *   整集画在一条上太密：6 分钟挤在 900 像素里，最短的句子不到 2 像素，点不中。
+ * - 正文按话题分成两分钟左右一段（D22）。进度条一条：只画当前这段，每一小段是一句话，颜色区分说话人
+ *   （R15）。原来上面还有一条整集的分段条，2026-09-26 删了（owner：听当前段用不到后面每段多长，
+ *   跳别的段用「全文」和段末的「听下一段」）；位置信息合并成卡片上方一行（说话人 + 段标题 + 第几句）。
  * - 一段播完就停，给「这段再听一遍」「听下一段」两个选择；片头播完不停，直接进正文（R21）。
  * - 需要停在句末时，提前几十毫秒把音量渐弱到零再停，不然会带进下一句开头的声音。
  *   有十几处两句贴得太紧，句子边界挪到哪都不够，只能靠这里收得准（见 docs/lessons.md）。
  * - 重听有 1 秒的反应延迟保护：人按键慢半拍，不保护就总跳错句（R3）。
- * - 两条进度条都能拖（R23）：拖的时候声音先停；松手后原来在播就按原来的播法接着播，暂停着就停在那儿。
+ * - 速度只归用户：0.6 / 0.8 / 1.0 手动切，任何操作都不自动改（owner 2026-09-26：不要自己跳来跳去）；
+ *   看过文字后亮起「重听本句」提醒回听（R6，决策 D7 的提醒；原速再听一遍按钮并进来了）。
+ * - 进度条能拖（R23）：拖的时候声音先停；松手后原来在播就按原来的播法接着播，暂停着就停在那儿。
  * - 文字默认不显示，显示时给整句；看了文字就停在这句末尾，方便他读、点词、重听（R5、D17）。
- * - 看过文字后提示原速再听一遍，否则就变成读课文（R6）。中文藏在看过英文之后（R7b）。
- * - 不问孩子懂没懂，只记他的动作（R9）。
+ * - 中文藏在看过英文之后（R7b）。不问孩子懂没懂，只记他的动作（R9）。
  * - 换版本（SPEC-008）：开着的这一页知道自己旧了、页面上的「更新」，见文件末尾「换版本」一节。
  */
 
@@ -26,7 +27,6 @@ const OUTSIDE = '片头片尾';
 const BACK_GRACE = 1.0;   // 本句才播了这么久以内按重听，视为想听上一句
 const FADE = 0.04;        // 停之前渐弱这么久（秒）
 const FADE_IN = 0.015;    // 每次开始播渐强这么久，免得跳转时「啪」一声
-const SLOW = 0.8;
 
 const $ = (id) => document.getElementById(id);
 const audio = $('audio');
@@ -44,10 +44,9 @@ let atSectionEnd = false; // 停在一段的末尾，卡片上换成「这段再
 let ctx = null;
 let gain = null;
 const speakerClass = {};  // 说话人 → 'a' / 'b'
-let parts = [];           // 按时间顺序：片头、正文第 1 段 … 第 N 段、片尾
+let parts = [];           // 按时间顺序：片头、正文第 1 段 … 第 N 段、片尾（内部用：分段、跳段、画这一段）
 let partOf = [];          // 第 i 句属于 parts 的哪一项
-let shownPart = -1;       // 下面那条进度条现在画的是哪一项
-let sectionCount = 0;
+let shownPart = -1;       // 进度条现在画的是哪一项
 
 /* ---------- 启动 ---------- */
 
@@ -60,7 +59,6 @@ async function boot() {
   });
   buildParts();
   audio.addEventListener('loadedmetadata', () => {
-    buildOverview();  // 整集那条要用音频总长，片尾后面还有一点音乐
     render();
     if (audio.currentTime === 0) audio.currentTime = cur().start;  // 显示第 1 句，播放也从第 1 句开始
   });
@@ -69,9 +67,7 @@ async function boot() {
   $('title').textContent = lesson.title || '听力练习';
   $('source').textContent = lesson.source || '';
   records = readJSON(recordKey(), {});
-  $('autoSlow').checked = localStorage.getItem(settingKey('autoSlow')) !== 'off';
   buildLegend();
-  buildOverview();
   buildFullText();
   idx = Math.max(0, lesson.sentences.indexOf(body[0]));
   backToPlace();
@@ -92,7 +88,7 @@ function readJSON(key, fallback) {
 }
 
 function record(patch, sentence = cur()) {
-  const old = records[sentence.id] || { replays: 0, slowed: false, sawText: false, sawZh: false, words: [] };
+  const old = records[sentence.id] || { replays: 0, sawText: false, sawZh: false, words: [] };
   records[sentence.id] = Object.assign({}, old, patch(old));
   localStorage.setItem(recordKey(), JSON.stringify(records));
   markStuck();
@@ -120,7 +116,6 @@ function buildParts() {
     p.t1 = lesson.sentences[p.last].end;
   });
   partOf = lesson.sentences.map((_, i) => parts.findIndex((p) => i >= p.first && i <= p.last));
-  sectionCount = sections.length;
 }
 
 /* 下一段正文；已经是最后一段，就回到第 1 段 */
@@ -249,12 +244,7 @@ function replayCurrent() {
     idx -= 1;  // 刚换句就按，说明想听的是刚才那句
     hideText();
   }
-  const before = records[cur().id] ? records[cur().id].replays : 0;
   record((old) => ({ replays: old.replays + 1 }));
-  if (before + 1 >= 2 && rate === 1 && $('autoSlow').checked) {
-    setRate(SLOW);
-    record(() => ({ slowed: true }));
-  }
   start(cur().start, { stop: cur().end, kind: 'sentence' });  // 重听只播这一句
   render();
   flashSegment(idx);
@@ -294,6 +284,8 @@ function render() {
   $('speaker').textContent = s.speaker;
   $('avatar').textContent = s.speaker === OUTSIDE ? '♪' : s.speaker.slice(0, 1);
   $('avatar').className = `avatar ${cls(s)}`;
+  // 位置一行（owner 2026-09-26）：说话人 + 本段标题 + 第几句，原来分三处
+  $('partTitle').textContent = p.kind === 'section' ? `· ${p.title}` : '';
   $('counter').textContent = p.kind === 'section'
     ? `第 ${p.n} 段 · 第 ${idx - p.first + 1} 句 / 共 ${p.last - p.first + 1} 句`
     : `${p.title}，不算正文`;
@@ -330,9 +322,6 @@ function render() {
   document.querySelectorAll('.seg').forEach((el) => {
     el.classList.toggle('current', Number(el.dataset.i) === idx);
   });
-  document.querySelectorAll('.part').forEach((el) => {
-    el.classList.toggle('current', Number(el.dataset.k) === partOf[idx]);
-  });
   document.querySelectorAll('#fullList li.line').forEach((li) => {
     li.classList.toggle('current', Number(li.dataset.i) === idx);
   });
@@ -347,11 +336,6 @@ function drawProgress(t) {
   $('timeNow').textContent = clock(into);
   document.querySelectorAll('.seg').forEach((el) => {
     el.classList.toggle('past', lesson.sentences[Number(el.dataset.i)].end <= t);
-  });
-  document.querySelectorAll('.part').forEach((el) => {
-    const q = parts[Number(el.dataset.k)];
-    const done = Math.max(0, Math.min(1, (t - q.t0) / (q.t1 - q.t0)));
-    el.firstChild.style.width = `${done * 100}%`;
   });
 }
 
@@ -377,10 +361,12 @@ function showText() {
   });
   el.hidden = false;
   $('hint').hidden = true;
-  $('againBtn').hidden = false;
-  $('againBtn').classList.remove('nudge');
-  void $('againBtn').offsetWidth;
-  $('againBtn').classList.add('nudge');
+  // 看过文字说明卡在这句了：亮起「重听本句」提醒回听（R6，决策 D7 的提醒；
+  // 速度归用户，不自动回原速——原来单独的「原速再听一遍」按钮并进来了，owner 2026-09-26）
+  const replay = $('replayBtn');
+  replay.classList.remove('nudge');
+  void replay.offsetWidth;
+  replay.classList.add('nudge');
   $('zhBtn').hidden = false;
   $('textBtn').innerHTML = '收起文字 <kbd>T</kbd>';
   record(() => ({ sawText: true }));
@@ -392,7 +378,7 @@ function hideText() {
   $('text').hidden = true;
   $('zh').hidden = true;
   $('hint').hidden = false;
-  $('againBtn').hidden = true;
+  $('replayBtn').classList.remove('nudge');
   $('zhBtn').hidden = true;
   $('zhBtn').textContent = '看中文';
   $('textBtn').innerHTML = '看文字 <kbd>T</kbd>';
@@ -409,27 +395,7 @@ function highlightSpeaking(t) {
   });
 }
 
-/* ---------- 进度：上面整集分几段，下面这段每一小段是一句 ---------- */
-
-function buildOverview() {
-  const total = audio.duration || lesson.sentences[lesson.sentences.length - 1].end;
-  const box = $('parts');
-  box.innerHTML = '';
-  parts.forEach((p, k) => {
-    const from = k === 0 ? 0 : p.t0;
-    const to = k + 1 < parts.length ? parts[k + 1].t0 : total;
-    const el = document.createElement('button');
-    el.className = `part ${p.kind}`;
-    el.dataset.k = k;
-    el.style.flexGrow = String(Math.max(1, to - from));
-    el.title = p.kind === 'section' ? `第 ${p.n} 段：${p.title}` : p.title;
-    el.setAttribute('aria-label', el.title);
-    el.innerHTML = '<span class="fill"></span><span class="label"></span>';
-    el.querySelector('.label').textContent = p.kind === 'section' ? p.n : p.title;
-    el.onclick = () => { if (!justDragged()) playFrom(p.first); };  // 点一段：从那段开头连续听
-    box.appendChild(el);
-  });
-}
+/* ---------- 进度：当前这段，每一小段是一句 ---------- */
 
 function buildTimeline() {
   shownPart = partOf[idx];
@@ -449,10 +415,6 @@ function buildTimeline() {
   box.classList.remove('swap');
   void box.offsetWidth;
   box.classList.add('swap');
-  $('partNo').textContent = p.kind === 'section' ? `第 ${p.n} 段` : p.title;
-  $('partNo').classList.toggle('outside', p.kind !== 'section');
-  $('partTitle').textContent = p.kind === 'section' ? p.title : '不算正文';
-  $('partCount').textContent = `共 ${sectionCount} 段`;
   $('timeTotal').textContent = clock(span);
   markStuck();
 }
@@ -498,9 +460,9 @@ function buildLegend() {
   legend.insertAdjacentHTML('beforeend', '<span><i class="stuck-dot"></i>重听过的句子</span>');
 }
 
-/* 指到下面那条上：提示指着的是第几句、从哪儿开始；正在拖时写拖到的时间（和右下角的时间一样） */
+/* 指到条上：提示指着的是第几句、从哪儿开始；正在拖时写拖到的时间（和右下角的时间一样） */
 function showTip(clientX) {
-  const dragging = scrub && scrub.moved && scrub.bar === 'timeline';
+  const dragging = scrub && scrub.moved;
   const i = dragging ? idx : sentenceAt(clientX);
   const s = lesson.sentences[i];
   const p = parts[shownPart];
@@ -509,7 +471,6 @@ function showTip(clientX) {
   const at = dragging ? scrub.t : s.start;
   tip.innerHTML = `<b>第 ${i - p.first + 1} 句</b>${s.speaker === OUTSIDE ? '' : s.speaker} · ${clock(at - p.t0)}`;
   tip.style.left = `${Math.min(rect.width - 70, Math.max(70, clientX - rect.left))}px`;
-  tip.classList.remove('above');
   tip.hidden = false;
   document.querySelectorAll('.seg.hover').forEach((el) => el.classList.remove('hover'));
   const seg = document.querySelector(`.seg[data-i="${i}"]`);
@@ -518,21 +479,7 @@ function showTip(clientX) {
 
 function hideTip() {
   $('tip').hidden = true;
-  $('tip').classList.remove('above');
   document.querySelectorAll('.seg.hover').forEach((el) => el.classList.remove('hover'));
-}
-
-/* 指到上面整集那条：提示指着第几段、整集进行到第几分钟（共几分钟）；正在拖时跟着落点走 */
-function showPartsTip(clientX) {
-  const t = timeOnParts(clientX);
-  const q = parts[partOf[sentenceAtTime(t)]];
-  const total = audio.duration || lesson.sentences[lesson.sentences.length - 1].end;
-  const tip = $('tip');
-  const rect = $('parts').getBoundingClientRect();
-  tip.innerHTML = `<b>${q.kind === 'section' ? `第 ${q.n} 段` : q.title}</b>${clock(t)} / ${clock(total)}`;
-  tip.style.left = `${Math.min(rect.width - 70, Math.max(70, clientX - rect.left))}px`;
-  tip.classList.add('above');
-  tip.hidden = false;
 }
 
 $('timeline').addEventListener('pointermove', (e) => {
@@ -540,25 +487,21 @@ $('timeline').addEventListener('pointermove', (e) => {
 });
 $('timeline').addEventListener('pointerleave', hideTip);
 $('timeline').addEventListener('click', (e) => { if (!justDragged()) playOne(sentenceAt(e.clientX)); });
-$('parts').addEventListener('pointermove', (e) => {
-  if (!(scrub && scrub.moved)) showPartsTip(e.clientX);
-});
-$('parts').addEventListener('pointerleave', hideTip);
 
 /* ---------- 拖进度（R23） ----------
- * 下面那条在这一段里拖，上面整集那条能拖到别的段。按下后挪过 4 像素才算拖，不然还是「点」（R15）。
+ * 按下后挪过 4 像素才算拖，不然还是「点」（R15）。
  * 拖的时候声音先停：一边拖一边放原来位置的声音，屏幕上的句子和耳朵听到的对不上。
  * 松手：原来在播，就从落点按原来的播法接着播——连续播的接着连续播；只播一句的播到落点那句的句末停
  * （孩子拖回去多半是想把这句里没听清的几个词再听一遍）。原来暂停着，就停在落点不播（owner 2026-09-24）。
  */
 
 const DRAG_FROM = 4;      // 按下后挪过这么多像素才算拖
-let scrub = null;         // 正在拖：{ bar, el, id, x0, moved, t, wasPlaying, oneSentence }
+let scrub = null;         // 正在拖：{ el, id, x0, moved, t, wasPlaying, oneSentence }
 let draggedAt = -1e9;     // 上一次松手的时刻：紧跟着的那次 click 不算点
 
 const justDragged = () => performance.now() - draggedAt < 400;
 
-/* 下面那条：横坐标 → 这一段里的时间 */
+/* 横坐标 → 这一段里的时间 */
 function timeOnTimeline(clientX) {
   const p = parts[shownPart];
   const rect = $('timeline').getBoundingClientRect();
@@ -566,29 +509,15 @@ function timeOnTimeline(clientX) {
   return Math.min(p.t0 + f * (p.t1 - p.t0), p.t1 - 0.01);  // 拖到最右端也还在这一段里
 }
 
-/* 上面整集那条：横坐标 → 整集里的时间。算法和画进度（drawProgress）反过来，拖到哪、那一块就填到哪 */
-function timeOnParts(clientX) {
-  let best = null;
-  let bestGap = Infinity;
-  document.querySelectorAll('.part').forEach((el) => {
-    const r = el.getBoundingClientRect();
-    const gap = clientX < r.left ? r.left - clientX : clientX > r.right ? clientX - r.right : 0;
-    if (gap < bestGap) { best = { el, r }; bestGap = gap; }
-  });
-  const q = parts[Number(best.el.dataset.k)];
-  const f = Math.max(0, Math.min(1, (clientX - best.r.left) / best.r.width));
-  return Math.min(q.t0 + f * (q.t1 - q.t0), q.t1 - 0.01);
-}
-
-/* 落在哪一句：正在说的那句；落在两句之间的空当，算接下来那句。在下面那条上拖，只在这一段里找 */
+/* 落在哪一句：正在说的那句；落在两句之间的空当，算接下来那句 */
 function sentenceAtTime(t, from = 0, to = lesson.sentences.length - 1) {
   for (let i = from; i <= to; i++) if (t < lesson.sentences[i].end) return i;
   return to;
 }
 
-function beginScrub(e, bar) {
+function beginScrub(e) {
   if (e.button !== 0 || !lesson || updating) return;
-  scrub = { bar, el: e.currentTarget, id: e.pointerId, x0: e.clientX, moved: false };
+  scrub = { el: e.currentTarget, id: e.pointerId, x0: e.clientX, moved: false };
 }
 
 function moveScrub(e) {
@@ -605,16 +534,15 @@ function moveScrub(e) {
     $('wordbox').hidden = true;
     document.body.classList.add('scrubbing');
   }
-  scrub.t = scrub.bar === 'timeline' ? timeOnTimeline(e.clientX) : timeOnParts(e.clientX);
+  scrub.t = timeOnTimeline(e.clientX);
   const p = parts[shownPart];
-  const i = scrub.bar === 'timeline' ? sentenceAtTime(scrub.t, p.first, p.last) : sentenceAtTime(scrub.t);
+  const i = sentenceAtTime(scrub.t, p.first, p.last);
   if (i !== idx) {
     idx = i;
     hideText();
-    render();  // 拖到了别的段，下面那条跟着换
+    render();
   }
-  if (scrub.bar === 'timeline') showTip(e.clientX);
-  else showPartsTip(e.clientX);
+  showTip(e.clientX);
 }
 
 function endScrub(e) {
@@ -637,12 +565,8 @@ function endScrub(e) {
   render();
 }
 
-[['timeline', $('timeline')], ['parts', $('parts')]].forEach(([bar, el]) => {
-  el.addEventListener('pointerdown', (e) => beginScrub(e, bar));
-  el.addEventListener('pointermove', moveScrub);
-  el.addEventListener('pointerup', endScrub);
-  el.addEventListener('pointercancel', endScrub);
-});
+['pointerdown', 'pointermove', 'pointerup', 'pointercancel'].forEach((name) =>
+  $('timeline').addEventListener(name, name === 'pointerdown' ? beginScrub : name === 'pointermove' ? moveScrub : endScrub));
 
 /* ---------- 单词 ---------- */
 
@@ -736,10 +660,7 @@ function loadMore(at) {
   $('moreWait').onclick = null;
   api('/api/more', { sentence: at.s.id, word: at.i }).then((detail) => {
     at.note.detail = detail;
-    if (shown === at && !$('wordbox').hidden) {
-      fillMore(detail);
-      replaceWordbox();
-    }
+    if (shown === at && !$('wordbox').hidden) fillMore(detail);
   }).catch(() => {
     if (shown !== at) return;
     $('moreWait').textContent = '没查到，点这里再试一次';
@@ -760,8 +681,9 @@ function fillMore(more) {
   $('moreBody').hidden = false;
 }
 
-/* 优先弹在词的上方，别盖住下面的中文和按钮；空间紧就贴近一点，实在放不下再放下方；
- * 上下都放不下（展开后很高、屏幕又矮）就贴着屏幕顶，卡片里面滚动 */
+/* 优先弹在词的上方，别盖住下面的中文和按钮；空间紧就贴近一点，实在放不下再放下方。
+ * 位置只在点开这个词的时候定一次；之后展开、收起、查回来都不挪（owner 2026-09-26：一跳体验很差）。
+ * 放不下屏幕时不再挪位置，而是把卡片最高到多少定死，展开的内容在里面滚动（word-more） */
 function placeWordbox(tag) {
   const box = $('wordbox');
   box.dataset.for = Array.prototype.indexOf.call(document.querySelectorAll('#text w'), tag);
@@ -773,13 +695,12 @@ function placeWordbox(tag) {
   if (room >= 12) box.style.top = `${room - Math.min(14, room - 4)}px`;
   else if (r.bottom + 14 + h <= window.innerHeight - 12) box.style.top = `${r.bottom + 14}px`;
   else box.style.top = `${Math.max(12, window.innerHeight - h - 12)}px`;
+  const top = parseFloat(box.style.top);
+  box.style.maxHeight = `${Math.max(180, window.innerHeight - top - 12)}px`;
 }
 
-/* 卡片高度变了（展开、收起、查回来了），按原来那个词重新摆一次 */
-function replaceWordbox() {
-  const tag = document.querySelectorAll('#text w')[Number($('wordbox').dataset.for)];
-  if (tag) placeWordbox(tag);
-}
+/* 卡片高度变了（查回来了），也不用挪：owner 2026-09-26 定的，展开就原地变高、遮住词也不动。
+ * 放不下屏幕时贴着底、里面滚动，位置仍不动（placeWordbox 里定好的 maxHeight 兜着） */
 
 $('wordMoreBtn').onclick = () => {
   const open = $('wordMore').hidden;
@@ -787,7 +708,6 @@ $('wordMoreBtn').onclick = () => {
   $('wordMoreBtn').textContent = open ? '收起' : '展开';
   $('wordMoreBtn').setAttribute('aria-expanded', String(open));
   if (open && shown && !shown.note.detail) loadMore(shown);
-  replaceWordbox();
 };
 
 /* 朗读：单个词放备课时从发音词典拷来的谷歌英音；词组和词典里没有的，本地服务让百炼 Emily 现读、存下来（决策 D27）。
@@ -853,12 +773,6 @@ $('prevBtn').onclick = () => playOne(idx - 1);
 $('nextBtn').onclick = () => playOne(idx + 1);
 $('nextSectionBtn').onclick = () => playFrom(nextSection().first);
 $('againSectionBtn').onclick = () => playFrom(part().first);
-$('againBtn').onclick = () => {
-  setRate(1);
-  $('againBtn').classList.remove('nudge');
-  start(cur().start, { stop: cur().end, kind: 'sentence' });
-  render();
-};
 $('textBtn').onclick = () => {
   if ($('text').hidden) showText(); else { hideText(); render(); }
 };
@@ -880,8 +794,6 @@ $('settingsBtn').onclick = (e) => {
   $('settingsBtn').setAttribute('aria-expanded', String(!panel.hidden));
 };
 $('settings').onclick = (e) => e.stopPropagation();
-$('autoSlow').onchange = (e) =>
-  localStorage.setItem(settingKey('autoSlow'), e.target.checked ? 'on' : 'off');
 $('exportBtn').onclick = () => {
   const blob = new Blob([JSON.stringify({ lesson: LESSON, records }, null, 2)], { type: 'application/json' });
   const link = document.createElement('a');

@@ -26,10 +26,6 @@
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>
     </button>
     <div id="settings" class="settings" hidden>
-      <label class="switch-row">
-        <span>同一句重听第二遍自动放慢<small>放到 0.8 倍，音调不变</small></span>
-        <input type="checkbox" id="autoSlow" checked><i aria-hidden="true"></i>
-      </label>
       <button id="exportBtn" class="text-btn">导出学习记录</button>
     </div>
   </div>
@@ -39,10 +35,9 @@
   <section class="now" aria-live="polite">
     <div class="who">
       <span id="avatar" class="avatar">·</span>
-      <div class="who-text">
-        <div id="speaker" class="speaker-name">—</div>
-        <div id="counter" class="counter">第 0 句 / 共 0 句</div>
-      </div>
+      <span id="speaker" class="speaker-name">—</span>
+      <span id="partTitle" class="who-part"></span>
+      <span id="counter" class="counter">第 0 句 / 共 0 句</span>
       <span id="stateTag" class="state-tag">连续播放</span>
     </div>
 
@@ -51,7 +46,7 @@
         <!-- 只放声浪：播放时跳动、暂停时安静地伏着，一眼看得出在不在播。
              常驻的引导文字 2026-09-26 拿掉了（owner：用户不需要一直看这句话），
              按钮上写着「重听本句」「看文字」，孩子看得懂（SPEC-001 R22） -->
-        <div class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
       </div>
       <p id="text" class="sentence" hidden></p>
       <p id="zh" class="zh" hidden></p>
@@ -67,18 +62,11 @@
       <div id="cardActions" class="card-actions">
         <button id="textBtn" class="pill">看文字 <kbd>T</kbd></button>
         <button id="zhBtn" class="pill" hidden>看中文</button>
-        <button id="againBtn" class="pill accent" hidden>原速再听一遍</button>
       </div>
     </div>
   </section>
 
   <section class="deck">
-    <div class="part-head">
-      <span id="partNo" class="part-no">第 1 段</span>
-      <span id="partTitle" class="part-title"></span>
-      <span id="partCount" class="part-count"></span>
-    </div>
-    <div id="parts" class="parts" aria-label="整集分成几段，点一段从那段开头听"></div>
     <div class="times"><span id="timeNow">0:00</span> / <span id="timeTotal">0:00</span></div>
     <div id="timeline" class="timeline" aria-label="每一段是一句话，点一下跳到那句开头">
       <div id="segments" class="segments"></div>
@@ -88,13 +76,19 @@
     <div id="legend" class="legend"></div>
 
     <div class="transport">
+      <!-- 按意图分组（owner 2026-09-26）：重听本句·上一句·下一句是「抠这句」的一组（上一句下一句相邻），
+           播放单独在右边——它代表连续播（决策 D23） -->
+      <button id="replayBtn" class="t-btn" aria-label="重听本句">
+        <span class="t-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v5h5"/></svg></span>
+        <span class="t-label">重听本句</span><kbd>R</kbd>
+      </button>
       <button id="prevBtn" class="t-btn" aria-label="上一句">
         <span class="t-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5v14"/><path d="M19 5 9 12l10 7z"/></svg></span>
         <span class="t-label">上一句</span><kbd>←</kbd>
       </button>
-      <button id="replayBtn" class="t-btn" aria-label="重听本句">
-        <span class="t-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v5h5"/></svg></span>
-        <span class="t-label">重听本句</span><kbd>R</kbd>
+      <button id="nextBtn" class="t-btn" aria-label="下一句">
+        <span class="t-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5v14"/><path d="M5 5l10 7-10 7z"/></svg></span>
+        <span class="t-label">下一句</span><kbd>→</kbd>
       </button>
       <button id="playBtn" class="t-btn play" aria-label="播放">
         <span class="t-icon">
@@ -103,15 +97,11 @@
         </span>
         <span id="playLabel" class="t-label">播放</span><kbd>空格</kbd>
       </button>
-      <button id="nextBtn" class="t-btn" aria-label="下一句">
-        <span class="t-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5v14"/><path d="M5 5l10 7-10 7z"/></svg></span>
-        <span class="t-label">下一句</span><kbd>→</kbd>
-      </button>
     </div>
 
     <div class="speed" role="group" aria-label="语速">
       <span class="speed-label">语速</span>
-      <button class="speed-btn" data-rate="0.7">0.7</button>
+      <button class="speed-btn" data-rate="0.6">0.6</button>
       <button class="speed-btn" data-rate="0.8">0.8</button>
       <button class="speed-btn" data-rate="1">1.0</button>
     </div>

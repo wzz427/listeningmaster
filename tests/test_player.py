@@ -92,7 +92,7 @@ def run(page, shots: Path | None) -> None:
           page.inner_text("#counter"))
     check("A2 默认不显示英文", page.is_hidden("#text"))
     check("A59 卡片平时只有声浪，没有常驻的引导文字",
-          "先用耳朵" not in page.inner_text("#card") and page.locator("#hint .bars i").count() == 7,
+          "先用耳朵" not in page.inner_text("#card") and page.locator("#hint .bars i").count() == 11,
           page.inner_text("#card").strip()[:30])
     page.click("#playBtn")
     wait_playing(page)
@@ -203,7 +203,8 @@ def run(page, shots: Path | None) -> None:
     page.click("#textBtn")
     shown = page.inner_text("#text")
     check("A5 显示的是整句英文", shown.strip() == body[10]["text"].strip(), f"屏幕上：{shown[:40]}")
-    check("A6 出现「原速再听一遍」", page.is_visible("#againBtn"))
+    check("A6 看过文字后「重听本句」亮起来，没有单独的「原速再听一遍」",
+          page.locator("#replayBtn.nudge").count() == 1 and page.locator("#againBtn").count() == 0)
     check("A7b2 看过英文后，看中文的按钮出现了", page.is_visible("#zhBtn"))
     wait_paused(page)
     check("A17 连续播放时看了文字，这句播完就停，不往下走",
@@ -280,16 +281,20 @@ def run(page, shots: Path | None) -> None:
           f"{page.inner_text('#wordText')}：{page.inner_text('.word-line')[:40]}（亮了 {page.locator('#text w.picked').count()} 个词）")
     check("A7o 点词只出那一行；展开的内容先收着，也还没去查（决策 D30）",
           page.is_hidden("#wordMore") and page.is_visible("#wordMoreBtn") and not mores, f"已经查了 {len(mores)} 次展开")
+    page.wait_for_timeout(250)  # 等弹出动画走完再量位置，不然量到的是动画里的位移
+    box_before = page.locator("#wordbox").bounding_box()
     with page.expect_response(lambda r: r.url.endswith("/api/more"), timeout=30000) as got_more:
         page.click("#wordMoreBtn")
     page.wait_for_function("!document.getElementById('moreBody').hidden", timeout=20000)
     page.wait_for_timeout(250)
     box = page.locator("#wordbox").bounding_box()
-    check("A7p 点展开才去查，看到常见意思（标出这句用的）、搭配、例句，卡片没出屏幕",
+    check("A7p 点展开才去查，看到常见意思（标出这句用的）、搭配、例句，卡片没挪窝、没出屏幕",
           got_more.value.ok and page.is_visible("#wordMore") and page.locator("#moreSenses li.used").count() == 1
           and page.locator("#moreColl li").count() >= 1 and len(page.inner_text("#moreEx")) > 3
+          and abs(box["x"] - box_before["x"]) < 1 and abs(box["y"] - box_before["y"]) < 1
           and box["y"] >= 0 and box["y"] + box["height"] <= page.viewport_size["height"],
-          f"{page.locator('#moreSenses li').count()} 个意思，{page.locator('#moreColl li').count()} 个搭配")
+          f"{page.locator('#moreSenses li').count()} 个意思，{page.locator('#moreColl li').count()} 个搭配，"
+          f"展开前 y={box_before['y']:.0f}、展开后 y={box['y']:.0f}")
     shot(page, shots, "3b-word-more")
     with page.expect_response(lambda r: "/tts/" in r.url, timeout=30000) as got:
         page.click("#wordTts")
@@ -327,6 +332,14 @@ def run(page, shots: Path | None) -> None:
           page.locator(".seg.stuck").count() >= 2, f"{page.locator('.seg.stuck').count()} 段")
 
     print("\n【语速】")
+    goto_body(page, 2)
+    page.click("#replayBtn")
+    page.click("#replayBtn")  # 旧版第二次重听同一句会自动降到 0.8，owner 2026-09-26 拿掉了
+    gears = page.evaluate("[...document.querySelectorAll('.speed-btn')].map((b) => b.dataset.rate)")
+    check("A4 速度只归用户：挡位 0.6 / 0.8 / 1.0，重听两遍也不自动变，设置里没有自动放慢的开关",
+          gears == ["0.6", "0.8", "1"] and abs(page.evaluate("audio.playbackRate") - 1) < 0.01
+          and page.locator("#autoSlow").count() == 0,
+          f"挡位 {gears}，速度 {page.evaluate('audio.playbackRate')}")
     page.click(".speed-btn[data-rate='0.8']")
     check("A8 切到 0.8 生效", abs(page.evaluate("audio.playbackRate") - 0.8) < 0.01)
     page.click(".speed-btn[data-rate='1']")
@@ -455,28 +468,6 @@ def drag_part(page, shots: Path | None) -> None:
     check("A54 只播一句时拖到别的句子，从落点播到那句句末就停",
           target - 0.1 <= t <= target + 0.8 and tag == "只播这一句" and abs(stopped - sentences[m]["end"]) < 0.05,
           f"落点 {target:.2f} 秒，松手后 {t:.2f} 秒，停在 {stopped:.2f} 秒，句末 {sentences[m]['end']:.2f} 秒")
-
-    # A55：在上面整集那条上拖到第 3 段，下面那条跟着换成第 3 段，停在松手的位置
-    # A58b：拖着的时候，提示写着指着第几段、整集进行到第几分钟
-    k3 = next(n for n, q in enumerate(parts) if q["kind"] == "section" and q["n"] == 3)
-    q3 = parts[k3]
-    from_box = page.locator(f".part[data-k='{page.evaluate('partOf[idx]')}']").bounding_box()
-    to_box = page.locator(f".part[data-k='{k3}']").bounding_box()
-    target = q3["t0"] + 0.5 * (q3["t1"] - q3["t0"])
-    py = from_box["y"] + from_box["height"] / 2
-    press_and_drag(from_box["x"] + from_box["width"] / 2, to_box["x"] + to_box["width"] / 2, py, release=False)
-    tip = page.inner_text("#tip")
-    check("A58b 在整集那条上拖着，提示第几段和整集时间",
-          "第 3 段" in tip and "/" in tip, tip)
-    page.mouse.up()
-    page.wait_for_timeout(300)
-    t = now(page)
-    per_px = (q3["t1"] - q3["t0"]) / to_box["width"]
-    firsts = page.evaluate("[...document.querySelectorAll('.seg')].map((e) => Number(e.dataset.i))")
-    check("A55 在上面整集那条上拖到第 3 段，下面那条换成第 3 段，停在松手的位置、不播",
-          not playing(page) and page.inner_text("#partNo") == "第 3 段" and abs(t - target) < max(0.6, 3 * per_px)
-          and min(firsts) == q3["first"] and max(firsts) == q3["last"],
-          f"松手处 {target:.2f} 秒，现在 {t:.2f} 秒，{page.inner_text('#partNo')}")
 
     # A57 / A58：圆点上方（条顶之外）也能按住拖；时间读数是「当前 / 这段总长」，拖着的时候跟着走
     goto_body(page, 5)
@@ -619,28 +610,22 @@ def update_part(page, shots: Path | None) -> None:
 def sections_part(page, shots: Path | None, body: list[dict]) -> None:
     print("\n【分段】")
     sentences = page.evaluate("lesson.sentences")
-    sections = page.evaluate("lesson.sections")
     parts = page.evaluate("parts")
     nth = {p["n"]: (k, p) for k, p in enumerate(parts) if p["kind"] == "section"}
-    check("A22 整集那条上每段一块，片头片尾也各一块",
-          page.locator(".part").count() == len(parts) and page.locator(".part.section").count() == len(sections),
-          f"{page.locator('.part').count()} 块，其中正文 {page.locator('.part.section').count()} 段")
+    check("A60 说话人、段标题、第几句合在卡片上方一行；整集分段条没有了",
+          page.locator(".who #speaker, .who #partTitle, .who #counter").count() == 3
+          and page.locator("#parts").count() == 0 and page.locator(".part").count() == 0,
+          f"那一行：{page.inner_text('.who')[:50]}")
 
     k2, p2 = nth[2]
     page.evaluate(f"playOne({p2['first'] + 2})")
     page.wait_for_timeout(200)
     segs = page.evaluate("[...document.querySelectorAll('.seg')].map((e) => Number(e.dataset.i))")
-    check("A23 跳到第 2 段的句子，下面那条换成第 2 段",
-          segs == list(range(p2["first"], p2["last"] + 1)) and page.inner_text("#partNo") == "第 2 段",
-          f"{page.inner_text('#partNo')}，{len(segs)} 小段")
-    check("A23b 整集那条上亮着的是第 2 段",
-          page.evaluate("document.querySelector('.part.current').dataset.k") == str(k2))
-
-    k3, p3 = nth[3]
-    page.click(f".part[data-k=\"{k3}\"]")
-    page.wait_for_timeout(300)
-    check("A24 点整集那条上的第 3 段，从第 3 段开头播",
-          playing(page) and in_sentence(now(page), sentences[p3["first"]]), f"现在 {now(page):.2f} 秒")
+    check("A60b 跳到别的段，这一行和下面那条都跟着换",
+          segs == list(range(p2["first"], p2["last"] + 1))
+          and page.inner_text("#counter").startswith("第 2 段")
+          and page.inner_text("#partTitle").strip("· ") == p2["title"],
+          f"{page.inner_text('#counter')}，{len(segs)} 小段")
 
     _, p1 = nth[1]
     page.evaluate(f"playFrom({p1['last'] - 1})")
@@ -666,8 +651,9 @@ def sections_part(page, shots: Path | None, body: list[dict]) -> None:
     page.keyboard.press(" ")
     page.wait_for_timeout(300)
     check("A27 段末按空格，从下一段开头播",
-          playing(page) and in_sentence(now(page), sentences[p2["first"]]) and page.inner_text("#partNo") == "第 2 段",
-          f"现在 {now(page):.2f} 秒，{page.inner_text('#partNo')}")
+          playing(page) and in_sentence(now(page), sentences[p2["first"]])
+          and page.inner_text("#counter").startswith("第 2 段"),
+          f"现在 {now(page):.2f} 秒，{page.inner_text('#counter')}")
 
     page.evaluate(f"playOne({p1['last']})")
     wait_paused(page, timeout=15000)
@@ -675,7 +661,7 @@ def sections_part(page, shots: Path | None, body: list[dict]) -> None:
           page.is_hidden("#sectionEnd") and page.is_visible("#textBtn")
           and page.inner_text("#stateTag") == "停在这句末尾", page.inner_text("#stateTag"))
 
-    _, plast = nth[len(sections)]
+    _, plast = nth[max(nth)]
     page.evaluate(f"playFrom({plast['last']})")
     wait_paused(page, timeout=15000)
     check("A28 最后一段播完写「这集听完了」，按钮是「从第 1 段开始」",
