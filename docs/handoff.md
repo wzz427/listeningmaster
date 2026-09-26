@@ -6,15 +6,18 @@
 
 ## 现在在哪（最新在上）
 
-### 2026-09-26 · 移交到 ZCode；收尾命令 /warp 改造成 /wrap
+### 2026-09-26 · 移交到 ZCode；收尾命令 /warp 改造成 /wrap；加了 AGENTS.md
 
-- 项目从 Claude Code 移交到 ZCode（owner 2026-09-26）。收尾命令照他要求改造并改名 `/wrap`（他觉得 warp 像是拼错了）。
+- 项目从 Claude Code 移交到 ZCode（owner 2026-09-26：「后面这个项目就由你负责了」，授权按需改造）。收尾命令照他要求改造并改名 `/wrap`（他觉得 warp 像是拼错了）。
 - 做了什么：
   - 新命令在 `.zcode/commands/wrap.md`（ZCode 读仓库的 `.zcode/commands/`），内容照原 `/warp` 五步：判能不能收 → 把只活在对话里的东西写下来 → 扫文档 → 提交 → 五句话给 owner。改了一处：ZCode 的压缩是自动的（上下文满了自动摘要），不说「敲 /compact」。
   - 旧 `.claude/commands/warp.md` 删除；引用跟着改：`CLAUDE.md`、`docs/architecture.md`、`docs/workflow.md`、`docs/environment.md`；`tests/test_docs.py` 查路径的清单从 `.claude/` 换成 `.zcode/`。
+  - 加了仓库根的 `AGENTS.md`：ZCode 自动读它、不读 `CLAUDE.md`，所以它只放指针、开机三步和红线摘录，第一读物仍是 `CLAUDE.md`（决策 D36）。`tests/test_docs.py` 把它管上（CURRENT_DOCS 和 TOP_FILES）。
   - 顺手清了两处 Claude Code 专属的话：environment.md 工具行改成 ZCode；「改界面前先加载 frontend-design 技能」在 ZCode 里没有这个技能，改成只写标准（owner 2026-09-21 的要求不变）。
-- 实测：`tests/test_docs.py` 20 项全过；把 wrap.md 改名藏起来重跑，两份文档的路径检查当场报错，恢复后全过——新命令文件已进对账。
-- 遗留的移交小事：ZCode 不自动读 `CLAUDE.md`（Claude Code 的入口文件名），靠记忆里的开机顺序兜着；要不要加一份 `AGENTS.md` 指过去，等 owner 定。
+- 全仓扫过一遍移交残留，结论：
+  - 不改的：文档、规格、代码注释里的「claude」是 AI 助手的角色名，不是工具名，继续用（决策 D37）；`CLAUDE.md` 文件名不改（D36）；`docs/lessons.md` 里「Bash 吃反斜杠」那条是 Claude Code 的 Bash 工具踩的，ZCode 未必有同一个毛病，但「改含反斜杠的文字用 Edit 工具」照做无害，历史记录不动。
+  - 没有别的了：`.claude/` 已删，工具名提及只剩「移交自」的说明和历史记录；测试、pipeline、stable_copy 都是纯 Python，不依赖哪个客户端。
+- 实测：`tests/test_docs.py` 全过（AGENTS.md 加进对账后 21 项）；把 wrap.md 改名藏起来重跑，两份文档的路径检查当场报错，恢复后全过——新命令文件已进对账。
 - 下一步从哪接：不变——owner 回来双击 `start-player.bat` 点「更新」（拖进度那一版还钉着），孩子试用第一集。
 
 ### 2026-09-24 · 体验版和开发版分开；进度条能拖

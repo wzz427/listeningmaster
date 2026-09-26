@@ -32,6 +32,7 @@
 | 位置 | 干什么 | 规格 |
 |---|---|---|
 | `demand.md` | owner 的需求原话、优先级、不做什么、约束 | — |
+| `AGENTS.md` | ZCode 自动读到的入口：指针、开机三步、红线摘录；第一读物仍是 `CLAUDE.md`（决策 D36） | — |
 | `idea.txt` | owner 起步时写的最初想法，只作历史 | — |
 | `specs/` | 规格：`SPEC-000-overview.md` 是总需求和模块表，其余一块一份；`SPEC-template.md` 是空模板 | — |
 | `docs/` | 本文、`workflow.md`（开发流程和验证）、`environment.md`（开发环境和工具）、`decisions.md`、`lessons.md`、`debts.md`、`handoff.md`、`research.md`；`refs/qwen-asr-api.md` 是百炼识别的官方文档存档；`history/` 放整批搬走的旧交接记录 | — |

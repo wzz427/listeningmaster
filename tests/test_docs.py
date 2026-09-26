@@ -22,10 +22,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 LESSON = "260821"
-CURRENT_DOCS = ["CLAUDE.md", "demand.md", "docs/architecture.md", "docs/workflow.md", "docs/environment.md", "docs/debts.md",
+CURRENT_DOCS = ["AGENTS.md", "CLAUDE.md", "demand.md", "docs/architecture.md", "docs/workflow.md", "docs/environment.md", "docs/debts.md",
                 *sorted(str(p.relative_to(ROOT)).replace("\\", "/") for p in (ROOT / "specs").glob("*.md"))]
 PATH_ROOTS = ("pipeline/", "web/", "tests/", "docs/", "specs/", "lessons/", "materials/", ".zcode/")
-TOP_FILES = {"demand.md", "CLAUDE.md", "idea.txt", "start-player.bat", "api-keys.txt"}
+TOP_FILES = {"AGENTS.md", "demand.md", "CLAUDE.md", "idea.txt", "start-player.bat", "api-keys.txt"}
 ID = re.compile(r"(?<![0-9A-Za-z-])(A(?:\d+[a-z]*\d*|-next|-prev))(?![0-9A-Za-z])")
 
 failures: list[str] = []
@@ -72,6 +72,9 @@ def has(obj, parts: list[str]) -> bool:
 def main() -> None:
     print("\n【文档里写到的文件都在】")
     for doc in CURRENT_DOCS:
+        if not (ROOT / doc).exists():  # 入口文档自己丢了也要报得清楚，不是崩一个 traceback
+            check(f"D1 {doc} 这个文件在", False)
+            continue
         missing = sorted(p for p in paths_in(read(doc)) if not (ROOT / p).exists() and not ignored(p))
         check(f"D1 {doc} 里写到的路径都在", not missing, "、".join(missing))
 
