@@ -11,6 +11,7 @@
 - owner 2026-09-26：「先做课程。你把自己当成资深英语老师去做调研和研究，出方案再来跟我说计划；不要反过来问我，我就是个等着老师教的学生。」理念他定向：以听力为牵引，带动英语综合能力。人设、理念、工作方式写进 `CLAUDE.md`「你是谁」和 AGENTS.md（D45）。
 - 调研（补 `docs/research.md` 五）：Nation 四股线、Vandergrift & Goh 元认知循环完整序列、Krashen 窄听、泛听操作参数；已有的 Field 诊断、Goh 解码、字幕、听前、听写研究直接复用。
 - 方案全文 `docs/course.md`：理念四条、学生画像（第一批就是 owner 和孩子）、一集六步闭环（预习→整段盲听→逐句精听→**原速复听**（新加的一环，练流畅）→卡点练习→自动复盘）、单元＝同系列 4 到 6 集窄听、一周 2 到 3 集、4 到 6 周 PET 测一次、材料阶梯（Real Easy English→The English We Speak/6 Minute English→B1+）、落地路线（SPEC-009 预习页→SPEC-010 课后练习→SPEC-011 复盘统计，跟读以后）。`tests/test_docs.py` 的 CURRENT_DOCS 把 course.md 管上。
+- owner 随后要求：调研报告也要写成文档、住 `docs/research/` 文件夹。已建 `docs/research/listening-led-course-design.md`（十三个部分：问题、解码断点、四股线、元认知循环、听前/听中/听后、泛听窄听、动机、竞品课程视角、证据强度、十条设计推论、参考文献）；`docs/research.md` 改成摘要＋索引，报告也进了 CURRENT_DOCS。以后每次调研一篇报告放这里。
 - 下一步从哪接：owner 过目方案（本会话的汇报消息就是）→ 点头或提修改 → 写 SPEC-009 预习页动工。
 
 ### 2026-09-26 · owner 拍板两件、抛出方向之问：先做课程，还是先定客户端/网页

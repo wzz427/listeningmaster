@@ -62,7 +62,7 @@
 | 文件是干什么的 / 课程文件格式 / 接口 / 外部服务 | `docs/architecture.md` |
 | 装了哪些工具、换电脑怎么搭、命令行的坑 | `docs/environment.md` |
 | 怎么验（界面、声音、模型写的内容） | `docs/workflow.md`「验证」 |
-| 竞品和听力教学研究怎么说 | `docs/research.md` |
+| 竞品和听力教学研究怎么说（摘要） | `docs/research.md`；完整调研报告一篇一份在 `docs/research/` 文件夹 |
 | 课程怎么教（理念、一集六步、单元阶段、材料阶梯、落地路线） | `docs/course.md` |
 | 调百炼语音识别 | `docs/refs/qwen-asr-api.md`（官方文档存档） |
 | 原始素材 | `materials/<期号>/`（音频 + 讲稿 + 练习） |
