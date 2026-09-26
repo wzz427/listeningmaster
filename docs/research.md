@@ -68,3 +68,11 @@
 - **单词发音**：从原音频截出的片段有连读，边界误差在几十到一百多毫秒；标准发音用 TTS。
 
 来源：[WhisperX](https://github.com/m-bain/whisperX)、[Qwen3-ASR](https://github.com/QwenLM/Qwen3-ASR)、[ctc-forced-aligner](https://github.com/MahmoudAshraf97/ctc-forced-aligner)、[ECDICT](https://github.com/skywind3000/ECDICT)、[剑桥 B1 词表](https://www.cambridgeenglish.org/Images/506887-b1-preliminary-vocabulary-list.pdf)、[CEFR-J](http://www.cefr-j.org/download_eng)
+
+## 五、课程设计的依据（2026-09-26 补，为 `docs/course.md` 出方案查的）
+
+1. **Nation 四股线**：均衡的语言课由四股大致等量编织——意义输入（泛听泛读）、意义输出（说写）、语言点学习（词汇语法发音）、**流畅性发展（用已懂的材料练快练顺）**。对应到本课：泛听攒量、精听补断点、生词连读聚焦、原速复听。Nation, "The four strands", *Innovation in Language Learning and Teaching* 2007；*What Should Every EFL Teacher Know?*（2013）。[原文 PDF](https://www.scribd.com/doc/293691230/Four-Strands-Paul-Nation)
+2. **元认知听力循环的完整序列**：Vandergrift & Goh（*Teaching and Learning Second Language Listening: Metacognition in Action*, 2012）：①听前预测、激活图式 ②第一遍听验证预测 ③第二遍听补漏 ④对照文字找差异、再听 ⑤反思断在哪、哪招有用。弱学习者获益最大（Vandergrift & Tafaghodtari 2010，已录三.7）。`docs/course.md` 的六步闭环就是它加练习与复盘。
+3. **窄听**：反复听同一说话人、同一话题的短系列，重复出现的词汇和风格让输入好处理，对中级学习者尤其合适。Krashen, "The case for narrow listening", *System* 24(1), 1996。[免费全文](http://sdkrashen.com/content/articles/the_case_for_narrow_listening.pdf)
+4. **泛听的操作参数**（Renandya & Farrell 2011，三.8 的展开）：材料听一遍就懂八九成；量大；学生自己选；听懂大意即可，不抠细节、不预教词汇、听完不测验。
+5. **流畅性一股在听力上的形态**：把已理解的材料原速再听——Nation 四股线里流畅性的定义就是「容易、熟悉、关注意思的活动重复做」；重复听也是 Chang & Read（2006，三.5）量出来第二有效的听前支持。
