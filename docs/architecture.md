@@ -21,8 +21,9 @@
         │  ── /api/explain、/api/more：点词补查、展开（带着密钥问 DeepSeek）
         │  ── /api/speak：词组和词典里没有的词现读（带着密钥问百炼 Emily）
         ▼
-  web/ 播放器（浏览器里，三个文件，没有构建步骤）
-        学习记录存在浏览器本地，能导出
+  web/ 播放器（浏览器里，五个文件，没有构建步骤）
+        学习记录存在浏览器本地，能导出；
+        对外模式下另有资料库侧边栏（web/library.js）
 ```
 
 模块之间只通过文件交接：备课写文件，播放器读文件；播放器唯一连出去的是本地服务。
@@ -58,6 +59,7 @@
 | `pipeline/compare_models.py` | 一次性：比较两个模型写的中文和生词判断，出 `model_compare.md` | SPEC-005 |
 | `web/index.html`、`web/style.css`、`web/app.js` | 播放器，见下面「播放器」 | SPEC-001 |
 | `web/login.html` | 登录页（对外模式专用）：注册（要邀请码）／登录，注册成功即登录；自包含样式，不依赖 style.css | SPEC-009 |
+| `web/library.js` | 资料库侧边栏、上传面板、空库待机（对外模式专用）：app.js 只在服务报 `copy=hosted` 时进来（hostedStart/hostedLessonMissing 两个入口）；两区四状态、备课轮询、材料变课的高亮和通知、进度点（读 app.js 的学习记录键）、登出。本地模式一个字节都不执行 | SPEC-009 R8 |
 | `web/fonts/` | 放在本地的字体：Literata（英文正文）、DM Mono（数字）、Noto Serif 裁出来的音标字体，各带许可证 | SPEC-001 R22、SPEC-006 R8 |
 | `tests/test_player.py` | 播放器的自动检查（Playwright），编号对应各规格的 A 编号 | `docs/workflow.md` |
 | `tests/test_audio.py` | 验声音：录下真的 Chrome 放出来的声音，对时间、机器耳朵听、出试听页 | SPEC-004 R7 |
@@ -66,6 +68,7 @@
 | `tests/test_hosted_server.py` | 对外模式的自动检查：真起服务真发请求——挡站、注册登录登出、noindex、限流、无「更新」接口 | SPEC-009 |
 | `tests/test_hosted_upload.py` | 上传、资料库、删材料的自动检查：真上传假音频字节——类型和大小闸、标题讲稿落盘、两账号隔离、课路径按账号指路 | SPEC-009 |
 | `tests/test_hosted_prep.py` | 备课任务的自动检查：假备课命令跑通状态机（排队、备课中挡重复点、成功变课、失败人话原因、重试） | SPEC-009 |
+| `tests/test_hosted_frontend.py` | 资料库前端整条用户路的自动检查（Playwright 开真页面）：注册进站空库待机 → 上传（选错文件的人话）→ 备课轮询到变课高亮 → 点课切换 → 进度点 → 失败重试 → 删除 → 登出 | SPEC-009 R8 |
 | `tests/test_stable_copy.py` | 换版本的自动检查：临时目录里造真的仓库和体验版，真的切版本、真的起服务 | SPEC-008 |
 | `start-player.bat` | 双击：旁边有体验版就转去体验版，然后调 `pipeline/stable_copy.py run` 起服务、打开浏览器。只放英文字符 | SPEC-008 R2 |
 | `.zcode/commands/wrap.md` | 收尾命令 `/wrap`：压缩上下文之前把只活在对话里的东西写到盘上、扫文档、提交 | — |

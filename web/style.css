@@ -547,7 +547,7 @@ body.playing .t-btn.play .t-icon { animation: breathe 2.4s ease-in-out infinite;
 }
 
 .notices {
-  position: fixed; z-index: 40; top: 14px; left: 50%; transform: translateX(-50%);
+  position: fixed; z-index: 70; top: 14px; left: 50%; transform: translateX(-50%);
   display: flex; flex-direction: column; align-items: center; gap: 8px;
   width: max-content; max-width: calc(100vw - 32px); pointer-events: none;
 }
@@ -616,3 +616,135 @@ body.playing .t-btn.play .t-icon { animation: breathe 2.4s ease-in-out infinite;
   .transport { gap: 8px; }
   .card-actions .pill kbd, .end-actions .pill kbd { display: none; }
 }
+
+/* ---------- 资料库侧边栏（SPEC-009 R8，对外模式专用；web/library.js） ----------
+ * 浮层从左滑出、带遮罩，不挤压主卡片；两区：我的课（按系列分组）／已上传的材料（四状态）。
+ * 样式跟着全文抽屉（.drawer）一家的语言走，只是住在左边。 */
+
+.top-left { display: flex; align-items: center; gap: 14px; }
+.lib-btn svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+
+.lib-mask {
+  position: fixed; inset: 0; z-index: 60;   /* 压过空库待机的遮罩：空库里也点得动侧边栏 */
+  background: rgba(12, 13, 17, .5); backdrop-filter: blur(3px);
+  animation: fade .2s ease both;
+}
+.lib {
+  position: fixed; z-index: 61; top: 0; left: 0; bottom: 0;
+  width: min(300px, 86vw);
+  background: #181a21; border-right: 1px solid var(--line-2);
+  box-shadow: 30px 0 80px rgba(0, 0, 0, .5);
+  display: flex; flex-direction: column;
+  animation: libIn .22s ease both;
+}
+.lib-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 14px 8px 18px; }
+.lib-head h2 { margin: 0; font-size: 17px; }
+.lib-body { flex: 1; overflow-y: auto; padding: 0 10px 12px; }
+.lib-sec h3 {
+  margin: 14px 10px 6px; font-size: 12px; font-weight: 500;
+  color: var(--muted); letter-spacing: .08em;
+}
+.lib-group { margin: 10px 10px 2px; font-size: 12.5px; color: var(--cream-2); }
+.lib-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 10px; border-radius: 10px; font-size: 13.5px;
+}
+.lib-row.lesson { cursor: pointer; }
+.lib-row.lesson:hover { background: var(--surface-2); }
+.lib-row.lesson.current { background: rgba(242, 169, 78, .12); }
+.lib-row.fresh { animation: fresh 2.4s ease both; }
+.lib-title {
+  flex: 1; min-width: 0;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.lib-meta { flex: none; font: 400 11.5px/1 var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+/* 进度点：空心没开始 / 半满进行中 / 实心听完（localStorage，app.js 写） */
+.dot { flex: none; width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid var(--muted); }
+.dot.half { border-color: var(--amber); background: linear-gradient(90deg, var(--amber) 50%, transparent 50%); }
+.dot.full { border-color: var(--amber); background: var(--amber); }
+/* 正在听的那集：小声浪 */
+.now-bars { flex: none; display: inline-flex; align-items: flex-end; gap: 2px; height: 13px; }
+.now-bars i { width: 3px; border-radius: 1px; background: var(--amber); }
+.now-bars i:nth-child(1) { height: 40%; }
+.now-bars i:nth-child(2) { height: 100%; }
+.now-bars i:nth-child(3) { height: 65%; }
+/* 材料行的四状态 */
+.lib-row.mat .spin {
+  flex: none; width: 14px; height: 14px; border-radius: 50%;
+  border: 2px solid var(--line-2); border-top-color: var(--amber);
+  animation: spin 1s linear infinite;
+}
+.mat-warn {
+  flex: none; width: 18px; height: 18px; border-radius: 50%; text-align: center;
+  font: 600 12px/18px var(--cn); color: #f3b8a8;
+  background: rgba(239, 139, 115, .14); border: 1px solid rgba(239, 139, 115, .4);
+}
+.mat-icon { flex: none; color: var(--muted); font-size: 13px; }
+.lib-main { flex: 1; min-width: 0; }
+.lib-main b {
+  display: block; font-weight: 500;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.lib-sub { display: block; margin-top: 1px; font-size: 12px; line-height: 1.45; color: var(--muted); }
+.lib-row.failed .lib-sub { color: #f3b8a8; }
+.mini-btn {
+  flex: none; background: var(--surface-2); border: 1px solid var(--line-2); color: var(--cream);
+  border-radius: 999px; padding: 5px 13px; font-size: 12.5px;
+  transition: border-color .2s, color .2s;
+}
+.mini-btn:hover { border-color: rgba(242, 169, 78, .55); color: var(--amber-2); }
+.x-btn {
+  flex: none; width: 26px; height: 26px; border-radius: 50%;
+  background: transparent; border: 1px solid var(--line); color: var(--muted);
+  font-size: 15px; line-height: 1;
+}
+.x-btn:hover { color: #f3b8a8; border-color: rgba(239, 139, 115, .45); }
+.lib-empty { margin: 28px 16px; text-align: center; color: var(--muted); font-size: 13.5px; }
+.lib-foot { padding: 12px 14px 14px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 10px; }
+.lib-upload { width: 100%; justify-content: center; }
+.lib-out {
+  background: none; border: 0; color: var(--muted); font-size: 12.5px;
+  text-decoration: underline dotted; text-underline-offset: 4px;
+}
+.lib-out:hover { color: var(--amber-2); }
+
+/* ---------- 上传面板（SPEC-009） ---------- */
+
+.upload-wrap {
+  position: fixed; inset: 0; z-index: 65;
+  display: grid; place-items: center; padding: 16px;
+  background: rgba(12, 13, 17, .74); backdrop-filter: blur(6px);
+  animation: fade .2s ease both;
+}
+.upload-card {
+  width: min(460px, 100%); max-height: calc(100vh - 48px); overflow-y: auto;
+  background: #1c1f27; border: 1px solid var(--line-2); border-radius: var(--radius);
+  padding: 22px 24px 24px; box-shadow: 0 40px 90px rgba(0, 0, 0, .55);
+  display: flex; flex-direction: column; gap: 13px;
+  animation: pop .25s ease both;
+}
+.upload-head { display: flex; align-items: center; justify-content: space-between; }
+.upload-head h2 { margin: 0; font-size: 17px; }
+.upload-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.upload-file { font-size: 13px; color: var(--muted); min-width: 0; overflow-wrap: anywhere; }
+.upload-file.picked { color: var(--cream-2); }
+.upload-card label { display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: var(--cream-2); }
+.upload-card input, .upload-card textarea {
+  background: #14161c; border: 1px solid var(--line-2); border-radius: 10px;
+  padding: 9px 12px; color: var(--cream); font: inherit; font-size: 13.5px; outline: none;
+  transition: border-color .2s;
+}
+.upload-card input:focus, .upload-card textarea:focus { border-color: rgba(242, 169, 78, .55); }
+.upload-card textarea { resize: vertical; min-height: 96px; }
+.upload-err { margin: 0; font-size: 13px; color: #f3b8a8; }
+.upload-bar { height: 6px; border-radius: 3px; background: var(--surface-2); overflow: hidden; }
+.upload-bar i { display: block; height: 100%; width: 0; background: var(--amber); transition: width .2s; }
+
+@keyframes libIn { from { transform: translateX(-30px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes spin { to { transform: rotate(360deg); } }
+/* 材料变课的那一刻：轻微高亮一下（SPEC-009：这是用户等的时刻） */
+@keyframes fresh {
+  0% { background: rgba(242, 169, 78, .25); box-shadow: 0 0 24px rgba(242, 169, 78, .35); }
+  100% { background: transparent; box-shadow: none; }
+}
+.lib-row.lesson.fresh { animation: fresh 2.4s ease both; }

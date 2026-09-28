@@ -42,7 +42,7 @@ import webbrowser
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from urllib.parse import parse_qs, unquote, urlparse
+from urllib.parse import parse_qs, urlparse
 
 ROOT = Path(__file__).resolve().parent.parent
 CHUNK = 64 * 1024
@@ -390,10 +390,11 @@ class RangeHandler(SimpleHTTPRequestHandler):
         """音频按原始字节直接当请求体传（不走表单：省一道编码，进度条也好做）；
         文件名、标题、讲稿走 URL 参数。存进该账号目录，状态「未备课」。"""
         q = {k: v[0] for k, v in parse_qs(urlparse(self.path).query).items()}
-        filename = unquote(q.get("filename", ""))
-        title = unquote(q.get("title", "")).strip()
-        source = unquote(q.get("source", "")).strip()
-        script = unquote(q.get("script", "")).strip()
+        # parse_qs 已经解过一次百分号编码，不能再 unquote：标题里带「%41」这类字样会被二次解码弄坏
+        filename = q.get("filename", "")
+        title = q.get("title", "").strip()
+        source = q.get("source", "").strip()
+        script = q.get("script", "").strip()
         length = int(self.headers.get("Content-Length") or 0)
         cap = int(self.server.hosted_config.get("max_upload_mb", 60)) * 1024 * 1024
         if length <= 0:
@@ -496,6 +497,7 @@ class RangeHandler(SimpleHTTPRequestHandler):
                     continue
                 if meta.get("state") == "prepping" and meta.get("prepping_since"):
                     meta["prepping_for"] = int(time.time() - meta["prepping_since"])
+                meta["has_script"] = (meta_file.parent / "script.txt").exists()  # 侧边栏提示「没讲稿备不了课」用
                 materials.append(meta)
         materials.sort(key=lambda m: (order.get(m.get("state"), 9), -(m.get("uploaded_at") or 0)))
         lessons = []

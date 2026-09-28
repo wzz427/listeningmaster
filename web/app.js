@@ -51,7 +51,12 @@ let shownPart = -1;       // 进度条现在画的是哪一项
 /* ---------- 启动 ---------- */
 
 async function boot() {
-  lesson = await (await fetch(BASE + 'lesson.json')).json();
+  const r = await fetch(BASE + 'lesson.json');
+  if (!r.ok) {  // 这课不在了（对外模式下账号里没有它）：交给资料库那层换个去处
+    if (typeof hostedLessonMissing === 'function') { hostedLessonMissing(); return; }
+    throw new Error(`lesson.json ${r.status}`);
+  }
+  lesson = await r.json();
   loadNotes();
   body = lesson.sentences.filter((s) => s.speaker !== OUTSIDE);
   body.forEach((s) => {
@@ -213,6 +218,9 @@ function reachStop() {
   atSentenceEnd = true;
   // 一段听完才换成「这段再听一遍 / 听下一段」；一句一句听到段末不换，免得挡住看文字
   atSectionEnd = kind === 'flow' && isSectionLast();
+  if (atSectionEnd) {  // 整集听完：记一笔，资料库侧边栏的进度点画实心（web/library.js 读）
+    try { localStorage.setItem(`listening:${LESSON}:done`, '1'); } catch { /* 存不下就当没听完 */ }
+  }
   render();
 }
 
@@ -841,7 +849,7 @@ audio.addEventListener('play', render);
 audio.addEventListener('pause', render);
 
 document.addEventListener('keydown', (e) => {
-  if (updating || e.target.tagName === 'INPUT' || e.ctrlKey || e.metaKey || e.altKey) return;
+  if (updating || ['INPUT', 'TEXTAREA'].includes(e.target.tagName) || e.ctrlKey || e.metaKey || e.altKey) return;
   const actions = {
     ' ': togglePlay,
     ArrowLeft: () => playOne(idx - 1),
@@ -956,5 +964,13 @@ function watchVersion() {
   });
 }
 
-boot();
-watchVersion();
+/* 启动：本地模式直接进播放器。对外模式（服务报 copy=hosted）先让 library.js 接手——
+ * 选哪一课、空库的待机画面、资料库侧边栏都是它的事；它回 false（跳去别的课、或一节课都没有）就不进播放器 */
+async function startPage() {
+  let copy = '';
+  try { copy = ((await askVersion()) || {}).copy || ''; } catch { /* 问不到当本地模式 */ }
+  if (copy === 'hosted' && typeof hostedStart === 'function' && (await hostedStart()) === false) return;
+  boot();
+  watchVersion();
+}
+startPage();

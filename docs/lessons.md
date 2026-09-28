@@ -114,3 +114,10 @@
 - 根因：Git Bash 的管道里同时有反斜杠路径和 CRLF 行尾，两样对 shell 的词法都是暗雷；而且这类错误不报在哪，只报文件不存在，第一眼像见了鬼。
 - 修法：整段换成 Python 走（`Path.rglob` + `open(..., newline='')` 原样读写），零反斜杠字面量（用 `as_posix()`），一次成。
 - 怎么记住：凡「批量改一堆文件」在 Windows 上一律 Python；shell 只留给单条、路径能写死的命令。CLAUDE.md 红线里「改含反斜杠的文字用 Edit 工具」是同一条根。
+
+### 2026-09-28 · Playwright 断言文案：page.inner_text 多个匹配时静默取第一个，别用
+
+- 症状：侧边栏测试里 `page.inner_text(".notice")` 想读「备好了」那条通知，页面上同时有两条 `.notice`（我们弹的＋一直藏着的「这一页旧了」），断言拿到的是隐藏的那条，稳定未通过，第一眼找不到原因。
+- 根因：`page.inner_text(selector)` 是旧式 API，多个匹配不报错、直接取第一个（跟 `locator()` 的严格模式相反——后者多匹配会立刻报错）。藏在 DOM 里 display:none 的元素也算匹配。
+- 修法：一律 `page.locator(".notice").filter(has_text="...").inner_text()`——按文案锁到唯一那条再读；顺手把 `Locator.inner_text(".子选择器")` 这种写法也换掉（它不收参数，要 `row.locator(".lib-sub").inner_text()`）。
+- 怎么记住：断言文案先 filter 到唯一，再取值；`page.inner_text` 这个旧入口不再用。

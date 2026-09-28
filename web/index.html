@@ -11,11 +11,17 @@
 <div class="grain" aria-hidden="true"></div>
 
 <header class="top">
-  <div class="brand">
-    <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
-    <div>
-      <h1 id="title">听力练习</h1>
-      <p id="source" class="source"></p>
+  <div class="top-left">
+    <!-- 资料库入口（SPEC-009 R8）：只有对外模式显示——本地模式没有账号和上传，library.js 不亮它 -->
+    <button id="libBtn" class="ghost-btn lib-btn" hidden>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>资料库
+    </button>
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      <div>
+        <h1 id="title">听力练习</h1>
+        <p id="source" class="source"></p>
+      </div>
     </div>
   </div>
   <div class="top-actions">
@@ -151,8 +157,63 @@
   <ol id="fullList"></ol>
 </aside>
 
+<!-- 资料库侧边栏（SPEC-009 R8）：浮层从左滑出、带遮罩，不挤压主卡片（owner 讨厌内容跳动）。
+     两区：我的课（按系列分组）／已上传的材料（备课中最上、失败次之、未备课在后） -->
+<div id="libMask" class="lib-mask" hidden></div>
+<aside id="libPanel" class="lib" hidden aria-label="资料库">
+  <div class="lib-head">
+    <h2>资料库</h2>
+    <button id="libClose" class="close-btn" aria-label="收起">×</button>
+  </div>
+  <div class="lib-body">
+    <section id="libLessons" class="lib-sec" hidden>
+      <h3>我的课</h3>
+      <div id="libLessonList"></div>
+    </section>
+    <section id="libMaterials" class="lib-sec" hidden>
+      <h3>已上传的材料</h3>
+      <div id="libMaterialList"></div>
+    </section>
+    <p id="libEmpty" class="lib-empty" hidden>上传一集材料，开始你的听力库</p>
+  </div>
+  <div class="lib-foot">
+    <button id="uploadBtn" class="pill accent lib-upload">＋ 上传材料</button>
+    <button id="logoutBtn" class="lib-out">登出</button>
+  </div>
+</aside>
+
+<!-- 上传面板（SPEC-009）：音频必需（mp3 ≤60MB），标题、来源、讲稿可选；要备课就得有讲稿 -->
+<div id="uploadPanel" class="upload-wrap" hidden>
+  <div class="upload-card">
+    <div class="upload-head"><h2>上传材料</h2><button id="uploadClose" class="close-btn" aria-label="关闭">×</button></div>
+    <div class="upload-row">
+      <button id="pickFile" class="pill">选择音频文件</button>
+      <span id="fileName" class="upload-file">还没选文件（mp3，最大 60MB）</span>
+      <input id="fileInput" type="file" accept=".mp3,audio/mpeg" hidden>
+    </div>
+    <label>标题（可选，不填就用文件名）<input id="upTitle" type="text" placeholder="如：平时怎么喝咖啡"></label>
+    <label>来源（可选，资料库按它分系列）<input id="upSource" type="text" placeholder="如：Real Easy English"></label>
+    <label>讲稿（可选粘贴，每行「说话人: 内容」；要备课就得有）
+      <textarea id="upScript" rows="7" placeholder="Georgie: Hello and welcome to Real Easy English…&#10;Neil: Hi there!"></textarea>
+    </label>
+    <p id="uploadErr" class="upload-err" hidden></p>
+    <div id="uploadBar" class="upload-bar" hidden><i id="uploadFill"></i></div>
+    <button id="uploadSend" class="pill accent big">上传</button>
+  </div>
+</div>
+
+<!-- 空库待机（对外模式）：一节课都没有时的主画面，library.js 按有没有材料换文案 -->
+<div id="emptyStage" class="retune" hidden>
+  <div class="retune-card">
+    <div class="retune-dial" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+    <h2 id="emptyTitle">你的资料库还是空的</h2>
+    <p id="emptyText"></p>
+    <div class="end-actions"><button id="emptyUpload" class="pill accent big">上传第一集</button></div>
+  </div>
+</div>
+
 <!-- 换版本（SPEC-008）：这一页旧了（R8）、上一次没换成（R6）、正在更新（R5） -->
-<div class="notices">
+<div id="notices" class="notices">
   <div id="stale" class="notice" role="status" hidden>
     <i class="lamp" aria-hidden="true"></i>
     <span>播放器换了新版本，这一页还是旧的。</span>
@@ -172,6 +233,7 @@
 </div>
 
 <audio id="audio" preload="auto"></audio>
+<script src="library.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

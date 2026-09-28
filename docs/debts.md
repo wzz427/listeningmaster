@@ -9,7 +9,7 @@
 
 | 什么 | 出自 | 下一步 · 归谁 · 什么时候 |
 |---|---|---|
-| 对外版（账号＋上传＋发布，规格＝SPEC-009 v2，开发中） | owner 拍板（D47 到 D49）：`listen-app.bayescode.com`（39.105.73.114）、邮箱账号＋邀请码注册、上传材料自动备课进第一版、服务器无默认内容；noindex、限流、上线前 owner 亲口说「上」；含资料库侧边栏 | **动工中（2026-09-28）**：账号模块 `pipeline/accounts.py` 写完（14 项检查全过，密码只存哈希）；接下来 serve.py 对外模式（登录页、会话挡全站）→ 上传＋备课任务 → 侧边栏 → 部署手册 · claude · 本会话起连续做 |
+| 对外版（账号＋上传＋发布，规格＝SPEC-009 v4，开发中） | owner 拍板（D47 到 D50）：`listen-app.bayescode.com`（39.105.73.114）、邮箱账号＋邀请码注册、上传存材料＋手动备课、服务器无默认内容；noindex、限流、上线前 owner 亲口说「上」；含资料库侧边栏 | **后端四块＋侧边栏前端全部完成（2026-09-28）**：accounts 14、hosted_server 15、hosted_upload 16、hosted_prep 11、hosted_frontend 22、player 84、docs 25 全过；剩部署手册（requirements.txt、systemd、Caddy、DNS、服务器上真材料验六步）→ owner 验 → 说「上」 · claude · 接着做 |
 | 预习页（规格待写，编号接着往下排） | `demand.md` 第 3 条；SPEC-000「学习流程」第 1 步；课程方案 `docs/listening-led-course.md` 六步闭环第 1 步 | 课程方案待 owner 过目；动工排在对外发布之后（D47 主线改道） · claude · 发布上线后 |
 | 课后练习（规格待写） | `demand.md` 第 4 条；SPEC-000「学习流程」第 4 步；课程方案 `docs/listening-led-course.md` 第 5 步 | 跟在预习页后面 · claude · 预习页做完 |
 | 家长上传材料后一条命令备课，几分钟以内 | owner 2026-09-22 定的以后的用法；规格 `specs/SPEC-002-prep-pipeline.md` R1、R8、R9。**代码已串起来**（2026-09-28）：serve.py 备课任务按六步真跑、讲稿认纯文本、标题出处从 meta.json 来（R9 已做）；真六步一次没真跑过（要花百炼和 DeepSeek 的钱），排部署手册那步拿真材料验；「两份测试只认 260821」那半条还在 | 部署手册写完、在服务器上拿一份真材料跑通全流程、test_player 能指定课名 · claude · 部署验证时 |
