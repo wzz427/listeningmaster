@@ -708,7 +708,7 @@ body.playing .t-btn.play .t-icon { animation: breathe 2.4s ease-in-out infinite;
 }
 .lib-out:hover { color: var(--amber-2); }
 
-/* ---------- 上传面板（SPEC-009） ---------- */
+/* ---------- 上传面板（SPEC-009 v6 重设计：选音频是主角，别让人找） ---------- */
 
 .upload-wrap {
   position: fixed; inset: 0; z-index: 65;
@@ -717,28 +717,58 @@ body.playing .t-btn.play .t-icon { animation: breathe 2.4s ease-in-out infinite;
   animation: fade .2s ease both;
 }
 .upload-card {
-  width: min(460px, 100%); max-height: calc(100vh - 48px); overflow-y: auto;
+  width: min(480px, 100%); max-height: calc(100vh - 48px); overflow-y: auto;
   background: #1c1f27; border: 1px solid var(--line-2); border-radius: var(--radius);
   padding: 22px 24px 24px; box-shadow: 0 40px 90px rgba(0, 0, 0, .55);
-  display: flex; flex-direction: column; gap: 13px;
+  display: flex; flex-direction: column; gap: 14px;
   animation: pop .25s ease both;
 }
 .upload-head { display: flex; align-items: center; justify-content: space-between; }
 .upload-head h2 { margin: 0; font-size: 17px; }
-.upload-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-.upload-file { font-size: 13px; color: var(--muted); min-width: 0; overflow-wrap: anywhere; }
+
+/* 拖放区：面板里最大最亮的一块，拖进去或点一下都算选文件；选好了就地变成一张「票」 */
+.drop-zone {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+  min-height: 132px; padding: 18px 20px;
+  background: rgba(242, 169, 78, .05);
+  border: 1.5px dashed rgba(242, 169, 78, .45); border-radius: 18px;
+  transition: border-color .2s, background .2s;
+}
+.drop-zone svg { width: 26px; height: 26px; fill: none; stroke: var(--amber); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.drop-zone:hover, .drop-zone.drag { border-color: var(--amber); background: rgba(242, 169, 78, .1); }
+.drop-zone.picked { border-style: solid; border-color: rgba(242, 169, 78, .6); background: rgba(242, 169, 78, .07); }
+.dz-title { font-size: 15px; color: var(--cream); font-weight: 600; }
+.dz-title.bad { color: #f3b8a8; font-weight: 400; }
+.drop-zone.picked .dz-title { font: 500 14.5px/1.4 var(--mono); word-break: break-all; }
+.dz-sub { font-size: 12.5px; color: var(--muted); }
+.dz-sub a, .dz-sub span.again { color: var(--amber-2); text-decoration: underline dotted; text-underline-offset: 3px; cursor: pointer; }
+
+.upload-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.row-label { flex: none; font-size: 13px; color: var(--cream-2); }
+.pill.sm { padding: 7px 14px; font-size: 13px; min-height: 36px; }
+.upload-file { font-size: 12.5px; color: var(--muted); min-width: 0; overflow-wrap: anywhere; }
 .upload-file.picked { color: var(--cream-2); }
+.upload-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .upload-card label { display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: var(--cream-2); }
-.upload-card input, .upload-card textarea {
+.upload-card input {
   background: #14161c; border: 1px solid var(--line-2); border-radius: 10px;
   padding: 9px 12px; color: var(--cream); font: inherit; font-size: 13.5px; outline: none;
-  transition: border-color .2s;
+  transition: border-color .2s; width: 100%;
 }
-.upload-card input:focus, .upload-card textarea:focus { border-color: rgba(242, 169, 78, .55); }
-.upload-card textarea { resize: vertical; min-height: 96px; }
+.upload-card input:focus { border-color: rgba(242, 169, 78, .55); }
 .upload-err { margin: 0; font-size: 13px; color: #f3b8a8; }
+.upload-phase { margin: 0; font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
 .upload-bar { height: 6px; border-radius: 3px; background: var(--surface-2); overflow: hidden; }
 .upload-bar i { display: block; height: 100%; width: 0; background: var(--amber); transition: width .2s; }
+.upload-send { width: 100%; justify-content: center; }
+
+/* ---------- 空库不挡路（v6）：播放器照常进场，卡片里给一句邀请 ---------- */
+
+body.no-lesson .who, body.no-lesson .deck, body.no-lesson #cardActions { display: none; }
+body.no-lesson #hint { opacity: .35; }   /* 声浪压暗当底纹，别抢空状态的话 */
+.empty-hint { margin: auto 0; text-align: center; animation: rise .5s ease both; }
+.empty-hint h2 { margin: 0 0 8px; font: 600 clamp(20px, 2.2vw, 24px)/1.3 var(--cn); color: var(--cream); }
+.empty-hint p { margin: 0 auto 22px; max-width: 34em; font-size: 14.5px; color: var(--cream-2); text-wrap: balance; }
 
 @keyframes libIn { from { transform: translateX(-30px); opacity: 0; } to { transform: none; opacity: 1; } }
 @keyframes spin { to { transform: rotate(360deg); } }

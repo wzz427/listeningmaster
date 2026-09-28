@@ -112,6 +112,8 @@ def _run_prep(server: "Server", email: str, mid: str) -> None:
             shutil.copy2(f, stage_m / f.name)
         if (mdir / "script.txt").exists():
             shutil.copy2(mdir / "script.txt", stage_m / "transcript.txt")  # 换成 pipeline 认的名字（SPEC-002）
+        if (mdir / "script.pdf").exists():
+            shutil.copy2(mdir / "script.pdf", stage_m / "transcript.pdf")  # PDF 讲稿 pipeline 本来就认
         if (mdir / "meta.json").exists():
             shutil.copy2(mdir / "meta.json", stage_m / "meta.json")        # 标题、来源：teach.py 从这读（R9）
         cmd = cfg.get("prep_command")
@@ -330,6 +332,12 @@ class RangeHandler(SimpleHTTPRequestHandler):
                     return
                 self.handle_material_delete(email)
                 return
+            if post_path == "/api/material/script":
+                if not email:
+                    self.send_json(401, {"error": "请先登录"})
+                    return
+                self.handle_material_script(email)
+                return
             if not email:
                 self.send_json(401, {"error": "请先登录"})
                 return
@@ -482,6 +490,36 @@ class RangeHandler(SimpleHTTPRequestHandler):
         shutil.rmtree(mdir)
         self.send_json(200, {"ok": True})
 
+    def handle_material_script(self, email: str) -> None:
+        """给材料补传／换讲稿文件（SPEC-009 v6：讲稿是传文件，不是粘贴；TXT、PDF、MD）。
+        音频传上来没带讲稿的，在这里补上再备课；同一材料后传的顶掉先传的（md/txt 都存成 script.txt）。"""
+        q = {k: v[0] for k, v in parse_qs(urlparse(self.path).query).items()}
+        mid, filename = q.get("id", ""), q.get("filename", "")
+        ext = Path(filename).suffix.lower()
+        if ext not in (".txt", ".pdf", ".md"):
+            self.send_json(400, {"error": "讲稿只收 TXT、PDF、MD 文件"})
+            return
+        accounts = self.server.accounts
+        mdir = Path(accounts.dir) / accounts.account_id(email) / "materials" / mid
+        if not mdir.is_dir():
+            self.send_json(404, {"error": "没有这个材料"})
+            return
+        if self._meta_state(mdir) == "prepping":
+            self.send_json(409, {"error": "正在备课，等它跑完再换讲稿"})
+            return
+        length = int(self.headers.get("Content-Length") or 0)
+        if length <= 0:
+            self.send_json(400, {"error": "没收到文件"})
+            return
+        if length > 2 * 1024 * 1024:
+            self.send_json(413, {"error": "讲稿文件太大了，最大 2MB"})
+            return
+        data = self.rfile.read(length)
+        for f in mdir.glob("script.*"):
+            f.unlink()
+        (mdir / ("script.pdf" if ext == ".pdf" else "script.txt")).write_bytes(data)
+        self.send_json(200, {"ok": True})
+
     def library(self, email: str) -> dict:
         """侧边栏的数据（SPEC-009 R8）：该账号的材料（带状态）和课（带元数据）。
         材料按状态排：备课中最上、失败次之、未备课在后；已变课的不占材料区。"""
@@ -497,7 +535,7 @@ class RangeHandler(SimpleHTTPRequestHandler):
                     continue
                 if meta.get("state") == "prepping" and meta.get("prepping_since"):
                     meta["prepping_for"] = int(time.time() - meta["prepping_since"])
-                meta["has_script"] = (meta_file.parent / "script.txt").exists()  # 侧边栏提示「没讲稿备不了课」用
+                meta["has_script"] = any((meta_file.parent / f"script.{e}").exists() for e in ("txt", "pdf"))
                 materials.append(meta)
         materials.sort(key=lambda m: (order.get(m.get("state"), 9), -(m.get("uploaded_at") or 0)))
         lessons = []

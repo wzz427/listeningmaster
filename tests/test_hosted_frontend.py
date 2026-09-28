@@ -69,17 +69,18 @@ EMAIL = "f@example.com"
 
 
 def upload_through_panel(page, name, title="", source="", script=""):
-    """走上传面板传一份材料（点按钮、选文件、填字段、点上传），返回材料号。
-    入口哪个活着用哪个：侧边栏开着的「＋上传材料」、空库待机上的「上传第一集」。"""
-    page.click("#uploadBtn" if page.is_visible("#uploadBtn") else "#emptyUpload")
-    page.set_input_files("#fileInput", {"name": name, "mimeType": "audio/mpeg",
-                                        "buffer": b"FAKE_AUDIO_BYTES_" * 40})
+    """走上传面板传一份材料（点按钮、选音频、可选讲稿文件、填字段、点上传），返回材料号。
+    入口哪个活着用哪个：侧边栏开着的「＋上传材料」、空库卡片上的「上传一集」。"""
+    page.click("#uploadBtn" if page.is_visible("#uploadBtn") else "#emptyAct")
+    page.set_input_files("#audioInput", {"name": name, "mimeType": "audio/mpeg",
+                                         "buffer": b"FAKE_AUDIO_BYTES_" * 40})
     if title:
         page.fill("#upTitle", title)
     if source:
         page.fill("#upSource", source)
     if script:
-        page.fill("#upScript", script)
+        page.set_input_files("#scriptInput", {"name": "script.txt", "mimeType": "text/plain",
+                                              "buffer": script.encode("utf-8")})
     page.click("#uploadSend")
     page.wait_for_selector("#libMaterialList .lib-row.mat")
     lib = page.evaluate("fetch('/api/library').then((r) => r.json())")
@@ -100,24 +101,27 @@ def run(page) -> None:
     page.fill('input[name="invite"]', "测试邀请码")
     page.click("#submit")
     page.wait_for_url(f"{BASE}/web/")
-    page.wait_for_selector("#emptyStage:not([hidden])")
-    check("注册即登录，新账号看到空库待机", page.inner_text("#emptyTitle") == "你的资料库还是空的",
+    page.wait_for_selector("#emptyHint")
+    check("新账号直接进播放器（不挡路）：卡片里一句邀请，播放控制收起",
+          page.inner_text("#emptyTitle") == "资料库还是空的"
+          and page.is_hidden(".who") and page.is_hidden(".deck") and page.is_hidden("#cardActions"),
           page.inner_text("#emptyTitle"))
-    check("空库只显示待机画面：侧边栏收着、左上角入口在、上传按钮就在画面上",
-          page.is_hidden("#libPanel") and page.is_visible("#libBtn")
-          and page.is_visible("#emptyUpload") and page.inner_text("#emptyUpload") == "上传第一集")
-    check("左上角有「资料库」入口", page.is_visible("#libBtn"))
+    check("空库的行动按钮就是「上传一集」，左上角资料库入口在、侧边栏收着",
+          page.inner_text("#emptyAct") == "上传一集" and page.is_visible("#libBtn") and page.is_hidden("#libPanel"))
 
     print("\n【上传面板】")
-    page.click("#emptyUpload")   # 空库待机上的按钮也是同一个上传面板
+    page.click("#emptyAct")   # 空卡片上的按钮开的就是上传面板
     page.wait_for_selector("#uploadPanel:not([hidden])")
-    page.click("#uploadSend")    # 没选文件
-    check("没选文件就点上传，一句人话", page.is_visible("#uploadErr")
+    page.click("#uploadSend")    # 没选音频
+    check("没选音频就点上传，一句人话", page.is_visible("#uploadErr")
           and "先选" in page.inner_text("#uploadErr"), page.inner_text("#uploadErr"))
-    page.set_input_files("#fileInput", {"name": "virus.exe", "mimeType": "application/octet-stream",
-                                        "buffer": b"MZ"})
-    page.click("#uploadSend")
-    check("选的不是 mp3，一句人话", "只收 mp3" in page.inner_text("#uploadErr"))
+    page.set_input_files("#audioInput", {"name": "virus.exe", "mimeType": "application/octet-stream",
+                                         "buffer": b"MZ"})
+    check("选的不是 mp3，拖放区就地说明白", "只收 mp3" in page.inner_text("#dropZone"),
+          page.inner_text("#dzTitle"))
+    page.set_input_files("#scriptInput", {"name": "readme.docx", "mimeType": "application/octet-stream",
+                                          "buffer": b"x" * 10})
+    check("讲稿选错类型，一句人话", "TXT" in page.inner_text("#scriptName"))
     page.click("#uploadClose")
     mid1 = upload_through_panel(page, "coffee.mp3", title="平时怎么喝咖啡",
                                 source="Real Easy English", script="Georgie: Hello\nNeil: Hi")
@@ -170,35 +174,43 @@ def run(page) -> None:
     page.wait_for_selector("#libLessonList .dot.full", timeout=5000)   # 打开时轮询重画，等它画完
     check("整集听过的画实心点", True)
 
-    print("\n【没讲稿的提示、删除】")
+    print("\n【没讲稿的材料：就地补传、删除】")
     mid2 = upload_through_panel(page, "news.mp3")
     row = page.locator("#libMaterialList .lib-row").filter(has_text="news")
-    check("没传讲稿的材料给一句提示", "没讲稿" in row.inner_text(), row.locator(".lib-sub").inner_text())
+    check("没传讲稿的材料有一个就地补传的口（＋讲稿），不说「必须」",
+          row.locator(".mini-btn", has_text="＋讲稿").count() == 1 and "必须" not in row.inner_text())
     page.on("dialog", lambda d: d.accept())
     row.locator(".x-btn").click()
     page.wait_for_function("document.querySelectorAll('#libMaterialList .lib-row').length === 0")
     check("删除（确认一下）后材料区空了", True)
 
-    print("\n【失败 → 重试】")
+    print("\n【失败 → 补讲稿 → 重试】")
     mid3 = upload_through_panel(page, "bad.mp3", title="坏材料", script="FAIL")
-    page.locator("#libMaterialList .lib-row").filter(has_text="坏材料").locator(".mini-btn").click()
+    page.locator("#libMaterialList .lib-row").filter(has_text="坏材料").locator(".mini-btn", has_text="备课").click()
     failed = page.locator("#libMaterialList .lib-row.failed")
     failed.wait_for(state="visible", timeout=10000)
     check("失败停在那、一句人话原因、能重试", "备课没成功" in failed.locator(".lib-sub").inner_text()
-          and failed.locator(".mini-btn").inner_text() == "重试", failed.locator(".lib-sub").inner_text())
-    base = Path(server.accounts.dir) / server.accounts.account_id(EMAIL)
-    (base / "materials" / mid3 / "script.txt").write_text("Georgie: Fixed.", encoding="utf-8")
-    failed.locator(".mini-btn").click()
+          and failed.locator(".mini-btn", has_text="重试").count() == 1, failed.locator(".lib-sub").inner_text())
+    with page.expect_response(lambda r: "/api/material/script" in r.url) as got_script:   # 钉住补讲稿的请求
+        failed.locator(".mini-btn", has_text="＋讲稿").click()   # 失败行上补一份好讲稿
+        page.set_input_files("#rowScriptInput", {"name": "fixed.txt", "mimeType": "text/plain",
+                                                 "buffer": "Georgie: Fixed.".encode("utf-8")})
+    check("失败行上补传讲稿（TXT 文件）", got_script.value.ok)
+    page.locator("#libMaterialList .lib-row").filter(has_text="坏材料").locator(
+        ".mini-btn", has_text="重试").click()
     page.locator("#libLessonList .lib-row.lesson").filter(has_text="坏材料").wait_for(state="visible", timeout=10000)
-    check("修好讲稿重试，成了课（资料库两节课）",
+    check("补完讲稿重试，成了课（资料库两节课）",
           page.locator("#libLessonList .lib-row.lesson").count() == 2)
 
-    print("\n【登出】")
+    print("\n【登出、登录页】")
     if not page.is_visible("#logoutBtn"):   # 侧边栏收着才需要点 ☰ 开（开着时面板盖住 ☰，用面板里的按钮）
         page.click("#libBtn")
     page.click("#logoutBtn")
     page.wait_for_url(f"{BASE}/login")
     check("登出回到登录页", page.is_visible("#f"))
+    check("登录只要邮箱密码（邀请码只在注册时问），邮箱已经填好、只差密码",
+          page.is_hidden("#row-invite") and page.input_value('input[name="email"]') == EMAIL
+          and page.evaluate("document.activeElement === document.querySelector('input[name=password]')"))
     check("全程页面没有报错", not errors, "; ".join(errors[:2]))
 
 

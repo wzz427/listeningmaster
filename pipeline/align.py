@@ -186,7 +186,8 @@ def build(lesson: str) -> None:
     material_dir = ROOT / "materials" / lesson
     script = next(material_dir.glob("*transcript.pdf"), None) or next(material_dir.glob("transcript.txt"), None)
     if script is None:  # 对外版 v1 要讲稿（SPEC-009 R5）；没讲稿的路是 SPEC-002 R8 的欠账
-        raise SystemExit("这份材料没有讲稿，暂时备不了：上传时把 BBC 页面的讲稿粘进来（纯文本就行）")
+        raise SystemExit("这份材料没有讲稿，暂时备不了：在资料库里这条材料上点「＋讲稿」，"
+                         "把 BBC 页面的讲稿传上来（TXT、PDF、MD 都行）再备课")
     turns = read_turns(script)
 
     sentences_tokens = merge_tokens(asr)

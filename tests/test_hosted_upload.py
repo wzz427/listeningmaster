@@ -131,6 +131,40 @@ try:
     resp = conn2.getresponse()
     resp.read()
     check("超过 60MB 被拒", resp.status == 413)
+
+    # 讲稿文件（SPEC-009 v6：传文件不是粘贴；TXT/MD 存 script.txt，PDF 存 script.pdf，后传的顶先传的）
+    conn.request("POST", "/api/upload?filename=" + quote("talk.mp3"), body=b"FAKE3_" * 10,
+                 headers={"Cookie": cookie_a})
+    m3 = json.loads(conn.getresponse().read())["material"]["id"]
+    _, data = get(conn, "/api/library", cookie_a)
+    row3 = next(m for m in json.loads(data)["materials"] if m["id"] == m3)
+    check("新材料的 has_script 是没有", row3["has_script"] is False)
+    conn.request("POST", f"/api/material/script?id={m3}&filename=" + quote("讲稿.docx"), body=b"x",
+                 headers={"Cookie": cookie_a})
+    resp = conn.getresponse()
+    body = resp.read()
+    check("讲稿选错类型被拒（只收 TXT、PDF、MD）", resp.status == 400 and "TXT" in json.loads(body)["error"])
+    conn.request("POST", f"/api/material/script?id={m3}&filename=" + quote("notes.md"),
+                 body="Georgie: Hello again.".encode("utf-8"), headers={"Cookie": cookie_a})
+    resp = conn.getresponse()
+    resp.read()
+    base_a3 = Path(server.accounts.dir) / server.accounts.account_id("a@example.com") / "materials" / m3
+    check("MD 讲稿存成 script.txt", resp.status == 200
+          and (base_a3 / "script.txt").read_text(encoding="utf-8") == "Georgie: Hello again.")
+    conn.request("POST", f"/api/material/script?id={m3}&filename=" + quote("talk.pdf"),
+                 body=b"%PDF-1.4 fake", headers={"Cookie": cookie_a})
+    resp = conn.getresponse()
+    resp.read()
+    check("PDF 讲稿顶掉 txt（同名只留一份）", resp.status == 200 and (base_a3 / "script.pdf").exists()
+          and not (base_a3 / "script.txt").exists())
+    _, data = get(conn, "/api/library", cookie_a)
+    row3 = next(m for m in json.loads(data)["materials"] if m["id"] == m3)
+    check("补传后 has_script 变有", row3["has_script"] is True)
+    conn.request("POST", f"/api/material/script?id={m3}&filename=" + quote("x.txt"), body=b"x",
+                 headers={"Cookie": cookie_b})
+    resp = conn.getresponse()
+    resp.read()
+    check("别的账号补不了你的讲稿（隔离）", resp.status == 404)
 finally:
     server.shutdown()
     server.server_close()

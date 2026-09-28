@@ -64,6 +64,13 @@
              按钮上写着「重听本句」「看文字」，孩子看得懂（SPEC-001 R22） -->
         <div class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
       </div>
+      <!-- 空库待机（对外模式，SPEC-009 v6）：不挡路、不弹遮罩——播放器照常进场，
+           没有课就卡片里给一句邀请和一步行动；有课了这块自动消失 -->
+      <div id="emptyHint" class="empty-hint" hidden>
+        <h2 id="emptyTitle">资料库还是空的</h2>
+        <p id="emptyText"></p>
+        <div class="end-actions"><button id="emptyAct" class="pill accent big">上传一集</button></div>
+      </div>
       <p id="text" class="sentence" hidden></p>
       <p id="zh" class="zh" hidden></p>
       <div id="sectionEnd" class="section-end" hidden>
@@ -182,35 +189,36 @@
   </div>
 </aside>
 
-<!-- 上传面板（SPEC-009）：音频必需（mp3 ≤60MB），标题、来源、讲稿可选；要备课就得有讲稿 -->
+<!-- 上传面板（SPEC-009 v6 重设计）：选音频是主角（拖放区），讲稿是可选的文件（TXT/PDF/MD），
+     「上传」垫底通栏——主次分明，别让人找半天「选择音频文件」在哪 -->
 <div id="uploadPanel" class="upload-wrap" hidden>
   <div class="upload-card">
     <div class="upload-head"><h2>上传材料</h2><button id="uploadClose" class="close-btn" aria-label="关闭">×</button></div>
+    <button id="dropZone" class="drop-zone" type="button">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V5"/><path d="m7 10 5-5 5 5"/><path d="M5 19h14"/></svg>
+      <span id="dzTitle" class="dz-title">把音频文件拖到这里</span>
+      <span id="dzSub" class="dz-sub">或点击选择 · mp3 · 最大 60MB</span>
+    </button>
+    <input id="audioInput" type="file" accept=".mp3,audio/mpeg" hidden>
     <div class="upload-row">
-      <button id="pickFile" class="pill">选择音频文件</button>
-      <span id="fileName" class="upload-file">还没选文件（mp3，最大 60MB）</span>
-      <input id="fileInput" type="file" accept=".mp3,audio/mpeg" hidden>
+      <span class="row-label">讲稿（可选）</span>
+      <button id="scriptBtn" class="pill ghost sm" type="button">选择讲稿文件</button>
+      <span id="scriptName" class="upload-file">TXT · PDF · MD</span>
+      <input id="scriptInput" type="file" accept=".txt,.pdf,.md" hidden>
     </div>
-    <label>标题（可选，不填就用文件名）<input id="upTitle" type="text" placeholder="如：平时怎么喝咖啡"></label>
-    <label>来源（可选，资料库按它分系列）<input id="upSource" type="text" placeholder="如：Real Easy English"></label>
-    <label>讲稿（可选粘贴，每行「说话人: 内容」；要备课就得有）
-      <textarea id="upScript" rows="7" placeholder="Georgie: Hello and welcome to Real Easy English…&#10;Neil: Hi there!"></textarea>
-    </label>
+    <div class="upload-grid">
+      <label>标题（可选）<input id="upTitle" type="text" placeholder="不填就用文件名"></label>
+      <label>系列（可选）<input id="upSource" type="text" placeholder="如 Real Easy English"></label>
+    </div>
     <p id="uploadErr" class="upload-err" hidden></p>
+    <p id="uploadPhase" class="upload-phase" hidden></p>
     <div id="uploadBar" class="upload-bar" hidden><i id="uploadFill"></i></div>
-    <button id="uploadSend" class="pill accent big">上传</button>
+    <button id="uploadSend" class="pill accent big upload-send">上传</button>
   </div>
 </div>
 
-<!-- 空库待机（对外模式）：一节课都没有时的主画面，library.js 按有没有材料换文案 -->
-<div id="emptyStage" class="retune" hidden>
-  <div class="retune-card">
-    <div class="retune-dial" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-    <h2 id="emptyTitle">你的资料库还是空的</h2>
-    <p id="emptyText"></p>
-    <div class="end-actions"><button id="emptyUpload" class="pill accent big">上传第一集</button></div>
-  </div>
-</div>
+<!-- 资料库里某条材料补传讲稿用（＋讲稿按钮点开的就是它） -->
+<input id="rowScriptInput" type="file" accept=".txt,.pdf,.md" hidden>
 
 <!-- 换版本（SPEC-008）：这一页旧了（R8）、上一次没换成（R6）、正在更新（R5） -->
 <div id="notices" class="notices">

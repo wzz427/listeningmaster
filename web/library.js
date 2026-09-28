@@ -1,24 +1,24 @@
-/* 资料库侧边栏、上传面板、空库待机（SPEC-009 R8，对外模式专用）。
+/* 资料库侧边栏、上传面板、空库的播放器（SPEC-009，对外模式专用）。
  * app.js 只在服务报 copy=hosted 时叫这一层（startPage → hostedStart）；本地模式没有账号和上传，这层整个不动。
  * 给 app.js 的两个入口：hostedStart()（开页选课——回 false 表示不进播放器：跳去别的课、或一节课都没有）、
  * hostedLessonMissing()（要播的课不在了，换个去处）。
  * 学习记录的键跟 app.js 一致：listening:<课名>（进行中）、listening:<课名>:done（整集听完，app.js 在最后一段
  * 播完时写下）——进度点：空心没开始 / 半满进行中 / 实心听完。
  *
- * 侧边栏是浮层：从左滑出、带遮罩，不挤压主卡片（owner 讨厌内容跳动）。
- * 材料的状态（serve.py 的 meta.json）：new 未备课 / prepping 备课中 / failed 失败可重试；备好的材料变成课，
- * 不再占材料区。备课中前端每两三秒轮询一次（R8），材料变课的那一刻高亮＋顶部说一声——这是用户等的时刻。 */
+ * 2026-09-28 owner 验收后的五条（SPEC-009 v6）：登录只问邮箱密码（记住邮箱，第二次只输密码）；
+ * 空库不挡路——播放器照常进场，卡片里给一句邀请，没有遮罩没有「必须先上传」；
+ * 上传面板重设计——选音频的拖放区是主角、「上传」垫底通栏；讲稿是可选的文件（TXT/PDF/MD，
+ * 传完还能在材料上补），不是粘贴；「来源」改叫「系列」。 */
 
 'use strict';
 
 const el = (id) => document.getElementById(id);
-const esc = (t) => String(t == null ? '' : t).replace(/[&<>"]/g,
-  (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const fmtClock = (seconds) => {
   const m = Math.floor(seconds / 60);
   const s = Math.floor(seconds % 60);
   return `${m}:${String(s).padStart(2, '0')}`;
 };
+const fmtMB = (bytes) => `${(bytes / 1048576).toFixed(1)}MB`;
 const safeGet = (key) => { try { return localStorage.getItem(key); } catch { return null; } };
 const LIB_WIDE = 'listening:sidebar';   // 侧边栏开还是收：记住选择；第一次进站自动展开一次
 
@@ -29,7 +29,9 @@ let freshLessons = new Set();               // 刚从材料变来的课：画一
 let freshMaterial = null;                   // 刚传上来的材料：画一次高亮
 let pollTimer = null;
 let tickTimer = null;
-let pickedFile = null;
+let pickedAudio = null;                     // 上传面板里选好的音频
+let pickedScript = null;                    // 上传面板里选好的讲稿文件（可选）
+let scriptFor = null;                       // 资料库里点了「＋讲稿」的是哪条材料
 
 /* ---------- 开页：选哪一课 ---------- */
 
@@ -49,7 +51,7 @@ async function hostedStart() {
     location.replace(`/web/?lesson=${encodeURIComponent(lib.lessons[0].lesson)}`);
     return false;
   }
-  showEmptyStage();          // 一节课都没有（空库，或只有材料/备着课）
+  showEmptyPlayer();         // 一节课都没有：播放器照常进场，空着摆着（不挡路、不逼着上传）
   renderLibrary();
   return false;
 }
@@ -64,7 +66,7 @@ async function hostedLessonMissing() {
       return;
     }
   }
-  showEmptyStage();
+  showEmptyPlayer();
   renderLibrary();
 }
 
@@ -81,22 +83,23 @@ async function fetchLibrary() {
   }
 }
 
-function showEmptyStage() {
+/* 空库的播放器：没有遮罩、不挡路。卡片里一句邀请＋一步行动；左边资料库里可能还有材料在备。 */
+function showEmptyPlayer() {
   const withMaterials = lib.materials.length > 0;
-  el('emptyTitle').textContent = withMaterials ? '还没有备好的课' : '你的资料库还是空的';
+  el('emptyTitle').textContent = withMaterials ? '还没有备好的课' : '资料库还是空的';
   el('emptyText').textContent = withMaterials
     ? '已上传的材料在左边的资料库里，点「备课」，几分钟后就变成一节课。'
-    : '上传一集听力材料（mp3 和页面上的讲稿），点一下「备课」，几分钟就变成一节课。';
-  const btn = el('emptyUpload');
-  btn.textContent = withMaterials ? '打开资料库' : '上传第一集';
+    : '从左边的资料库传一集 BBC 音频（mp3 和讲稿文件），点一下「备课」，几分钟就能听。';
+  const btn = el('emptyAct');
+  btn.textContent = withMaterials ? '打开资料库' : '上传一集';
   btn.dataset.mode = withMaterials ? 'lib' : 'upload';
-  el('emptyStage').hidden = false;
+  el('emptyHint').hidden = false;
+  document.body.classList.add('no-lesson');
 }
 
 /* ---------- 侧边栏开合 ---------- */
 
-/* 侧边栏的开合偏好：第一次进站自动展开一次，之后按上次的选择。
- * 空库时不展开——待机画面上就有上传入口，别让两个都要点（SPEC-009 空库）。 */
+/* 侧边栏的开合偏好：第一次进站自动展开一次，之后按上次的选择（只在有课可播时）。 */
 function maybeOpenSidebar() {
   let remembered = null;
   try { remembered = localStorage.getItem(LIB_WIDE); } catch { /* 当第一次来 */ }
@@ -194,16 +197,17 @@ function materialRow(m) {
     sub.textContent = m.error || '备课没成功';
     row.insertAdjacentHTML('afterbegin', '<span class="mat-warn" aria-hidden="true">!</span>');
     row.appendChild(main);
+    row.appendChild(miniBtn('＋讲稿', () => { scriptFor = m.id; el('rowScriptInput').click(); }));   // 失败常因讲稿：补完就地重试
     row.appendChild(miniBtn('重试', () => prep(m.id)));
     row.appendChild(xBtn(m));
   } else {
     row.className = 'lib-row mat new';
-    sub.textContent = m.has_script ? '' : '没讲稿（备课时要有）';
     row.insertAdjacentHTML('afterbegin', '<span class="mat-icon" aria-hidden="true">▷</span>');
     row.appendChild(main);
-    const b = miniBtn('备课', () => prep(m.id));
-    if (!m.has_script) b.title = '这集没传讲稿：备课要有讲稿才成（BBC 页面上的文字，粘贴进来）';
-    row.appendChild(b);
+    if (!m.has_script) {   // 讲稿可选；没传的给个就地补传的口，不说「必须」
+      row.appendChild(miniBtn('＋讲稿', () => { scriptFor = m.id; el('rowScriptInput').click(); }));
+    }
+    row.appendChild(miniBtn('备课', () => prep(m.id)));
     row.appendChild(xBtn(m));
   }
   if (m.id === freshMaterial) row.classList.add('fresh');
@@ -236,7 +240,7 @@ function xBtn(m) {
 
 function goLesson(id) {
   const pageLesson = new URLSearchParams(location.search).get('lesson');
-  if (id === pageLesson && el('emptyStage').hidden) return;   // 就是正在听的这集：收起侧边栏就行，别重载丢了位置
+  if (id === pageLesson && !document.body.classList.contains('no-lesson')) return;   // 正在听这集：收起就行，别重载丢位置
   location.href = `/web/?lesson=${encodeURIComponent(id)}`;
 }
 
@@ -285,61 +289,151 @@ function tickElapsed() {
 /* ---------- 上传面板 ---------- */
 
 function openUpload() {
-  pickedFile = null;
-  el('fileInput').value = '';
-  el('fileName').textContent = '还没选文件（mp3，最大 60MB）';
-  el('fileName').classList.remove('picked');
+  pickedAudio = null;
+  pickedScript = null;
+  el('audioInput').value = '';
+  el('scriptInput').value = '';
+  paintDropZone();
+  el('scriptName').textContent = 'TXT · PDF · MD';
+  el('scriptName').classList.remove('picked');
   el('upTitle').value = '';
   el('upSource').value = '';
-  el('upScript').value = '';
   el('uploadErr').hidden = true;
+  el('uploadPhase').hidden = true;
   el('uploadBar').hidden = true;
   el('uploadFill').style.width = '0';
   el('uploadSend').disabled = false;
   el('uploadPanel').hidden = false;
-  el('pickFile').focus();
 }
 
-/* 选的文件行不行；没问题回 ''，有问题回一句人话 */
-function pickCheck(file) {
+/* 选的音频行不行；没问题回 ''，有问题回一句人话 */
+function audioCheck(file) {
   if (!file) return '先选一个音频文件';
   if (!/\.mp3$/i.test(file.name)) return '只收 mp3（BBC 下载的就是 mp3）';
   if (file.size > 60 * 1024 * 1024) return '文件太大了，最大 60MB';
   return '';
 }
 
+function scriptCheck(file) {
+  if (!/\.(txt|pdf|md)$/i.test(file.name)) return '讲稿只收 TXT、PDF、MD 文件';
+  if (file.size > 2 * 1024 * 1024) return '讲稿文件太大了，最大 2MB';
+  return '';
+}
+
+/* 拖放区画成两种样子：还没选（大字邀请）／选好了（一张「票」：文件名·大小·重选） */
+function paintDropZone(badText) {
+  const zone = el('dropZone');
+  if (badText) {
+    zone.classList.remove('picked');
+    el('dzTitle').textContent = badText;
+    el('dzTitle').className = 'dz-title bad';
+    el('dzSub').textContent = '点一下重新选 · mp3 · 最大 60MB';
+    return;
+  }
+  if (pickedAudio) {
+    zone.classList.add('picked');
+    el('dzTitle').textContent = `${pickedAudio.name} · ${fmtMB(pickedAudio.size)}`;
+    el('dzTitle').className = 'dz-title';
+    el('dzSub').innerHTML = '选好了。点一下可以<span class="again">重新选</span>';
+  } else {
+    zone.classList.remove('picked');
+    el('dzTitle').textContent = '把音频文件拖到这里';
+    el('dzTitle').className = 'dz-title';
+    el('dzSub').textContent = '或点击选择 · mp3 · 最大 60MB';
+  }
+}
+
+function setAudio(file) {
+  pickedAudio = file || null;
+  const bad = pickedAudio ? audioCheck(pickedAudio) : '';
+  paintDropZone(bad || null);
+}
+
 function sendUpload() {
-  const bad = pickCheck(pickedFile);
+  const bad = audioCheck(pickedAudio);
   if (bad) { uploadErrSay(bad); return; }
-  // 音频按原始字节当请求体，文件名、标题、讲稿走 URL 参数（和 serve.py 约定一致：单层编码）
   const q = new URLSearchParams({
-    filename: pickedFile.name,
+    filename: pickedAudio.name,
     title: el('upTitle').value.trim(),
     source: el('upSource').value.trim(),
-    script: el('upScript').value.trim(),
   });
-  const xhr = new XMLHttpRequest();   // fetch 看不到上传进度，进度条要用 xhr
-  el('uploadBar').hidden = false;
+  el('uploadErr').hidden = true;
   el('uploadSend').disabled = true;
+  postFile(`/api/upload?${q}`, pickedAudio, '正在传音频…', (r0) => {
+    let mid = null;
+    try { mid = JSON.parse(r0).material.id; } catch { /* 下面按失败说 */ }
+    if (!mid) {
+      uploadErrSay('没传上去，再试一次');
+      el('uploadSend').disabled = false;
+      return;
+    }
+    const done = () => {
+      el('uploadPanel').hidden = true;
+      freshMaterial = mid;
+      setLibraryOpen(true);   // 落到材料区：打开侧边栏让他看见
+      poll();
+    };
+    if (pickedScript) {
+      const sq = new URLSearchParams({ id: mid, filename: pickedScript.name });
+      postFile(`/api/material/script?${sq}`, pickedScript, '正在传讲稿…', () => done(), () => {
+        // 音频已经传好了：别让他白传一遍——落库，指引到材料行上补讲稿
+        el('uploadPanel').hidden = true;
+        freshMaterial = mid;
+        setLibraryOpen(true);
+        poll();
+        noticeSay('音频已传好；讲稿没传上，在资料库里这条材料上点「＋讲稿」补一个');
+      });
+    } else {
+      done();
+    }
+  }, () => {
+    el('uploadSend').disabled = false;
+  });
+}
+
+/* 原始字节 POST（进度条要用 xhr）；onText(phase) 换进度条上那行字。
+ * 回调 raw：响应文本；失败给 null。onFail 只在「音频那一步」用来恢复按钮。 */
+function postFile(url, file, phase, onDone, onFail) {
+  const xhr = new XMLHttpRequest();
+  el('uploadBar').hidden = false;
+  el('uploadPhase').hidden = false;
+  el('uploadPhase').textContent = phase;
   xhr.upload.onprogress = (e) => {
     if (e.lengthComputable) el('uploadFill').style.width = `${Math.round((e.loaded / e.total) * 100)}%`;
   };
   xhr.onload = () => {
-    let j = {};
-    try { j = JSON.parse(xhr.responseText); } catch { /* 按没话处理 */ }
-    if (xhr.status === 200) {
-      el('uploadPanel').hidden = true;
-      freshMaterial = j.material ? j.material.id : null;
-      setLibraryOpen(true);   // 落到材料区：打开侧边栏让他看见（SPEC-009 上传面板）
-      poll();
-    } else {
+    el('uploadPhase').hidden = true;
+    if (xhr.status >= 200 && xhr.status < 300) onDone(xhr.responseText);
+    else {
+      let j = {};
+      try { j = JSON.parse(xhr.responseText); } catch { /* 按没话处理 */ }
       uploadErrSay(j.error || '没传上去，再试一次');
-      el('uploadSend').disabled = false;
+      onFail && onFail();
     }
   };
-  xhr.onerror = () => { uploadErrSay('网络没通，稍后再试'); el('uploadSend').disabled = false; };
-  xhr.open('POST', `/api/upload?${q}`);
-  xhr.send(pickedFile);
+  xhr.onerror = () => {
+    el('uploadPhase').hidden = true;
+    uploadErrSay('网络没通，稍后再试');
+    onFail && onFail();
+  };
+  xhr.open('POST', url);
+  xhr.send(file);
+}
+
+/* 资料库里「＋讲稿」：选完就地补传，传完刷新那一行 */
+function uploadRowScript(file) {
+  const mid = scriptFor;
+  scriptFor = null;
+  const bad = scriptCheck(file);
+  if (bad) { noticeSay(bad); return; }
+  const q = new URLSearchParams({ id: mid, filename: file.name });
+  fetch(`/api/material/script?${q}`, { method: 'POST', body: file })
+    .then(async (r) => {
+      if (r.ok) { poll(); return; }
+      const j = await r.json().catch(() => ({}));
+      noticeSay(j.error || '讲稿没传上，再试一次');
+    })
+    .catch(() => noticeSay('网络没通，稍后再试'));
 }
 
 function uploadErrSay(text) {
@@ -372,14 +466,42 @@ function wireLibrary() {
   el('libClose').onclick = () => setLibraryOpen(false);
   el('libMask').onclick = () => setLibraryOpen(false);
   el('uploadBtn').onclick = openUpload;
-  el('emptyUpload').onclick = () => (el('emptyUpload').dataset.mode === 'lib' ? setLibraryOpen(true) : openUpload());
+  el('emptyAct').onclick = () => (el('emptyAct').dataset.mode === 'lib' ? setLibraryOpen(true) : openUpload());
   el('uploadClose').onclick = () => { el('uploadPanel').hidden = true; };
-  el('pickFile').onclick = () => el('fileInput').click();
-  el('fileInput').onchange = () => {
-    pickedFile = el('fileInput').files[0] || null;
-    const bad = pickCheck(pickedFile);
-    el('fileName').textContent = pickedFile ? bad || pickedFile.name : '还没选文件（mp3，最大 60MB）';
-    el('fileName').classList.toggle('picked', !!pickedFile && !bad);
+
+  const zone = el('dropZone');
+  zone.onclick = () => el('audioInput').click();
+  el('audioInput').onchange = () => setAudio(el('audioInput').files[0] || null);
+  ['dragover', 'dragenter'].forEach((name) => zone.addEventListener(name, (e) => {
+    e.preventDefault();
+    zone.classList.add('drag');
+  }));
+  ['dragleave', 'drop'].forEach((name) => zone.addEventListener(name, (e) => {
+    e.preventDefault();
+    zone.classList.remove('drag');
+    if (name === 'drop') setAudio(e.dataTransfer.files[0] || null);
+  }));
+
+  el('scriptBtn').onclick = () => el('scriptInput').click();
+  el('scriptInput').onchange = () => {
+    pickedScript = el('scriptInput').files[0] || null;
+    const bad = pickedScript ? scriptCheck(pickedScript) : '';
+    if (bad) {
+      el('scriptName').textContent = bad;
+      el('scriptName').classList.remove('picked');
+      pickedScript = null;
+    } else if (pickedScript) {
+      el('scriptName').textContent = `${pickedScript.name} · ${fmtMB(pickedScript.size)}`;
+      el('scriptName').classList.add('picked');
+    } else {
+      el('scriptName').textContent = 'TXT · PDF · MD';
+      el('scriptName').classList.remove('picked');
+    }
+  };
+  el('rowScriptInput').onchange = () => {
+    const f = el('rowScriptInput').files[0];
+    el('rowScriptInput').value = '';
+    if (f) uploadRowScript(f);
   };
   el('uploadSend').onclick = sendUpload;
   el('logoutBtn').onclick = async () => {

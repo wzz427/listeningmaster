@@ -10,6 +10,7 @@
 <style>
   :root { color-scheme: light; }
   * { box-sizing: border-box; }
+  [hidden] { display: none !important; }   /* 下面 label{display:block} 会压掉浏览器默认的 [hidden]：没有这条，登录页也会露出邀请码框（owner 2026-09-28 实测踩中） */
   body {
     margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
     background: #f7f5f1; color: #2a2622;
@@ -97,7 +98,11 @@ f.addEventListener('submit', async (e) => {
       body: JSON.stringify({ email, password, invite }),
     });
     const j = await r.json().catch(() => ({}));
-    if (r.ok) { location.href = '/web/'; return; }   // 注册成功服务端已顺带登录
+    if (r.ok) {   // 记住邮箱：下次回来只输密码（owner 2026-09-28）
+      try { localStorage.setItem('listening:email', email); } catch { /* 记不住就每次都输 */ }
+      location.href = '/web/';
+      return;
+    }
     showErr(j.error || '没成功，再试一次');
   } catch {
     showErr('网络没通，稍后再试');
@@ -105,6 +110,17 @@ f.addEventListener('submit', async (e) => {
     btn.disabled = false;
   }
 });
+
+// 上次用过的邮箱先填好：第二次登录只要输密码（邀请码只在注册时问一次）
+try {
+  const remembered = localStorage.getItem('listening:email');
+  if (remembered) {
+    f.email.value = remembered;
+    f.password.focus();
+  } else {
+    f.email.focus();
+  }
+} catch { f.email.focus(); }
 
 function showErr(msg) { err.textContent = msg; err.style.display = 'block'; }
 </script>
