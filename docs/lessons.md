@@ -107,3 +107,10 @@
 - 根因：conda-forge 的 ffmpeg 会连带装 gdk-pixbuf，它的安装后脚本输出中文报错，conda 用 GBK 解码失败。
 - 修法：`pip install imageio-ffmpeg`，用 `imageio_ffmpeg.get_ffmpeg_exe()` 拿到独立的 ffmpeg 可执行文件（见 `pipeline/audio.py`）。代价是没有 ffprobe，用 `ffmpeg -i` 读信息代替。
 - 怎么确认修好了：`pipeline/audio.py` 能把 mp3 转成 16kHz 单声道 wav，`probe()` 能读出时长和声道数。
+
+### 2026-09-28 · 在 Windows 上批量替换文件内容，别用 shell 循环
+
+- 症状：git mv 改名后要用 sed 批量替换全仓引用，`while read f` 循环连挂两次——第一次 `read` 把路径里的反斜杠当转义吃掉（`docs\handoff.md` 变 `docshandoff.md`），加 `read -r` 后又挂在 grep 输出带的 `\r`（文件名末尾粘了回车，报「can't read」但文件明明在）。
+- 根因：Git Bash 的管道里同时有反斜杠路径和 CRLF 行尾，两样对 shell 的词法都是暗雷；而且这类错误不报在哪，只报文件不存在，第一眼像见了鬼。
+- 修法：整段换成 Python 走（`Path.rglob` + `open(..., newline='')` 原样读写），零反斜杠字面量（用 `as_posix()`），一次成。
+- 怎么记住：凡「批量改一堆文件」在 Windows 上一律 Python；shell 只留给单条、路径能写死的命令。CLAUDE.md 红线里「改含反斜杠的文字用 Edit 工具」是同一条根。
