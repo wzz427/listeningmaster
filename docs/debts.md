@@ -9,7 +9,7 @@
 
 | 什么 | 出自 | 下一步 · 归谁 · 什么时候 |
 |---|---|---|
-| 对外版（账号＋上传＋发布，规格＝SPEC-009 v5，开发收尾） | owner 拍板（D47 到 D50）：`listen-app.bayescode.com`（39.105.73.114）、邮箱账号＋邀请码注册、上传存材料＋手动备课、服务器无默认内容；noindex、限流、上线前 owner 亲口说「上」；含资料库侧边栏 | **代码全部完成（2026-09-28）**：六套检查全绿（player84/docs25/server15/upload16/prep11/frontend22），部署物料备齐（`docs/deploy-listen-app.md`、`deploy/` 三件、`requirements.txt`）。剩：owner 发话 → 上服务器实际部署 → 真材料验六步（烧钱先说）→ owner 验 → 说「上」 · claude＋owner · 等 owner 发话 |
+| 对外版（账号＋上传＋发布，规格＝SPEC-009 v5，已上服务器） | owner 拍板（D47 到 D50）：`listen-app.bayescode.com`（39.105.73.114）、邮箱账号＋邀请码注册、上传存材料＋手动备课、服务器无默认内容；noindex、限流、上线前 owner 亲口说「上」；含资料库侧边栏 | **2026-09-28 服务器部署完成**：代码/词典/密钥/配置/systemd/Caddy 站点块全就位，官网和备胎容器无恙（详见交接页）。卡在 owner 加 DNS A 记录；之后走验证清单（免费部分→真材料六步（烧钱，跑前报备））→ owner 验 → 说「上」 · owner 加 DNS，claude 接着验 · 等 owner |
 | 预习页（规格待写，编号接着往下排） | `demand.md` 第 3 条；SPEC-000「学习流程」第 1 步；课程方案 `docs/listening-led-course.md` 六步闭环第 1 步 | 课程方案待 owner 过目；动工排在对外发布之后（D47 主线改道） · claude · 发布上线后 |
 | 课后练习（规格待写） | `demand.md` 第 4 条；SPEC-000「学习流程」第 4 步；课程方案 `docs/listening-led-course.md` 第 5 步 | 跟在预习页后面 · claude · 预习页做完 |
 | 家长上传材料后一条命令备课，几分钟以内 | owner 2026-09-22 定的以后的用法；规格 `specs/SPEC-002-prep-pipeline.md` R1、R8、R9。**代码已串起来**（2026-09-28）：serve.py 备课任务按六步真跑、讲稿认纯文本、标题出处从 meta.json 来（R9 已做）；真六步一次没真跑过（要花百炼和 DeepSeek 的钱），排在服务器部署时拿真材料验（手册第 6 步）；`test_player.py` 已支持 `--lesson`（2026-09-28），`test_audio.py` 还只认 260821（要真录音，不急） | 部署时在服务器上拿一份真材料跑通全流程 · claude · owner 发话后 |

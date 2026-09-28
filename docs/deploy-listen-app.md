@@ -38,25 +38,27 @@ ssh root@39.105.73.114 "cd /opt/listening && find . -type f | wc -l"
 cd .. && tar -cf - WordsAudio | ssh root@39.105.73.114 "tar -x -f - -C /opt/"
 ```
 
-密钥和配置（都不在 archive 里，单独放）：
+密钥和配置（都不在 archive 里，单独放）。**`bind` 必须写 `"0.0.0.0"`**：那台机器的 Caddy 在 docker 容器里，容器经网桥 172.18.0.1 来连宿主机，服务只绑 127.0.0.1 的话够不着（2026-09-28 实测踩的）；对外仍只靠轻量防火墙放行 80/443/22。
 
 ```bash
 scp api-keys.txt root@39.105.73.114:/opt/listening/
 ssh root@39.105.73.114
   cd /opt/listening
   cp deploy/server-config.example.json server-config.json
-  vi server-config.json        # 把 invite 改成真邀请码；secure_cookie 保持 true
+  vi server-config.json        # invite 改成真邀请码；加 "bind": "0.0.0.0"；secure_cookie 保持 true
   chmod 600 api-keys.txt server-config.json
-  useradd --system --home /opt/listening listen
+  useradd --system --home /opt/listening --shell /usr/sbin/nologin listen
   chown -R listen:listen /opt/listening /opt/WordsAudio
 ```
 
 ## 2. Python 环境
 
+服务器是 Ubuntu 22.04 / Python 3.10（够用；numpy 装到 2.2.6，见 `requirements.txt` 注释）。
+
 ```bash
 cd /opt/listening
-python3 -m venv venv
-venv/bin/pip install -r requirements.txt
+python3 -m venv venv          # 报 ensurepip 缺失就先 apt-get install -y python3.10-venv
+venv/bin/pip install -i https://mirrors.aliyun.com/pypi/simple/ -r requirements.txt
 ```
 
 ffmpeg 不用 apt 装：`imageio-ffmpeg` 自带一个静态的，备课第一步用的就是它。
@@ -78,18 +80,20 @@ curl -s http://127.0.0.1:8790/api/version    # "copy":"hosted"
 journalctl -u listening -f           # 日志在这里（journald 自带轮转，指南坑⑩不用踩）
 ```
 
-## 4. Caddy 加站点块
+## 4. Caddy 加站点块（这台机器的 Caddy 是 docker 容器，不是系统服务）
 
-先拉回现有配置留底，**追加** `deploy/caddy-listen-app.conf` 的那三行，再 reload：
+2026-09-28 实况：Caddy 跑在容器 `deploy-caddy-1` 里（带着 TinkerCode 备胎栈 gateway/redis），占着 80/443；Caddyfile 在**宿主机** `/opt/tinkercode/deploy/Caddyfile`（只读挂进容器），上面已有老域名、api、admin、bayescourse 四个块——bayescourse 是活着的课程官网。
 
 ```bash
-scp root@39.105.73.114:/etc/caddy/Caddyfile ~/Caddyfile.server-backup   # 留底＋diff 用
-# 编辑服务器上的 /etc/caddy/Caddyfile：把 deploy/caddy-listen-app.conf 的站点块贴到末尾
-systemctl reload caddy
-# 验证老站没被伤着：备胎和课程官网各 curl 一下
+# ① 留底（坑⑦）
+ssh root@39.105.73.114 "cp /opt/tinkercode/deploy/Caddyfile /opt/tinkercode/deploy/Caddyfile.backup-<日期>"
+# ② 把 deploy/caddy-listen-app.conf 里的站点块追加到那份 Caddyfile 末尾（reverse_proxy 172.18.0.1:8790——容器里的 127.0.0.1 不是宿主机）
+# ③ 让容器优雅重载（不停机、不碰别的容器）：
+ssh root@39.105.73.114 "docker exec deploy-caddy-1 caddy reload --config /etc/caddy/Caddyfile"
+# ④ 验证：docker ps 三个容器都 Up/healthy；https://bayescourse.gewucode.cn 还是 200
 ```
 
-证书不用管：Caddy 对新域名自动签、自动续（R11）。
+证书不用管：DNS 指过来后 Caddy 自己签（几分钟内）；DNS 没指之前它会反复试、日志里报挑战失败，无害。
 
 ## 5. DNS（owner 在阿里云控制台做）
 

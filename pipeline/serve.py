@@ -590,9 +590,12 @@ class RangeHandler(SimpleHTTPRequestHandler):
 
 
 def make_server(port: int = stable_copy.PORT, managed: bool = False, hosted_config: dict | None = None) -> Server:
-    """hosted_config：{"invite": 邀请码, "data_dir": 数据目录, "secure_cookie": bool}——给了就起对外模式。"""
+    """hosted_config：{"invite": 邀请码, "data_dir": 数据目录, "secure_cookie": bool, "bind": 绑哪个地址}——
+    给了就起对外模式。bind 默认 127.0.0.1；Caddy 跑在 docker 容器里的机器上要写 "0.0.0.0"
+    （容器经网桥 172.x.0.1 才够得着宿主机；对外仍靠轻量防火墙只放 80/443/22）。"""
     import accounts
-    server = Server(("127.0.0.1", port), partial(RangeHandler, directory=str(ROOT)))
+    host = (hosted_config or {}).get("bind") or "127.0.0.1"
+    server = Server((host, port), partial(RangeHandler, directory=str(ROOT)))
     server.version = stable_copy.head(ROOT)
     server.managed = managed
     if hosted_config:
@@ -610,7 +613,8 @@ def load_hosted_config(path: Path) -> dict:
     return {"invite": str(cfg["invite"]),
             "data_dir": path.parent / cfg.get("data_dir", "server-data"),
             "secure_cookie": bool(cfg.get("secure_cookie", False)),
-            "port": int(cfg.get("port", 8790))}
+            "port": int(cfg.get("port", 8790)),
+            "bind": str(cfg.get("bind", "127.0.0.1"))}
 
 
 if __name__ == "__main__":
