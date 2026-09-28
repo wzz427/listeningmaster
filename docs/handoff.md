@@ -19,6 +19,8 @@
 - 随后 owner 说「开干」，并加三条新要求（D49，全部进 SPEC-009 v2）：**账号登录**（先做邮箱；登录后保存该账号上传的听力资料）；**服务器无默认内容**（他自己的机器也一样手动上传，不默认放 BBC 课）；上传＋自动备课因此进第一版（推翻 v1 的「一码通吃、claude 集中备课」）。注册加**邀请码**（claude 排的：一个码守熟人圈红线，比开放注册稳）。
 - 动工第一块已完成：`pipeline/accounts.py`（邮箱注册要邀请码、登录发会话 30 天、连错 10 次锁 10 分钟、密码只存 PBKDF2 哈希、会话落盘重启不掉线、账号目录用邮箱哈希短 id）＋ `tests/test_accounts.py`（14 项全过）；`server-data/`、`server-config.json` 进 .gitignore；architecture.md 登记两个新文件。
 - 下一步从哪接（最新）：**接 serve.py 对外模式**——登录页（web/ 加一个登录视图）、`/api/register` `/api/login` `/api/logout` 接 accounts.py、会话 cookie 挡全站、noindex、限流；然后上传接口＋**手动备课**（owner 2026-09-28 加的要求：上传和备课不联动，材料生命周期 未备课→备课中→已备好/失败可重试，D50、SPEC-009 v3 两区四状态）；然后侧边栏（数据源 `/api/library`：材料带状态、课带元数据）；最后部署手册。上线前 owner 亲口说「上」。
+- **开发第一块完成（2026-09-28，提交见 git）**：`pipeline/serve.py` 重写加对外模式（--hosted，读 `server-config.json`）——没会话页面/音频/接口全挡（303 去登录页或 401）、注册（邀请码）即登录、登出、noindex、POST 每 IP 每分钟 30 次（反代下取 X-Forwarded-For）、换版本机制关闭（version 报 hosted、/api/update 404）、Windows 端口独占锁只在本地模式生效；本地模式行为不变（test_player 84 项全过）。新文件 `web/login.html`（自包含登录/注册页）、`tests/test_hosted_server.py`（15 项全过）。`pipeline/accounts.py`＋`tests/test_accounts.py`（14 项）此前已落。四份检查全绿：docs 25、player 84、hosted 15、accounts 14。
+- 下一步从哪接（开发）：**上传接口**（POST /api/upload：音频≤60MB＋可选标题/讲稿，存 `server-data/<账号id>/materials/`，状态「未备课」）→ **手动备课**（POST /api/prep：排队跑 pipeline 六步串一条命令——这条同时销欠账表的备课串命令；状态流转落 server-data，`/api/library` 出两区数据）→ **侧边栏**（web/app.js＋style.css，两区四状态＋上传面板＋轮询）→ **部署手册**。
 
 ### 2026-09-26 · 主线再改道：owner 要先做对外试用发布（他的阿里云服务器），课程排后
 

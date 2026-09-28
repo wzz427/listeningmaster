@@ -1,0 +1,112 @@
+<!doctype html>
+<!-- 登录页（对外模式专用，SPEC-009）：注册要邀请码，注册成功即登录进 /web/。
+     本地模式（localhost）永远走不到这页——serve.py 只在 --hosted 下把没会话的请求导过来。
+     自包含一份小样式，不依赖 style.css：这是进产品的第一屏，加载越少越好。 -->
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>登录 · 英语听力</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    background: #f7f5f1; color: #2a2622;
+    font-family: Georgia, "Times New Roman", "Songti SC", "SimSun", serif;
+  }
+  .card {
+    width: min(360px, calc(100vw - 48px)); padding: 40px 36px 32px;
+    background: #fff; border: 1px solid #e6e0d6; border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(42, 38, 34, .07);
+  }
+  h1 { margin: 0 0 4px; font-size: 26px; font-weight: 600; letter-spacing: .02em; }
+  .sub { margin: 0 0 24px; font-size: 14px; color: #8a8378; }
+  .tabs { display: flex; gap: 4px; margin-bottom: 20px; border-bottom: 1px solid #e6e0d6; }
+  .tabs button {
+    flex: 1; padding: 10px 0; background: none; border: none; cursor: pointer;
+    font: inherit; font-size: 15px; color: #8a8378; border-bottom: 2px solid transparent; margin-bottom: -1px;
+  }
+  .tabs button.on { color: #2a2622; border-bottom-color: #b07a2a; }
+  label { display: block; margin-bottom: 14px; font-size: 13px; color: #6b6459; }
+  input {
+    display: block; width: 100%; margin-top: 4px; padding: 10px 12px;
+    font: inherit; font-size: 15px; color: #2a2622;
+    background: #faf8f4; border: 1px solid #d8d1c4; border-radius: 8px; outline: none;
+  }
+  input:focus { border-color: #b07a2a; background: #fff; }
+  #err { display: none; margin: 0 0 12px; padding: 8px 12px; font-size: 13px;
+         color: #a04030; background: #faf0ec; border-radius: 8px; }
+  #submit {
+    width: 100%; margin-top: 6px; padding: 12px 0; cursor: pointer;
+    font: inherit; font-size: 16px; color: #fff; background: #b07a2a; border: none; border-radius: 8px;
+  }
+  #submit:disabled { opacity: .6; cursor: wait; }
+</style>
+</head>
+<body>
+<main class="card">
+  <h1>英语听力</h1>
+  <p class="sub">登录后进入你的听力资料库</p>
+  <div class="tabs">
+    <button type="button" id="tab-login" class="on">登录</button>
+    <button type="button" id="tab-reg">注册</button>
+  </div>
+  <form id="f" novalidate>
+    <label>邮箱<input name="email" type="email" autocomplete="username" required></label>
+    <label>密码<input name="password" type="password" autocomplete="current-password" required></label>
+    <label id="row-invite" hidden>邀请码<input name="invite" autocomplete="off"></label>
+    <p id="err"></p>
+    <button id="submit" type="submit">登录</button>
+  </form>
+</main>
+<script>
+'use strict';
+const f = document.getElementById('f');
+const err = document.getElementById('err');
+const btn = document.getElementById('submit');
+const rowInvite = document.getElementById('row-invite');
+const tabLogin = document.getElementById('tab-login');
+const tabReg = document.getElementById('tab-reg');
+let mode = 'login';                      // 'login' | 'register'
+
+function setMode(m) {
+  mode = m;
+  tabLogin.classList.toggle('on', m === 'login');
+  tabReg.classList.toggle('on', m === 'register');
+  rowInvite.hidden = m !== 'register';
+  btn.textContent = m === 'login' ? '登录' : '注册';
+  err.style.display = 'none';
+}
+tabLogin.onclick = () => setMode('login');
+tabReg.onclick = () => setMode('register');
+
+f.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  err.style.display = 'none';
+  const email = f.email.value.trim();
+  const password = f.password.value;
+  const invite = f.invite.value.trim();
+  if (!email || !password) { showErr('邮箱和密码都要填'); return; }
+  if (mode === 'register' && password.length < 6) { showErr('密码至少 6 位'); return; }
+  btn.disabled = true;
+  try {
+    const r = await fetch(mode === 'login' ? '/api/login' : '/api/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password, invite }),
+    });
+    const j = await r.json().catch(() => ({}));
+    if (r.ok) { location.href = '/web/'; return; }   // 注册成功服务端已顺带登录
+    showErr(j.error || '没成功，再试一次');
+  } catch {
+    showErr('网络没通，稍后再试');
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+function showErr(msg) { err.textContent = msg; err.style.display = 'block'; }
+</script>
+</body>
+</html>
