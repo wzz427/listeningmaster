@@ -184,7 +184,10 @@ def build(lesson: str) -> None:
     lesson_dir = ROOT / "lessons" / lesson
     asr = json.loads((lesson_dir / "asr_raw.json").read_text(encoding="utf-8"))
     material_dir = ROOT / "materials" / lesson
-    turns = read_turns(next(material_dir.glob("*transcript.pdf")))
+    script = next(material_dir.glob("*transcript.pdf"), None) or next(material_dir.glob("transcript.txt"), None)
+    if script is None:  # 对外版 v1 要讲稿（SPEC-009 R5）；没讲稿的路是 SPEC-002 R8 的欠账
+        raise SystemExit("这份材料没有讲稿，暂时备不了：上传时把 BBC 页面的讲稿粘进来（纯文本就行）")
+    turns = read_turns(script)
 
     sentences_tokens = merge_tokens(asr)
     all_words = [w for s in sentences_tokens for w in s]

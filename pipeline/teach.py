@@ -206,10 +206,12 @@ def build(lesson: str, fresh: bool = False, resplit: bool = False, renote: bool 
         s["zh"] = zh_map.get(s["id"], "")
         s["notes"] = notes[s["text"]]
 
+    meta_path = ROOT / "materials" / lesson / "meta.json"   # 对外版上传时带的标题和来源（SPEC-009）
+    meta = json.loads(meta_path.read_text(encoding="utf-8")) if meta_path.exists() else {}
     lesson_data = {
         "lesson": lesson,
-        "title": "Coffee",
-        "source": "BBC Learning English · Real Easy English",
+        "title": meta.get("title") or lesson,
+        "source": meta.get("source") or "BBC Learning English",
         "audio": "audio.m4a",
         "bodyStart": body[0]["start"] if body else 0,
         "sections": sections,

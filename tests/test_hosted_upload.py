@@ -69,9 +69,9 @@ try:
     conn.request("POST", "/api/upload?filename=" + quote("病毒.exe"), body=b"x" * 10, headers={"Cookie": cookie_a})
     resp = conn.getresponse()
     data = resp.read()
-    check("非音频被拒", resp.status == 400 and "三种音频" in json.loads(data)["error"])
+    check("非音频被拒", resp.status == 400 and "只收 mp3" in json.loads(data)["error"])
 
-    # 正常上传两条：一条不带标题（用文件名），一条带标题和讲稿
+    # 正常上传两条：一条不带标题（用文件名），一条带标题、来源和讲稿
     audio1 = b"FAKE_MP3_BYTES_" * 64
     q1 = "/api/upload?filename=" + quote("cafe.mp3")
     conn.request("POST", q1, body=audio1, headers={"Cookie": cookie_a})
@@ -79,11 +79,12 @@ try:
     m1 = json.loads(resp.read())["material"]
     check("上传成功、默认标题用文件名", resp.status == 200 and m1["title"] == "cafe" and m1["state"] == "new")
 
-    q2 = "/api/upload?filename=" + quote("sleep.mp3") + "&title=" + quote("你睡得好吗") + "&script=" + quote("Hello and welcome.")
+    q2 = ("/api/upload?filename=" + quote("sleep.mp3") + "&title=" + quote("你睡得好吗")
+          + "&source=" + quote("Real Easy English") + "&script=" + quote("Hello and welcome."))
     conn.request("POST", q2, body=b"FAKE2_" * 32, headers={"Cookie": cookie_a})
     resp = conn.getresponse()
     m2 = json.loads(resp.read())["material"]
-    check("带标题和讲稿上传成功", resp.status == 200 and m2["title"] == "你睡得好吗")
+    check("带标题、来源和讲稿上传成功", resp.status == 200 and m2["title"] == "你睡得好吗" and m2["source"] == "Real Easy English")
 
     # 资料库：A 有两条材料、零节课；B 什么都没有（隔离）
     resp, data = get(conn, "/api/library", cookie_a)

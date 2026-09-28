@@ -108,8 +108,12 @@ def _run_prep(server: "Server", email: str, mid: str) -> None:
         shutil.rmtree(stage_m, ignore_errors=True)
         shutil.rmtree(stage_l, ignore_errors=True)
         stage_m.mkdir(parents=True, exist_ok=True)
-        for f in sorted(mdir.glob("audio.*")) + sorted(mdir.glob("script.txt")):
+        for f in sorted(mdir.glob("audio.*")):
             shutil.copy2(f, stage_m / f.name)
+        if (mdir / "script.txt").exists():
+            shutil.copy2(mdir / "script.txt", stage_m / "transcript.txt")  # 换成 pipeline 认的名字（SPEC-002）
+        if (mdir / "meta.json").exists():
+            shutil.copy2(mdir / "meta.json", stage_m / "meta.json")        # 标题、来源：teach.py 从这读（R9）
         cmd = cfg.get("prep_command")
         if cmd:  # 自定义命令（测试用假命令，不烧识别和模型的钱）：参数＝课名、材料台、课台
             proc = subprocess.run([*cmd, mid, str(materials_root), str(lessons_root)],
@@ -332,16 +336,21 @@ class RangeHandler(SimpleHTTPRequestHandler):
         try:
             body = json.loads(self.rfile.read(int(self.headers.get("Content-Length") or 0)) or b"{}")
             lesson = str(body.get("lesson", ""))
-            if not LESSON_NAME.fullmatch(lesson) or not (ROOT / "lessons" / lesson / "lesson.json").exists():
+            lessons_root = None
+            if self.server.hosted:  # 对外模式：课住该账号目录（SPEC-009 R5）
+                accounts = self.server.accounts
+                lessons_root = Path(accounts.dir) / accounts.account_id(email) / "lessons"
+            lesson_json = (lessons_root or ROOT / "lessons") / lesson / "lesson.json"
+            if not LESSON_NAME.fullmatch(lesson) or not lesson_json.exists():
                 self.send_json(404, {"error": "没有这一课"})
                 return
             import explain
             if self.path == "/api/explain":
-                self.send_json(200, explain.explain(lesson, int(body["sentence"]), int(body["word"])))
+                self.send_json(200, explain.explain(lesson, int(body["sentence"]), int(body["word"]), root=lessons_root))
             elif self.path == "/api/more":
-                self.send_json(200, explain.explain_more(lesson, int(body["sentence"]), int(body["word"])))
+                self.send_json(200, explain.explain_more(lesson, int(body["sentence"]), int(body["word"]), root=lessons_root))
             elif self.path == "/api/speak":
-                self.send_json(200, {"file": explain.speak(lesson, str(body.get("key", "")), str(body.get("text", "")))})
+                self.send_json(200, {"file": explain.speak(lesson, str(body.get("key", "")), str(body.get("text", "")), root=lessons_root)})
             else:
                 self.send_json(404, {"error": "没有这个接口"})
         except Exception as e:  # 只回错误的种类，不回详情：详情里可能带着请求头（红线：密钥不进报错）
@@ -383,6 +392,7 @@ class RangeHandler(SimpleHTTPRequestHandler):
         q = {k: v[0] for k, v in parse_qs(urlparse(self.path).query).items()}
         filename = unquote(q.get("filename", ""))
         title = unquote(q.get("title", "")).strip()
+        source = unquote(q.get("source", "")).strip()
         script = unquote(q.get("script", "")).strip()
         length = int(self.headers.get("Content-Length") or 0)
         cap = int(self.server.hosted_config.get("max_upload_mb", 60)) * 1024 * 1024
@@ -393,8 +403,8 @@ class RangeHandler(SimpleHTTPRequestHandler):
             self.send_json(413, {"error": f"文件太大了，最大 {cap // 1024 // 1024}MB"})
             return
         ext = Path(filename).suffix.lower()
-        if ext not in (".mp3", ".m4a", ".wav"):
-            self.send_json(400, {"error": "只收 mp3、m4a、wav 三种音频"})
+        if ext != ".mp3":  # 备课第 1 步只认 mp3（SPEC-002）；BBC 下载的就是 mp3
+            self.send_json(400, {"error": "只收 mp3 音频"})
             return
         if not title:
             title = Path(filename).stem or "未命名材料"
@@ -417,7 +427,7 @@ class RangeHandler(SimpleHTTPRequestHandler):
             return
         if script:
             (mdir / "script.txt").write_text(script, encoding="utf-8")
-        meta = {"id": mid, "title": title, "filename": filename, "size": wrote,
+        meta = {"id": mid, "title": title, "source": source or None, "filename": filename, "size": wrote,
                 "state": "new", "error": None, "lesson": None, "prepping_since": None,
                 "uploaded_at": int(time.time())}
         _write_json(mdir / "meta.json", meta)

@@ -23,7 +23,8 @@
 - **开发第二块完成（2026-09-28，6921c2f）**：上传＋资料库＋删材料的后端。`POST /api/upload`（音频按原始字节当请求体、文件名/标题/讲稿走 URL 参数——不走表单，省编码、进度条好做；只收 mp3/m4a/wav，默认 60MB 上限，可配）；存 `server-data/<账号id>/materials/<材料id>/`（audio.* ＋可选 script.txt ＋ meta.json，state=new——**不触发备课**，D50）；`GET /api/library` 出两区数据（材料按状态排：备课中最上、失败次之、未备课在后，变课的不占材料区；课带标题/来源/句数/时长——时长取句子 end 最大值）；`POST /api/material/delete`（备课中不许删）；对外模式下 `/lessons/...` 按账号指到自己目录（translate_path 重指，两账号互相看不到）。修了一个真毛病：没登录传大文件被拒时没读请求体、残体顶坏连接——这类拒绝带 Connection: close。`tests/test_hosted_upload.py` 16 项全过；player 84、docs 25 仍全过。
 - **开发第三块完成（2026-09-28）**：手动备课的后台任务（SPEC-009 R7）。`POST /api/prep`：点「备课」先把 meta 置 prepping（重试立刻 409、资料库马上见状态）再进串行队列；后台 worker 把材料搬进备课台（`materials/<课>`，台子位置可配）、依次跑 SPEC-002 的六步（一步一个程序、带课名、超时 15 分钟/步），成了把 `lessons/<课>` 搬进该账号目录、拆台；失败停在 failed、错误归成人话三类（音频读不了/识别没成功/没备成）、failed_step 给运维；失败不拆台（留着诊断）。`prep_command` 配置可把六步整链换成假命令——`tests/test_hosted_prep.py`（11 项全过）用它跑通整个状态机：排队、备课中挡重复点、材料毕业进课区、失败重试。真六步首次真跑排在部署验证（不烧钱跑不了真识别）。
 - **真六步接上的已知缺口（下一块，部署验证前要做）**：① 上传的讲稿是纯文本 script.txt，pipeline 第 3 步只认 BBC transcript.pdf（SPEC-002 R8）；② audio.py 只认 mp3，上传却收三种（要么收紧要么转码）；③ teach.py 标题/出处写死（SPEC-002 R9）；④ 点词现查（/api/explain 等）还查全局 `lessons/`，账号的课点词会 404——explain 要按账号指路。
-- 下一步从哪接（开发）：真六步缺口四件 → 侧边栏前端（两区四状态＋上传面板＋轮询）→ 部署手册。
+- **开发第四块完成（2026-09-28）**：真六步接上、四件缺口清零。① 讲稿认纯文本：`transcript.py` 的 `_clean_lines` 加 .txt 分支（「说话人: 内容」自动拆行，烟测验过 Georgie/Neil 六话轮全对），`align.py` 找讲稿先 PDF 后 transcript.txt、都没有就报人话「把讲稿粘进来」（无讲稿的路仍是 SPEC-002 R8 欠账）；② 上传收紧只收 mp3（`serve.py`，BBC 下载的就是 mp3）；③ `teach.py` 标题/出处从 `materials/<课>/meta.json` 读（R9 销账；serve.py 备课台会把上传的 meta.json 和讲稿改名带过去）；④ 点词现查按账号指路：`explain.py` 全链加 `root` 参数（默认仓库 lessons/，本地模式不变），serve.py 对外模式传账号目录。全套验证：prep 11、upload 16、server 15、accounts 14、docs 25、player 84，全过。
+- 下一步从哪接（开发）：**侧边栏前端**（两区四状态＋上传面板＋轮询，SPEC-009 侧边栏设计节）→ 部署手册（requirements.txt、systemd、Caddy、拿真材料在服务器上验六步）→ owner 验 → 说「上」。
 
 ### 2026-09-26 · 主线再改道：owner 要先做对外试用发布（他的阿里云服务器），课程排后
 

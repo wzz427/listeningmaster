@@ -80,21 +80,21 @@ MORE = WHO + """他点了句子里的一个词（或词组），看过了它在�
 只输出 JSON：{"senses":[...],"used":数字,"collocations":[{"en":"...","zh":"..."}],"example":{"en":"...","zh":"..."}}"""
 
 
-def _cache_path(lesson: str) -> Path:
-    return ROOT / "lessons" / lesson / "explain_cache.json"
+def _cache_path(lesson: str, root: Path | None = None) -> Path:
+    return (root or ROOT / "lessons") / lesson / "explain_cache.json"
 
 
-def _read_cache(lesson: str) -> dict:
-    path = _cache_path(lesson)
+def _read_cache(lesson: str, root: Path | None = None) -> dict:
+    path = _cache_path(lesson, root)
     return json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
 
 
-def _write_cache(lesson: str, cache: dict) -> None:
-    _cache_path(lesson).write_text(json.dumps(cache, ensure_ascii=False, indent=1), encoding="utf-8")
+def _write_cache(lesson: str, cache: dict, root: Path | None = None) -> None:
+    _cache_path(lesson, root).write_text(json.dumps(cache, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
-def _load(lesson: str) -> dict:
-    return json.loads((ROOT / "lessons" / lesson / "lesson.json").read_text(encoding="utf-8"))
+def _load(lesson: str, root: Path | None = None) -> dict:
+    return json.loads(((root or ROOT / "lessons") / lesson / "lesson.json").read_text(encoding="utf-8"))
 
 
 def _bare(word: dict) -> str:
@@ -179,52 +179,53 @@ def ask_more(sentences: list[dict], n: int, note: dict) -> dict:
             "example": data.get("example") if isinstance(data.get("example"), dict) else None}
 
 
-def _where(lesson: str, sid: int) -> tuple[list[dict], int]:
-    sentences = _load(lesson)["sentences"]
+def _where(lesson: str, sid: int, root: Path | None = None) -> tuple[list[dict], int]:
+    sentences = _load(lesson, root)["sentences"]
     return sentences, next(k for k, s in enumerate(sentences) if s["id"] == sid)
 
 
-def _store(lesson: str, sid: int, note: dict) -> None:
+def _store(lesson: str, sid: int, note: dict, root: Path | None = None) -> None:
     with LOCK:
-        cache = _read_cache(lesson)
+        cache = _read_cache(lesson, root)
         for k in note["words"]:  # 词组里的每个词都指向同一条，点哪个都不用再查
             cache[f"{sid}:{k}"] = note
-        _write_cache(lesson, cache)
+        _write_cache(lesson, cache, root)
 
 
-def explain(lesson: str, sid: int, i: int) -> dict:
-    """第 sid 句第 i 个词的那一行：查过的（展开过的连展开的一起）→ 备课时写好的 → 现在补查。"""
+def explain(lesson: str, sid: int, i: int, root: Path | None = None) -> dict:
+    """第 sid 句第 i 个词的那一行：查过的（展开过的连展开的一起）→ 备课时写好的 → 现在补查。
+    root：课目录的根（对外模式传该账号的 lessons 目录，SPEC-009；不传用仓库的 lessons/）。"""
     with LOCK:
-        note = _read_cache(lesson).get(f"{sid}:{i}")
+        note = _read_cache(lesson, root).get(f"{sid}:{i}")
     if note:
         return note
-    sentences, n = _where(lesson, sid)
+    sentences, n = _where(lesson, sid, root)
     note = next((x for x in sentences[n].get("notes") or [] if i in x["words"]), None)
     if note:
         return note
     note = ask(sentences, n, i)
-    _store(lesson, sid, note)
+    _store(lesson, sid, note, root)
     return note
 
 
-def explain_more(lesson: str, sid: int, i: int) -> dict:
+def explain_more(lesson: str, sid: int, i: int, root: Path | None = None) -> dict:
     """点了「展开」：第 sid 句第 i 个词的常见意思、搭配、例句。"""
-    note = explain(lesson, sid, i)
+    note = explain(lesson, sid, i, root=root)
     if note.get("detail"):
         return note["detail"]
-    sentences, n = _where(lesson, sid)
+    sentences, n = _where(lesson, sid, root)
     note = {**note, "detail": ask_more(sentences, n, note)}
-    _store(lesson, sid, note)
+    _store(lesson, sid, note, root)
     return note["detail"]
 
 
-def speak(lesson: str, key: str, text: str) -> str:
+def speak(lesson: str, key: str, text: str, root: Path | None = None) -> str:
     """词组、词典里没有的词：用百炼 Emily 现读，存进课程文件夹，返回相对课程目录的路径。"""
     key = " ".join(re.sub(r"[^a-z0-9']", "", t) for t in key.lower().split()).strip()
     if not key:
         raise ValueError("没有要读的词")
     rel = f"tts/{tts.EMILY}/{tts.file_name(key)}"
-    path = ROOT / "lessons" / lesson / rel
+    path = (root or ROOT / "lessons") / lesson / rel
     if not path.exists():
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_bytes(tts.synthesize(tts.spoken(text or key)))

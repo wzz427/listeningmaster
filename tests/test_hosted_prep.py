@@ -67,6 +67,8 @@ fake.write_text("""
 import json, sys, time
 from pathlib import Path
 ke, mr, lr = sys.argv[1], Path(sys.argv[2]), Path(sys.argv[3])
+if not (mr / ke / "meta.json").exists():
+    sys.exit(4)  # 备课台必须带 meta.json：teach.py 要从里面读标题和来源（SPEC-002 R9）
 ld = lr / ke
 ld.mkdir(parents=True, exist_ok=True)
 (ld / "lesson.json").write_text(json.dumps({
@@ -75,8 +77,8 @@ ld.mkdir(parents=True, exist_ok=True)
 }, ensure_ascii=False), encoding="utf-8")
 (ld / "audio.m4a").write_bytes(b"FAKE_M4A_PREP")
 time.sleep(1.0)
-script = mr / ke / "script.txt"
-if script.exists() and "FAIL" in script.read_text(encoding="utf-8"):
+t = mr / ke / "transcript.txt"   # 讲稿在备课台改叫 transcript.txt（pipeline 认的名字）
+if t.exists() and "FAIL" in t.read_text(encoding="utf-8"):
     sys.exit(3)
 """, encoding="utf-8")
 
