@@ -53,7 +53,7 @@
 | `pipeline/llm.py` | 调大模型的统一口：deepseek 开头走 DeepSeek，qwen 开头走百炼兼容接口；关掉 deepseek 的思考模式 | SPEC-000 R5 |
 | `pipeline/keys.py` | 从 `api-keys.txt` 读密钥，只读进内存 | SPEC-000 R2 |
 | `pipeline/serve.py` | 本地服务，见下面「本地服务」 | SPEC-001 R12 |
-| `pipeline/accounts.py` | 邮箱账号（对外版地基）：注册要邀请码、登录发会话、连错锁、密码只存 PBKDF2 哈希；数据住 `server-data/`（不进 git） | SPEC-009 |
+| `pipeline/accounts.py` | 邮箱账号（对外版地基）：注册要邀请码、登录发会话、连错锁、密码只存 PBKDF2 哈希；数据住 `server-data/`（不进 git），布局 `server-data/<账号id>/{materials/<材料id>/{audio.*, script.txt, meta.json}, lessons/<课>/}`——材料 meta.json 的 state 就是 SPEC-009 的状态机（new/prepping/done/failed） | SPEC-009 |
 | `pipeline/stable_copy.py` | 体验版和开发版：建体验版、钉版本、换版本（失败退回、留下孩子用出来的数据）、退回上一版、双击后起服务的循环；见下面「两份代码」 | SPEC-008 |
 | `pipeline/compare_models.py` | 一次性：比较两个模型写的中文和生词判断，出 `model_compare.md` | SPEC-005 |
 | `web/index.html`、`web/style.css`、`web/app.js` | 播放器，见下面「播放器」 | SPEC-001 |
@@ -64,6 +64,7 @@
 | `tests/test_docs.py` | 文档和代码对不对得上 | `docs/workflow.md` |
 | `tests/test_accounts.py` | 账号模块的单元检查（注册、登录、会话、连错锁、密码不落盘），临时目录里跑 | SPEC-009 |
 | `tests/test_hosted_server.py` | 对外模式的自动检查：真起服务真发请求——挡站、注册登录登出、noindex、限流、无「更新」接口 | SPEC-009 |
+| `tests/test_hosted_upload.py` | 上传、资料库、删材料的自动检查：真上传假音频字节——类型和大小闸、标题讲稿落盘、两账号隔离、课路径按账号指路 | SPEC-009 |
 | `tests/test_stable_copy.py` | 换版本的自动检查：临时目录里造真的仓库和体验版，真的切版本、真的起服务 | SPEC-008 |
 | `start-player.bat` | 双击：旁边有体验版就转去体验版，然后调 `pipeline/stable_copy.py run` 起服务、打开浏览器。只放英文字符 | SPEC-008 R2 |
 | `.zcode/commands/wrap.md` | 收尾命令 `/wrap`：压缩上下文之前把只活在对话里的东西写到盘上、扫文档、提交 | — |

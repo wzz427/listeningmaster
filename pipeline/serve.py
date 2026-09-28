@@ -31,6 +31,8 @@ import http.cookies
 import json
 import os
 import re
+import secrets
+import shutil
 import sys
 import threading
 import time
@@ -38,6 +40,7 @@ import webbrowser
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+from urllib.parse import parse_qs, unquote, urlparse
 
 ROOT = Path(__file__).resolve().parent.parent
 CHUNK = 64 * 1024
@@ -56,6 +59,7 @@ class Server(ThreadingHTTPServer):
     exit_code = 0
     hosted = False                # 对外模式（SPEC-009）
     accounts = None               # 对外模式下的账号管理（pipeline/accounts.py 的实例）
+    hosted_config: dict = {}      # 对外模式的配置（invite、data_dir、secure_cookie、max_upload_mb）
     secure_cookie = False         # 对外模式在 HTTPS 后面时给 cookie 加 Secure
     _rl_lock = threading.Lock()
     _rl: dict[str, list] = {}     # ip -> [窗口起点, 已计次]
@@ -101,6 +105,20 @@ class RangeHandler(SimpleHTTPRequestHandler):
                 return xff
         return self.client_address[0]
 
+    def translate_path(self, path: str) -> str:
+        """对外模式：/lessons/... 指到该账号自己的课目录（server-data/<账号id>/lessons/），
+        各账号互不可见（SPEC-009 R5）；其余路径照旧。"""
+        fs = super().translate_path(path)
+        if self.server.hosted:
+            email = self.session_email()
+            if email and path.split("?")[0].split("/")[1:2] == ["lessons"]:
+                try:
+                    rel = Path(fs).resolve().relative_to(ROOT.resolve())
+                except ValueError:
+                    return fs
+                return str(Path(self.server.accounts.dir) / self.server.accounts.account_id(email) / rel)
+        return fs
+
     # ---------- GET ----------
 
     def do_GET(self) -> None:  # noqa: N802
@@ -119,6 +137,9 @@ class RangeHandler(SimpleHTTPRequestHandler):
                     self.send_response(303)
                     self.send_header("Location", "/login")
                     self.end_headers()
+                return
+            if path == "/api/library":
+                self.send_json(200, self.library(email))
                 return
             if path in ("/", "/login"):
                 self.send_response(303)
@@ -191,6 +212,20 @@ class RangeHandler(SimpleHTTPRequestHandler):
             if self.path == "/api/update":
                 self.send_json(404, {"error": "没有这个接口"})  # 对外模式没有换版本（SPEC-009 R4）
                 return
+            post_path = self.path.split("?")[0]
+            if post_path == "/api/upload":
+                if not email:
+                    # 请求体（可能几十 MB）还没读就拒绝：必须关连接，不然残体顶坏下一个请求
+                    self.send_json(401, {"error": "请先登录"}, close=True)
+                    return
+                self.handle_upload(email)
+                return
+            if post_path == "/api/material/delete":
+                if not email:
+                    self.send_json(401, {"error": "请先登录"})
+                    return
+                self.handle_material_delete(email)
+                return
             if not email:
                 self.send_json(401, {"error": "请先登录"})
                 return
@@ -240,6 +275,130 @@ class RangeHandler(SimpleHTTPRequestHandler):
         expire = f"{SESSION_COOKIE}=; Path=/; Max-Age=0"
         self.send_json(200, {"ok": True}, raw_cookie=expire)
 
+    # ---------- 上传、资料库、删材料（SPEC-009 v3：上传只存材料，不触发备课） ----------
+
+    def handle_upload(self, email: str) -> None:
+        """音频按原始字节直接当请求体传（不走表单：省一道编码，进度条也好做）；
+        文件名、标题、讲稿走 URL 参数。存进该账号目录，状态「未备课」。"""
+        q = {k: v[0] for k, v in parse_qs(urlparse(self.path).query).items()}
+        filename = unquote(q.get("filename", ""))
+        title = unquote(q.get("title", "")).strip()
+        script = unquote(q.get("script", "")).strip()
+        length = int(self.headers.get("Content-Length") or 0)
+        cap = int(self.server.hosted_config.get("max_upload_mb", 60)) * 1024 * 1024
+        if length <= 0:
+            self.send_json(400, {"error": "没收到文件"})
+            return
+        if length > cap:
+            self.send_json(413, {"error": f"文件太大了，最大 {cap // 1024 // 1024}MB"})
+            return
+        ext = Path(filename).suffix.lower()
+        if ext not in (".mp3", ".m4a", ".wav"):
+            self.send_json(400, {"error": "只收 mp3、m4a、wav 三种音频"})
+            return
+        if not title:
+            title = Path(filename).stem or "未命名材料"
+        accounts = self.server.accounts
+        mid = time.strftime("%y%m%d%H%M%S") + "-" + secrets.token_hex(3)
+        mdir = Path(accounts.dir) / accounts.account_id(email) / "materials" / mid
+        mdir.mkdir(parents=True, exist_ok=True)
+        wrote, remaining = 0, length
+        with open(mdir / f"audio{ext}", "wb") as f:
+            while remaining > 0:
+                chunk = self.rfile.read(min(CHUNK, remaining))
+                if not chunk:
+                    break
+                f.write(chunk)
+                wrote += len(chunk)
+                remaining -= len(chunk)
+        if wrote != length:
+            shutil.rmtree(mdir, ignore_errors=True)
+            self.send_json(400, {"error": "没传完整，再试一次"})
+            return
+        if script:
+            (mdir / "script.txt").write_text(script, encoding="utf-8")
+        meta = {"id": mid, "title": title, "filename": filename, "size": wrote,
+                "state": "new", "error": None, "lesson": None, "prepping_since": None,
+                "uploaded_at": int(time.time())}
+        self._write_json(mdir / "meta.json", meta)
+        self.send_json(200, {"ok": True, "material": meta})
+
+    def handle_material_delete(self, email: str) -> None:
+        try:
+            body = json.loads(self.rfile.read(int(self.headers.get("Content-Length") or 0)) or b"{}")
+        except Exception:
+            body = {}
+        mid = str(body.get("id", ""))
+        if not LESSON_NAME.fullmatch(mid):
+            self.send_json(400, {"error": "材料号不对"})
+            return
+        accounts = self.server.accounts
+        mdir = Path(accounts.dir) / accounts.account_id(email) / "materials" / mid
+        if not mdir.is_dir():
+            self.send_json(404, {"error": "没有这个材料"})
+            return
+        if self._read_meta(mdir).get("state") == "prepping":
+            self.send_json(409, {"error": "正在备课，等它跑完再删"})
+            return
+        shutil.rmtree(mdir)
+        self.send_json(200, {"ok": True})
+
+    def library(self, email: str) -> dict:
+        """侧边栏的数据（SPEC-009 R8）：该账号的材料（带状态）和课（带元数据）。
+        材料按状态排：备课中最上、失败次之、未备课在后；已变课的不占材料区。"""
+        accounts = self.server.accounts
+        base = Path(accounts.dir) / accounts.account_id(email)
+        order = {"prepping": 0, "failed": 1, "new": 2}
+        materials = []
+        mdir = base / "materials"
+        if mdir.is_dir():
+            for meta_file in sorted(mdir.glob("*/meta.json")):
+                meta = self._read_meta_dir(meta_file)
+                if not meta or meta.get("state") == "done":
+                    continue
+                if meta.get("state") == "prepping" and meta.get("prepping_since"):
+                    meta["prepping_for"] = int(time.time() - meta["prepping_since"])
+                materials.append(meta)
+        materials.sort(key=lambda m: (order.get(m.get("state"), 9), -(m.get("uploaded_at") or 0)))
+        lessons = []
+        ldir = base / "lessons"
+        if ldir.is_dir():
+            for lesson_file in sorted(ldir.glob("*/lesson.json")):
+                try:
+                    d = json.loads(lesson_file.read_text(encoding="utf-8"))
+                except Exception:
+                    continue
+                sentences = d.get("sentences") or []
+                lessons.append({
+                    "lesson": lesson_file.parent.name,
+                    "title": d.get("title") or lesson_file.parent.name,
+                    "source": d.get("source") or "",
+                    "sentences": len(sentences),
+                    "duration": round(max((s.get("end") or 0) for s in sentences), 1) if sentences else 0,
+                    "sections": len(d.get("sections") or []),
+                })
+        return {"materials": materials, "lessons": lessons}
+
+    @staticmethod
+    def _read_meta_dir(meta_file: Path) -> dict:
+        try:
+            return json.loads(meta_file.read_text(encoding="utf-8"))
+        except Exception:
+            return {}
+
+    @staticmethod
+    def _read_meta(mdir: Path) -> dict:
+        try:
+            return json.loads((mdir / "meta.json").read_text(encoding="utf-8"))
+        except Exception:
+            return {}
+
+    @staticmethod
+    def _write_json(path: Path, obj) -> None:
+        tmp = path.with_suffix(path.suffix + ".tmp")
+        tmp.write_text(json.dumps(obj, ensure_ascii=False, indent=1), encoding="utf-8")
+        os.replace(tmp, path)
+
     # ---------- 换版本（本地模式，SPEC-008） ----------
 
     def version_state(self) -> dict:
@@ -282,11 +441,14 @@ class RangeHandler(SimpleHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(raw)
 
-    def send_json(self, code: int, data: dict, cookie: str | None = None, raw_cookie: str | None = None) -> None:
+    def send_json(self, code: int, data: dict, cookie: str | None = None, raw_cookie: str | None = None,
+                  close: bool = False) -> None:
         raw = json.dumps(data, ensure_ascii=False).encode("utf-8")
         self.send_response(code)
         self.send_header("Content-Type", "application/json; charset=utf-8")
         self.send_header("Content-Length", str(len(raw)))
+        if close:
+            self.send_header("Connection", "close")
         if cookie:  # 登录成功发会话 cookie：30 天、HttpOnly、SameSite=Lax；HTTPS 后面加 Secure（SPEC-009 R1）
             parts = [f"{SESSION_COOKIE}={cookie}", "Path=/", "HttpOnly", "SameSite=Lax", f"Max-Age={SESSION_MAX_AGE}"]
             if self.server.secure_cookie:
@@ -296,6 +458,8 @@ class RangeHandler(SimpleHTTPRequestHandler):
             self.send_header("Set-Cookie", raw_cookie)
         self.end_headers()
         self.wfile.write(raw)
+        if close:
+            self.close_connection = True
 
     def log_message(self, format: str, *args) -> None:  # noqa: A002
         pass  # 安静点
@@ -309,6 +473,7 @@ def make_server(port: int = stable_copy.PORT, managed: bool = False, hosted_conf
     server.managed = managed
     if hosted_config:
         server.hosted = True
+        server.hosted_config = hosted_config
         server.accounts = accounts.Accounts(hosted_config["data_dir"], invite_code=hosted_config["invite"])
         server.secure_cookie = bool(hosted_config.get("secure_cookie"))
     return server
