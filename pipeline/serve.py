@@ -30,9 +30,11 @@ Linux（对外模式部署）保持默认开，重启才不卡在 TIME_WAIT。
 import http.cookies
 import json
 import os
+import queue
 import re
 import secrets
 import shutil
+import subprocess
 import sys
 import threading
 import time
@@ -48,8 +50,99 @@ LESSON_NAME = re.compile(r"[0-9A-Za-z_-]+")   # 课名只许这些字符，防�
 SESSION_COOKIE = "lm_session"
 SESSION_MAX_AGE = 30 * 86400                  # 会话 30 天（SPEC-009 R1）
 RATE_LIMIT = 30                               # 每 IP 每分钟 POST 次数（SPEC-009 R6）
+PREP_STEPS = ["audio.py", "asr_probe.py", "align.py", "refine_bounds.py", "ear_bounds.py", "teach.py"]
+PREP_TIMEOUT = 900                            # 单步最长 15 分钟（正常一步几十秒）
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import stable_copy  # noqa: E402
+
+
+def _read_json(path) -> dict:
+    try:
+        return json.loads(Path(path).read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+
+
+def _write_json(path, obj) -> None:
+    path = Path(path)
+    tmp = path.with_suffix(path.suffix + ".tmp")
+    tmp.write_text(json.dumps(obj, ensure_ascii=False, indent=1), encoding="utf-8")
+    os.replace(tmp, path)  # 原子替换，写一半断电不毁原文件
+
+
+def _read_meta(mdir) -> dict:
+    return _read_json(Path(mdir) / "meta.json")
+
+
+class PrepFailed(Exception):
+    """备课没成功：msg 是给人看的（不透内部细节），step 记哪一步（给运维）。"""
+
+    def __init__(self, msg: str, step: str = ""):
+        super().__init__(msg)
+        self.step = step
+
+
+def _prep_classify(step: str) -> str:
+    if step == "audio.py":
+        return "这份音频没读出来，换一份再试"
+    if step == "asr_probe.py":
+        return "语音识别没成功，稍后重试"
+    return "备课没成功，稍后再试或换一份材料"
+
+
+def _run_prep(server: "Server", email: str, mid: str) -> None:
+    """备课任务（SPEC-009 R7、SPEC-002 流程）：材料搬进备课台（materials/<课>），
+    跑六步（或配置里的自定义命令），成了把 lessons/<课> 搬进该账号、拆台；
+    没成停在 failed，台子留着给运维看。串行队列，一次备一集。"""
+    acc = server.accounts
+    aid = acc.account_id(email)
+    mdir = Path(acc.dir) / aid / "materials" / mid
+    cfg = server.hosted_config
+    materials_root = Path(cfg.get("materials_root") or ROOT / "materials")
+    lessons_root = Path(cfg.get("lessons_root") or ROOT / "lessons")
+    stage_m, stage_l = materials_root / mid, lessons_root / mid
+    meta = _read_meta(mdir)
+    meta.update({"state": "prepping", "prepping_since": int(time.time()), "error": None})
+    _write_json(mdir / "meta.json", meta)
+    try:
+        shutil.rmtree(stage_m, ignore_errors=True)
+        shutil.rmtree(stage_l, ignore_errors=True)
+        stage_m.mkdir(parents=True, exist_ok=True)
+        for f in sorted(mdir.glob("audio.*")) + sorted(mdir.glob("script.txt")):
+            shutil.copy2(f, stage_m / f.name)
+        cmd = cfg.get("prep_command")
+        if cmd:  # 自定义命令（测试用假命令，不烧识别和模型的钱）：参数＝课名、材料台、课台
+            proc = subprocess.run([*cmd, mid, str(materials_root), str(lessons_root)],
+                                  capture_output=True, timeout=PREP_TIMEOUT)
+            if proc.returncode != 0:
+                raise PrepFailed("备课没成功，稍后再试", step="自定义命令")
+        else:  # 真六步（SPEC-002「流程」），一步一个程序、都带课名
+            for name in PREP_STEPS:
+                proc = subprocess.run([sys.executable, str(ROOT / "pipeline" / name), mid],
+                                      capture_output=True, timeout=PREP_TIMEOUT)
+                if proc.returncode != 0:
+                    raise PrepFailed(_prep_classify(name), step=name)
+        if not (stage_l / "lesson.json").exists():
+            raise PrepFailed("备课没成功，稍后再试", step="生成课程文件")
+        dest = Path(acc.dir) / aid / "lessons" / mid
+        shutil.rmtree(dest, ignore_errors=True)
+        shutil.move(str(stage_l), str(dest))
+        shutil.rmtree(stage_m, ignore_errors=True)
+        meta.update({"state": "done", "lesson": mid, "prepping_since": None})
+    except PrepFailed as e:
+        meta.update({"state": "failed", "error": str(e), "failed_step": e.step, "prepping_since": None})
+    except Exception as e:  # 超时、断电这类：归类成一句人话，细节留在 failed_step
+        meta.update({"state": "failed", "error": "备课没成功，稍后再试", "failed_step": type(e).__name__, "prepping_since": None})
+    _write_json(mdir / "meta.json", meta)
+
+
+def _prep_worker(server: "Server") -> None:
+    while True:
+        email, mid = server.prep_queue.get()
+        try:
+            _run_prep(server, email, mid)
+        finally:
+            server.prep_queue.task_done()
 
 
 class Server(ThreadingHTTPServer):
@@ -59,7 +152,8 @@ class Server(ThreadingHTTPServer):
     exit_code = 0
     hosted = False                # 对外模式（SPEC-009）
     accounts = None               # 对外模式下的账号管理（pipeline/accounts.py 的实例）
-    hosted_config: dict = {}      # 对外模式的配置（invite、data_dir、secure_cookie、max_upload_mb）
+    hosted_config: dict = {}      # 对外模式的配置（invite、data_dir、secure_cookie、max_upload_mb、prep_command、materials_root/lessons_root）
+    prep_queue: "queue.Queue | None" = None   # 备课任务队列（对外模式起服务时建）
     secure_cookie = False         # 对外模式在 HTTPS 后面时给 cookie 加 Secure
     _rl_lock = threading.Lock()
     _rl: dict[str, list] = {}     # ip -> [窗口起点, 已计次]
@@ -213,6 +307,12 @@ class RangeHandler(SimpleHTTPRequestHandler):
                 self.send_json(404, {"error": "没有这个接口"})  # 对外模式没有换版本（SPEC-009 R4）
                 return
             post_path = self.path.split("?")[0]
+            if post_path == "/api/prep":
+                if not email:
+                    self.send_json(401, {"error": "请先登录"})
+                    return
+                self.handle_prep(email)
+                return
             if post_path == "/api/upload":
                 if not email:
                     # 请求体（可能几十 MB）还没读就拒绝：必须关连接，不然残体顶坏下一个请求
@@ -320,8 +420,36 @@ class RangeHandler(SimpleHTTPRequestHandler):
         meta = {"id": mid, "title": title, "filename": filename, "size": wrote,
                 "state": "new", "error": None, "lesson": None, "prepping_since": None,
                 "uploaded_at": int(time.time())}
-        self._write_json(mdir / "meta.json", meta)
+        _write_json(mdir / "meta.json", meta)
         self.send_json(200, {"ok": True, "material": meta})
+
+    def handle_prep(self, email: str) -> None:
+        """点「备课」（SPEC-009 R7）：状态先变 prepping 再进队列——重试立刻被 409 挡住，
+        资料库也马上看得到「备课中」。真正的活在后台队列里串行跑。"""
+        try:
+            body = json.loads(self.rfile.read(int(self.headers.get("Content-Length") or 0)) or b"{}")
+        except Exception:
+            body = {}
+        mid = str(body.get("id", ""))
+        if not LESSON_NAME.fullmatch(mid):
+            self.send_json(400, {"error": "材料号不对"})
+            return
+        accounts = self.server.accounts
+        mdir = Path(accounts.dir) / accounts.account_id(email) / "materials" / mid
+        if not mdir.is_dir():
+            self.send_json(404, {"error": "没有这个材料"})
+            return
+        meta = _read_meta(mdir)
+        if meta.get("state") == "prepping":
+            self.send_json(409, {"error": "正在备课，不用重复点"})
+            return
+        if meta.get("state") == "done":
+            self.send_json(400, {"error": "这集已经备好了"})
+            return
+        meta.update({"state": "prepping", "prepping_since": int(time.time()), "error": None})
+        _write_json(mdir / "meta.json", meta)
+        self.server.prep_queue.put((email, mid))
+        self.send_json(200, {"ok": True})
 
     def handle_material_delete(self, email: str) -> None:
         try:
@@ -337,7 +465,7 @@ class RangeHandler(SimpleHTTPRequestHandler):
         if not mdir.is_dir():
             self.send_json(404, {"error": "没有这个材料"})
             return
-        if self._read_meta(mdir).get("state") == "prepping":
+        if self._meta_state(mdir) == "prepping":
             self.send_json(409, {"error": "正在备课，等它跑完再删"})
             return
         shutil.rmtree(mdir)
@@ -353,7 +481,7 @@ class RangeHandler(SimpleHTTPRequestHandler):
         mdir = base / "materials"
         if mdir.is_dir():
             for meta_file in sorted(mdir.glob("*/meta.json")):
-                meta = self._read_meta_dir(meta_file)
+                meta = _read_json(meta_file)
                 if not meta or meta.get("state") == "done":
                     continue
                 if meta.get("state") == "prepping" and meta.get("prepping_since"):
@@ -380,24 +508,8 @@ class RangeHandler(SimpleHTTPRequestHandler):
         return {"materials": materials, "lessons": lessons}
 
     @staticmethod
-    def _read_meta_dir(meta_file: Path) -> dict:
-        try:
-            return json.loads(meta_file.read_text(encoding="utf-8"))
-        except Exception:
-            return {}
-
-    @staticmethod
-    def _read_meta(mdir: Path) -> dict:
-        try:
-            return json.loads((mdir / "meta.json").read_text(encoding="utf-8"))
-        except Exception:
-            return {}
-
-    @staticmethod
-    def _write_json(path: Path, obj) -> None:
-        tmp = path.with_suffix(path.suffix + ".tmp")
-        tmp.write_text(json.dumps(obj, ensure_ascii=False, indent=1), encoding="utf-8")
-        os.replace(tmp, path)
+    def _meta_state(mdir: Path) -> str:
+        return _read_meta(mdir).get("state") or ""
 
     # ---------- 换版本（本地模式，SPEC-008） ----------
 
@@ -476,6 +588,8 @@ def make_server(port: int = stable_copy.PORT, managed: bool = False, hosted_conf
         server.hosted_config = hosted_config
         server.accounts = accounts.Accounts(hosted_config["data_dir"], invite_code=hosted_config["invite"])
         server.secure_cookie = bool(hosted_config.get("secure_cookie"))
+        server.prep_queue = queue.Queue()
+        threading.Thread(target=_prep_worker, args=(server,), daemon=True).start()
     return server
 
 
