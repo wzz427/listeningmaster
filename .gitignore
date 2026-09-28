@@ -1,4 +1,5 @@
 api-keys.txt
+docs/refs/阿里云配置指南.md
 *.local.*
 .env
 __pycache__/
