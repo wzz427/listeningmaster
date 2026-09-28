@@ -67,9 +67,10 @@
 | 调百炼语音识别 | `docs/refs/qwen-asr-api.md`（官方文档存档） |
 | 原始素材 | `materials/<期号>/`（音频 + 讲稿 + 练习） |
 | 备课程序 | `pipeline/`；接新材料照 `specs/SPEC-002-prep-pipeline.md` 的操作手册 |
-| 播放器 | `web/`（三个文件：index.html、style.css、app.js） |
+| 播放器 | `web/`（五个文件：index.html、style.css、app.js，登录页 login.html，对外模式的资料库侧边栏 library.js） |
 | 验播放器改得对不对 | `tests/test_player.py` |
 | 交一版给 owner 试、体验版出了问题、退回上一版 | `specs/SPEC-008-stable-and-dev.md`「操作手册」 |
+| 把对外版发布到阿里云 / 上线后的日常运维（日志、更新、备份、找回密码） | `docs/deploy-listen-app.md`；物料在 `deploy/`、依赖清单 `requirements.txt` |
 | 改点词讲解的提示词（`specs/SPEC-006-word-card.md`） | `pipeline/explain.py`：那一行的规则在 `RULES`（备课整句写用 `LINES`，漏了补查用 `LINE`），改完 `teach.py <课> --renote`；展开的在 `MORE`，改完删 `lessons/<课>/explain_cache.json`。抽查 `explain.py sample <课> <句数> --more` |
 | 改界面 | 按真正的前端设计标准做（owner 2026-09-21 要求）；改完跑 `tests/test_player.py --shots <目录>` 看截图 |
 | 句子边界切得准不准 | `specs/SPEC-004-sentence-bounds.md`；先听：`tests/test_audio.py`；再量：`pipeline/measure_bounds.py`（只看音量，会被骗） |

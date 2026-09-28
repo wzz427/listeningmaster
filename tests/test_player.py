@@ -22,7 +22,9 @@ import stable_copy  # noqa: E402
 
 PORT = 8799
 URL = f"http://127.0.0.1:{PORT}/web/"
-LESSON = "260821"
+LESSON = sys.argv[sys.argv.index("--lesson") + 1] if "--lesson" in sys.argv else "260821"
+# 下面两处检查写死了第一集的数据（第 66 句的 cut down on），换课跑时跳过：
+FIXTURE_ONLY = LESSON == "260821"
 
 failures: list[str] = []
 passes: list[str] = []
@@ -270,49 +272,50 @@ def run(page, shots: Path | None) -> None:
     check("A7m 备课时从发音词典拷来的朗读文件都在；词典里没有的点了再读",
           not broken and len(files) >= 0.9 * len(keys), f"拷来 {len(files)} 个 / 课文 {len(keys)} 个词，坏的 {broken[:5]}")
 
-    # 词组：第 66 句 Cut down on, You mean have less? 点第二个词 down
-    n66 = page.evaluate("lesson.sentences.findIndex((s) => s.id === 66)")
-    page.evaluate(f"playOne({n66}); audio.pause()")
-    page.click("#textBtn")
-    page.click("#text w >> nth=1")
-    page.wait_for_function(loaded, timeout=20000)
-    check("A7n 点词组里的一个词，讲的是整个词组，词组里的词一起亮",
-          page.inner_text("#wordText").lower().startswith("cut down on") and page.locator("#text w.picked").count() == 3,
-          f"{page.inner_text('#wordText')}：{page.inner_text('.word-line')[:40]}（亮了 {page.locator('#text w.picked').count()} 个词）")
-    check("A7o 点词只出那一行；展开的内容先收着，也还没去查（决策 D30）",
-          page.is_hidden("#wordMore") and page.is_visible("#wordMoreBtn") and not mores, f"已经查了 {len(mores)} 次展开")
-    page.wait_for_timeout(250)  # 等弹出动画走完再量位置，不然量到的是动画里的位移
-    box_before = page.locator("#wordbox").bounding_box()
-    with page.expect_response(lambda r: r.url.endswith("/api/more"), timeout=30000) as got_more:
+    # 词组：第 66 句 Cut down on, You mean have less? 点第二个词 down（写死第一集，换课跑不了）
+    if FIXTURE_ONLY:
+        n66 = page.evaluate("lesson.sentences.findIndex((s) => s.id === 66)")
+        page.evaluate(f"playOne({n66}); audio.pause()")
+        page.click("#textBtn")
+        page.click("#text w >> nth=1")
+        page.wait_for_function(loaded, timeout=20000)
+        check("A7n 点词组里的一个词，讲的是整个词组，词组里的词一起亮",
+              page.inner_text("#wordText").lower().startswith("cut down on") and page.locator("#text w.picked").count() == 3,
+              f"{page.inner_text('#wordText')}：{page.inner_text('.word-line')[:40]}（亮了 {page.locator('#text w.picked').count()} 个词）")
+        check("A7o 点词只出那一行；展开的内容先收着，也还没去查（决策 D30）",
+              page.is_hidden("#wordMore") and page.is_visible("#wordMoreBtn") and not mores, f"已经查了 {len(mores)} 次展开")
+        page.wait_for_timeout(250)  # 等弹出动画走完再量位置，不然量到的是动画里的位移
+        box_before = page.locator("#wordbox").bounding_box()
+        with page.expect_response(lambda r: r.url.endswith("/api/more"), timeout=30000) as got_more:
+            page.click("#wordMoreBtn")
+        page.wait_for_function("!document.getElementById('moreBody').hidden", timeout=20000)
+        page.wait_for_timeout(250)
+        box = page.locator("#wordbox").bounding_box()
+        check("A7p 点展开才去查，看到常见意思（标出这句用的）、搭配、例句，卡片没挪窝、没出屏幕",
+              got_more.value.ok and page.is_visible("#wordMore") and page.locator("#moreSenses li.used").count() == 1
+              and page.locator("#moreColl li").count() >= 1 and len(page.inner_text("#moreEx")) > 3
+              and abs(box["x"] - box_before["x"]) < 1 and abs(box["y"] - box_before["y"]) < 1
+              and box["y"] >= 0 and box["y"] + box["height"] <= page.viewport_size["height"],
+              f"{page.locator('#moreSenses li').count()} 个意思，{page.locator('#moreColl li').count()} 个搭配，"
+              f"展开前 y={box_before['y']:.0f}、展开后 y={box['y']:.0f}")
+        shot(page, shots, "3b-word-more")
+        with page.expect_response(lambda r: "/tts/" in r.url, timeout=30000) as got:
+            page.click("#wordTts")
+        check("A7q 词组的朗读读整个词组（百炼 Emily 现读，存下来）",
+              got.value.ok and got.value.url.endswith("/tts/bailian_emily/cut_down_on.mp3"),
+              got.value.url.split("/lessons/")[-1])
+        page.keyboard.press("Escape")
+        asks.clear()
+        page.click("#text w >> nth=0")
+        page.wait_for_timeout(300)
+        mores.clear()
         page.click("#wordMoreBtn")
-    page.wait_for_function("!document.getElementById('moreBody').hidden", timeout=20000)
-    page.wait_for_timeout(250)
-    box = page.locator("#wordbox").bounding_box()
-    check("A7p 点展开才去查，看到常见意思（标出这句用的）、搭配、例句，卡片没挪窝、没出屏幕",
-          got_more.value.ok and page.is_visible("#wordMore") and page.locator("#moreSenses li.used").count() == 1
-          and page.locator("#moreColl li").count() >= 1 and len(page.inner_text("#moreEx")) > 3
-          and abs(box["x"] - box_before["x"]) < 1 and abs(box["y"] - box_before["y"]) < 1
-          and box["y"] >= 0 and box["y"] + box["height"] <= page.viewport_size["height"],
-          f"{page.locator('#moreSenses li').count()} 个意思，{page.locator('#moreColl li').count()} 个搭配，"
-          f"展开前 y={box_before['y']:.0f}、展开后 y={box['y']:.0f}")
-    shot(page, shots, "3b-word-more")
-    with page.expect_response(lambda r: "/tts/" in r.url, timeout=30000) as got:
-        page.click("#wordTts")
-    check("A7q 词组的朗读读整个词组（百炼 Emily 现读，存下来）",
-          got.value.ok and got.value.url.endswith("/tts/bailian_emily/cut_down_on.mp3"),
-          got.value.url.split("/lessons/")[-1])
-    page.keyboard.press("Escape")
-    asks.clear()
-    page.click("#text w >> nth=0")
-    page.wait_for_timeout(300)
-    mores.clear()
-    page.click("#wordMoreBtn")
-    page.wait_for_timeout(300)
-    check("A7s 点词组里的另一个词，那一行和展开的都直接出来，不再去查",
-          not asks and not mores and page.inner_text("#wordText").lower().startswith("cut down on")
-          and page.locator("#moreSenses li").count() >= 1 and page.is_visible("#moreSenses"),
-          f"又查了 {len(asks)} 次那一行、{len(mores)} 次展开")
-    page.keyboard.press("Escape")
+        page.wait_for_timeout(300)
+        check("A7s 点词组里的另一个词，那一行和展开的都直接出来，不再去查",
+              not asks and not mores and page.inner_text("#wordText").lower().startswith("cut down on")
+              and page.locator("#moreSenses li").count() >= 1 and page.is_visible("#moreSenses"),
+              f"又查了 {len(asks)} 次那一行、{len(mores)} 次展开")
+        page.keyboard.press("Escape")
 
     print("\n【记录】")
     goto_body(page, 12)

@@ -2,7 +2,7 @@
 
 > 答什么：把这个产品发布到 owner 的阿里云轻量服务器：家长用自己的邮箱账号登录、上传听力材料、**手动点「备课」**把材料变成课、攒自己的资料库；含资料库侧边栏（两区四状态）和部署。不管：找回密码（人工重置）、邮箱验证邮件（邀请码把关）、学习记录跨设备同步（仍浏览器本地，第二版）、已备好课的删除（第二版）、触屏适配、客户端 .EXE（D20 已降为离线选项）。
 > 谁何时读：改 `pipeline/serve.py` 的对外模式、`pipeline/accounts.py`、上传和备课任务、`web/` 三件、部署上服务器之前读。
-> 状态：开发中（2026-09-28 开干；同日 v3：上传与备课解耦——上传只存材料，备课要手动点，页面按状态展示）。
+> 状态：开发收尾（2026-09-28 开干，后端四块＋侧边栏前端＋部署物料全部完成，六套检查全绿；剩实际部署→owner 验→说「上」。v3：上传与备课解耦——上传只存材料，备课要手动点，页面按状态展示）。
 > 需求出处：`demand.md` 第 1 条（上传、点一下备课）、第 5 条；总需求 `specs/SPEC-000-overview.md`；决策 D47 到 D50。服务器与密钥的底账在 `docs/refs/阿里云配置指南.md`（密钥明文，已进 `.gitignore`，永不入库）。
 
 ## 值不值（两栏各一句）
@@ -48,7 +48,7 @@
 | R7 备课是手动动作 | 材料行点「备课」→ 后台排队跑 pipeline；状态流转未备课→备课中→已备好/失败；备课中不可重复触发；失败显示人话原因、可重试。目标几分钟一集、一元以内（SPEC-002 R2、R3） | A76（人工）：点「备课」后该行变「备课中」（转圈＋已用时），几分钟后自动变成课、能播放、点词能查；A77（人工）：人为弄坏（如传个假音频）后状态变「失败」、点「重试」能再跑 |
 | R8 资料库侧边栏 | 两区四状态，设计见下节；数据 = 该账号的材料和课（`/api/library`：材料带状态，课带编号、标题、系列、难度、时长、句数）；备课中前端每几秒轮询刷新 | A69（人工）：侧边栏两区内容正确；A70（人工）：点一节课切换过去停在句首；备课中的不可点 |
 | R9 迁移触发条件 | 并发经常接近 15 路、或家长超过约 20 家 → 迁 ECS，照 `docs/refs/阿里云配置指南.md` §4 的实跑手册 | 观察项：部署后留意卡顿反馈 |
-| R10 部署形态 | 机器 39.105.73.114 上现有的 Caddy 加站点块 `listen-app.bayescode.com` → 反代 `127.0.0.1:8790`；服务 systemd 托管（`listening.service`，journald 日志）；代码住 `/opt/listening`；密钥和邀请码住 `.env`/`server-config.json`（不进仓库）。改 Caddy 前先拉回现有配置 diff（指南坑⑦）；传文件 `git -c core.autocrlf=false archive` 走 ssh 并核对（坑⑧）；服务器上 Python 依赖装齐（清单动工时整理成 `requirements.txt`） | A67（人工）：`systemctl status listening` 正常、`https://listen-app.bayescode.com` 打得开、机器上原有站点（备胎、课程官网）不受影响 |
+| R10 部署形态 | 机器 39.105.73.114 上现有的 Caddy 加站点块 `listen-app.bayescode.com` → 反代 `127.0.0.1:8790`；服务 systemd 托管（`deploy/listening.service`，journald 日志）；代码住 `/opt/listening`，发音词典并排放 `/opt/WordsAudio`；密钥用 `api-keys.txt`、邀请码住 `server-config.json`（都不进仓库，模板 `deploy/server-config.example.json`）。改 Caddy 前先拉回现有配置 diff（指南坑⑦，站点块在 `deploy/caddy-listen-app.conf`）；传文件 `git -c core.autocrlf=false archive` 走 ssh 并核对（坑⑧）；Python 依赖在 `requirements.txt`。**完整步骤和日常运维见 `docs/deploy-listen-app.md`** | A67（人工）：`systemctl status listening` 正常、`https://listen-app.bayescode.com` 打得开、机器上原有站点（备胎、课程官网）不受影响 |
 | R11 DNS 和证书 | `listen-app.bayescode.com` A 记录指 39.105.73.114（owner 在阿里云 DNS 控制）；证书由 Caddy 自动签续 | A68（人工）：浏览器地址栏锁标正常 |
 | R12 学习记录 | 仍存浏览器 localStorage（按域名）：服务器上的记录和家里 localhost 的互不相通；换设备不同步，第二版跟账号走 | A71（人工）：同一浏览器刷新后进度还在 |
 | R13 上线动作 | 一切就绪、验证过之后，owner 亲口说「上」才把网址和邀请码发出去（红线：对外动作） | 人工 |
@@ -112,6 +112,7 @@
 
 ## 改版记录
 
+### 2026-09-28（v5）：部署物料备齐——`docs/deploy-listen-app.md`（从零到上线＋日常运维）、`requirements.txt`（开发机验证过的版本一组）、`deploy/` 三件（systemd、配置模板、Caddy 块）；`test_player.py` 支持 `--lesson <课名>`（服务器上验新材料用，写死第一集数据的两处检查只在默认课跑）。实际部署（SSH、Caddy、DNS、真材料验六步）等 owner 发话。
 ### 2026-09-28（v4）：侧边栏做出来（web/library.js）——两区四状态、上传面板（进度条）、备课轮询 2.5 秒、变课高亮＋顶部通知、进度点三态、登出；开页自动选最新一课、空库待机不叠侧边栏等落地决定见「落地补充」节。自动检查 `tests/test_hosted_frontend.py`（22 项）。上传 URL 参数统一单层编码（serve.py 去掉二次 unquote）；`/api/library` 的材料带 `has_script`。
 ### 2026-09-28（v3）：上传与备课解耦（owner 定）——上传只存材料，备课手动点；新增材料生命周期状态机、侧边栏两区四状态、上传面板、材料删除；「为什么解耦」进决策依据（D50）。
 ### 2026-09-28（v2）：账号制（邮箱＋密码＋邀请码）进第一版；上传＋服务器端备课进第一版；服务器无默认内容。推翻 v1 的「一个访问码通吃、课由 claude 备好上服务器、上传第二版再做」。

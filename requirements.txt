@@ -1,0 +1,8 @@
+# 服务器上跑全套（serve.py 对外模式 + 备课六步）要装的 Python 包（SPEC-009 R10）。
+# 版本是 2026-09 开发机（pywork，Python 3.12）上验证过的一组；要升级先在开发机试完全套检查。
+# 只重建发音词典才要 wordfreq（tts.py library），平常备课不用，没写进来。
+dashscope==1.25.16
+openai==3.3.1
+pypdf==6.18.1
+numpy==2.4.4
+imageio-ffmpeg==0.6.0

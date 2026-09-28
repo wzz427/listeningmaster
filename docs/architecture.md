@@ -36,7 +36,7 @@
 | `AGENTS.md` | ZCode 自动读到的入口：指针、开机三步、红线摘录；第一读物仍是 `CLAUDE.md`（决策 D36） | — |
 | `idea.txt` | owner 起步时写的最初想法，只作历史 | — |
 | `specs/` | 规格：`SPEC-000-overview.md` 是总需求和模块表，其余一块一份；`SPEC-template.md` 是空模板 | — |
-| `docs/` | 本文、`workflow.md`（开发流程和验证）、`environment.md`（开发环境和工具）、`decisions.md`、`lessons.md`、`debts.md`、`handoff.md`、`listening-led-course.md`（课程方案：理念、一集六步、单元阶段）；`research/` 放调研产出——`2026-09-12-products-teaching-tech-survey.md` 是三轮调研摘要（产品、教学研究、技术），报告一篇一文件、文件名带日期前缀（D46）；`refs/qwen-asr-api.md` 是百炼识别的官方文档存档；`history/` 放整批搬走的旧交接记录 | — |
+| `docs/` | 本文、`workflow.md`（开发流程和验证）、`environment.md`（开发环境和工具）、`deploy-listen-app.md`（对外版上线到阿里云的操作手册和日常运维）、`decisions.md`、`lessons.md`、`debts.md`、`handoff.md`、`listening-led-course.md`（课程方案：理念、一集六步、单元阶段）；`research/` 放调研产出——`2026-09-12-products-teaching-tech-survey.md` 是三轮调研摘要（产品、教学研究、技术），报告一篇一文件、文件名带日期前缀（D46）；`refs/qwen-asr-api.md` 是百炼识别的官方文档存档；`history/` 放整批搬走的旧交接记录 | — |
 | `materials/<课>/` | 原始素材：音频、讲稿、练习 | SPEC-002 |
 | `lessons/<课>/` | 备好的一集，见下面「每一集的文件」 | SPEC-002 |
 | `pipeline/audio.py` | 转音频：16k 单声道 wav（识别、量音量用）、m4a（播放器用）；用 imageio-ffmpeg 自带的 ffmpeg | SPEC-002 |
@@ -71,6 +71,8 @@
 | `tests/test_hosted_frontend.py` | 资料库前端整条用户路的自动检查（Playwright 开真页面）：注册进站空库待机 → 上传（选错文件的人话）→ 备课轮询到变课高亮 → 点课切换 → 进度点 → 失败重试 → 删除 → 登出 | SPEC-009 R8 |
 | `tests/test_stable_copy.py` | 换版本的自动检查：临时目录里造真的仓库和体验版，真的切版本、真的起服务 | SPEC-008 |
 | `start-player.bat` | 双击：旁边有体验版就转去体验版，然后调 `pipeline/stable_copy.py run` 起服务、打开浏览器。只放英文字符 | SPEC-008 R2 |
+| `requirements.txt` | 服务器上要装的 Python 包（版本是开发机验证过的一组；wordfreq 只有重建发音词典才要，没列） | SPEC-009 R10 |
+| `deploy/listening.service`、`deploy/server-config.example.json`、`deploy/caddy-listen-app.conf` | 发布物料：systemd 服务、配置模板（复制成仓库根的 server-config.json，不进 git）、Caddy 站点块（改前先拉回现有配置 diff） | SPEC-009 R10、R11 |
 | `.zcode/commands/wrap.md` | 收尾命令 `/wrap`：压缩上下文之前把只活在对话里的东西写到盘上、扫文档、提交 | — |
 | `api-keys.txt` | 密钥，不进仓库（`.gitignore` 第一行） | SPEC-000 R2 |
 

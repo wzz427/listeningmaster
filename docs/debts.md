@@ -9,10 +9,10 @@
 
 | 什么 | 出自 | 下一步 · 归谁 · 什么时候 |
 |---|---|---|
-| 对外版（账号＋上传＋发布，规格＝SPEC-009 v4，开发中） | owner 拍板（D47 到 D50）：`listen-app.bayescode.com`（39.105.73.114）、邮箱账号＋邀请码注册、上传存材料＋手动备课、服务器无默认内容；noindex、限流、上线前 owner 亲口说「上」；含资料库侧边栏 | **后端四块＋侧边栏前端全部完成（2026-09-28）**：accounts 14、hosted_server 15、hosted_upload 16、hosted_prep 11、hosted_frontend 22、player 84、docs 25 全过；剩部署手册（requirements.txt、systemd、Caddy、DNS、服务器上真材料验六步）→ owner 验 → 说「上」 · claude · 接着做 |
+| 对外版（账号＋上传＋发布，规格＝SPEC-009 v5，开发收尾） | owner 拍板（D47 到 D50）：`listen-app.bayescode.com`（39.105.73.114）、邮箱账号＋邀请码注册、上传存材料＋手动备课、服务器无默认内容；noindex、限流、上线前 owner 亲口说「上」；含资料库侧边栏 | **代码全部完成（2026-09-28）**：六套检查全绿（player84/docs25/server15/upload16/prep11/frontend22），部署物料备齐（`docs/deploy-listen-app.md`、`deploy/` 三件、`requirements.txt`）。剩：owner 发话 → 上服务器实际部署 → 真材料验六步（烧钱先说）→ owner 验 → 说「上」 · claude＋owner · 等 owner 发话 |
 | 预习页（规格待写，编号接着往下排） | `demand.md` 第 3 条；SPEC-000「学习流程」第 1 步；课程方案 `docs/listening-led-course.md` 六步闭环第 1 步 | 课程方案待 owner 过目；动工排在对外发布之后（D47 主线改道） · claude · 发布上线后 |
 | 课后练习（规格待写） | `demand.md` 第 4 条；SPEC-000「学习流程」第 4 步；课程方案 `docs/listening-led-course.md` 第 5 步 | 跟在预习页后面 · claude · 预习页做完 |
-| 家长上传材料后一条命令备课，几分钟以内 | owner 2026-09-22 定的以后的用法；规格 `specs/SPEC-002-prep-pipeline.md` R1、R8、R9。**代码已串起来**（2026-09-28）：serve.py 备课任务按六步真跑、讲稿认纯文本、标题出处从 meta.json 来（R9 已做）；真六步一次没真跑过（要花百炼和 DeepSeek 的钱），排部署手册那步拿真材料验；「两份测试只认 260821」那半条还在 | 部署手册写完、在服务器上拿一份真材料跑通全流程、test_player 能指定课名 · claude · 部署验证时 |
+| 家长上传材料后一条命令备课，几分钟以内 | owner 2026-09-22 定的以后的用法；规格 `specs/SPEC-002-prep-pipeline.md` R1、R8、R9。**代码已串起来**（2026-09-28）：serve.py 备课任务按六步真跑、讲稿认纯文本、标题出处从 meta.json 来（R9 已做）；真六步一次没真跑过（要花百炼和 DeepSeek 的钱），排在服务器部署时拿真材料验（手册第 6 步）；`test_player.py` 已支持 `--lesson`（2026-09-28），`test_audio.py` 还只认 260821（要真录音，不急） | 部署时在服务器上拿一份真材料跑通全流程 · claude · owner 发话后 |
 | 点词讲解的提示词 | owner：质量靠提示词，不逐条人审、不挑错（2026-09-22）。本集抽查 26 个，只有 3 处小毛病（say 多了「讲某种语言」、sugar 多了「一勺糖」、tried 多了「审判」），已改提示词。同一天改成一行 + 展开两步（决策 D30），那一行备课时整句写：全集 845 个词看了一遍，Georgie 译成「乔治」、decaf, decaf 当成词组、to 的词性不统一，已改提示词 | 每换一批材料抽查十几个、改 `pipeline/explain.py` 的提示词 · claude · 下一批材料时 |
 | 识别偶尔把两个词粘成一个（It means → Itmeans） | 对齐时按讲稿拆开 | 出现第二次再修 · claude · 观察@下一集 |
 

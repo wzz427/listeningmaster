@@ -1,0 +1,23 @@
+# listen-app 的 systemd 服务（SPEC-009 R10）。装法见 docs/deploy-listen-app.md：
+#   sudo cp deploy/listening.service /etc/systemd/system/
+#   sudo systemctl daemon-reload && sudo systemctl enable --now listening
+# 日志走 journald：journalctl -u listening -f（自带轮转，避开指南坑⑩）
+[Unit]
+Description=listen-app 英语听力网页服务（ListeningMaster，SPEC-009）
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+# 跑服务的专用账号（手册里 useradd 建）；代码和数据都归它，别的目录不碰
+User=listen
+Group=listen
+WorkingDirectory=/opt/listening
+ExecStart=/opt/listening/venv/bin/python pipeline/serve.py --hosted
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

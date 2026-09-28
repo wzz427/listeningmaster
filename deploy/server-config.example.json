@@ -1,0 +1,7 @@
+{
+  "_说明": "复制成仓库根的 server-config.json 再改（server-config.json 不进 git）。invite 是注册邀请码，发给谁谁是熟人；secure_cookie 在 Caddy 的 HTTPS 后面必须是 true。",
+  "invite": "把邀请码写在这里",
+  "port": 8790,
+  "data_dir": "server-data",
+  "secure_cookie": true
+}
