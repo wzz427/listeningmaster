@@ -1,5 +1,5 @@
 {
-  "file_url": "http://dashscope-file-mgr.oss-cn-beijing.aliyuncs.com/dashscope-instant/4ddeb51d607c55a5cbc3e1d3a74c9ddd/2026-09-12/78dcbbad-1283-94e0-9977-94c2e5310a1c/audio_16k.wav?Expires=1789360471&OSSAccessKeyId=LTAI5t64cnuuVx7xndFH9ULk&Signature=VRFkGBYRGsS6eW21ry8oYtmMnWU%3D",
+  "file_url": "http://dashscope-file-mgr.oss-cn-beijing.aliyuncs.com/dashscope-instant/4ddeb51d607c55a5cbc3e1d3a74c9ddd/2026-09-12/78dcbbad-1283-94e0-9977-94c2e5310a1c/audio_16k.wav?Expires=REDACTED&OSSAccessKeyId=REDACTED&Signature=REDACTED",
   "properties": {
     "audio_format": "pcm_s16le",
     "channels": [

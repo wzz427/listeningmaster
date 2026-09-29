@@ -34,7 +34,7 @@
 | 对外动作要 owner 同意 | 部署、分享给其他家长；发起权在他 |
 | 全套测试要批准 | 相关那份随时跑；全套攒一批申请 |
 | 语言 | 正式文字中文；旁白只英文；禁止日语；标识符和文件名英文，且看名知意——一词笼统名（course、research 这类）不许用，调研报告的文件名带日期前缀（owner 2026-09-26，D46） |
-| 素材版权 | BBC 素材只在家庭和熟人之间非商业使用，不公开传播、不上传到公开可访问的地址 |
+| 素材版权 | 仓库里的 BBC 素材定位是**样例（sample）**，随公开的 GitHub 仓库分发没问题（owner 2026-09-29 拍板，D51）；服务器上各家上传的材料仍只在熟人圈内用、不外传；owner 自建的听力材料库不进这个公开仓库（另建专门目录，建时先加 .gitignore） |
 
 ## 环境与命令
 
@@ -48,7 +48,7 @@
 - 自己看效果：`<pywork python> pipeline/serve.py 8766`，打开 http://localhost:8766/web/ 。这个本地服务还管点词补查、展开、现读词组（`pipeline/explain.py`），密钥只在它这里。**不要用 `python -m http.server`**：它不支持从文件中间取一段，音频跳不动（见 `docs/lessons.md`）。
 - 备课（接一份新材料）：六个程序依次跑，顺序、每步出什么、跑完查什么，照 `specs/SPEC-002-prep-pipeline.md`「流程」和「接一份新材料：操作手册」。备课要在几分钟以内（owner 2026-09-22）。
 - 发音词典（换电脑时建一次）：`pipeline/tts.py library` 把常用词的谷歌英音取到仓库外并排的 `WordsAudio/`，要翻墙；`--top 50000` 取 5 万（实测约 2.5 小时、587MB、没有失败，2026-09-23 取完）；断了重跑接着取。
-- 异地备份：远端 `gitee`（私有库 `wzz427/listening-master-backup`，owner 2026-09-28 建），SSH 走 `~/.ssh/config` 里那把专门的 `gitee_wzz427` 钥匙。**提交后顺手 `git push gitee master`**（/wrap 第 4 步也含它）。备份不含密钥：`api-keys.txt`、`docs/refs/阿里云配置指南.md`、`server-config.json`、`server-data/` 都在 `.gitignore` 里；各家上传的资料在服务器上另做打包备份（`docs/deploy-listen-app.md` 第 7 节）。
+- 异地备份：两处远端——`gitee`（私有库 `wzz427/listening-master-backup`，owner 2026-09-28 建，走 `~/.ssh/config` 里专门的 `gitee_wzz427` 钥匙）和 `github`（**公开库** `wzz427/listeningmaster`，owner 2026-09-29 拍板公开：仓库里的 BBC 素材定位是 sample，D51；走专门的 `github_wzz` 钥匙，GitHub 上登记名 agent-access）。**提交后顺手 `git push gitee master && git push github master`**（/wrap 第 4 步也含它）。备份不含密钥：`api-keys.txt`、`docs/refs/阿里云配置指南.md`、`server-config.json`、`server-data/` 都在 `.gitignore` 里；各家上传的资料在服务器上另做打包备份（`docs/deploy-listen-app.md` 第 7 节）。owner 自建的听力材料库以后放仓库外的专门目录，不进 git（D51）。
 
 ## 干这件事进哪
 

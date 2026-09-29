@@ -6,6 +6,13 @@
 
 ## 现在在哪（最新在上）
 
+### 2026-09-29 · GitHub 公开仓库同步接上（D51）；推送前抹掉 asr_raw 里的过期 OSS 签名
+
+- owner 建好 GitHub 仓库 `wzz427/listeningmaster`，把 claude 生成的专用钥匙加了上去（GitHub 上登记名 **agent-access**，本机 `~/.ssh/github_wzz`；`ssh -T` 验过，回 Hi wzz427）。已加远端 `github`，全部提交推上去。
+- claude 提出过冲突：git 历史里有完整一集 BBC 音频＋讲稿，和红线「不上传公开地址」打架。owner 拍板（**D51**）：仓库里的 BBC 素材都是 **sample**，这个仓库就该开放，以后放的也都是 sample；他自建的听力材料库会专门建目录、不进这个仓库。红线改口径：管的是服务器上各家上传的材料（不外传）和他以后自建的库（不进 git）；`CLAUDE.md`、`AGENTS.md` 摘录、`docs/environment.md`、`/wrap` 第 4 步同步改，备份变双远端（gitee 私有＋github 公开）。
+- 推前把全仓扫了一遍密钥字样：唯一命中 `lessons/260821/asr_raw.json`——2026-09 备课时 ASR 服务返回的带签名下载链接（OSSAccessKeyId＋Signature）——按「密钥不入仓库」抹成 REDACTED（`align.py` 只读里面的句级时间戳，不受影响）。git 历史旧提交里仍有该字样：只有钥匙 ID 没有密钥半边、签名已过期、不可用，评过不值得洗历史。
+- 下一步从哪接：**owner 复验 v6**（登录、空库进场、上传、讲稿文件、系列叫法）→ 说「上」→ 才发网址和邀请码（之后回来接课程主线：预习页规格，`docs/listening-led-course.md` 方案仍在等他过目）。
+
 ### 2026-09-28 · 部署资源到位：轻量服务器＋bayescode.com；claude 建议子域名 ting；密钥指南已挡在 git 外
 
 - owner 给了部署资源：先用轻量服务器「Ubuntu-yilt」，有用户再迁 ECS；域名 bayescode.com 已备案；设想放 bayescode.com/apps 路径下，问 claude 要不要子域名；未来想在 bayescode.com 下做一系列应用。给了 `docs/refs/阿里云配置指南.md`（他的阿里云账号、三台服务器、密钥、从零搭机的完整手册，来自 TinkerCode 项目的经验沉淀）。

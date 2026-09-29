@@ -20,7 +20,8 @@
 | Google Chrome | `C:\Program Files\Google\Chrome\Application\chrome.exe` | 验声音 `tests/test_audio.py` 用真的 Chrome（和 owner 一样） |
 | fonttools 4.62 + brotli 1.2 | pywork 里 | 查字体里有没有某个字符、裁字体（做音标字体用的，见下） |
 | git 2.52 | Git for Windows | 版本管理。本地分支 master |
-| Gitee 备份 | 远端 `gitee`：私有库 `wzz427/listening-master-backup`（owner 2026-09-28 建），走 `~/.ssh/config` 里专门的 `gitee_wzz427` 钥匙（和服务器钥匙不共用） | 异地备份：提交后顺手 `git push gitee master`（/wrap 第 4 步含它）。密钥和 server-data 不在 git 里，推上去的不泄密 |
+| Gitee 备份 | 远端 `gitee`：私有库 `wzz427/listening-master-backup`（owner 2026-09-28 建），走 `~/.ssh/config` 里专门的 `gitee_wzz427` 钥匙（和服务器钥匙不共用） | 异地备份（双远端之一）：提交后顺手 `git push gitee master && git push github master`（/wrap 第 4 步含它）。密钥和 server-data 不在 git 里，推上去的不泄密 |
+| GitHub 备份 | 远端 `github`：**公开库** `wzz427/listeningmaster`（owner 2026-09-29 建，拍板公开：仓库里的 BBC 素材定位是 sample，D51），走专门的 `github_wzz` 钥匙（GitHub 上登记名 agent-access） | 异地备份（双远端之二）。owner 自建的听力材料库不进这个仓库（D51） |
 | 发音词典 | 仓库外并排的 `WordsAudio/`（和 `ListeningMaster/` 同在 `WorkSpace/` 下） | 5 万词的谷歌英音，备课时拷用（SPEC-007 R5） |
 | 密钥文件 | 仓库根目录 `api-keys.txt`，不进仓库 | 百炼、DeepSeek 的密钥（`docs/architecture.md`「密钥」） |
 | 翻墙工具 | 这台电脑上有 | **只**在建发音词典时要用；别的一律不许依赖（SPEC-000 R1） |
