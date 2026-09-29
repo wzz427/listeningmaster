@@ -23,7 +23,7 @@
 | Gitee 备份 | 远端 `gitee`：私有库 `wzz427/listening-master-backup`（owner 2026-09-28 建），走 `~/.ssh/config` 里专门的 `gitee_wzz427` 钥匙（和服务器钥匙不共用） | 异地备份（双远端之一）：提交后顺手 `git push gitee master && git push github master`（/wrap 第 4 步含它）。密钥和 server-data 不在 git 里，推上去的不泄密 |
 | GitHub 备份 | 远端 `github`：**公开库** `wzz427/listeningmaster`（owner 2026-09-29 建，拍板公开：仓库里的 BBC 素材定位是 sample，D51），走专门的 `github_wzz` 钥匙（GitHub 上登记名 agent-access） | 异地备份（双远端之二）。owner 自建的听力材料库不进这个仓库（D51） |
 | 发音词典 | 仓库外并排的 `WordsAudio/`（和 `ListeningMaster/` 同在 `WorkSpace/` 下） | 5 万词的谷歌英音，备课时拷用（SPEC-007 R5） |
-| 密钥文件 | 仓库根目录 `api-keys.txt`，不进仓库 | 百炼、DeepSeek 的密钥（`docs/architecture.md`「密钥」） |
+| 密钥文件 | 仓库根目录 `api-keys.txt`，不进仓库 | 百炼、DeepSeek 的密钥（`docs/architecture.md`「密钥」）。另有一份全机开发密钥总账 `开发密钥.txt`（owner 2026-09-29 要的：SSH 钥匙位置指纹、阿里云/TinkerCode 凭据照抄、大模型钥匙只记位置不抄值；同在 .gitignore 第一区，不入仓库） |
 | 翻墙工具 | 这台电脑上有 | **只**在建发音词典时要用；别的一律不许依赖（SPEC-000 R1） |
 | ZCode | owner 用它和 AI 一起开发（2026-09-26 从 Claude Code 移交过来） | 自动读仓库根的 `AGENTS.md`（指针和红线，决策 D36）；收尾命令 `/wrap` 在 `.zcode/commands/wrap.md`；改界面按真正的前端设计标准做（CLAUDE.md） |
 
