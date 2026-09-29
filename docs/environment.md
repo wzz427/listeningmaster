@@ -20,6 +20,7 @@
 | Google Chrome | `C:\Program Files\Google\Chrome\Application\chrome.exe` | 验声音 `tests/test_audio.py` 用真的 Chrome（和 owner 一样） |
 | fonttools 4.62 + brotli 1.2 | pywork 里 | 查字体里有没有某个字符、裁字体（做音标字体用的，见下） |
 | git 2.52 | Git for Windows | 版本管理。本地分支 master |
+| Gitee 备份 | 远端 `gitee`：私有库 `wzz427/listening-master-backup`（owner 2026-09-28 建），走 `~/.ssh/config` 里专门的 `gitee_wzz427` 钥匙（和服务器钥匙不共用） | 异地备份：提交后顺手 `git push gitee master`（/wrap 第 4 步含它）。密钥和 server-data 不在 git 里，推上去的不泄密 |
 | 发音词典 | 仓库外并排的 `WordsAudio/`（和 `ListeningMaster/` 同在 `WorkSpace/` 下） | 5 万词的谷歌英音，备课时拷用（SPEC-007 R5） |
 | 密钥文件 | 仓库根目录 `api-keys.txt`，不进仓库 | 百炼、DeepSeek 的密钥（`docs/architecture.md`「密钥」） |
 | 翻墙工具 | 这台电脑上有 | **只**在建发音词典时要用；别的一律不许依赖（SPEC-000 R1） |
