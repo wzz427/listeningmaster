@@ -73,6 +73,7 @@
 | `tests/test_hosted_frontend.py` | 资料库前端整条用户路的自动检查（Playwright 开真页面）：注册进站空库待机 → 上传（选错文件的人话）→ 备课轮询到变课高亮 → 点课切换 → 进度点 → 失败重试 → 删除 → 登出 | SPEC-009 R8 |
 | `tests/test_stable_copy.py` | 换版本的自动检查：临时目录里造真的仓库和体验版，真的切版本、真的起服务 | SPEC-008 |
 | `start-player.bat` | 双击：旁边有体验版就转去体验版，然后调 `pipeline/stable_copy.py run` 起服务、打开浏览器。只放英文字符 | SPEC-008 R2 |
+| `start-speak-lab.bat` | 双击：起口语实验页（`pipeline/speak_lab.py`）并打开浏览器，关窗口就停。实验件，只放英文字符 | —（D52 实验） |
 | `requirements.txt` | 服务器上要装的 Python 包（版本是开发机验证过的一组；wordfreq 只有重建发音词典才要，没列） | SPEC-009 R10 |
 | `deploy/listening.service`、`deploy/server-config.example.json`、`deploy/caddy-listen-app.conf` | 发布物料：systemd 服务、配置模板（复制成仓库根的 server-config.json，不进 git）、Caddy 站点块（改前先拉回现有配置 diff） | SPEC-009 R10、R11 |
 | `.zcode/commands/wrap.md` | 收尾命令 `/wrap`：压缩上下文之前把只活在对话里的东西写到盘上、扫文档、提交 | — |

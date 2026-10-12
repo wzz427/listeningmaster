@@ -29,6 +29,7 @@ import sys
 import threading
 import time
 import wave
+import webbrowser
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
@@ -480,6 +481,8 @@ def main() -> None:
     httpd = HttpServer(("127.0.0.1", HTTP_PORT), HttpHandler)
     threading.Thread(target=httpd.serve_forever, daemon=True).start()
     print(f"口语实验页：http://localhost:{HTTP_PORT}/　（WS 桥在 {WS_PORT}；关掉这个窗口就停止）")
+    if "--open" in sys.argv:
+        webbrowser.open(f"http://localhost:{HTTP_PORT}/")
     try:
         asyncio.run(ws_serve())
     except KeyboardInterrupt:
