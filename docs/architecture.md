@@ -54,12 +54,14 @@
 | `pipeline/llm.py` | 调大模型的统一口：deepseek 开头走 DeepSeek，qwen 开头走百炼兼容接口；关掉 deepseek 的思考模式 | SPEC-000 R5 |
 | `pipeline/keys.py` | 从 `api-keys.txt` 读密钥，只读进内存 | SPEC-000 R2 |
 | `pipeline/serve.py` | 本地服务，见下面「本地服务」；`--hosted` 起对外模式（SPEC-009）：会话挡全站、注册/登录/登出、上传/资料库/删材料、讲稿补传（TXT/PDF/MD 文件，`/api/material/script`）、备课任务（串行队列跑 SPEC-002 的六步，或配置 `prep_command` 换假命令测试） | SPEC-001 R12、SPEC-009 |
+| `pipeline/speak_lab.py` | 口语实验页的服务端（决策 D52，实验件、不进播放器和对外版）：8770 出页面和陪练提示词（拿 `lesson.json` 的标题、分段、生词、几句原话拼，教学规矩也在提示词里）；8771 当 WebSocket 桥，网页 ⇄ 百炼 Realtime 原样转发，密钥只在这一个进程；`mock` 假模型不花钱走整条事件链；`--selftest omni38\|audio31` 连真模型放一段课程音频验证 | —（实验，正式规格等 A/B 结论） |
 | `pipeline/accounts.py` | 邮箱账号（对外版地基）：注册要邀请码、登录发会话、连错锁、密码只存 PBKDF2 哈希；数据住 `server-data/`（不进 git），布局 `server-data/<账号id>/{materials/<材料id>/{audio.*, script.txt, meta.json}, lessons/<课>/}`——材料 meta.json 的 state 就是 SPEC-009 的状态机（new/prepping/done/failed） | SPEC-009 |
 | `pipeline/stable_copy.py` | 体验版和开发版：建体验版、钉版本、换版本（失败退回、留下孩子用出来的数据）、退回上一版、双击后起服务的循环；见下面「两份代码」 | SPEC-008 |
 | `pipeline/compare_models.py` | 一次性：比较两个模型写的中文和生词判断，出 `model_compare.md` | SPEC-005 |
 | `web/index.html`、`web/style.css`、`web/app.js` | 播放器，见下面「播放器」 | SPEC-001 |
 | `web/login.html` | 登录页（对外模式专用）：注册（要邀请码）／登录（只要邮箱密码，记住了邮箱第二次只输密码），注册成功即登录；自包含样式，不依赖 style.css | SPEC-009 |
 | `web/library.js` | 资料库侧边栏、上传面板（拖放区主角＋讲稿文件）、空库的播放器（不挡路，卡片里一句邀请）（对外模式专用）：app.js 只在服务报 `copy=hosted` 时进来（hostedStart/hostedLessonMissing 两个入口）；两区四状态、备课轮询、材料变课的高亮和通知、进度点（读 app.js 的学习记录键）、「＋讲稿」补传、登出。本地模式一个字节都不执行 | SPEC-009 R8 |
+| `web/speak-lab.html` | 口语实验页（决策 D52，自包含单文件）：两个实时语音模型 A/B 一键切换、孩子/大人两种口吻、麦克风收发（AudioWorklet，上行 16k 下行 24k）、实时转写、每轮「接话」延迟、10 分钟封顶、聊完存转写（文本和 JSON）、「事件」面板看原始事件（协议排错用）。只连本地 8771 的桥，不直接连百炼 | —（实验，同 `pipeline/speak_lab.py`） |
 | `web/fonts/` | 放在本地的字体：Literata（英文正文）、DM Mono（数字）、Noto Serif 裁出来的音标字体，各带许可证 | SPEC-001 R22、SPEC-006 R8 |
 | `tests/test_player.py` | 播放器的自动检查（Playwright），编号对应各规格的 A 编号 | `docs/workflow.md` |
 | `tests/test_audio.py` | 验声音：录下真的 Chrome 放出来的声音，对时间、机器耳朵听、出试听页 | SPEC-004 R7 |
@@ -153,6 +155,8 @@
 | 百炼 `cosyvoice-v3-flash`，声音 `loongemily_v3` | `tts.py`（经 `explain.py` 的现读） | 孩子点「听朗读」、词组或词典里没有的词 | 不要 | 百炼 |
 | DeepSeek `deepseek-flash`（不开思考模式） | `llm.py`（`teach.py`、`explain.py` 用） | 备课第 6 步；孩子点「展开」、备课漏了的词 | 不要 | DeepSeek |
 | 百炼兼容接口的 qwen 文字模型 | `llm.py`（只有 `compare_models.py` 用） | 比较模型时 | 不要 | 百炼 |
+| 百炼 Realtime `qwen3.8-omni-flash-realtime`（口语实验模型 A） | `speak_lab.py` 的桥 | 口语实验页开聊（D52，实验） | 不要 | 百炼 |
+| 百炼 Realtime `qwen-audio-3.1-realtime-plus`（口语实验模型 B） | `speak_lab.py` 的桥 | 同上 | 不要 | 百炼 |
 | 谷歌翻译的朗读 `translate.google.com/translate_tts` | `tts.py library` | 只在建发音词典时，一台电脑一次 | **要** | 不要（非正式接口，只在家里和熟人之间用） |
 
 孩子和家长那一端（浏览器）不直接连任何外部服务，只连本机的本地服务（SPEC-000 R1）。

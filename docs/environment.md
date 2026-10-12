@@ -17,6 +17,7 @@
 | wordfreq 3.1 | pywork 里 | 发音词典的常用词排名 |
 | imageio-ffmpeg 0.6 | pywork 里，自带一个独立的 ffmpeg | 转音频、切片段。**不要** `conda install ffmpeg`（见「坑」） |
 | playwright 1.59 + chromium | pywork 里，chromium 已下载 | 播放器自动检查 `tests/test_player.py` |
+| websockets 16.0 | pywork 里 | 口语实验 `pipeline/speak_lab.py` 的桥：一头接浏览器的页、一头连百炼 Realtime |
 | Google Chrome | `C:\Program Files\Google\Chrome\Application\chrome.exe` | 验声音 `tests/test_audio.py` 用真的 Chrome（和 owner 一样） |
 | fonttools 4.62 + brotli 1.2 | pywork 里 | 查字体里有没有某个字符、裁字体（做音标字体用的，见下） |
 | git 2.52 | Git for Windows | 版本管理。本地分支 master |
@@ -35,6 +36,8 @@
 | 8766 | claude 在开发版里自己看效果：`pipeline/serve.py 8766`。开发版旁边有体验版时拿 8765 会被拒绝 |
 | 8799 | `tests/test_player.py` 自己起的服务 |
 | 8798 | `tests/test_audio.py` 自己起的服务 |
+| 8770 | 口语实验页（`pipeline/speak_lab.py` 的 HTTP：页面、提示词），本地实验用，不进对外版 |
+| 8771 | 口语实验页的 WebSocket 桥（网页 ⇄ 百炼 Realtime） |
 | 随机空闲端口 | `tests/test_stable_copy.py`，和换版本时试起新版本的那一次 |
 
 测试各用各的端口，owner 开着播放器时也能跑测试。owner 用的是体验版，claude 改开发版不影响他；新版本经页面上的「更新」过去（`specs/SPEC-008-stable-and-dev.md` 操作手册）。
@@ -42,7 +45,7 @@
 ## 换一台电脑从零搭
 
 1. 装 Miniconda（或 Anaconda），建环境：`conda create -n pywork python=3.12`。
-2. 装包：`<pywork python> -m pip install dashscope openai pypdf numpy wordfreq imageio-ffmpeg playwright fonttools brotli`，再 `<pywork python> -m playwright install chromium`。装完 `<pywork python> -m pip check`，要显示没有冲突。
+2. 装包：`<pywork python> -m pip install dashscope openai pypdf numpy wordfreq imageio-ffmpeg playwright fonttools brotli websockets`，再 `<pywork python> -m playwright install chromium`。装完 `<pywork python> -m pip check`，要显示没有冲突。
 3. 装 Google Chrome（验声音要用）。
 4. 拷仓库；在根目录放 `api-keys.txt`，里面 `#qwen` 下一行是百炼的密钥、`#deepseek` 下一行是 DeepSeek 的。只在程序里读，不许打印、不许 cat（CLAUDE.md 红线）。
 5. 发音词典：直接把旧电脑的 `WordsAudio/` 整个拷过来最省事；没有就开翻墙跑 `<pywork python> pipeline/tts.py library --top 50000`（实测约 2.5 小时、587MB，断了重跑接着取）。

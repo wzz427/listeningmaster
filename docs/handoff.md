@@ -6,6 +6,15 @@
 
 ## 现在在哪（最新在上）
 
+### 2026-10-12 · 口语实验页搭好：A/B 两个千问实时语音模型（D52）
+
+- owner 提新方向：把口语结合进来——听力材料当话题，解决单纯练口语没话题的尬聊；拍板实验先行、A/B 并排、先本地（D52）。主线不变：对外版 v6 仍等他复验说「上」。
+- 做了什么：`pipeline/speak_lab.py`（8770 静态页＋出陪练提示词；8771 WebSocket 桥，网页⇄百炼 Realtime 原样转发，密钥只在服务端；`mock` 假模型不花钱；`--selftest` 连真模型验证）＋ `web/speak-lab.html`（自包含：选模型/选课/孩子大人、实时转写、每轮接话延迟、10 分钟封顶、转写存文本和 JSON、「事件」面板看原始协议）。不碰播放器和 serve.py 一行。
+- 教学设计住 `build_prompt`（服务端）：拿 lesson.json 的标题、分段、生词挑 8 个、三句短原话，拼「Emma 陪练」的系统提示——B1 慢速短句、一次一个问题、不纠错只重述、卡住给词、引导用关键词、聊完具体地夸一句。**改提示词改这里。**
+- 实测（selftest 放课程正文 6 秒＋2 秒静音）：两个模型全链路通。**3.8** 用 semantic_vad（嵌套 audio 配置一次谈成），说完到出声 **0.51 秒**，识别逐字听出正文；**3.1** 只认 server_vad/smart_turn（报错原文给了三挡），server_vad 下 **0.33 秒**；**3.1 的 smart_turn 会把推流音频当环境音**（ambient_audio_transcription 只转写、不接话），配置候选里 server_vad 排第一。百炼 Realtime 走旧地址 dashscope.aliyuncs.com 直连，**不需要业务空间**（文档说 3.8 要绑，实测不用）。
+- 冒烟：mock 整链 Playwright 全过、零 JS 报错。环境坑：这台无头 Chromium 的假麦克风设备不生效（getUserMedia 报 NotSupportedError），用 WebAudio 造正弦波流当麦克风绕过；真机上不受影响。修了一个真 bug：`.model input` 选择器把音色输入框也藏了。三屏截图视觉核过（开始屏、对话屏、小结屏）。
+- 下一步从哪接：owner 和孩子各试几轮（起服务一条命令，见 CLAUDE.md 口语实验页那行），转写发回来 → claude 审转写（守话题、难度、关键词回收）＋对延迟和百炼账单出 A/B 评估 → 过了写正式规格（口语模块排进课程六步闭环第 5、6 步之间）；不过就记档换备选路线（识别＋DeepSeek＋Emily 拼流水线）。
+
 ### 2026-09-29 · GitHub 公开仓库同步接上（D51）；推送前抹掉 asr_raw 里的过期 OSS 签名
 
 - owner 建好 GitHub 仓库 `wzz427/listeningmaster`，把 claude 生成的专用钥匙加了上去（GitHub 上登记名 **agent-access**，本机 `~/.ssh/github_wzz`；`ssh -T` 验过，回 Hi wzz427）。已加远端 `github`，全部提交推上去。

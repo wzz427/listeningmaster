@@ -1,0 +1,717 @@
+<!doctype html>
+<!-- 口语实验页（owner 2026-10-12 拍板，决策 D52）：两个千问实时语音模型 A/B 并排，
+     围绕刚听完的一集用英语聊天，看哪个更配当口语陪练。
+     自包含：样式和逻辑都在这一个文件，不依赖 style.css/app.js（实验不碰播放器）。
+     声音收发用两枚 AudioWorklet（blob 内联）；麦克风从浏览器拿，声音上行 16k PCM、下行 24k PCM。
+     密钥不在页面：WebSocket 连本地 8771 的桥（pipeline/speak_lab.py），密钥只在那个进程里。 -->
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>口语实验 · 英语听力</title>
+<style>
+  @font-face { font-family: "Literata"; src: url("/fonts/literata-latin-wght-normal.woff2") format("woff2");
+               font-weight: 200 800; font-style: normal; }
+  @font-face { font-family: "Literata"; src: url("/fonts/literata-latin-wght-italic.woff2") format("woff2");
+               font-weight: 200 800; font-style: italic; }
+  @font-face { font-family: "DM Mono"; src: url("/fonts/dm-mono-latin-400-normal.woff2") format("woff2");
+               font-weight: 400; font-style: normal; }
+
+  :root {
+    color-scheme: light;
+    --paper: #f7f5f1; --card: #ffffff; --ink: #2a2622; --muted: #8a8378;
+    --line: #e6e0d6; --amber: #b07a2a; --amber-soft: #f3e7d4;
+    --slate: #46688c; --slate-soft: #e2eaf2;
+    --bad: #a04030; --ok: #5e8a5e;
+    --model: var(--amber); --model-soft: var(--amber-soft);
+  }
+  body.model-b { --model: var(--slate); --model-soft: var(--slate-soft); }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html, body { height: 100%; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: "Literata", Georgia, "Songti SC", "SimSun", serif;
+    font-size: 16px; line-height: 1.6;
+  }
+  .mono { font-family: "DM Mono", Consolas, monospace; }
+  button { font: inherit; cursor: pointer; }
+
+  header {
+    display: flex; align-items: center; gap: 16px;
+    padding: 14px 22px; border-bottom: 1px solid var(--line); background: var(--card);
+  }
+  .brand { font-size: 18px; font-weight: 600; letter-spacing: .01em; }
+  .brand::after { content: "实验"; margin-left: 8px; padding: 2px 8px; border-radius: 999px;
+                  font-size: 12px; color: var(--model); background: var(--model-soft); }
+  .head-mid { flex: 1; display: flex; align-items: center; gap: 10px; min-width: 0; }
+  .badge { padding: 2px 10px; border-radius: 999px; font-size: 13px; color: var(--model);
+           background: var(--model-soft); white-space: nowrap; }
+  #btn-debug {
+    border: 1px solid var(--line); background: none; color: var(--muted);
+    border-radius: 8px; padding: 5px 12px; font-size: 13px;
+  }
+  #btn-debug.on { color: var(--ink); border-color: var(--ink); }
+
+  main { max-width: 760px; margin: 0 auto; padding: 26px 22px 90px; }
+
+  /* ---------- 开始屏 ---------- */
+  .intro { margin: 6px 0 22px; font-size: 15px; color: var(--muted); }
+  .row-top { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 22px; }
+  select {
+    font: inherit; font-size: 14px; color: var(--ink); background: var(--card);
+    border: 1px solid var(--line); border-radius: 8px; padding: 7px 10px; outline: none; max-width: 300px;
+  }
+  select:focus { border-color: var(--amber); }
+  .seg { display: flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+  .seg button { border: none; background: var(--card); color: var(--muted); padding: 7px 14px; font-size: 14px; }
+  .seg button.on { background: var(--ink); color: #fff; }
+
+  .models { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 640px) { .models { grid-template-columns: 1fr; } }
+  .model {
+    display: block; position: relative; padding: 18px 18px 14px; background: var(--card);
+    border: 1px solid var(--line); border-radius: 14px; cursor: pointer;
+  }
+  .model input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }   /* 只藏单选圆点，别把音色框也藏了 */
+  .model:has(input:checked) { border-color: var(--model); box-shadow: 0 0 0 1px var(--model); }
+  .model-name { font-size: 17px; font-weight: 600; }
+  .model-id { display: block; margin-top: 2px; font-size: 12px; color: var(--muted); }
+  .model-desc { margin: 10px 0 12px; font-size: 14px; color: var(--muted); }
+  .voice-row { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+  .voice-row input {
+    flex: 1; min-width: 0; font: inherit; font-size: 13px; font-family: "DM Mono", monospace;
+    color: var(--ink); background: var(--paper); border: 1px solid var(--line);
+    border-radius: 6px; padding: 5px 8px; outline: none;
+  }
+
+  .start-row { display: flex; align-items: center; gap: 16px; margin-top: 24px; flex-wrap: wrap; }
+  #btn-start {
+    padding: 12px 34px; font-size: 16px; color: #fff; background: var(--model);
+    border: none; border-radius: 10px;
+  }
+  #btn-start:disabled { opacity: .55; cursor: wait; }
+  .hint { font-size: 13px; color: var(--muted); }
+  #use-mock { display: inline-block; margin-top: 18px; font-size: 13px; color: var(--muted); }
+
+  /* ---------- 通话屏 ---------- */
+  .stage { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 18px 0 6px; }
+  .ring {
+    width: 92px; height: 92px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    border: 2px solid var(--model-soft); transition: border-color .3s;
+  }
+  .core {
+    width: 46px; height: 46px; border-radius: 50%; background: var(--model);
+    transform: scale(calc(.72 + var(--lv, 0) * .55));
+    transition: transform .09s linear;
+  }
+  body.speaking .ring { border-color: var(--model); }
+  .state { font-size: 15px; color: var(--muted); }
+  body.speaking .state { color: var(--ink); }
+  .timer { font-size: 14px; color: var(--muted); }
+  .timer.low { color: var(--bad); }
+
+  .script {
+    margin-top: 14px; padding: 8px 4px; min-height: 180px; max-height: 46vh; overflow-y: auto;
+  }
+  .line { display: grid; grid-template-columns: 52px 1fr; gap: 10px; padding: 7px 0; }
+  .line .who { font-size: 13px; color: var(--muted); padding-top: 3px; }
+  .line.emma .who { color: var(--model); }
+  .line .say { font-size: 17px; overflow-wrap: break-word; }
+  .line.you .say { color: #55504a; }
+  .line .lat { display: block; margin-top: 2px; font-size: 12px; color: var(--muted); }
+  .line.err .say { color: var(--bad); font-size: 14px; }
+
+  .live-actions { display: flex; justify-content: center; margin-top: 18px; }
+  #btn-end {
+    padding: 11px 30px; font-size: 15px; color: var(--ink); background: var(--card);
+    border: 1px solid var(--line); border-radius: 10px;
+  }
+  #btn-end:hover { border-color: var(--bad); color: var(--bad); }
+
+  /* ---------- 小结屏 ---------- */
+  #summary h2 { margin: 8px 0 18px; font-size: 22px; font-weight: 600; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin-bottom: 26px; }
+  .stat { padding: 14px 16px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; }
+  .stat b { display: block; font-size: 20px; font-weight: 600; font-family: "DM Mono", monospace; }
+  .stat span { font-size: 13px; color: var(--muted); }
+  .sum-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+  .sum-actions button {
+    padding: 10px 20px; font-size: 14px; border-radius: 10px;
+    border: 1px solid var(--line); background: var(--card); color: var(--ink);
+  }
+  .sum-actions button.primary { background: var(--model); border-color: var(--model); color: #fff; }
+
+  #debug {
+    position: fixed; left: 0; right: 0; bottom: 0; max-height: 32vh; overflow-y: auto;
+    margin: 0; padding: 10px 18px; font-size: 12px; line-height: 1.5;
+    font-family: "DM Mono", Consolas, monospace; color: #d8d2c6;
+    background: #2a2622; white-space: pre-wrap; word-break: break-all; z-index: 5;
+  }
+  #toast {
+    position: fixed; left: 50%; top: 18px; transform: translateX(-50%);
+    max-width: min(560px, 90vw); padding: 10px 18px; border-radius: 10px; z-index: 9;
+    background: #2a2622; color: #f7f5f1; font-size: 14px; box-shadow: 0 8px 24px rgba(0,0,0,.18);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .core, .ring { transition: none; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">口语</div>
+  <div class="head-mid" id="head-mid"></div>
+  <button type="button" id="btn-debug">事件</button>
+</header>
+
+<main>
+  <!-- 开始屏：选课、选人、选模型 -->
+  <section id="setup">
+    <p class="intro">刚听完一集，跟 AI 用英语聊聊它。两个模型各聊几次——哪个更像一位耐心的陪练，这个实验就要这个答案。</p>
+    <div class="row-top">
+      <select id="lesson" aria-label="选一集"></select>
+      <div class="seg" id="profile" role="group" aria-label="谁在练">
+        <button type="button" data-p="kid" class="on">孩子</button>
+        <button type="button" data-p="adult">大人</button>
+      </div>
+    </div>
+    <div class="models" id="models">
+      <label class="model">
+        <input type="radio" name="model" value="omni38" checked>
+        <div class="model-name">全模态 3.8</div>
+        <span class="model-id mono">qwen3.8-omni-flash-realtime</span>
+        <div class="model-desc">千问最强一代的脑子：守得住话题和难度，词都认识</div>
+        <div class="voice-row">音色<input class="voice" value="Tina" spellcheck="false"></div>
+      </label>
+      <label class="model">
+        <input type="radio" name="model" value="audio31">
+        <div class="model-name">语音专线 3.1</div>
+        <span class="model-id mono">qwen-audio-3.1-realtime-plus</span>
+        <div class="model-desc">专做语音对话的一代：声音自然，接话有节奏</div>
+        <div class="voice-row">音色<input class="voice" value="longanqian_v3.1" spellcheck="false"></div>
+      </label>
+    </div>
+    <div class="start-row">
+      <button type="button" id="btn-start">开始聊</button>
+      <span class="hint">建议戴耳机 · 一次最多 10 分钟 · 浏览器问麦克风权限要点允许</span>
+    </div>
+    <a href="#" id="use-mock">先不连百炼，用假模型试一条（不花钱）</a>
+  </section>
+
+  <!-- 通话屏 -->
+  <section id="live" hidden>
+    <div class="stage">
+      <div class="ring"><div class="core" id="core"></div></div>
+      <div class="state" id="state-word">待机</div>
+      <div class="timer mono" id="timer">10:00</div>
+    </div>
+    <div class="script" id="script"></div>
+    <div class="live-actions"><button type="button" id="btn-end">结束并保存</button></div>
+  </section>
+
+  <!-- 小结屏 -->
+  <section id="summary" hidden>
+    <h2>聊完了</h2>
+    <div class="stats" id="stats"></div>
+    <div class="sum-actions">
+      <button type="button" class="primary" id="btn-again">再来一次</button>
+      <button type="button" id="btn-setup">换设置</button>
+      <button type="button" id="btn-dl-txt">存转写（文本）</button>
+      <button type="button" id="btn-dl-json">存转写（JSON）</button>
+    </div>
+  </section>
+</main>
+
+<pre id="debug" hidden></pre>
+<div id="toast" hidden></div>
+
+<script>
+'use strict';
+/* 页面三块：setup（选模型）→ live（对话）→ summary（存档）。
+   事件协议是百炼 Realtime 那一族；两个模型的会话配置长得不一样（3.8 用嵌套的 audio 字段，
+   语音专线用平铺的旧字段），所以每个模型准备了几套候选配置，被模型报错顶回来就换下一套。 */
+
+const $ = (id) => document.getElementById(id);
+const WS_BASE = `ws://${location.hostname}:8771/bridge`;
+const MODEL_INFO = {
+  omni38:  { label: '全模态 3.8', style: 'new' },
+  audio31: { label: '语音专线 3.1', style: 'legacy' },
+  mock:    { label: '假模型', style: 'new' },
+};
+const CAP_SECONDS = 600;
+
+const state = {
+  screen: 'setup', modelKey: 'omni38', voice: 'Tina', lesson: '', lessonTitle: '',
+  profile: 'kid', ws: null, sessionReady: false,
+  configTry: 0, configs: [],
+  turns: [],            // {role:'you'|'emma', text, latency}
+  curYou: null, curEmma: null,
+  commitAt: null, latencies: [],
+  startedAt: 0, timerId: null, endedWhy: '',
+  micStream: null, recCtx: null, playCtx: null, recNode: null, playNode: null,
+  sendQueue: [], lvYou: 0, lvAi: 0, rafId: 0,
+};
+
+/* ---------- 小工具 ---------- */
+
+function toast(msg, ms = 4200) {
+  const t = $('toast');
+  t.textContent = msg;
+  t.hidden = false;
+  clearTimeout(toast._id);
+  toast._id = setTimeout(() => { t.hidden = true; }, ms);
+}
+
+const debugLines = [];
+function log(dir, event) {
+  const type = event.type || '?';
+  let brief = '';
+  if (type === 'input_audio_buffer.append' || type === 'response.audio.delta') {
+    brief = (event.audio || event.delta || '').length + ' 字符';
+  } else {
+    brief = JSON.stringify(event).slice(0, 160);
+  }
+  debugLines.push(`${dir === 'up' ? '↑' : '↓'} ${type}  ${brief}`);
+  if (debugLines.length > 250) debugLines.splice(0, debugLines.length - 250);
+  const el = $('debug');
+  if (!el.hidden) { el.textContent = debugLines.join('\n'); el.scrollTop = el.scrollHeight; }
+}
+
+$('btn-debug').onclick = () => {
+  const el = $('debug');
+  el.hidden = !el.hidden;
+  $('btn-debug').classList.toggle('on', !el.hidden);
+  if (!el.hidden) { el.textContent = debugLines.join('\n'); el.scrollTop = el.scrollHeight; }
+};
+
+function setLv(which, v) { state[which === 'you' ? 'lvYou' : 'lvAi'] = Math.min(1, v); }
+function tickLevel() {
+  const lv = Math.max(state.lvYou, state.lvAi);
+  $('core').style.setProperty('--lv', lv.toFixed(3));
+  state.lvYou *= 0.82; state.lvAi *= 0.86;
+  state.rafId = requestAnimationFrame(tickLevel);
+}
+function b64ToBytes(b64) {
+  const bin = atob(b64);
+  const out = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+  return out;
+}
+function bytesToB64(bytes) {
+  let s = '';
+  for (let i = 0; i < bytes.length; i += 4096) s += String.fromCharCode(...bytes.subarray(i, i + 4096));
+  return btoa(s);
+}
+function download(name, text, mime) {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([text], { type: mime }));
+  a.download = name;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+}
+
+/* ---------- 开始屏 ---------- */
+
+async function loadLessons() {
+  try {
+    const r = await fetch('/api/lessons');
+    const j = await r.json();
+    const sel = $('lesson');
+    sel.innerHTML = '';
+    for (const l of j.lessons) {
+      const opt = document.createElement('option');
+      opt.value = l.lesson;
+      opt.textContent = `${l.lesson} · ${l.title || l.lesson}`;
+      sel.appendChild(opt);
+    }
+  } catch { toast('课程列表没拿到，刷新页面试试'); }
+}
+
+$('profile').addEventListener('click', (e) => {
+  const btn = e.target.closest('button[data-p]');
+  if (!btn) return;
+  state.profile = btn.dataset.p;
+  for (const b of $('profile').children) b.classList.toggle('on', b === btn);
+});
+$('use-mock').onclick = (e) => {
+  e.preventDefault();
+  startSession('mock', 'mock');                        // 不动两个模型的音色框
+};
+$('btn-start').onclick = () => {
+  const picked = document.querySelector('input[name="model"]:checked');
+  const voice = picked.closest('.model').querySelector('.voice').value.trim() || 'Tina';
+  startSession(picked.value, voice);
+};
+
+/* ---------- 会话配置（每个模型几套候选，报错就换） ---------- */
+
+function buildConfigs(modelKey, instructions, voice) {
+  const base = {
+    modalities: ['text', 'audio'],
+    instructions, voice, temperature: 0.7,
+    input_audio_format: 'pcm16', output_audio_format: 'pcm24',
+    input_audio_transcription: { model: 'qwen3-asr-flash-realtime' },
+  };
+  if (MODEL_INFO[modelKey].style === 'new') {
+    return [
+      { ...base, turn_detection: { type: 'semantic_vad', silence_duration_ms: 700 },
+        audio: {
+          input: { format: { type: 'pcm', sample_rate: 16000, sample_format: 's16le', channels: 1,
+                             packing: 'interleaved', channel_layout: 'mono' } },
+          output: { format: { type: 'pcm', sample_rate: 24000 }, voice },
+        } },
+      { ...base, turn_detection: { type: 'semantic_vad', silence_duration_ms: 700 } },
+      { ...base, turn_detection: { type: 'server_vad', silence_duration_ms: 700 } },
+    ];
+  }
+  return [
+    { ...base, turn_detection: { type: 'server_vad', silence_duration_ms: 700 } },   // 实测：server_vad 能正常接话
+    { ...base, turn_detection: { type: 'smart_turn' } },      // smart_turn 实测会把音频当环境音只转写不接话，留作备选
+  ];
+}
+
+/* ---------- 声音：录音上行 16k，放音下行 24k ---------- */
+
+const REC_WORKLET = `
+class Rec extends AudioWorkletProcessor {
+  process(inputs) { const ch = inputs[0] && inputs[0][0]; if (ch) this.port.postMessage(ch.slice(0)); return true; }
+}
+registerProcessor('rec', Rec);`;
+const PLAY_WORKLET = `
+class Play extends AudioWorkletProcessor {
+  constructor() { super(); this.q = []; this.i = 0;
+    this.port.onmessage = (e) => { const d = e.data;
+      if (d.clear) { this.q = []; this.i = 0; } else this.q.push(new Float32Array(d.pcm)); }; }
+  process(outputs) { const out = outputs[0] && outputs[0][0]; if (!out) return true;
+    let n = 0;
+    while (n < out.length && this.q.length) {
+      const head = this.q[0];
+      const take = Math.min(out.length - n, head.length - this.i);
+      out.set(head.subarray(this.i, this.i + take), n);
+      this.i += take; n += take;
+      if (this.i >= head.length) { this.q.shift(); this.i = 0; }
+    }
+    if (n < out.length) out.fill(0, n);
+    return true; }
+}
+registerProcessor('play', Play);`;
+
+function workletURL(code) {
+  return URL.createObjectURL(new Blob([code], { type: 'text/javascript' }));
+}
+
+async function openMic() {
+  state.micStream = await navigator.mediaDevices.getUserMedia({
+    audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true, channelCount: 1 },
+  });
+  state.recCtx = new AudioContext({ sampleRate: 16000 });
+  await state.recCtx.audioWorklet.addModule(workletURL(REC_WORKLET));
+  const src = state.recCtx.createMediaStreamSource(state.micStream);
+  state.recNode = new AudioWorkletNode(state.recCtx, 'rec');
+  let acc = new Float32Array(0);
+  state.recNode.port.onmessage = (e) => {
+    const f = e.data;
+    let sum = 0;
+    for (let i = 0; i < f.length; i += 4) sum += f[i] * f[i];
+    setLv('you', Math.sqrt(sum / Math.max(1, f.length / 4)) * 5);
+    const merged = new Float32Array(acc.length + f.length);
+    merged.set(acc); merged.set(f, acc.length);
+    acc = merged;
+    while (acc.length >= 1600) {                       // 每 100 毫秒发一块
+      const piece = acc.subarray(0, 1600);
+      const pcm = new Int16Array(1600);
+      for (let i = 0; i < 1600; i++) pcm[i] = Math.max(-32768, Math.min(32767, Math.round(piece[i] * 32767)));
+      send({ type: 'input_audio_buffer.append', audio: bytesToB64(new Uint8Array(pcm.buffer)) });
+      acc = acc.slice(1600);
+    }
+  };
+  src.connect(state.recNode);                          // 不接 destination：不放给自己的耳朵
+
+  state.playCtx = new AudioContext({ sampleRate: 24000 });
+  await state.playCtx.audioWorklet.addModule(workletURL(PLAY_WORKLET));
+  state.playNode = new AudioWorkletNode(state.playCtx, 'play', { outputChannelCount: [1] });
+  state.playNode.connect(state.playCtx.destination);
+}
+
+function closeAudio() {
+  for (const s of state.micStream ? state.micStream.getTracks() : []) s.stop();
+  state.micStream = null;
+  if (state.recCtx) { state.recCtx.close().catch(() => {}); state.recCtx = null; }
+  if (state.playCtx) { state.playCtx.close().catch(() => {}); state.playCtx = null; }
+}
+
+function playDelta(b64) {
+  if (!state.playNode) return;
+  const bytes = b64ToBytes(b64);
+  const pcm = new Int16Array(bytes.buffer, bytes.byteOffset, Math.floor(bytes.length / 2));
+  const f = new Float32Array(pcm.length);
+  let peak = 0;
+  for (let i = 0; i < pcm.length; i++) { f[i] = pcm[i] / 32768; const a = Math.abs(f[i]); if (a > peak) peak = a; }
+  setLv('ai', peak * 1.6);
+  state.playNode.port.postMessage({ pcm: f });
+}
+function stopPlayback() { if (state.playNode) state.playNode.port.postMessage({ clear: true }); }
+
+/* ---------- 发送 ---------- */
+
+function send(event) {
+  if (!state.sessionReady && event.type === 'input_audio_buffer.append') {
+    state.sendQueue.push(event);                       // 会话还没配好：第一句话的音频先攒着，配好一起发
+    return;
+  }
+  if (state.ws && state.ws.readyState === 1) {
+    log('up', event);
+    state.ws.send(JSON.stringify(event));
+  }
+}
+
+/* ---------- 对话过程 ---------- */
+
+function setState(word, speaking) {
+  $('state-word').textContent = word;
+  document.body.classList.toggle('speaking', !!speaking);
+}
+
+function addLine(role) {
+  const line = document.createElement('div');
+  line.className = 'line ' + role;
+  const who = document.createElement('span');
+  who.className = 'who';
+  who.textContent = role === 'emma' ? 'Emma' : '你';
+  const say = document.createElement('span');
+  say.className = 'say';
+  say.textContent = role === 'you' ? '…' : '';
+  line.append(who, say);
+  $('script').appendChild(line);
+  $('script').scrollTop = $('script').scrollHeight;
+  const turn = { role, text: '', latency: null };
+  state.turns.push(turn);
+  return { line, say, turn };
+}
+
+function newText(event) {
+  const map = {
+    'conversation.item.input_audio_transcription.delta': ['you', 'delta'],
+    'conversation.item.input_audio_transcription.completed': ['you', 'transcript'],
+    'response.audio_transcript.delta': ['emma', 'delta'],
+    'response.audio_transcript.done': ['emma', 'transcript'],
+  };
+  const hit = map[event.type];
+  if (!hit) return;
+  const [role, field] = hit;
+  const text = String(event[field] || '');
+  if (!text) return;
+  const cur = role === 'you' ? 'curYou' : 'curEmma';
+  if (!state[cur] || !document.body.contains(state[cur].line)) state[cur] = addLine(role);
+  state[cur].turn.text = field === 'delta' ? state[cur].turn.text + text : text;
+  state[cur].say.textContent = state[cur].turn.text;
+  $('script').scrollTop = $('script').scrollHeight;
+}
+
+function tagLatency() {
+  const cur = state.curEmma;
+  if (!cur || cur.turn.latency != null || !state.latencies.length) return;
+  cur.turn.latency = state.latencies[state.latencies.length - 1];
+  const chip = document.createElement('span');
+  chip.className = 'lat mono';
+  chip.textContent = `接话 ${(cur.turn.latency / 1000).toFixed(1)}s`;
+  cur.line.appendChild(chip);
+}
+
+function onServerEvent(event) {
+  log('down', event);
+  switch (event.type) {
+    case 'session.created':
+      send({ type: 'session.update', session: state.configs[state.configTry] });
+      return;
+    case 'session.updated':
+      state.sessionReady = true;
+      flushQueue();
+      setState('听你说', false);
+      toast('连上了，开始聊吧', 2500);
+      return;
+    case 'error': {
+      const msg = (event.error && (event.error.message || event.error.msg)) || '';
+      if (!state.sessionReady && state.configTry < state.configs.length - 1) {   // 配置被顶回来，换一套
+        state.configTry += 1;
+        debugLines.push(`! 会话配置第 ${state.configTry + 1} 套被顶回：${String(msg).slice(0, 120)}`);
+        send({ type: 'session.update', session: state.configs[state.configTry] });
+        return;
+      }
+      const line = addLine('err');
+      line.say.textContent = '模型报错：' + String(msg).slice(0, 200);
+      toast('模型报错了，事件面板里有详情');
+      return;
+    }
+    case 'input_audio_buffer.speech_started':
+      stopPlayback();
+      send({ type: 'response.cancel' });               // 打断：你说，它停
+      state.curYou = null;                             // 新的一句另起一行
+      setState('听你说', true);
+      return;
+    case 'input_audio_buffer.committed':
+      state.commitAt = performance.now();
+      setState('它在想', false);
+      return;
+    case 'response.created':
+      if (!state.commitAt) state.commitAt = performance.now();
+      setState('它在想', false);
+      return;
+    case 'response.audio.delta': {
+      if (state.commitAt && state.latencies.length < 997) {
+        state.latencies.push(performance.now() - state.commitAt);
+        state.commitAt = null;
+      }
+      if (!state.curEmma || !document.body.contains(state.curEmma.line)) state.curEmma = addLine('emma');
+      tagLatency();
+      playDelta(event.delta || '');
+      setState('它在说', true);
+      return;
+    }
+    case 'response.done':
+      setState('听你说', false);
+      return;
+    case 'lab.error':
+      toast(event.message || '桥那头出问题了');
+      endSession('出错：' + (event.message || ''));
+      return;
+    default:
+      newText(event);
+  }
+}
+
+function flushQueue() {
+  const q = state.sendQueue;
+  state.sendQueue = [];
+  for (const ev of q) send(ev);
+}
+
+/* ---------- 三个屏的切换 ---------- */
+
+function showScreen(name) {
+  state.screen = name;
+  $('setup').hidden = name !== 'setup';
+  $('live').hidden = name !== 'live';
+  $('summary').hidden = name !== 'summary';
+  $('head-mid').innerHTML = '';
+  if (name === 'setup') {
+    document.body.classList.remove('model-b');
+  } else {
+    const badge = document.createElement('span');
+    badge.className = 'badge';
+    badge.textContent = `${MODEL_INFO[state.modelKey].label} · ${state.lessonTitle || state.lesson}`;
+    const who = document.createElement('span');
+    who.style.cssText = 'font-size:13px;color:var(--muted)';
+    who.textContent = state.profile === 'kid' ? '孩子在练' : '大人在练';
+    $('head-mid').append(badge, who);
+  }
+}
+
+async function startSession(modelKey, voice) {
+  state.modelKey = modelKey;
+  state.voice = voice;
+  state.lesson = $('lesson').value;
+  state.lessonTitle = $('lesson').selectedOptions[0] ? $('lesson').selectedOptions[0].textContent.split(' · ')[1] || '' : '';
+  document.body.classList.toggle('model-b', modelKey === 'audio31');
+  $('btn-start').disabled = true;
+  $('btn-start').textContent = '正在连…';
+  try {
+    const r = await fetch(`/api/prompt?lesson=${encodeURIComponent(state.lesson)}&profile=${state.profile}`);
+    if (!r.ok) throw new Error('prompt');
+    const prompt = await r.json();
+    state.configs = buildConfigs(modelKey, prompt.instructions, voice);
+    state.configTry = 0;
+    await openMic();                                   // 必须在点击的动作里拿麦克风
+    const ws = new WebSocket(`${WS_BASE}?model=${encodeURIComponent(modelKey)}&lesson=${encodeURIComponent(state.lesson)}`);
+    state.ws = ws;
+    ws.onmessage = (e) => { try { onServerEvent(JSON.parse(e.data)); } catch {} };
+    ws.onclose = () => { if (state.screen === 'live') endSession(state.endedWhy || '连接断了'); };
+    state.turns = []; state.curYou = null; state.curEmma = null;
+    state.commitAt = null; state.latencies = [];
+    state.startedAt = Date.now();
+    $('script').innerHTML = '';
+    showScreen('live');
+    setState('连着呢', false);
+    cancelAnimationFrame(state.rafId);
+    tickLevel();
+    clearInterval(state.timerId);
+    let left = CAP_SECONDS;
+    state.timerId = setInterval(() => {
+      left -= 1;
+      const m = Math.floor(Math.max(0, left) / 60), s = Math.max(0, left) % 60;
+      $('timer').textContent = `${m}:${String(s).padStart(2, '0')}`;
+      $('timer').classList.toggle('low', left <= 60);
+      if (left <= 0) endSession('到 10 分钟了');
+    }, 1000);
+  } catch (err) {
+    toast(err && err.name === 'NotAllowedError'
+      ? '麦克风权限没给：地址栏左侧的锁里把麦克风改成允许，再点开始'
+      : '没起来，看看服务窗口的提示');
+  } finally {
+    $('btn-start').disabled = false;
+    $('btn-start').textContent = '开始聊';
+  }
+}
+
+function endSession(why) {
+  if (state.screen !== 'live') return;
+  state.endedWhy = why || '';
+  clearInterval(state.timerId);
+  cancelAnimationFrame(state.rafId);
+  stopPlayback();
+  closeAudio();
+  if (state.ws) { const ws = state.ws; state.ws = null; try { ws.close(1000); } catch {} }
+  const secs = Math.round((Date.now() - state.startedAt) / 1000);
+  const lats = state.latencies;
+  const avg = lats.length ? (lats.reduce((a, b) => a + b, 0) / lats.length / 1000) : null;
+  const worst = lats.length ? Math.max(...lats) / 1000 : null;
+  const youTurns = state.turns.filter((t) => t.role === 'you' && t.text).length;
+  $('stats').innerHTML = '';
+  const cells = [
+    [Math.floor(secs / 60) + ' 分 ' + (secs % 60) + ' 秒', '时长'],
+    [String(youTurns), '你说的话'],
+    [avg == null ? '—' : avg.toFixed(1) + ' s', '平均接话'],
+    [worst == null ? '—' : worst.toFixed(1) + ' s', '最长接话'],
+    [MODEL_INFO[state.modelKey].label + ' · ' + state.voice, '模型 · 音色'],
+  ];
+  for (const [b, span] of cells) {
+    const d = document.createElement('div');
+    d.className = 'stat';
+    const bb = document.createElement('b'); bb.textContent = b;
+    const ss = document.createElement('span'); ss.textContent = span;
+    d.append(bb, ss);
+    $('stats').appendChild(d);
+  }
+  if (state.endedWhy) toast(state.endedWhy);
+  showScreen('summary');
+}
+
+/* ---------- 小结屏的动作 ---------- */
+
+function transcriptText() {
+  const head = `口语实验 · ${MODEL_INFO[state.modelKey].label}（${state.voice}）· ${state.lesson} ${state.lessonTitle}\n`
+    + `${new Date(state.startedAt).toLocaleString('zh')} · ${state.profile === 'kid' ? '孩子' : '大人'}\n\n`;
+  return head + state.turns.filter((t) => t.text)
+    .map((t) => (t.role === 'emma' ? 'Emma: ' : '你: ') + t.text
+      + (t.role === 'emma' && t.latency ? `（接话 ${(t.latency / 1000).toFixed(1)}s）` : ''))
+    .join('\n');
+}
+
+$('btn-dl-txt').onclick = () => download(`speak-${state.lesson}-${state.modelKey}.txt`, transcriptText(), 'text/plain');
+$('btn-dl-json').onclick = () => download(
+  `speak-${state.lesson}-${state.modelKey}.json`,
+  JSON.stringify({ model: state.modelKey, voice: state.voice, lesson: state.lesson, profile: state.profile,
+                   startedAt: state.startedAt, latencies: state.latencies, turns: state.turns }, null, 1),
+  'application/json');
+$('btn-again').onclick = () => { state.endedWhy = ''; startSession(state.modelKey, state.voice); };
+$('btn-setup').onclick = () => { state.endedWhy = ''; showScreen('setup'); };
+$('btn-end').onclick = () => endSession('');
+
+loadLessons();
+</script>
+</body>
+</html>
