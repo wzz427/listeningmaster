@@ -91,7 +91,7 @@ def wait_answer(port: int, seconds: float = 20):
 
 def make_repo(tmp: Path) -> Path:
     dev = tmp / "Proj"
-    for name in ("serve.py", "stable_copy.py"):
+    for name in ("serve.py", "stable_copy.py", "accounts.py"):
         write(dev / "pipeline" / name, (REAL / "pipeline" / name).read_text(encoding="utf-8"))
     for name in (".gitignore", "start-player.bat"):
         (dev / name).write_bytes((REAL / name).read_bytes())

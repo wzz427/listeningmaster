@@ -34,8 +34,21 @@
 | Playwright 的 `page.evaluate` 莫名其妙把桩函数调了一次 | 传进去的字符串最后一个表达式是函数（`x.speak = () => ...`），Playwright 会把它当函数调用 | 字符串末尾加 `; 0` |
 | ffmpeg 切出来的一段全是静音 | 在 `-i` 后面用 `-ss` 截取时，滤镜里的时间还是原音频的时间，`afade=t=out:st=1.45` 从第 1.45 秒起全压成零 | 用 `atrim=start=..:end=..,asetpts=PTS-STARTPTS` 截取并把时间归零，再接 `afade` |
 | 百炼报找不到文件或地址无效 | 录音文件转写模型只收公网地址，不收本地路径 | 用 `dashscope.utils.oss_utils.upload_file` 传到临时存储，并加请求头 `X-DashScope-OssResourceResolve: enable` |
+| 整目录搬完家，体验版里 git 命令全报 not a git repository，`worktree list` 报 prunable | worktree 靠绝对路径互指，拷贝后两头都指旧路径 | 改写体验版 `.git` 文件指向新主仓库＋`git worktree repair`；见下面 2026-10-25 那条 |
+| `test_stable_copy` 报「新版本的服务起不来（退出码 1）」 | serve.py 重写后启动要 `import accounts`，测试自建最小仓库的文件清单没跟着加 | 清单补 `accounts.py`；给 serve.py 加启动 import 时同步补这类清单 |
 
 ## 全部（新的在上）
+
+### 2026-10-25 · 搬家后 worktree 两头指旧路径；test_stable_copy 的临时仓库缺 accounts.py
+
+- 症状一：owner 把开发版、体验版、WordsAudio 整个拷到新位置后，`git worktree list` 报体验版 prunable；在体验版目录里跑任何 git 命令都报 not a git repository。
+- 根因一：worktree 靠**绝对路径**互指（体验版根上的 `.git` 文件 → 主仓库的 `.git/worktrees/<名>/gitdir` → 体验版），整目录拷贝/搬移后两头都指着已删的旧路径。播放器本身能跑（文件都在），坏的是 owner 点「更新」换版本那条链（`stable_copy.py` 要在体验版里跑 git）。
+- 修法一：改写体验版 `.git` 文件指向新主仓库，再 `git worktree repair <体验版路径>` 修反向指针；`git worktree list` 两份都在新路径、不再 prunable 就算好。**以后整目录搬家，这一步必须重做。**
+- 症状二：`tests/test_stable_copy.py` 第一项就报「新版本的服务起不来（退出码 1）」。
+- 根因二：2026-09-28 serve.py 重写后 `make_server` 启动时无条件 `import accounts`，而这份测试自建最小仓库的文件清单（serve.py＋stable_copy.py）是重写前抄的，没跟着加；那次改完没重跑这份测试（最后全过记录 2026-09-24），一直坏到今天才被撞见。
+- 修法二：清单补上 `accounts.py`。
+- 怎么确认修好了：`tests/test_stable_copy.py` 13 项全过（2026-10-25）。
+- 连带教训：给 serve.py 加**启动时**的 import（哪怕是函数里的懒加载但函数在启动路径上）时，凡是自己搭最小环境的测试都要跟着补文件清单；「改了 X 的代码要跑哪份测试」的清单也要把间接受影响的算进来。
 
 ### 2026-09-24 · Windows 上两个本地服务能同时占一个端口
 

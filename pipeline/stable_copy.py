@@ -2,7 +2,7 @@
 
 两份代码：
 - 开发版：这个仓库目录，claude 改的那份。
-- 体验版：旁边的「<仓库目录名>-stable」（今天是 WorkSpace\\ListeningMaster-stable），是这个仓库的第二个工作目录，
+- 体验版：旁边的「<仓库目录名>-stable」（今天是 BayesAPP\\ListeningMaster-stable），是这个仓库的第二个工作目录，
   不挂分支，根上有标记文件 .lm-stable-copy。owner 和孩子用的就是它。里面一个字不手改，只经这个文件换版本。
 
 用法：<pywork python> pipeline/stable_copy.py <命令>

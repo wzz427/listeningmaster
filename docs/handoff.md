@@ -6,6 +6,16 @@
 
 ## 现在在哪（最新在上）
 
+### 2026-10-25 · 仓库搬家到 BayesAPP：git 随文件夹一起过来了，断掉的 worktree 链接修好
+
+- owner 把整个项目群从桌面 `WorkSpace/` 拷到 `BayesAPP/`（开发版、体验版 `ListeningMaster-stable`、发音词典 `WordsAudio` 并排；旧位置已删，桌面找不到别的 ListeningMaster）。会话里的活：梳理搬家后有没有问题＋确认 git。
+- **git 不用新建**：`.git` 随拷贝一起过来了——完整历史、双远端（gitee 私有＋github 公开）、身份配置都在；两头 `ls-remote` 验过钥匙还认，本地 HEAD 和两个远端一致（a59afda，无待推）。
+- **发现并修了一个真问题**：体验版是本仓库的 worktree（SPEC-008），靠绝对路径互指，搬家后两头都还指着已删的 `Desktop\WorkSpace\...`——体验版里 git 失效，owner 点「更新」换版本会坏。修法：改写体验版 `.git` 文件指回新主仓库＋`git worktree repair`；修后 `git worktree list` 两份都在新路径、体验版里 git 命令恢复（99c4d1d，只剩运行期缓存改动）。**以后再整目录搬家，worktree 链接都要重修一遍。**
+- 发音词典零改动兼容：`pipeline/tts.py` 的 `LIBRARY = ROOT.parent / "WordsAudio"` 是相对仓库的，新位置 `BayesAPP\WordsAudio` 正好并排；验证解析正确、50525 个文件都在。密钥文件（api-keys.txt、开发密钥.md、阿里云配置指南）都随拷贝在、.gitignore 全挡住。`start-player.bat` 按「目录名＋-stable」找体验版，新布局天然符合。
+- 文档改口径四处：environment 工具表（词典位置）、architecture 两份代码一节、SPEC-008 R1、stable_copy.py 文档串——「WorkSpace\」改「BayesAPP\」。handoff 2026-09-24 那条是历史记录，不动。
+- **顺手撞见并修好一个旧伤**：`tests/test_stable_copy.py` 第一项就挂——2026-09-28 serve.py 重写后启动要 `import accounts`，这份测试自建最小仓库的文件清单没跟着加（那次改完没重跑它，最后全过记录 09-24）。清单补上 `accounts.py`，13 项全过。教训进 `docs/lessons.md`（2026-10-25 两条：worktree 搬家要重修、启动 import 变更要同步测试清单）。
+- 下一步从哪接：不变——owner 和孩子试口语实验页（D52）、owner 复验对外版 v6 说「上」。
+
 ### 2026-10-12 · 口语实验页搭好：A/B 两个千问实时语音模型（D52）
 
 - owner 提新方向：把口语结合进来——听力材料当话题，解决单纯练口语没话题的尬聊；拍板实验先行、A/B 并排、先本地（D52）。主线不变：对外版 v6 仍等他复验说「上」。

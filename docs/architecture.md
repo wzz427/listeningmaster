@@ -141,7 +141,7 @@
 
 ## 两份代码（SPEC-008）
 
-- 开发版：这个仓库目录，claude 改。体验版：旁边的 `WorkSpace\ListeningMaster-stable`，这个仓库的第二个工作目录（`git worktree`，不挂分支），owner 和孩子用，一个字不手改。两份共用一个 git 仓库，体验版能切到开发版里的任何提交。
+- 开发版：这个仓库目录，claude 改。体验版：旁边的 `ListeningMaster-stable`（两份同在 `BayesAPP/` 下，2026-10-25 搬家），这个仓库的第二个工作目录（`git worktree`，不挂分支），owner 和孩子用，一个字不手改。两份共用一个 git 仓库，体验版能切到开发版里的任何提交。
 - 双击任何一份里的 `start-player.bat`，起的都是体验版，地址 http://localhost:8765/web/ 。
 - 新版本怎么过去：claude `stable_copy.py invite` 钉一版（要求 `tests/test_player.py` 对这份代码全过，它全过时把代码指纹记在开发版根上的 `.player-tests-passed.json`）→ 钉的记录写在体验版根上的 `.stable-invite.json` → 页面出现「更新」→ owner 点 → 服务以 7 退出 → `stable_copy.py run` 换版本（`git checkout`）、在空闲端口试起一次、失败就退回 → 再起服务。结果写 `.stable-outcome.json`，每换一次记一行 `.stable-history.jsonl`。这几个文件都不进仓库。
 - 孩子用出来的数据住在体验版里：`lessons/<课>/explain_cache.json` 里点词补查和展开查到的、`lessons/<课>/tts/` 下现读的。换版本时留下（SPEC-008 R7）。学习记录在浏览器里，按 `localhost:8765` 存。
