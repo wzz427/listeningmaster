@@ -53,26 +53,27 @@
 | `pipeline/tts_check.html` | `tts.py check` 用的抽听页模板 | SPEC-007 |
 | `pipeline/llm.py` | 调大模型的统一口：deepseek 开头走 DeepSeek，qwen 开头走百炼兼容接口；关掉 deepseek 的思考模式 | SPEC-000 R5 |
 | `pipeline/keys.py` | 从 `api-keys.txt` 读密钥，只读进内存 | SPEC-000 R2 |
-| `pipeline/serve.py` | 本地服务，见下面「本地服务」；`--hosted` 起对外模式（SPEC-009）：会话挡全站、注册/登录/登出、上传/资料库/删材料、讲稿补传（TXT/PDF/MD 文件，`/api/material/script`）、备课任务（串行队列跑 SPEC-002 的六步，或配置 `prep_command` 换假命令测试） | SPEC-001 R12、SPEC-009 |
+| `pipeline/serve.py` | 本地服务，见下面「本地服务」；`--hosted` 起对外模式（SPEC-009 v7，见下面「本地服务」末段）：**访客免登录直接听公共课库**（`server-data/shared/lessons/`，R14）、点词现查开放；注册/登录/登出、上传/资料库/删材料、讲稿补传（TXT/PDF/MD 文件，`/api/material/script`）、备课任务（串行队列跑 SPEC-002 的六步，或配置 `prep_command` 换假命令测试）仍要登录会话 | SPEC-001 R12、SPEC-009 |
 | `pipeline/speak_lab.py` | 口语实验页的服务端（决策 D52，实验件、不进播放器和对外版）：8770 出页面和陪练提示词（拿 `lesson.json` 的标题、分段、生词、几句原话拼，教学规矩也在提示词里）；8771 当 WebSocket 桥，网页 ⇄ 百炼 Realtime 原样转发，密钥只在这一个进程；`mock` 假模型不花钱走整条事件链；`--selftest omni38\|audio31` 连真模型放一段课程音频验证 | —（实验，正式规格等 A/B 结论） |
 | `pipeline/accounts.py` | 邮箱账号（对外版地基）：注册要邀请码、登录发会话、连错锁、密码只存 PBKDF2 哈希；数据住 `server-data/`（不进 git），布局 `server-data/<账号id>/{materials/<材料id>/{audio.*, script.txt, meta.json}, lessons/<课>/}`——材料 meta.json 的 state 就是 SPEC-009 的状态机（new/prepping/done/failed） | SPEC-009 |
 | `pipeline/stable_copy.py` | 体验版和开发版：建体验版、钉版本、换版本（失败退回、留下孩子用出来的数据）、退回上一版、双击后起服务的循环；见下面「两份代码」 | SPEC-008 |
 | `pipeline/compare_models.py` | 一次性：比较两个模型写的中文和生词判断，出 `model_compare.md` | SPEC-005 |
 | `web/index.html`、`web/style.css`、`web/app.js` | 播放器，见下面「播放器」 | SPEC-001 |
-| `web/login.html` | 登录页（对外模式专用）：注册（要邀请码）／登录（只要邮箱密码，记住了邮箱第二次只输密码），注册成功即登录；自包含样式，不依赖 style.css | SPEC-009 |
-| `web/library.js` | 资料库侧边栏、上传面板（拖放区主角＋讲稿文件）、空库的播放器（不挡路，卡片里一句邀请）（对外模式专用）：app.js 只在服务报 `copy=hosted` 时进来（hostedStart/hostedLessonMissing 两个入口）；两区四状态、备课轮询、材料变课的高亮和通知、进度点（读 app.js 的学习记录键）、「＋讲稿」补传、登出。本地模式一个字节都不执行 | SPEC-009 R8 |
+| `web/login.html` | 登录页（对外模式专用）：注册（要邀请码）／登录（只要邮箱密码，记住了邮箱第二次只输密码），注册成功即登录；底部「先直接体验」直达 /web/（v7：访客默认不经过这页）；自包含样式，不依赖 style.css | SPEC-009 |
+| `web/library.js` | 资料库侧边栏、上传面板（拖放区主角＋讲稿文件）、空库的播放器（不挡路，卡片里一句邀请）（对外模式专用）：app.js 只在服务报 `copy=hosted` 时进来（hostedStart/hostedLessonMissing 两个入口）；两区四状态、备课轮询、材料变课的高亮和通知、进度点（读 app.js 的学习记录键）、「＋讲稿」补传、登出。v7 匿名态（`/api/library` 的 `user` 为 null）：只见课区（标题「听力材料」＝公共库）、没有上传和材料区、底部小「登录」。本地模式一个字节都不执行 | SPEC-009 R8 |
 | `web/speak-lab.html` | 口语实验页（决策 D52，自包含单文件）：两个实时语音模型 A/B 一键切换、孩子/大人两种口吻、麦克风收发（AudioWorklet，上行 16k 下行 24k）、实时转写、每轮「接话」延迟、10 分钟封顶、聊完存转写（文本和 JSON）、「事件」面板看原始事件（协议排错用）。只连本地 8771 的桥，不直接连百炼 | —（实验，同 `pipeline/speak_lab.py`） |
 | `web/fonts/` | 放在本地的字体：Literata（英文正文）、DM Mono（数字）、Noto Serif 裁出来的音标字体，各带许可证 | SPEC-001 R22、SPEC-006 R8 |
 | `tests/test_player.py` | 播放器的自动检查（Playwright），编号对应各规格的 A 编号 | `docs/workflow.md` |
 | `tests/test_audio.py` | 验声音：录下真的 Chrome 放出来的声音，对时间、机器耳朵听、出试听页 | SPEC-004 R7 |
 | `tests/test_docs.py` | 文档和代码对不对得上 | `docs/workflow.md` |
 | `tests/test_accounts.py` | 账号模块的单元检查（注册、登录、会话、连错锁、密码不落盘），临时目录里跑 | SPEC-009 |
-| `tests/test_hosted_server.py` | 对外模式的自动检查：真起服务真发请求——挡站、注册登录登出、noindex、限流、无「更新」接口 | SPEC-009 |
+| `tests/test_hosted_server.py` | 对外模式的自动检查：真起服务真发请求——访客免登录（公共课、点词）、上传等账号接口挡 401、注册登录登出、noindex、限流、无「更新」接口 | SPEC-009 |
 | `tests/test_hosted_upload.py` | 上传、资料库、删材料的自动检查：真上传假音频字节——类型和大小闸、标题讲稿落盘、两账号隔离、课路径按账号指路 | SPEC-009 |
 | `tests/test_hosted_prep.py` | 备课任务的自动检查：假备课命令跑通状态机（排队、备课中挡重复点、成功变课、失败人话原因、重试） | SPEC-009 |
-| `tests/test_hosted_frontend.py` | 资料库前端整条用户路的自动检查（Playwright 开真页面）：注册进站空库待机 → 上传（选错文件的人话）→ 备课轮询到变课高亮 → 点课切换 → 进度点 → 失败重试 → 删除 → 登出 | SPEC-009 R8 |
+| `tests/test_hosted_frontend.py` | 资料库前端整条用户路的自动检查（Playwright 开真页面）：匿名直接进站听公共课 → 登录注册进站空库待机 → 上传（选错文件的人话）→ 备课轮询到变课高亮 → 点课切换 → 进度点 → 失败重试 → 删除 → 登出 | SPEC-009 R8 |
 | `tests/test_stable_copy.py` | 换版本的自动检查：临时目录里造真的仓库和体验版，真的切版本、真的起服务 | SPEC-008 |
 | `start-player.bat` | 双击：旁边有体验版就转去体验版，然后调 `pipeline/stable_copy.py run` 起服务、打开浏览器。只放英文字符 | SPEC-008 R2 |
+| `start-hosted.bat` | 双击：起对外模式的**本地验收版**（`serve.py --hosted --open`，8790，读仓库根 gitignore 里的 server-config.json），owner 验收用（D54：确认过了才上服务器）；访客直接进。只放英文字符 | SPEC-009 R1、D54 |
 | `start-speak-lab.bat` | 双击：起口语实验页（`pipeline/speak_lab.py`）并打开浏览器，关窗口就停。实验件，只放英文字符 | —（D52 实验） |
 | `requirements.txt` | 服务器上要装的 Python 包（版本是开发机验证过的一组；wordfreq 只有重建发音词典才要，没列） | SPEC-009 R10 |
 | `deploy/listening.service`、`deploy/server-config.example.json`、`deploy/caddy-listen-app.conf` | 发布物料：systemd 服务、配置模板（复制成仓库根的 server-config.json，不进 git）、Caddy 站点块（改前先拉回现有配置 diff） | SPEC-009 R10、R11 |
@@ -129,6 +130,13 @@
   - `POST /api/update` → 202 后服务以退出码 7 停下；没有要换的、或者服务不是 `--managed` 起的，回 409。
 - 命令行：`serve.py [端口] [--open] [--managed]`。`--open` 起来后打开浏览器；`--managed` 表示有 `stable_copy.py run` 负责换完版本把它拉起来。开发版旁边有体验版时，开发版拿 8765 当场拒绝。
 - 独占端口：Python 自带的 HTTPServer 在 Windows 上允许两个服务同时占一个端口，这里关掉了（`docs/lessons.md` 2026-09-24）。
+- **对外模式**（`serve.py --hosted`，读仓库根 `server-config.json`（不进 git）：invite、port（默认 8790）、bind、data_dir、secure_cookie；双击 `start-hosted.bat` 就是它，SPEC-009 v7）：
+  - **访客免登录**：`/web/` 页面、`/lessons/` 音频、`GET /api/library`、点词三个接口（explain/more/speak）匿名放行——课指到公共库 `server-data/shared/lessons/`（R14，只放 owner 拍板可公开的课）。
+  - 按身份指路：已登录 `/lessons/` 先指自己账号目录（`server-data/<账号id>/lessons/`，互不可见）、没有的课落公共库；匿名只有公共库；点词接口的课目录同一套逻辑。
+  - `/api/library` 返回 `{user（null＝匿名）, materials（匿名恒空）, lessons（已登录＝自己的＋公共库，重名自己优先）}`。
+  - 要会话的（匿名 401）：注册/登录/登出（`pipeline/accounts.py`）、上传、备课、删材料、补讲稿。
+  - 所有响应带 `X-Robots-Tag: noindex`；POST 每 IP 每分钟 30 次（反代下取 X-Forwarded-For 第一段）；`/api/version` 恒报 hosted、`/api/update` 404。
+  - 完整需求在 `specs/SPEC-009-hosted-trial.md`；上线手册 `docs/deploy-listen-app.md`（域名 `listening.app.bayescode.com`）。
 
 ## 播放器（`web/`）
 

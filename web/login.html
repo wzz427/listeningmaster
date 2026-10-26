@@ -1,7 +1,8 @@
 <!doctype html>
 <!-- 登录页（对外模式专用，SPEC-009）：注册要邀请码，注册成功即登录进 /web/。
-     本地模式（localhost）永远走不到这页——serve.py 只在 --hosted 下把没会话的请求导过来。
-     自包含一份小样式，不依赖 style.css：这是进产品的第一屏，加载越少越好。 -->
+     2026-10-26 免登录体验（v7）后访客默认直接进 /web/，不再被导到这页；这页留给已有账号的人，
+     页上留一个「先直接体验」的出口，别把路过的人困在登录页。
+     本地模式（localhost）永远走不到这页。自包含一份小样式，不依赖 style.css：进产品的屏，加载越少越好。 -->
 <html lang="zh">
 <head>
 <meta charset="utf-8">
@@ -43,6 +44,9 @@
     font: inherit; font-size: 16px; color: #fff; background: #b07a2a; border: none; border-radius: 8px;
   }
   #submit:disabled { opacity: .6; cursor: wait; }
+  .guest { margin: 18px 0 0; text-align: center; font-size: 13.5px; }
+  .guest a { color: #8a8378; text-decoration: underline dotted; text-underline-offset: 4px; }
+  .guest a:hover { color: #b07a2a; }
 </style>
 </head>
 <body>
@@ -60,6 +64,7 @@
     <p id="err"></p>
     <button id="submit" type="submit">登录</button>
   </form>
+  <p class="guest"><a href="/web/">先直接体验 »</a></p>
 </main>
 <script>
 'use strict';

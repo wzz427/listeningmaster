@@ -1,7 +1,7 @@
 """资料库侧边栏和上传面板的自动检查（SPEC-009 R8）——Playwright 真的打开对外模式的页面、真的点。
 
-用假备课命令（prep_command 注入，同 tests/test_hosted_prep.py）跑完整条用户路：
-注册（邀请码）→ 空库待机 → 上传（选错文件的人话提示）→ 未备课材料（备课／删除）→
+v7 起先走匿名访客路（不注册进站直接听公共课），再走完整登录用户路：
+注册（邀请码）→ 落在公共课（自己的库空）→ 上传（选错文件的人话提示）→ 未备课材料（备课／删除）→
 备课中（转圈＋已用时）→ 变课的那一刻（材料区消失、课区高亮、顶部通知）→ 点课切换 →
 进度点 → 失败重试 → 登出。不连网、不烧识别和模型的钱；音频和课都是假字节。
 
@@ -58,6 +58,19 @@ ld.mkdir(parents=True, exist_ok=True)
 (ld / "audio.m4a").write_bytes(b"FAKE_M4A")
 """, encoding="utf-8")
 
+# 公共课库（R14）：访客听的就是它——DAY1《Coffee》，假字节
+shared = tmp / "data" / "shared" / "lessons" / "DAY1"
+shared.mkdir(parents=True, exist_ok=True)
+(shared / "lesson.json").write_text(json.dumps({
+    "title": "Coffee", "source": "BBC Learning English",
+    "sections": [{"first": 0, "last": 1, "title": "一段"}],
+    "sentences": [
+        {"id": 0, "start": 0, "end": 2.0, "text": "Hi there.", "zh": "你好。", "speaker": "Georgie"},
+        {"id": 1, "start": 2.0, "end": 4.0, "text": "Hello.", "zh": "你好。", "speaker": "Neil"},
+    ],
+}, ensure_ascii=False), encoding="utf-8")
+(shared / "audio.m4a").write_bytes(b"FAKE_M4A")
+
 server = serve_mod.make_server(port=0, hosted_config={
     "invite": "测试邀请码", "data_dir": tmp / "data", "secure_cookie": False,
     "prep_command": [sys.executable, str(fake)],
@@ -91,26 +104,40 @@ def run(page) -> None:
     errors: list[str] = []
     page.on("pageerror", lambda e: errors.append(str(e)))
 
-    print("\n【注册进站：空库待机】")
-    page.goto(BASE + "/")
-    page.wait_for_selector("#f")
-    check("没登录开站，落在登录页", page.url.rstrip("/") == BASE and page.is_visible("#f"), page.url)
+    print("\n【匿名进站：不注册不登录，直接听公共课】")
+    page.goto(BASE + "/web/")
+    page.wait_for_url(f"{BASE}/web/?lesson=DAY1")            # 没指课：自动跳到最新一课（公共课）
+    page.wait_for_selector("#libPanel")                      # 首次进站侧边栏自动展开
+    page.wait_for_function("document.getElementById('title').textContent === 'Coffee'")
+    check("访客直接落到公共课，卡片标题对、停在句首待命", page.evaluate("audio.paused") is True)
+    check("匿名侧边栏：课区标题「听力材料」、只有公共课一节，没有材料区",
+          page.inner_text("#libLessonsH") == "听力材料"
+          and page.locator("#libLessonList .lib-row.lesson").count() == 1
+          and page.is_hidden("#libMaterials"))
+    check("匿名没有上传和登出，底部只有小「登录」",
+          page.is_hidden("#uploadBtn") and page.is_hidden("#logoutBtn") and page.is_visible("#loginLink"))
+    check("匿名能取到公共课的音频（Range）",
+          page.evaluate("fetch('/lessons/DAY1/audio.m4a', {headers: {Range: 'bytes=0-9'}}).then((r) => r.status)") == 206)
+    page.click("#loginLink")
+    page.wait_for_url(f"{BASE}/login")
+    check("侧边栏的「登录」到登录页，页上有「先直接体验」的出口",
+          page.is_visible("#f") and page.get_attribute(".guest a", "href") == "/web/")
+
+    print("\n【注册进站：自己的库空，落在公共课】")
     page.click("#tab-reg")
     page.fill('input[name="email"]', EMAIL)
     page.fill('input[name="password"]', "passwd123")
     page.fill('input[name="invite"]', "测试邀请码")
     page.click("#submit")
-    page.wait_for_url(f"{BASE}/web/")
-    page.wait_for_selector("#emptyHint")
-    check("新账号直接进播放器（不挡路）：卡片里一句邀请，播放控制收起",
-          page.inner_text("#emptyTitle") == "资料库还是空的"
-          and page.is_hidden(".who") and page.is_hidden(".deck") and page.is_hidden("#cardActions"),
-          page.inner_text("#emptyTitle"))
-    check("空库的行动按钮就是「上传一集」，左上角资料库入口在、侧边栏收着",
-          page.inner_text("#emptyAct") == "上传一集" and page.is_visible("#libBtn") and page.is_hidden("#libPanel"))
+    page.wait_for_url(f"{BASE}/web/?lesson=DAY1")
+    page.wait_for_selector("#libPanel")
+    check("新账号登录后也落在公共课（自己的库空），课区标题「我的课」，上传入口亮着",
+          page.inner_text("#libLessonsH") == "我的课"
+          and page.locator("#libLessonList .lib-row.lesson").count() == 1
+          and page.is_hidden("#libMaterials") and page.is_visible("#uploadBtn"))
 
     print("\n【上传面板】")
-    page.click("#emptyAct")   # 空卡片上的按钮开的就是上传面板
+    page.click("#uploadBtn")   # 侧边栏底部的「＋ 上传材料」开上传面板
     page.wait_for_selector("#uploadPanel:not([hidden])")
     page.click("#uploadSend")    # 没选音频
     check("没选音频就点上传，一句人话", page.is_visible("#uploadErr")
@@ -144,7 +171,7 @@ def run(page) -> None:
     check("材料变课：材料区不再有它、课区出现（按系列分组）、高亮一下",
           page.locator("#libMaterialList .lib-row").count() == 0
           and "fresh" in (lesson.get_attribute("class") or "")
-          and page.inner_text("#libLessonList .lib-group") == "Real Easy English",
+          and page.locator("#libLessonList .lib-group").filter(has_text="Real Easy English").count() == 1,
           page.get_attribute("#libLessonList .lib-row.lesson", "class") or "")
     grad = page.locator(".notice").filter(has_text="备好了")
     check("顶部说一声「备好了」、给「去听」",
@@ -165,13 +192,13 @@ def run(page) -> None:
     check("收起的选择记住了（刷新不再自动展开）", page.is_hidden("#libPanel"))
     page.click("#libBtn")
     check("正在听的这集高亮、带小声浪，进度点空心（没开始）",
-          "current" in (page.get_attribute("#libLessonList .lib-row.lesson", "class") or "")
+          page.locator("#libLessonList .lib-row.lesson.current").count() == 1
           and page.locator("#libLessonList .now-bars").count() == 1
-          and not re.search(r"half|full", page.evaluate("document.querySelector('#libLessonList .dot').className")))
+          and not re.search(r"half|full", page.locator("#libLessonList .lib-row.current .dot").get_attribute("class") or ""))
     page.evaluate(f"localStorage.setItem('listening:{mid1}:done', '1'); 0")
     page.click("#libClose")
     page.click("#libBtn")
-    page.wait_for_selector("#libLessonList .dot.full", timeout=5000)   # 打开时轮询重画，等它画完
+    page.wait_for_selector("#libLessonList .lib-row.current .dot.full", timeout=5000)   # 打开时轮询重画，等它画完
     check("整集听过的画实心点", True)
 
     print("\n【没讲稿的材料：就地补传、删除】")
@@ -199,8 +226,8 @@ def run(page) -> None:
     page.locator("#libMaterialList .lib-row").filter(has_text="坏材料").locator(
         ".mini-btn", has_text="重试").click()
     page.locator("#libLessonList .lib-row.lesson").filter(has_text="坏材料").wait_for(state="visible", timeout=10000)
-    check("补完讲稿重试，成了课（资料库两节课）",
-          page.locator("#libLessonList .lib-row.lesson").count() == 2)
+    check("补完讲稿重试，成了课（自己的两节课＋公共课，共三节）",
+          page.locator("#libLessonList .lib-row.lesson").count() == 3)
 
     print("\n【登出、登录页】")
     if not page.is_visible("#logoutBtn"):   # 侧边栏收着才需要点 ☰ 开（开着时面板盖住 ☰，用面板里的按钮）

@@ -1,15 +1,15 @@
-# listen-app 上线手册（阿里云轻量服务器）
+# listening.app 上线手册（阿里云轻量服务器）
 
-> 答什么：把对外版发布到 `listen-app.bayescode.com`（39.105.73.114）的完整操作——装代码、起服务、接 Caddy、验证、日常运维。谁读：claude 部署时照着做；owner 想看自己那几步（DNS、发网址）也读这份。
-> 状态：2026-09-28 写好待用（代码全绿、未上过服务器）。规格出处 `specs/SPEC-009-hosted-trial.md` R10 到 R13。
+> 答什么：把对外版发布到 `listening.app.bayescode.com`（39.105.73.114）的完整操作——装代码、铺公共课库、起服务、接 Caddy、验证、日常运维。谁读：claude 部署时照着做；owner 想看自己那几步（DNS、发网址）也读这份。
+> 状态：2026-10-26 随免登录版（v7）更新：访客直接听公共课库、域名从 listen-app 改 listening.app；**先本地验收版（owner 双击 `start-hosted.bat`）确认后才按本手册动服务器**（D54）。规格出处 `specs/SPEC-009-hosted-trial.md` R10 到 R14。
 > 密钥规矩：本手册**一个密钥都不含**。SSH 账号、服务器密码见 `docs/refs/阿里云配置指南.md`（它永不入库）；模型密钥用仓库根的 `api-keys.txt` 原样拷过去。
 
 ## 红线（先读）
 
-- **上线动作**：一切就绪、owner 亲口说「上」，才把网址和邀请码发出去（SPEC-009 R13）。
+- **上线动作**：owner 本地验收说过之后才动服务器；网址发出去访客就能听（不需要邀请码），邀请码只发给要上传材料的熟人（SPEC-009 R13、D53）。
 - **花钱的一步**：第一次在服务器上备真材料会调百炼识别和 DeepSeek（几毛钱一集），跑之前跟 owner 说一声。
-- **不碰别人的站**：这台机器上还跑着 TinkerCode 的回滚备胎和课程官网。Caddy 只**追加**站点块、改前先拉回 diff（指南坑⑦）；其它一概不动。
-- 服务器上三个文件永不入库、不外发：`api-keys.txt`、`server-config.json`、`server-data/`（各家资料库）。
+- **不碰别人的站**：这台机器上还跑着 TinkerCode 的回滚备胎和课程官网。改 Caddy 前先拉回留底 diff（指南坑⑦）；其它一概不动。
+- 服务器上三个文件永不入库、不外发：`api-keys.txt`、`server-config.json`、`server-data/`（各家资料库＋公共课库）。**各家账号里的材料不进公共库**（R14 红线）。
 
 ## 前提
 
@@ -51,6 +51,21 @@ ssh root@39.105.73.114
   chown -R listen:listen /opt/listening /opt/WordsAudio
 ```
 
+## 1b. 铺公共课库（访客听的就是它，SPEC-009 R14）
+
+访客不登录，听到的是 `server-data/shared/lessons/` 里的课。第一课《咖啡》2026-09-28 部署验证时已经备好在 deploy-check 账号里，拷出来就行：
+
+```bash
+ssh root@39.105.73.114
+  cd /opt/listening
+  mkdir -p server-data/shared/lessons
+  cp -r server-data/*/lessons/260821 server-data/shared/lessons/    # 只有一个账号有这课（deploy-check）
+  chown -R listen:listen server-data
+  cat server-data/shared/lessons/260821/lesson.json | head -5      # 核对：title 是 Coffee
+```
+
+以后往公共库加课＝把备好的课目录拷进 `shared/lessons/`，不用改代码；**只放 owner 拍板可公开的课**（D51：仓库里的 BBC 素材定位 sample 可以公开；各家账号上传的材料永远不进公共区）。
+
 ## 2. Python 环境
 
 服务器是 Ubuntu 22.04 / Python 3.10（够用；numpy 装到 2.2.6，见 `requirements.txt` 注释）。
@@ -63,11 +78,13 @@ venv/bin/pip install -i https://mirrors.aliyun.com/pypi/simple/ -r requirements.
 
 ffmpeg 不用 apt 装：`imageio-ffmpeg` 自带一个静态的，备课第一步用的就是它。
 
-前台烟测（不花钱、不起服务）：用 `listen` 账号跑一下，能看到登录页就行，Ctrl+C 停掉。
+前台烟测（不花钱、不起服务）：用 `listen` 账号跑一下，匿名就能看到公共库，Ctrl+C 停掉。
 
 ```bash
 sudo -u listen /opt/listening/venv/bin/python pipeline/serve.py --hosted
-# 另开一个终端：curl http://127.0.0.1:8790/login   → 出登录页的 HTML
+# 另开一个终端（都是匿名，不用登录）：
+#   curl http://127.0.0.1:8790/login            → 登录页的 HTML（给已有账号的人）
+#   curl http://127.0.0.1:8790/api/library      → {"user":null,...,"lessons":[Coffee 那条]}
 ```
 
 ## 3. systemd 常驻
@@ -80,37 +97,40 @@ curl -s http://127.0.0.1:8790/api/version    # "copy":"hosted"
 journalctl -u listening -f           # 日志在这里（journald 自带轮转，指南坑⑩不用踩）
 ```
 
-## 4. Caddy 加站点块（这台机器的 Caddy 是 docker 容器，不是系统服务）
+## 4. Caddy 换站点块（这台机器的 Caddy 是 docker 容器，不是系统服务）
 
-2026-09-28 实况：Caddy 跑在容器 `deploy-caddy-1` 里（带着 TinkerCode 备胎栈 gateway/redis），占着 80/443；Caddyfile 在**宿主机** `/opt/tinkercode/deploy/Caddyfile`（只读挂进容器），上面已有老域名、api、admin、bayescourse 四个块——bayescourse 是活着的课程官网。
+2026-09-28 实况：Caddy 跑在容器 `deploy-caddy-1` 里（带着 TinkerCode 备胎栈 gateway/redis），占着 80/443；Caddyfile 在**宿主机** `/opt/tinkercode/deploy/Caddyfile`（只读挂进容器），上面有老域名、api、admin、bayescourse 四个块和 2026-09-28 加的 `listen-app.bayescode.com` 块——bayescourse 是活着的课程官网。
 
 ```bash
 # ① 留底（坑⑦）
 ssh root@39.105.73.114 "cp /opt/tinkercode/deploy/Caddyfile /opt/tinkercode/deploy/Caddyfile.backup-<日期>"
-# ② 把 deploy/caddy-listen-app.conf 里的站点块追加到那份 Caddyfile 末尾（reverse_proxy 172.18.0.1:8790——容器里的 127.0.0.1 不是宿主机）
+# ② 把旧 listen-app.bayescode.com 块整个删掉，换成 deploy/caddy-listen-app.conf 里的
+#    listening.app.bayescode.com 块（reverse_proxy 172.18.0.1:8790——容器里的 127.0.0.1 不是宿主机）
 # ③ 让容器优雅重载（不停机、不碰别的容器）：
 ssh root@39.105.73.114 "docker exec deploy-caddy-1 caddy reload --config /etc/caddy/Caddyfile"
 # ④ 验证：docker ps 三个容器都 Up/healthy；https://bayescourse.gewucode.cn 还是 200
 ```
 
-证书不用管：DNS 指过来后 Caddy 自己签（几分钟内）；DNS 没指之前它会反复试、日志里报挑战失败，无害。
+证书不用管：DNS 指过来后 Caddy 自己签（几分钟内）；DNS 没指之前它会反复试、日志里报挑战失败，无害。旧域名从未公开发布过，删掉即可、不留跳转。
 
 ## 5. DNS（owner 在阿里云控制台做）
 
-加一条 A 记录：`listen-app.bayescode.com` → `39.105.73.114`。生效几分钟到半小时。
+加一条 A 记录：`listening.app.bayescode.com` → `39.105.73.114`（各应用统一挂 app.bayescode.com 下，D53）。生效几分钟到半小时；顺手可把旧 `listen-app` 的记录删掉。
 
 ## 6. 验证清单（从免费到花钱，按顺序）
 
 | # | 验什么 | 怎么验 | 规格出处 |
 |---|---|---|---|
-| 1 | 站开得起来、不被收录 | `curl -I https://listen-app.bayescode.com` → 200 且有 `X-Robots-Tag: noindex` | A64 |
-| 2 | 锁标正常 | 浏览器地址栏 HTTPS 锁标 | A68 |
-| 3 | 注册要邀请码、错码进不来 | 浏览器走一遍注册 | A72 |
-| 4 | 新账号空库待机、上传不自动备课 | 传一集 mp3，资料库里是带「备课」按钮的材料 | A73、A75 |
-| 5 | **真材料备课六步（花钱，先跟 owner 说）** | 传 BBC 一集 mp3＋讲稿文件（TXT/PDF/MD），点「备课」，几分钟后变课、能播、点词能查 | A76、A70 |
-| 6 | 两个账号互相看不见 | 注册第二个账号，看不到第一个的课 | A73 |
-| 7 | 学习记录刷新还在 | 听几句刷新，进度点还是半满 | A71 |
-| 8 | 带宽 | 同时开几个标签听；卡到受不了记下来（顶约 15 路，R9 迁移触发） | 观察 |
+| 1 | 站开得起来、不被收录 | `curl -I https://listening.app.bayescode.com` → 303 到 /web/ 且有 `X-Robots-Tag: noindex` | A64 |
+| 2 | **访客不登录直接听** | 无痕窗口打开网址：侧边栏见《咖啡》、点开能播、点词出讲解；界面上没有上传按钮，底部有「登录」 | A62、A69 |
+| 3 | 访客碰不到账号里的材料 | 匿名直接 POST `/api/upload` → 401；拿账号里的课名拼 URL 匿名打不开 | A72、A78 |
+| 4 | 锁标正常 | 浏览器地址栏 HTTPS 锁标 | A68 |
+| 5 | 注册要邀请码、错码进不来 | 从侧边栏「登录」进注册页走一遍 | A72 |
+| 6 | 新账号空库待机、上传不自动备课 | 传一集 mp3，资料库里是带「备课」按钮的材料 | A73、A75 |
+| 7 | **真材料备课六步（花钱，先跟 owner 说）** | 传 BBC 一集 mp3＋讲稿文件（TXT/PDF/MD），点「备课」，几分钟后变课、能播、点词能查 | A76、A70 |
+| 8 | 两个账号互相看不见 | 注册第二个账号，看不到第一个的课；但公共库的课都看得到 | A73 |
+| 9 | 学习记录刷新还在 | 听几句刷新，进度点还是半满 | A71 |
+| 10 | 带宽 | 同时开几个标签听；卡到受不了记下来（顶约 15 路，R9 迁移触发） | 观察 |
 
 服务器上还能跑一遍自动检查做回归（要先装 playwright＋chromium，可选）：
 
@@ -129,9 +149,9 @@ cd /opt/listening && sudo -u listen venv/bin/python tests/test_player.py --lesso
   ssh root@39.105.73.114 "systemctl start listening"
   ```
   页面那边不用做更新机制：对外版一刷新就是新的（R4）。
-- **备份**：`server-data/` 是各家自己上传的资料库，丢了无法重建。定期 `tar -czf server-data-$(date +%F).tar.gz server-data/` 拉回开发机一份。
+- **备份**：`server-data/` 是各家自己上传的资料库＋公共课库（`shared/`），丢了无法重建。定期 `tar -czf server-data-$(date +%F).tar.gz server-data/` 拉回开发机一份。
 - **找回密码**：没有自助（SPEC-009 不做），家长找 owner、owner 转给 claude：在服务器上用 `pipeline/accounts.py` 的存法给该邮箱重写一条密码哈希（PBKDF2，照 `register` 的写法生成），顺手清掉它的旧会话。
-- **下线/回滚**：`systemctl stop listening` 即下线；要连域名一起撤，把 Caddy 里那三行删掉 reload。代码回滚用留底的 `Caddyfile.server-backup` 和上一版 archive。
+- **下线/回滚**：`systemctl stop listening` 即下线；要连域名一起撤，把 Caddy 里 listening.app 那个站点块删掉 reload。代码回滚用留底的 `Caddyfile.backup-*` 和上一版 archive。
 
 ## 8. 迁移（不急，写在这备忘）
 

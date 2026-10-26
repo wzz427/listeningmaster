@@ -6,6 +6,13 @@
 
 ## 现在在哪（最新在上）
 
+### 2026-10-26 · 对外版免登录改造（D53）本地验收版搭好；固定流程立起来（D54）
+
+- owner 三件拍板：**访客免登录**（一上来就能听，先拿去给别人试）、**域名换 listening.app.bayescode.com**（所有应用统一挂 app.bayescode.com 下）、**上传和登录押后再研究**。另立固定流程（D54）：一切改动先做本地验收版、他全部确认后才动服务器；方案确认全在对话里说、文字拍板，不用工具的选项卡（写进了 CLAUDE.md 怎么说话和 workflow 第 3、9 步）。
+- 做了什么（SPEC-009 v7）：serve.py 对外模式加匿名层——GET 门放行页面/音频/`/api/library`/点词三接口，`/lessons/` 按身份指路（已登录账号目录优先、落公共库，匿名只有公共库 `server-data/shared/lessons/`，R14 只放 owner 拍板的课），`/api/library` 带 `user` 字段；上传/备课/删材料/补讲稿照旧 401，限流和 noindex 不动。前端 library.js 匿名态（材料区/上传隐藏、「登录」小入口、课区标题「听力材料」、空库「内容马上就来」）；login.html 加「先直接体验」。本地验收版：`start-hosted.bat`（8790，读 gitignore 的本地 server-config.json，邀请码 listen-2026）＋公共库铺了《咖啡》。冒烟全过（匿名 303→/web/、library 出 user:null＋Coffee、音频 206、点词命中缓存、上传 401、注册登录照常、已登录看得到公共课）。
+- 域名侧：deploy 三件物料和部署手册全改成 listening.app.bayescode.com（旧块整删不留跳转）；手册新增 1b 铺公共课库一步、验证清单前两条改成匿名体验。
+- 下一步从哪接：**owner 双击 `start-hosted.bat` 验收**（访客视角＋登录视角）→ 过了等他加 DNS（listening.app → 39.105.73.114）再按手册部署；反馈意见回来按 v8 改。
+
 ### 2026-10-25 · 仓库搬家到 BayesAPP：git 随文件夹一起过来了，断掉的 worktree 链接修好
 
 - owner 把整个项目群从桌面 `WorkSpace/` 拷到 `BayesAPP/`（开发版、体验版 `ListeningMaster-stable`、发音词典 `WordsAudio` 并排；旧位置已删，桌面找不到别的 ListeningMaster）。会话里的活：梳理搬家后有没有问题＋确认 git。

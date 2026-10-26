@@ -24,7 +24,7 @@
 
 ## 怎么说话（指南第三章、附录 B）
 
-说人话，内部编号和自造词不许出现 · 他的话分拍板 / 待议 / 顾虑 · 工程细节自己拍，产品方向必问 · 收尾落到做什么 · 归谁 · 多久 · 一条消息一件事。
+说人话，内部编号和自造词不许出现 · 他的话分拍板 / 待议 / 顾虑 · 工程细节自己拍，产品方向必问 · 收尾落到做什么 · 归谁 · 多久 · 一条消息一件事 · 方案和计划写在对话里讲清楚、他文字拍板，**不用工具的选项卡/答题卡要批准**（owner 2026-10-26 定，两次说）。
 
 ## 红线
 
@@ -32,6 +32,7 @@
 |---|---|
 | 密钥不入仓库、不流向输出 | `api-keys.txt` 已在 `.gitignore` 第一行。读取只能在程序里读，不许打印、不许写进日志和报错、不许出现在命令行参数里；「看看有哪些键名」也不行 |
 | 对外动作要 owner 同意 | 部署、分享给其他家长；发起权在他 |
+| 先本地验收再部署 | 一切改动先做 owner 能验收的本地版本（对外版双击 `start-hosted.bat`），他全部确认后才动服务器（owner 2026-10-26 定，D54） |
 | 全套测试要批准 | 相关那份随时跑；全套攒一批申请 |
 | 语言 | 正式文字中文；旁白只英文；禁止日语；标识符和文件名英文，且看名知意——一词笼统名（course、research 这类）不许用，调研报告的文件名带日期前缀（owner 2026-09-26，D46） |
 | 素材版权 | 仓库里的 BBC 素材定位是**样例（sample）**，随公开的 GitHub 仓库分发没问题（owner 2026-09-29 拍板，D51）；服务器上各家上传的材料仍只在熟人圈内用、不外传；owner 自建的听力材料库不进这个公开仓库（另建专门目录，建时先加 .gitignore） |
@@ -72,6 +73,7 @@
 | 验播放器改得对不对 | `tests/test_player.py` |
 | 交一版给 owner 试、体验版出了问题、退回上一版 | `specs/SPEC-008-stable-and-dev.md`「操作手册」 |
 | 口语实验页（听力材料当话题，A/B 两个千问实时语音模型，D52） | 双击 `start-speak-lab.bat`（或 `<pywork python> pipeline/speak_lab.py`），开 http://localhost:8770/ ；陪练提示词在 `speak_lab.py` 的 `build_prompt`，改完自己先试聊两轮；两个模型配置差异和 smart_turn 的坑见 `docs/handoff.md` 2026-10-12 |
+| 验收对外版的新功能（免登录访客、公共课库、上传登录，D53/D54） | 双击 `start-hosted.bat`，开 http://localhost:8790/ ——访客直接进；配置在仓库根 `server-config.json`（不进 git，本地邀请码 listen-2026）；公共课库铺在 `server-data/shared/lessons/`。改了对外版（serve.py 对外模式、library.js、login.html）跑 hosted 那几份测试 |
 | 把对外版发布到阿里云 / 上线后的日常运维（日志、更新、备份、找回密码） | `docs/deploy-listen-app.md`；物料在 `deploy/`、依赖清单 `requirements.txt` |
 | 改点词讲解的提示词（`specs/SPEC-006-word-card.md`） | `pipeline/explain.py`：那一行的规则在 `RULES`（备课整句写用 `LINES`，漏了补查用 `LINE`），改完 `teach.py <课> --renote`；展开的在 `MORE`，改完删 `lessons/<课>/explain_cache.json`。抽查 `explain.py sample <课> <句数> --more` |
 | 改界面 | 先加载 frontend-design 技能再动手（ZCode 里就有；owner 2026-09-28 验收上传面板「设计得真难看」后定的），按真正的前端设计标准做（owner 2026-09-21 要求）；改完跑 `tests/test_player.py --shots <目录>` 看截图 |

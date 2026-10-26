@@ -38,6 +38,7 @@
 | 8798 | `tests/test_audio.py` 自己起的服务 |
 | 8770 | 口语实验页（`pipeline/speak_lab.py` 的 HTTP：页面、提示词），本地实验用，不进对外版 |
 | 8771 | 口语实验页的 WebSocket 桥（网页 ⇄ 百炼 Realtime） |
+| 8790 | 对外模式的**本地验收版**：双击 `start-hosted.bat`（`serve.py --hosted`，读仓库根 gitignore 的 server-config.json）；owner 验收新功能用（D54），访客免登录直接听公共课库（SPEC-009 v7）。服务器上也用这个端口（Caddy 反代过来） |
 | 随机空闲端口 | `tests/test_stable_copy.py`，和换版本时试起新版本的那一次 |
 
 测试各用各的端口，owner 开着播放器时也能跑测试。owner 用的是体验版，claude 改开发版不影响他；新版本经页面上的「更新」过去（`specs/SPEC-008-stable-and-dev.md` 操作手册）。

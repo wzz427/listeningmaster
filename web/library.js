@@ -8,7 +8,10 @@
  * 2026-09-28 owner 验收后的五条（SPEC-009 v6）：登录只问邮箱密码（记住邮箱，第二次只输密码）；
  * 空库不挡路——播放器照常进场，卡片里给一句邀请，没有遮罩没有「必须先上传」；
  * 上传面板重设计——选音频的拖放区是主角、「上传」垫底通栏；讲稿是可选的文件（TXT/PDF/MD，
- * 传完还能在材料上补），不是粘贴；「来源」改叫「系列」。 */
+ * 传完还能在材料上补），不是粘贴；「来源」改叫「系列」。
+ *
+ * 2026-10-26 免登录体验（SPEC-009 v7）：访客不注册直接听公共库——侧边栏只剩课区（标题「听力材料」），
+ * 没有材料区和上传按钮，底部一个小「登录」入口；/api/library 的 user 字段（null＝匿名）驱动这一切。 */
 
 'use strict';
 
@@ -22,8 +25,9 @@ const fmtMB = (bytes) => `${(bytes / 1048576).toFixed(1)}MB`;
 const safeGet = (key) => { try { return localStorage.getItem(key); } catch { return null; } };
 const LIB_WIDE = 'listening:sidebar';   // 侧边栏开还是收：记住选择；第一次进站自动展开一次
 
-let lib = { materials: [], lessons: [] };   // 最近一次 /api/library 的数据（课按新到旧排）
-let libFetchedAt = 0;                       // 拿到这份数据的时刻（备课已用时在本地接着数，不用每秒去问）
+let lib = { user: null, materials: [], lessons: [] };   // 最近一次 /api/library 的数据（课按新到旧排）
+let who = null;                                // 现在是哪位（null＝匿名访客，SPEC-009 v7）
+let libFetchedAt = 0;                          // 拿到这份数据的时刻（备课已用时在本地接着数，不用每秒去问）
 let preppingIds = new Set();                // 上一眼里备课中的材料：用来发现「变课的那一刻」
 let freshLessons = new Set();               // 刚从材料变来的课：画一次高亮
 let freshMaterial = null;                   // 刚传上来的材料：画一次高亮
@@ -76,6 +80,7 @@ async function fetchLibrary() {
     if (r.status === 401) { location.replace('/login'); return null; }   // 会话没了
     if (!r.ok) return null;
     const data = await r.json();
+    who = data.user || null;   // null＝匿名访客：只有公共库的课，没有材料区（SPEC-009 v7）
     data.lessons = (data.lessons || []).sort((a, b) => (a.lesson < b.lesson ? 1 : a.lesson > b.lesson ? -1 : 0));
     return data;
   } catch {
@@ -83,14 +88,32 @@ async function fetchLibrary() {
   }
 }
 
-/* 空库的播放器：没有遮罩、不挡路。卡片里一句邀请＋一步行动；左边资料库里可能还有材料在备。 */
+/* 身份应用到处（v7）：匿名的界面没有上传、没有登出、课区不叫「我的课」；已登录的和原来一模一样。 */
+function applyIdentity() {
+  el('uploadBtn').hidden = !who;
+  el('logoutBtn').hidden = !who;
+  el('loginLink').hidden = Boolean(who);
+  el('libLessonsH').textContent = who ? '我的课' : '听力材料';
+}
+
+/* 空库的播放器：没有遮罩、不挡路。卡片里一句邀请＋一步行动；左边资料库里可能还有材料在备。
+ * 匿名访客（v7）没有上传一说：只说内容在路上，不摆按钮。 */
 function showEmptyPlayer() {
   const withMaterials = lib.materials.length > 0;
+  const btn = el('emptyAct');
+  if (!who) {
+    el('emptyTitle').textContent = '内容马上就来';
+    el('emptyText').textContent = '公共听力库正在准备第一课，回头再来听。';
+    btn.hidden = true;
+    el('emptyHint').hidden = false;
+    document.body.classList.add('no-lesson');
+    return;
+  }
+  btn.hidden = false;
   el('emptyTitle').textContent = withMaterials ? '还没有备好的课' : '资料库还是空的';
   el('emptyText').textContent = withMaterials
     ? '已上传的材料在左边的资料库里，点「备课」，几分钟后就变成一节课。'
     : '从左边的资料库传一集 BBC 音频（mp3 和讲稿文件），点一下「备课」，几分钟就能听。';
-  const btn = el('emptyAct');
   btn.textContent = withMaterials ? '打开资料库' : '上传一集';
   btn.dataset.mode = withMaterials ? 'lib' : 'upload';
   el('emptyHint').hidden = false;
@@ -118,6 +141,7 @@ function setLibraryOpen(open) {
 
 function renderLibrary() {
   const pageLesson = new URLSearchParams(location.search).get('lesson');
+  applyIdentity();
 
   // 先看上一眼备课中的材料有没有变课（要给高亮和顶部通知）
   const nowPrepping = new Set(lib.materials.filter((m) => m.state === 'prepping').map((m) => m.id));
@@ -148,11 +172,12 @@ function renderLibrary() {
   });
   el('libLessons').hidden = !lib.lessons.length;
 
-  // 材料区：serve.py 已按状态排好（备课中最上、失败次之、未备课在后）
+  // 材料区：serve.py 已按状态排好（备课中最上、失败次之、未备课在后）；匿名访客服务端就给空的
   const matBox = el('libMaterialList');
   matBox.innerHTML = '';
   lib.materials.forEach((m) => matBox.appendChild(materialRow(m)));
   el('libMaterials').hidden = !lib.materials.length;
+  el('libEmpty').textContent = who ? '上传一集材料，开始你的听力库' : '现在还没有可以听的课，回头再来';
   el('libEmpty').hidden = Boolean(lib.lessons.length || lib.materials.length);
 
   freshLessons.clear();

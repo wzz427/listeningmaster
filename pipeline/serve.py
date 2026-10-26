@@ -10,11 +10,12 @@
 本地模式还管换版本（SPEC-008）：/api/version 告诉页面服务是哪一版、有没有钉着一版等 owner 点「更新」；
 /api/update 是那颗「更新」：服务以退出码 7 停下，启动它的循环（pipeline/stable_copy.py run）换版本再起回来。
 
-对外模式（--hosted，SPEC-009 v3）：
-- 账号挡整个站：页面、音频、每个接口都先查会话 cookie，没有就到登录页（pipeline/accounts.py）；
-- 注册（邮箱＋密码＋邀请码）/ 登录 / 登出；
+对外模式（--hosted，SPEC-009 v7）：
+- 访客直接用：不登录就能进页面、听公共库（server-data/shared/lessons/）的课、点词现查；
+  上传、备课、删材料、补讲稿才要登录（pipeline/accounts.py），注册仍要邀请码；
+- /lessons/ 按身份指路：已登录先看自己的目录（各账号互不可见），没有的课落公共库；匿名只有公共库；
 - 所有响应带 X-Robots-Tag: noindex（不被搜索引擎收录）；
-- POST 接口按 IP 限流（每分钟 30 次；经反代时取 X-Forwarded-For 的第一个）；
+- POST 接口按 IP 限流（每分钟 30 次；经反代时取 X-Forwarded-For 的第一个）——访客点词也在这层保护里；
 - 换版本机制整个关掉：/api/version 恒报 hosted、无「更新」，/api/update 404。
 
 独占端口：Python 自带的 HTTPServer 会打开「地址可复用」，在 Windows 上这等于允许第二个服务同时占同一个端口，
@@ -161,6 +162,7 @@ class Server(ThreadingHTTPServer):
     hosted_config: dict = {}      # 对外模式的配置（invite、data_dir、secure_cookie、max_upload_mb、prep_command、materials_root/lessons_root）
     prep_queue: "queue.Queue | None" = None   # 备课任务队列（对外模式起服务时建）
     secure_cookie = False         # 对外模式在 HTTPS 后面时给 cookie 加 Secure
+    shared_root = None            # 公共课库 <data_dir>/shared（SPEC-009 R14）：匿名访客听的就是它
     _rl_lock = threading.Lock()
     _rl: dict[str, list] = {}     # ip -> [窗口起点, 已计次]
 
@@ -177,7 +179,7 @@ class Server(ThreadingHTTPServer):
 
 
 class RangeHandler(SimpleHTTPRequestHandler):
-    """支持 Range 的静态文件服务；对外模式多挡一层账号（SPEC-009）。"""
+    """支持 Range 的静态文件服务；对外模式给 /lessons/ 按身份指路、访客也能听公共库（SPEC-009）。"""
 
     def end_headers(self) -> None:
         self.send_header("Accept-Ranges", "bytes")
@@ -206,17 +208,21 @@ class RangeHandler(SimpleHTTPRequestHandler):
         return self.client_address[0]
 
     def translate_path(self, path: str) -> str:
-        """对外模式：/lessons/... 指到该账号自己的课目录（server-data/<账号id>/lessons/），
-        各账号互不可见（SPEC-009 R5）；其余路径照旧。"""
+        """对外模式：/lessons/... 按身份指路——已登录先指自己的课目录（server-data/<账号id>/lessons/，
+        各账号互不可见，SPEC-009 R5），自己没有的课落公共库（server-data/shared/，人人可听，R14）；
+        没登录的只指公共库。其余路径照旧。"""
         fs = super().translate_path(path)
-        if self.server.hosted:
+        if self.server.hosted and path.split("?")[0].split("/")[1:2] == ["lessons"]:
+            try:
+                rel = Path(fs).resolve().relative_to(ROOT.resolve())
+            except ValueError:
+                return fs
             email = self.session_email()
-            if email and path.split("?")[0].split("/")[1:2] == ["lessons"]:
-                try:
-                    rel = Path(fs).resolve().relative_to(ROOT.resolve())
-                except ValueError:
-                    return fs
-                return str(Path(self.server.accounts.dir) / self.server.accounts.account_id(email) / rel)
+            if email:
+                own = Path(self.server.accounts.dir) / self.server.accounts.account_id(email) / rel
+                if own.exists():
+                    return str(own)
+            return str(self.server.shared_root / rel)
         return fs
 
     # ---------- GET ----------
@@ -228,24 +234,18 @@ class RangeHandler(SimpleHTTPRequestHandler):
             return
         if self.server.hosted:
             email = self.session_email()
-            if not email:
-                if path.startswith("/api/"):
-                    self.send_json(401, {"error": "请先登录"})
-                elif path in ("/", "/login"):
-                    self.serve_file_bytes(ROOT / "web" / "login.html", "text/html; charset=utf-8")
-                else:  # 页面、音频、一切：没有会话一律去登录页（SPEC-009 R1：直链也打不开）
-                    self.send_response(303)
-                    self.send_header("Location", "/login")
-                    self.end_headers()
-                return
             if path == "/api/library":
-                self.send_json(200, self.library(email))
+                self.send_json(200, self.library(email))  # 匿名也进得来：公共库的课（R1 放访客进门）
+                return
+            if path == "/login" and not email:
+                self.serve_file_bytes(ROOT / "web" / "login.html", "text/html; charset=utf-8")
                 return
             if path in ("/", "/login"):
-                self.send_response(303)
+                self.send_response(303)  # 登录不登录都直接进播放器，不再逼人先注册（R1）
                 self.send_header("Location", "/web/")
                 self.end_headers()
                 return
+            # 其余（/web/ 页面、/lessons/ 音频）：匿名也放行；translate_path 把课指到公共库或账号目录
         range_header = self.headers.get("Range")
         path_fs = self.translate_path(self.path)
         if not range_header or os.path.isdir(path_fs):
@@ -338,16 +338,18 @@ class RangeHandler(SimpleHTTPRequestHandler):
                     return
                 self.handle_material_script(email)
                 return
-            if not email:
-                self.send_json(401, {"error": "请先登录"})
+            if not email and self.path.split("?")[0] not in ("/api/explain", "/api/more", "/api/speak"):
+                self.send_json(401, {"error": "请先登录"})  # 上传、备课、删材料、补讲稿仍要登录；点词现查放访客用（R1）
                 return
         try:
             body = json.loads(self.rfile.read(int(self.headers.get("Content-Length") or 0)) or b"{}")
             lesson = str(body.get("lesson", ""))
             lessons_root = None
-            if self.server.hosted:  # 对外模式：课住该账号目录（SPEC-009 R5）
+            if self.server.hosted:  # 对外模式按身份指课目录：自己的优先，没有的课落公共库（R5、R14）
                 accounts = self.server.accounts
-                lessons_root = Path(accounts.dir) / accounts.account_id(email) / "lessons"
+                candidates = ([Path(accounts.dir) / accounts.account_id(email) / "lessons"] if email
+                              else []) + [self.server.shared_root / "lessons"]
+                lessons_root = next((c for c in candidates if (c / lesson / "lesson.json").exists()), candidates[-1])
             lesson_json = (lessons_root or ROOT / "lessons") / lesson / "lesson.json"
             if not LESSON_NAME.fullmatch(lesson) or not lesson_json.exists():
                 self.send_json(404, {"error": "没有这一课"})
@@ -520,28 +522,20 @@ class RangeHandler(SimpleHTTPRequestHandler):
         (mdir / ("script.pdf" if ext == ".pdf" else "script.txt")).write_bytes(data)
         self.send_json(200, {"ok": True})
 
-    def library(self, email: str) -> dict:
-        """侧边栏的数据（SPEC-009 R8）：该账号的材料（带状态）和课（带元数据）。
-        材料按状态排：备课中最上、失败次之、未备课在后；已变课的不占材料区。"""
+    def library(self, email: str | None) -> dict:
+        """侧边栏的数据（SPEC-009 R8）。已登录：该账号的材料（带状态）＋自己的课＋公共库的课；
+        匿名：只有公共库的课，材料区为空（R1 放访客直接听）。user 字段让页面知道现在是哪位（匿名为 null）。"""
         accounts = self.server.accounts
-        base = Path(accounts.dir) / accounts.account_id(email)
-        order = {"prepping": 0, "failed": 1, "new": 2}
         materials = []
-        mdir = base / "materials"
-        if mdir.is_dir():
-            for meta_file in sorted(mdir.glob("*/meta.json")):
-                meta = _read_json(meta_file)
-                if not meta or meta.get("state") == "done":
-                    continue
-                if meta.get("state") == "prepping" and meta.get("prepping_since"):
-                    meta["prepping_for"] = int(time.time() - meta["prepping_since"])
-                meta["has_script"] = any((meta_file.parent / f"script.{e}").exists() for e in ("txt", "pdf"))
-                materials.append(meta)
-        materials.sort(key=lambda m: (order.get(m.get("state"), 9), -(m.get("uploaded_at") or 0)))
         lessons = []
-        ldir = base / "lessons"
-        if ldir.is_dir():
+        names = set()
+
+        def collect_lessons(ldir: Path) -> None:
+            if not ldir.is_dir():
+                return
             for lesson_file in sorted(ldir.glob("*/lesson.json")):
+                if lesson_file.parent.name in names:
+                    continue  # 和公共库重名：自己的优先
                 try:
                     d = json.loads(lesson_file.read_text(encoding="utf-8"))
                 except Exception:
@@ -555,7 +549,25 @@ class RangeHandler(SimpleHTTPRequestHandler):
                     "duration": round(max((s.get("end") or 0) for s in sentences), 1) if sentences else 0,
                     "sections": len(d.get("sections") or []),
                 })
-        return {"materials": materials, "lessons": lessons}
+                names.add(lesson_file.parent.name)
+
+        if email:  # 材料只属于账号；访客没有材料区
+            base = Path(accounts.dir) / accounts.account_id(email)
+            order = {"prepping": 0, "failed": 1, "new": 2}
+            mdir = base / "materials"
+            if mdir.is_dir():
+                for meta_file in sorted(mdir.glob("*/meta.json")):
+                    meta = _read_json(meta_file)
+                    if not meta or meta.get("state") == "done":
+                        continue
+                    if meta.get("state") == "prepping" and meta.get("prepping_since"):
+                        meta["prepping_for"] = int(time.time() - meta.get("prepping_since"))
+                    meta["has_script"] = any((meta_file.parent / f"script.{e}").exists() for e in ("txt", "pdf"))
+                    materials.append(meta)
+            materials.sort(key=lambda m: (order.get(m.get("state"), 9), -(m.get("uploaded_at") or 0)))
+            collect_lessons(base / "lessons")
+        collect_lessons(self.server.shared_root / "lessons")
+        return {"user": email, "materials": materials, "lessons": lessons}
 
     @staticmethod
     def _meta_state(mdir: Path) -> str:
@@ -629,8 +641,8 @@ class RangeHandler(SimpleHTTPRequestHandler):
 
 def make_server(port: int = stable_copy.PORT, managed: bool = False, hosted_config: dict | None = None) -> Server:
     """hosted_config：{"invite": 邀请码, "data_dir": 数据目录, "secure_cookie": bool, "bind": 绑哪个地址}——
-    给了就起对外模式。bind 默认 127.0.0.1；Caddy 跑在 docker 容器里的机器上要写 "0.0.0.0"
-    （容器经网桥 172.x.0.1 才够得着宿主机；对外仍靠轻量防火墙只放 80/443/22）。"""
+    给了就起对外模式（访客直接进，上传备课才要登录）。bind 默认 127.0.0.1；Caddy 跑在 docker 容器里
+    的机器上要写 "0.0.0.0"（容器经网桥 172.x.0.1 才够得着宿主机；对外仍靠轻量防火墙只放 80/443/22）。"""
     import accounts
     host = (hosted_config or {}).get("bind") or "127.0.0.1"
     server = Server((host, port), partial(RangeHandler, directory=str(ROOT)))
@@ -641,6 +653,7 @@ def make_server(port: int = stable_copy.PORT, managed: bool = False, hosted_conf
         server.hosted_config = hosted_config
         server.accounts = accounts.Accounts(hosted_config["data_dir"], invite_code=hosted_config["invite"])
         server.secure_cookie = bool(hosted_config.get("secure_cookie"))
+        server.shared_root = Path(server.accounts.dir) / "shared"  # 公共课库（R14）：匿名访客听的就是它
         server.prep_queue = queue.Queue()
         threading.Thread(target=_prep_worker, args=(server,), daemon=True).start()
     return server
@@ -675,7 +688,10 @@ if __name__ == "__main__":
         print(f"{port} 端口被别的服务占着，多半是还开着一个播放器的黑窗口。把它关掉再起。")
         sys.exit(1)
     if hosted:
-        print(f"对外模式已起：http://127.0.0.1:{port}/login　（躲在反代后面用；关掉这个窗口就停止）")
+        url = f"http://localhost:{port}/"
+        print(f"对外模式已起：{url}　（访客直接进，不用登录；登录页在 /login。关掉这个窗口就停止）")
+        if "--open" in sys.argv:
+            webbrowser.open(url)
     else:
         print(f"播放器地址：http://localhost:{port}/web/　（关掉这个窗口就停止）")
         if "--open" in sys.argv:

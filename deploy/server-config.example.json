@@ -1,5 +1,5 @@
 {
-  "_说明": "复制成仓库根的 server-config.json 再改（server-config.json 不进 git）。invite 是注册邀请码，发给谁谁是熟人；secure_cookie 在 Caddy 的 HTTPS 后面必须是 true。bind 默认 127.0.0.1；Caddy 跑在 docker 容器里的机器（如 39.105.73.114）要写 0.0.0.0，容器经网桥才连得上宿主机，对外仍靠防火墙只放 80/443/22。",
+  "_说明": "复制成仓库根的 server-config.json 再改（server-config.json 不进 git）。对外模式（SPEC-009 v7）：访客不用登录直接听公共课库 server-data/shared/lessons/（只放 owner 拍板可公开的课）；invite 只是注册邀请码，发给要上传材料的熟人；secure_cookie 在 Caddy 的 HTTPS 后面必须是 true。bind 默认 127.0.0.1；Caddy 跑在 docker 容器里的机器（如 39.105.73.114）要写 0.0.0.0，容器经网桥才连得上宿主机，对外仍靠防火墙只放 80/443/22。",
   "invite": "把邀请码写在这里",
   "port": 8790,
   "bind": "127.0.0.1",

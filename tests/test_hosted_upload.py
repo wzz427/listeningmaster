@@ -92,7 +92,9 @@ try:
     check("A 的材料两条、课为零", len(lib_a["materials"]) == 2 and lib_a["lessons"] == [])
     check("材料状态都是未备课", all(m["state"] == "new" for m in lib_a["materials"]))
     resp, data = get(conn, "/api/library", cookie_b)
-    check("B 的资料库是空的（隔离）", json.loads(data) == {"materials": [], "lessons": []})
+    lib_b = json.loads(data)
+    check("B 的资料库是空的（隔离）",
+          lib_b.get("user") == "b@example.com" and lib_b["materials"] == [] and lib_b["lessons"] == [])
 
     # 讲稿落了盘、音频字节原样
     base_a = Path(server.accounts.dir) / server.accounts.account_id("a@example.com")
