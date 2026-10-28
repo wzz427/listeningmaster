@@ -36,6 +36,7 @@
 | 百炼报找不到文件或地址无效 | 录音文件转写模型只收公网地址，不收本地路径 | 用 `dashscope.utils.oss_utils.upload_file` 传到临时存储，并加请求头 `X-DashScope-OssResourceResolve: enable` |
 | 整目录搬完家，体验版里 git 命令全报 not a git repository，`worktree list` 报 prunable | worktree 靠绝对路径互指，拷贝后两头都指旧路径 | 改写体验版 `.git` 文件指向新主仓库＋`git worktree repair`；见下面 2026-10-25 那条 |
 | `test_stable_copy` 报「新版本的服务起不来（退出码 1）」 | serve.py 重写后启动要 `import accounts`，测试自建最小仓库的文件清单没跟着加 | 清单补 `accounts.py`；给 serve.py 加启动 import 时同步补这类清单 |
+| 双击 .bat 页面打不开（2026-10-28，start-hosted.bat） | 两个可能都真实存在：服务窗口被关了（关窗即停服，页面自然 404）；bat 被编辑工具写成 LF 换行，不合 cmd 的 CRLF 惯例 | 页面打不开先 `netstat -ano | grep 8790` 看有没有人听；bat 落盘后一律转成 CRLF（`start-player.bat` 头注释早有此规） |
 
 ## 全部（新的在上）
 
