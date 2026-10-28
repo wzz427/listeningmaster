@@ -1,0 +1,37 @@
+# 听力站·应用容器：与生产网关共用 deploy_default 网络，网关按容器名反代
+# （reverse_proxy listeningapp:8790，站点块见 docs/deploy-listen-app.md）。
+# 镜像里的代码随构建定死；账号数据、备课台、密钥、配置、发音词典全是挂载卷——
+# 升级＝重新 build 起新容器，数据不动；回滚＝用旧镜像 tag 重跑（指南 §6.6）。
+# 用法：把下面的 TAG 换成要跑的镜像 tag（sed -i 's/:TAG/:<新tag>/' 本文件）再
+#   docker compose -f deploy/docker-compose.yml up -d
+services:
+  listeningapp:
+    image: listening-app:TAG
+    container_name: listeningapp
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "20m"
+        max-file: "3"
+    environment:
+      - TZ=Asia/Shanghai   # 日志时间戳按北京时间读
+    volumes:
+      # 密钥和配置是宿主机上的单文件（600，永不入库）；先放好再 up——
+      # 宿主机上没有这个文件的话 Docker 会建出同名目录，服务起不来
+      - /opt/listening/api-keys.txt:/opt/listening/api-keys.txt:ro
+      - /opt/listening/server-config.json:/opt/listening/server-config.json:ro
+      # 账号数据（各家的库＋公共课库＋会话）和备课台（六步程序写死的 ROOT/materials、ROOT/lessons）
+      - /opt/listening/server-data:/opt/listening/server-data
+      - /opt/listening/materials:/opt/listening/materials
+      - /opt/listening/lessons:/opt/listening/lessons
+      # 共享发音词库的 base 层（服务器部署指南 §4.1，/opt/bayescode/audio）：
+      # 备课拷词只读这一层；词典里没有的词点的时候百炼现读、存进课里，不写词库
+      - /opt/bayescode/audio/base/google_en-GB:/opt/WordsAudio/google_en-GB:ro
+    networks:
+      - tinker
+
+networks:
+  tinker:
+    external: true
+    name: deploy_default

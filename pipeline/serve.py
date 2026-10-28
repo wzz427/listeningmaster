@@ -245,7 +245,13 @@ class RangeHandler(SimpleHTTPRequestHandler):
                 self.send_header("Location", "/web/")
                 self.end_headers()
                 return
-            # 其余（/web/ 页面、/lessons/ 音频）：匿名也放行；translate_path 把课指到公共库或账号目录
+            # 其余 GET 只放行 /web/ 页面、/lessons/ 音频、/api/：网站根下还有密钥和账号数据
+            # （api-keys.txt、server-config.json、server-data/），一个都不许当静态文件吐出去
+            # ——2026-10-28 上线前实测堵上：此前匿名 GET /api-keys.txt 直接 200。
+            # translate_path 把 /lessons/ 的课指到公共库或账号目录。
+            if path.split("/")[1:2] not in (["web"], ["lessons"], ["api"]):
+                self.send_error(404)
+                return
         range_header = self.headers.get("Range")
         path_fs = self.translate_path(self.path)
         if not range_header or os.path.isdir(path_fs):
@@ -288,6 +294,15 @@ class RangeHandler(SimpleHTTPRequestHandler):
                     break
                 self.wfile.write(chunk)
                 remaining -= len(chunk)
+
+    def do_HEAD(self) -> None:  # noqa: N802
+        """对外模式的 GET 白名单同样管 HEAD：不然 HEAD /api-keys.txt 还是 200，文件在不在能探到。"""
+        if self.server.hosted:
+            path = self.path.split("?")[0]
+            if path.split("/")[1:2] not in (["web"], ["lessons"], ["api"]) and path not in ("/", "/login"):
+                self.send_error(404)
+                return
+        super().do_HEAD()
 
     # ---------- POST ----------
 

@@ -1,0 +1,14 @@
+# 这些不进镜像：密钥/配置/数据是运行时挂载卷（红线），材料/课/测试/文档是开发机的东西。
+api-keys.txt
+server-config.json
+server-data
+materials
+lessons
+tests
+docs
+specs
+demand.md
+开发密钥.md
+.git
+__pycache__
+*.pyc
