@@ -1,158 +1,125 @@
-# listening.app 上线手册（阿里云轻量服务器）
+# listening.app 上线手册（阿里云 ECS 182.92.206.53，容器形态）
 
-> 答什么：把对外版发布到 `listening.app.bayescode.com`（39.105.73.114）的完整操作——装代码、铺公共课库、起服务、接 Caddy、验证、日常运维。谁读：claude 部署时照着做；owner 想看自己那几步（DNS、发网址）也读这份。
-> 状态：2026-10-26 随免登录版（v7）更新：访客直接听公共课库、域名从 listen-app 改 listening.app；**先本地验收版（owner 双击 `start-hosted.bat`）确认后才按本手册动服务器**（D54）。规格出处 `specs/SPEC-009-hosted-trial.md` R10 到 R14。
-> 密钥规矩：本手册**一个密钥都不含**。SSH 账号、服务器密码见 `docs/refs/阿里云配置指南.md`（它永不入库）；模型密钥用仓库根的 `api-keys.txt` 原样拷过去。
+> 答什么：把对外版发布到 `listening.app.bayescode.com`（182.92.206.53）的完整操作——上代码、共享发音词库、起容器、接网关、验证、日常运维、回滚。谁读：claude 部署时照着做；owner 想看自己那几步（验收、发网址）也读这份。
+> 状态：2026-10-28 随首次部署改版：机器从轻量 39.105.73.114 换到 BayesCode 统一部署机 182.92.206.53（owner 给了《服务器部署指南》，兄弟软件「羊了个词」已在这台上；`*.app.bayescode.com` 泛解析已指向它，**DNS 一条都不用加**），形态从宿主机 systemd 换成应用容器（网关统一按容器名反代）。首次部署已按本手册完成，见文末发版记录。规格出处 `specs/SPEC-009-hosted-trial.md` R10 到 R14。
+> 密钥规矩：本手册**一个密钥都不含**。SSH 钥匙按《服务器部署指南》§7 用 `~/.ssh/tinkercode_deploy`（内容永不入库）；模型密钥用仓库根的 `api-keys.txt` 原样拷过去（600）。
 
 ## 红线（先读）
 
-- **上线动作**：owner 本地验收说过之后才动服务器；网址发出去访客就能听（不需要邀请码），邀请码只发给要上传材料的熟人（SPEC-009 R13、D53）。
-- **花钱的一步**：第一次在服务器上备真材料会调百炼识别和 DeepSeek（几毛钱一集），跑之前跟 owner 说一声。
-- **不碰别人的站**：这台机器上还跑着 TinkerCode 的回滚备胎和课程官网。改 Caddy 前先拉回留底 diff（指南坑⑦）；其它一概不动。
-- 服务器上三个文件永不入库、不外发：`api-keys.txt`、`server-config.json`、`server-data/`（各家资料库＋公共课库）。**各家账号里的材料不进公共库**（R14 红线）。
+- **上线动作**：owner 本地验收（双击 `start-hosted.bat`）说过之后才动服务器（D54）；网址发不发出去、发给谁，发起权在 owner。邀请码只发给要上传材料的熟人（SPEC-009 R13、D53）。
+- **花钱的一步**：服务器上备真材料会调百炼识别和 DeepSeek（几毛钱一集），跑之前跟 owner 说一声。
+- **不碰别人的站**：这台机器跑着 TinkerCode 网关栈和羊了个词全家。网关 Caddyfile 改前先备份、改完先 validate 再 reload；羊了个词和别的容器一概不动。
+- **compose 项目名**：我们的 compose 必须带 `name: listening`——不写会取目录名 `deploy`，和网关栈、羊了个词撞项目名，`down`/`--remove-orphans` 会把别人的容器当孤儿清掉（2026-10-28 部署时撞见，已修）。
+- 服务器上这些永不入库、不外发：`api-keys.txt`、`server-config.json`、`server-data/`（各家资料库＋公共课库）。**各家账号里的材料不进公共库**（R14 红线）。
+- 《服务器部署指南》在兄弟软件仓 `SheepAndWord/.ai-local/docs/`（owner 私有区，永不入库、不外传）；本文只写我们这一摊。
 
-## 前提
+## 服务器是什么形状（和 39.105.73.114 不同在哪）
 
-| 要什么 | 谁给 | 备注 |
-|---|---|---|
-| 机器 39.105.73.114 的 SSH | 指南 | 轻量 2核4G，root 登录 |
-| Python ≥ 3.10 | 服务器自带 | `python3 --version` 先看一眼；serve.py/accounts.py 用了 `X \| Y` 类型写法 |
-| DNS 控制台 | owner | 第 6 步加 A 记录 |
-| 发音词典 | 开发机 `..\WordsAudio\`（587MB） | 和仓库并排；服务器上也并排放 |
+- 一台 ECS 跑 BayesCode 全部应用：**网关 Caddy 是容器 `deploy-caddy-1`**（宿主机配置 `/opt/tinkercode/deploy/Caddyfile` 只读挂进去，占 80/443，证书全自动），各应用容器挂 `deploy_default` 网络，网关按**容器名**反代。
+- 我们没有静态容器：整站都要过会话门、音频带账号指路，拆静态层会绕过权限——就一个应用容器 `listeningapp`（镜像 `listening-app:<git短sha>`，跑 `serve.py --hosted`）。
+- 共享发音词库根 `/opt/bayescode/audio/`（指南 §4.1）：`base/google_en-GB/`（5 万真人英音，和羊了个词同源）＋ `apps/<应用>/`（各应用补库）。我们备课拷词只读 base 层，挂进容器 `/opt/WordsAudio/google_en-GB`；词典里没有的词点的时候百炼现读、存课里，不写词库。
+- 密钥和配置不进镜像（`.dockerignore` 挡着）：宿主机 `/opt/listening/` 下的 `api-keys.txt`、`server-config.json` 以单文件只读挂进容器。
 
-## 1. 上代码
-
-从开发机（Git Bash）打包传过去。**必须带 `-c core.autocrlf=false`**：不然 Git 在 Windows 上把文本文件换行改成 CRLF，`.service`、`.conf` 在 Linux 上会出鬼（指南坑⑧）。
+## 1. 上代码、密钥、公共课库
 
 ```bash
+# 代码（Git Bash；必须带 -c core.autocrlf=false，不然换行变 CRLF 在 Linux 出鬼）
 git -c core.autocrlf=false archive --format=tar HEAD \
-  | ssh root@39.105.73.114 "mkdir -p /opt/listening && tar -x -C /opt/listening"
-# 核对传了多少个文件（两边数一样才对）
-git ls-tree -r HEAD --name-only | wc -l
-ssh root@39.105.73.114 "cd /opt/listening && find . -type f | wc -l"
+  | ssh -i ~/.ssh/tinkercode_deploy root@182.92.206.53 "mkdir -p /opt/listening && tar -x -C /opt/listening"
+git ls-tree -r HEAD --name-only | wc -l     # 两边数一样才对
+ssh -i ~/.ssh/tinkercode_deploy root@182.92.206.53 "cd /opt/listening && find . -type f | wc -l"
+
+# 密钥和配置（先放好再起容器——宿主机没有这个文件的话 Docker 会建出同名目录）
+scp -i ~/.ssh/tinkercode_deploy api-keys.txt root@182.92.206.53:/opt/listening/
+ssh -i ~/.ssh/tinkercode_deploy root@182.92.206.53   # 照 deploy/server-config.example.json 写
+  #   server-config.json：invite 真邀请码、bind 必须 "0.0.0.0"（容器网络）、secure_cookie true
+  chmod 600 /opt/listening/api-keys.txt /opt/listening/server-config.json
+  mkdir -p /opt/listening/server-data/shared /opt/listening/materials /opt/listening/lessons
+
+# 公共课库（访客听的就是它，只放 owner 拍板可公开的课，R14/D51）
+cd server-data/shared && tar -cf - lessons \
+  | ssh -i ~/.ssh/tinkercode_deploy root@182.92.206.53 "tar -x -f - -C /opt/listening/server-data/shared"
 ```
 
-发音词典并排放（`tts.py` 按「仓库旁边找 `../WordsAudio`」取，备课拷词的朗读用）：
+发音词典**不用传**：服务器上已有（羊了个词先铺的），第一次部署时已按指南 §4.1 落位共享根：
+`cp -al /opt/sheep-and-word/audio/google_en-GB /opt/bayescode/audio/base/google_en-GB`（硬链接，不占新空间）。
+
+## 2. 建镜像、起容器
 
 ```bash
-cd .. && tar -cf - WordsAudio | ssh root@39.105.73.114 "tar -x -f - -C /opt/"
-```
-
-密钥和配置（都不在 archive 里，单独放）。**`bind` 必须写 `"0.0.0.0"`**：那台机器的 Caddy 在 docker 容器里，容器经网桥 172.18.0.1 来连宿主机，服务只绑 127.0.0.1 的话够不着（2026-09-28 实测踩的）；对外仍只靠轻量防火墙放行 80/443/22。
-
-```bash
-scp api-keys.txt root@39.105.73.114:/opt/listening/
-ssh root@39.105.73.114
-  cd /opt/listening
-  cp deploy/server-config.example.json server-config.json
-  vi server-config.json        # invite 改成真邀请码；加 "bind": "0.0.0.0"；secure_cookie 保持 true
-  chmod 600 api-keys.txt server-config.json
-  useradd --system --home /opt/listening --shell /usr/sbin/nologin listen
-  chown -R listen:listen /opt/listening /opt/WordsAudio
-```
-
-## 1b. 铺公共课库（访客听的就是它，SPEC-009 R14）
-
-访客不登录，听到的是 `server-data/shared/lessons/` 里的课。第一课《咖啡》2026-09-28 部署验证时已经备好在 deploy-check 账号里，拷出来就行：
-
-```bash
-ssh root@39.105.73.114
-  cd /opt/listening
-  mkdir -p server-data/shared/lessons
-  cp -r server-data/*/lessons/260821 server-data/shared/lessons/    # 只有一个账号有这课（deploy-check）
-  chown -R listen:listen server-data
-  cat server-data/shared/lessons/260821/lesson.json | head -5      # 核对：title 是 Coffee
-```
-
-以后往公共库加课＝把备好的课目录拷进 `shared/lessons/`，不用改代码；**只放 owner 拍板可公开的课**（D51：仓库里的 BBC 素材定位 sample 可以公开；各家账号上传的材料永远不进公共区）。
-
-## 2. Python 环境
-
-服务器是 Ubuntu 22.04 / Python 3.10（够用；numpy 装到 2.2.6，见 `requirements.txt` 注释）。
-
-```bash
+ssh -i ~/.ssh/tinkercode_deploy root@182.92.206.53
 cd /opt/listening
-python3 -m venv venv          # 报 ensurepip 缺失就先 apt-get install -y python3.10-venv
-venv/bin/pip install -i https://mirrors.aliyun.com/pypi/simple/ -r requirements.txt
+docker build -f deploy/Dockerfile -t listening-app:$(git 不在服务器上，用开发机的 git 短 sha) .   # 例 listening-app:934f5488
+sed -i "s/:TAG/:<同一个sha>/" deploy/docker-compose.yml
+docker compose -f deploy/docker-compose.yml config --quiet   # 配置没毛病再起
+docker compose -f deploy/docker-compose.yml up -d
+docker ps --filter name=listeningapp     # Up 才算数
+# 内部烟测（网关容器按容器名来连，模拟将来网关走的路）：
+docker exec deploy-caddy-1 wget -qO- http://listeningapp:8790/api/version   # "copy":"hosted"
 ```
 
-ffmpeg 不用 apt 装：`imageio-ffmpeg` 自带一个静态的，备课第一步用的就是它。
+镜像是代码＋依赖（`requirements.txt`）定死的；账号数据、备课台、密钥、配置、发音词典全是挂载卷——升级换镜像、数据不动。
 
-前台烟测（不花钱、不起服务）：用 `listen` 账号跑一下，匿名就能看到公共库，Ctrl+C 停掉。
+## 3. 网关加站点块
 
 ```bash
-sudo -u listen /opt/listening/venv/bin/python pipeline/serve.py --hosted
-# 另开一个终端（都是匿名，不用登录）：
-#   curl http://127.0.0.1:8790/login            → 登录页的 HTML（给已有账号的人）
-#   curl http://127.0.0.1:8790/api/library      → {"user":null,...,"lessons":[Coffee 那条]}
+ssh -i ~/.ssh/tinkercode_deploy root@182.92.206.53
+cp /opt/tinkercode/deploy/Caddyfile /opt/tinkercode/deploy/Caddyfile.bak-$(date +%Y%m%d)-<原因>
+vim /opt/tinkercode/deploy/Caddyfile     # 文末追加 deploy/caddy-listen-app.conf 里的块
+docker exec deploy-caddy-1 caddy validate --config /etc/caddy/Caddyfile   # 必过才 reload
+docker exec deploy-caddy-1 caddy reload  --config /etc/caddy/Caddyfile
 ```
 
-## 3. systemd 常驻
+块内容（也存了一份在仓库 `deploy/caddy-listen-app.conf`）：`listening.app.bayescode.com { encode zstd gzip; reverse_proxy listeningapp:8790 }`。证书自动签：**新域名首签要几十秒**，这期间 curl 连不上不是挂了，等等再试。DNS 不用动（泛解析已指这台）。
 
-```bash
-cp /opt/listening/deploy/listening.service /etc/systemd/system/
-systemctl daemon-reload && systemctl enable --now listening
-systemctl status listening            # active (running)
-curl -s http://127.0.0.1:8790/api/version    # "copy":"hosted"
-journalctl -u listening -f           # 日志在这里（journald 自带轮转，指南坑⑩不用踩）
-```
+## 4. 验证清单（从免费到花钱，按顺序）
 
-## 4. Caddy 换站点块（这台机器的 Caddy 是 docker 容器，不是系统服务）
-
-2026-09-28 实况：Caddy 跑在容器 `deploy-caddy-1` 里（带着 TinkerCode 备胎栈 gateway/redis），占着 80/443；Caddyfile 在**宿主机** `/opt/tinkercode/deploy/Caddyfile`（只读挂进容器），上面有老域名、api、admin、bayescourse 四个块和 2026-09-28 加的 `listen-app.bayescode.com` 块——bayescourse 是活着的课程官网。
-
-```bash
-# ① 留底（坑⑦）
-ssh root@39.105.73.114 "cp /opt/tinkercode/deploy/Caddyfile /opt/tinkercode/deploy/Caddyfile.backup-<日期>"
-# ② 把旧 listen-app.bayescode.com 块整个删掉，换成 deploy/caddy-listen-app.conf 里的
-#    listening.app.bayescode.com 块（reverse_proxy 172.18.0.1:8790——容器里的 127.0.0.1 不是宿主机）
-# ③ 让容器优雅重载（不停机、不碰别的容器）：
-ssh root@39.105.73.114 "docker exec deploy-caddy-1 caddy reload --config /etc/caddy/Caddyfile"
-# ④ 验证：docker ps 三个容器都 Up/healthy；https://bayescourse.gewucode.cn 还是 200
-```
-
-证书不用管：DNS 指过来后 Caddy 自己签（几分钟内）；DNS 没指之前它会反复试、日志里报挑战失败，无害。旧域名从未公开发布过，删掉即可、不留跳转。
-
-## 5. DNS（owner 在阿里云控制台做）
-
-加一条 A 记录：`listening.app.bayescode.com` → `39.105.73.114`（各应用统一挂 app.bayescode.com 下，D53）。生效几分钟到半小时；顺手可把旧 `listen-app` 的记录删掉。
-
-## 6. 验证清单（从免费到花钱，按顺序）
-
-| # | 验什么 | 怎么验 | 规格出处 |
+| # | 验什么 | 怎么验 | 2026-10-28 结果 |
 |---|---|---|---|
-| 1 | 站开得起来、不被收录 | `curl -I https://listening.app.bayescode.com` → 303 到 /web/ 且有 `X-Robots-Tag: noindex` | A64 |
-| 2 | **访客不登录直接听** | 无痕窗口打开网址：侧边栏见《咖啡》、点开能播、点词出讲解；界面上没有上传按钮，底部有「登录」 | A62、A69 |
-| 3 | 访客碰不到账号里的材料 | 匿名直接 POST `/api/upload` → 401；拿账号里的课名拼 URL 匿名打不开 | A72、A78 |
-| 4 | 锁标正常 | 浏览器地址栏 HTTPS 锁标 | A68 |
-| 5 | 注册要邀请码、错码进不来 | 从侧边栏「登录」进注册页走一遍 | A72 |
-| 6 | 新账号空库待机、上传不自动备课 | 传一集 mp3，资料库里是带「备课」按钮的材料 | A73、A75 |
-| 7 | **真材料备课六步（花钱，先跟 owner 说）** | 传 BBC 一集 mp3＋讲稿文件（TXT/PDF/MD），点「备课」，几分钟后变课、能播、点词能查 | A76、A70 |
-| 8 | 两个账号互相看不见 | 注册第二个账号，看不到第一个的课；但公共库的课都看得到 | A73 |
-| 9 | 学习记录刷新还在 | 听几句刷新，进度点还是半满 | A71 |
-| 10 | 带宽 | 同时开几个标签听；卡到受不了记下来（顶约 15 路，R9 迁移触发） | 观察 |
+| 1 | 站开得起来、不被收录 | `curl -I https://listening.app.bayescode.com` → 303 到 /web/ 且有 `X-Robots-Tag: noindex` | ✅ |
+| 2 | **访客不登录直接听** | 无痕窗口打开：侧边栏四集、点开能播、点词出讲解；界面没有上传按钮、底部有「登录」 | ✅（Playwright 无头：真播放 26.5s→29.5s、零 JS 报错） |
+| 3 | **密钥和配置摸不到** | 匿名/登录 GET＋HEAD `/api-keys.txt`、`/server-config.json`、`/server-data/`、`/materials/`、`/pipeline/*` → 全 404（2026-10-28 堵的洞，serve.py GET/HEAD 白名单） | ✅ |
+| 4 | 访客碰不到账号里的材料 | 匿名 POST `/api/upload` → 401；拿账号里的课名拼 URL 匿名打不开 | ✅（401 实测；课名指路是老检查，hosted 测试 29 项盖着） |
+| 5 | 注册要邀请码、错码进不来 | 从侧边栏「登录」进注册页走一遍 | ✅（curl：错码「邀请码不对」、对码发 Secure+HttpOnly 会话） |
+| 6 | 音频拖动 | `curl -H "Range: bytes=100-200" …/lessons/260821/audio.m4a` → 206 | ✅ |
+| 7 | 登录态会话 | 注册/登录后 `/api/library` 的 `user` 是邮箱、自己的课和公共课都在 | ✅（探针账号 deploy-probe@bayescode.local） |
+| 8 | **真材料备课六步（花钱，先跟 owner 说）** | 传一集 mp3＋讲稿，点「备课」，几分钟后变课、能播、点词能查 | 首次部署没跑（四集是开发机备好传的）；下次有新材料时在服务器上首跑 |
+| 9 | 兄弟站无恙 | `curl -I https://sheep-and-word.app.bayescode.com` → 200 | ✅ |
 
-服务器上还能跑一遍自动检查做回归（要先装 playwright＋chromium，可选）：
+真浏览器全流程回归（不花钱）：开发机 `<pywork python>` 跑一份打生产站的 Playwright 检查（本次用的脚本存过 `C:\Users\wzzpk\AppData\Local\Temp\prod_play_check.py` 的形状：进站→侧边栏四集→Escape 收起→播《Coffee》→currentTime 前进→零报错）。
 
-```bash
-cd /opt/listening && sudo -u listen venv/bin/python tests/test_player.py --lesson <刚备好的课名>
-```
+## 5. 日常运维
 
-## 7. 日常运维
-
-- **看日志**：`journalctl -u listening -f`。备课卡在哪：看 `server-data/<账号id>/materials/<材料id>/meta.json` 的 `state` 和 `failed_step`；备课台（诊断现场）在仓库的 `materials/`、`lessons/` 下，失败不拆。
-- **重启**：`systemctl restart listening`（在线用户的会话不丢，会话落盘）。
-- **更新代码**：停服 → 打包覆盖 → 起服。`api-keys.txt`、`server-config.json`、`server-data/`、`venv/` 都不在包里，不会被覆盖。
+- **看日志**：`docker logs -f listeningapp`（json-file 自带 20m×3 轮转）。备课卡在哪：看 `server-data/<账号id>/materials/<材料id>/meta.json` 的 `state` 和 `failed_step`；备课台（诊断现场）在 `/opt/listening/materials/`、`/opt/listening/lessons/`，失败不拆。
+- **重启**：`docker restart listeningapp`（会话落盘，在线用户不掉线）。
+- **更新代码**（页面那边不用做更新机制，刷新就是新的，R4）：
   ```bash
-  ssh root@39.105.73.114 "systemctl stop listening"
-  git -c core.autocrlf=false archive --format=tar HEAD | ssh root@39.105.73.114 "tar -x -C /opt/listening"
-  ssh root@39.105.73.114 "systemctl start listening"
+  git -c core.autocrlf=false archive --format=tar HEAD | ssh -i ~/.ssh/tinkercode_deploy root@182.92.206.53 "tar -x -C /opt/listening"
+  ssh -i ~/.ssh/tinkercode_deploy root@182.92.206.53 \
+    "cd /opt/listening && docker build -f deploy/Dockerfile -t listening-app:<新sha> . \
+     && sed -i 's/:listening-app:[0-9a-f]*/:listening-app:<新sha>/' deploy/docker-compose.yml \
+     && docker compose -f deploy/docker-compose.yml up -d"
   ```
-  页面那边不用做更新机制：对外版一刷新就是新的（R4）。
-- **备份**：`server-data/` 是各家自己上传的资料库＋公共课库（`shared/`），丢了无法重建。定期 `tar -czf server-data-$(date +%F).tar.gz server-data/` 拉回开发机一份。
-- **找回密码**：没有自助（SPEC-009 不做），家长找 owner、owner 转给 claude：在服务器上用 `pipeline/accounts.py` 的存法给该邮箱重写一条密码哈希（PBKDF2，照 `register` 的写法生成），顺手清掉它的旧会话。
-- **下线/回滚**：`systemctl stop listening` 即下线；要连域名一起撤，把 Caddy 里 listening.app 那个站点块删掉 reload。代码回滚用留底的 `Caddyfile.backup-*` 和上一版 archive。
+  `api-keys.txt`、`server-config.json`、`server-data/`、`materials/`、`lessons/` 都不在镜像里，覆盖代码不影响它们。
+- **备份**：`server-data/` 是各家上传的资料库＋公共课库，丢了无法重建。定期打包拉回开发机：`ssh … 'cd /opt/listening && tar -czf - server-data' > server-data-$(date +%F).tar.gz`。
+- **找回密码**：没有自助（SPEC-009 不做），家长找 owner、owner 转给 claude：照 `pipeline/accounts.py` 的 `register` 写法生成 PBKDF2 哈希，在服务器 `server-data/accounts.json` 里重写该邮箱那条，顺手清它的旧会话。
+- **换邀请码**：改 `/opt/listening/server-config.json` 的 `invite` 后 `docker restart listeningapp`。
 
-## 8. 迁移（不急，写在这备忘）
+## 6. 回滚
 
-并发经常接近 15 路、或家长超过约 20 家 → 迁 ECS，照 `docs/refs/阿里云配置指南.md` §4 的从零搭机手册；这台轻量上的东西整体搬（代码、词典、server-data、Caddy 块）。
+| 出问题的层 | 回滚动作 |
+|---|---|
+| 应用（代码） | `sed` 把 compose 里的 tag 换回旧镜像 tag → `docker compose -f deploy/docker-compose.yml up -d`（旧镜像别删就有得回；数据卷不动） |
+| 网关配置 | `cp /opt/tinkercode/deploy/Caddyfile.bak-<…> /opt/tinkercode/deploy/Caddyfile && docker exec deploy-caddy-1 caddy validate --config /etc/caddy/Caddyfile && … caddy reload …` |
+| 下线整站 | 网关 Caddyfile 里删掉 listening 那个站点块 reload（域名就 404 了）；容器留着 `docker stop listeningapp` 也行 |
+
+## 7. 发版记录
+
+| 时间 | 操作人 | Commit | 镜像 tag / 回滚点 | 结论 |
+|---|---|---|---|---|
+| 2026-10-28 | claude（owner 下指令部署） | `934f5488` | `listening-app:934f5488`；网关备份 `Caddyfile.bak-20261028-add-listening` | 首次部署。验证清单 1-7、9 全过（第 8 项真材料备课留到下次）；同批堵了密钥泄露洞（对外模式 GET/HEAD 白名单），hosted 29 项全绿 |
+| 2026-09-28 | claude | （旧机 39.105.73.114 的部署，随换机作废） | 旧机 systemd 形态；机器已被 182.92.206.53 取代 | 旧机服务还在跑旧代码（含已堵的洞，域名从未公开）；**等 owner 发话再下线** |
+
+## 8. 旧机器（39.105.73.114）处置
+
+统一部署机定了 182.92.206.53 后旧机作废：上面还有 2026-09-28 部署的 systemd 版 `listening` 服务和 `/opt/listening`、`/opt/WordsAudio`。旧域名 `listen-app.bayescode.com` 的 DNS owner 已说可删。**下线动作（`systemctl disable --now listening`＋清目录）等 owner 发话再做**——那台还跑着别人的站，不急不动。

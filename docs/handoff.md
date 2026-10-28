@@ -6,6 +6,16 @@
 
 ## 现在在哪（最新在上）
 
+### 2026-10-28 · 部署上线：listening.app.bayescode.com 开站（统一部署机、容器形态）；部署前堵了一个密钥泄露真洞
+
+- owner 下指令部署，给了《服务器部署指南》（兄弟软件 SheepAndWord 的 `.ai-local/docs/`，私有区永不入库）：统一部署机 **182.92.206.53**（`*.app.bayescode.com` 泛解析已指它，**DNS 一条没加**）、网关容器 `deploy-caddy-1` 按容器名反代、各应用容器挂 `deploy_default`。他中途补了两句：谷歌发音词库兄弟软件已在用（已铺在服务器上）；要单独词典就按指南 §4 的共享规范来。
+- **形态**：就一个应用容器 `listeningapp`（镜像 `listening-app:934f5488`，`deploy/Dockerfile`＋`deploy/docker-compose.yml`；没有静态容器——整站过会话门、音频带账号指路，拆静态层会绕过权限）。密钥/配置/账号数据/备课台/发音词典全是挂载卷：升级换镜像、数据不动。词典按 §4.1 接**共享根** `/opt/bayescode/audio/base/google_en-GB`（硬链接羊了个词那份，零占空间；备课拷词只读它，缺词点了百炼现读、不写词库）。
+- **部署前堵了一个真洞**（老代码 2026-09-28 起就有，旧域名没公开所以没出过事）：对外模式 GET/HEAD 没有白名单，匿名 `GET /api-keys.txt`、`/server-config.json`（含邀请码）直接 200。修法：serve.py GET/HEAD 白名单只放行 `/web/`、`/lessons/`、`/api/`；hosted 测试加 5 项（29 全绿），player 84、upload 22、prep 11、frontend 27、accounts 14、docs 26 全过。
+- **踩了一个 compose 坑**：项目名不写默认取目录名 `deploy`，和网关栈、羊了个词撞名——这边跑 `down`/`--remove-orphans` 会把别人容器当孤儿清掉。compose 加 `name: listening` 修死。
+- **验证**（全过）：303→/web/＋noindex；四集公共课匿名可听、真播放前进（Playwright 无头 26.5s→29.5s、零 JS 报错）；Range 206；密钥/配置/源码/数据路径全 404；注册错码拒绝、对码发 Secure+HttpOnly 会话（探针账号 deploy-probe@bayescode.local）；匿名上传 401；羊了个词正式站 200 无恙。服务器真材料备课（清单第 8 项，花钱）留到第一份新材料再首跑。
+- 邀请码新生成 **listen-92ddf9**（只住服务器 server-config.json 和这条记录）；发不发、发给谁归 owner。旧机 39.105.73.114 的 2026-09-28 部署作废待下线（等 owner 发话，见 `docs/deploy-listen-app.md` §8）。
+- 下一步从哪接：owner 亲自过 https://listening.app.bayescode.com → 拍板发网址＋邀请码；有反馈按 v9 改。手册全量重写在 `docs/deploy-listen-app.md`（含发版记录 §7）。
+
 ### 2026-10-28 · 接第二三四集 BBC：公共课库四集齐（本地站）；流程检验修好三个真问题
 
 - owner 在 materials/ 建了「Easy English」「BBC 6 Minutes」两个系列夹放四份材料，让把剩下三集备出来、检验流程。整理成流水线要的形状：`materials/<期号>/` 平铺（261009、250123、250918；系列不靠文件夹，进 meta.json 的 source，侧边栏按系列自动分组；250918 的讲稿文件名多个下划线 renamed）。四课各写 meta.json（标题＋系列）。

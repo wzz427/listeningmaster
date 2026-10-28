@@ -76,7 +76,7 @@
 | `start-hosted.bat` | 双击：起对外模式的**本地验收版**（`serve.py --hosted --open`，8790，读仓库根 gitignore 里的 server-config.json），owner 验收用（D54：确认过了才上服务器）；访客直接进。**服务已开着就只开一页浏览器、不重复起**（2026-10-28 owner 要求：点这一个脚本就完）。只放英文字符 | SPEC-009 R1、D54 |
 | `start-speak-lab.bat` | 双击：起口语实验页（`pipeline/speak_lab.py`）并打开浏览器，关窗口就停。实验件，只放英文字符 | —（D52 实验） |
 | `requirements.txt` | 服务器上要装的 Python 包（版本是开发机验证过的一组；wordfreq 只有重建发音词典才要，没列） | SPEC-009 R10 |
-| `deploy/listening.service`、`deploy/server-config.example.json`、`deploy/caddy-listen-app.conf` | 发布物料：systemd 服务、配置模板（复制成仓库根的 server-config.json，不进 git）、Caddy 站点块（改前先拉回现有配置 diff） | SPEC-009 R10、R11 |
+| `deploy/Dockerfile`、`deploy/docker-compose.yml`、`deploy/server-config.example.json`、`deploy/caddy-listen-app.conf`、`.dockerignore` | 发布物料（182.92.206.53 容器形态，SPEC-009 v8）：应用镜像（serve.py 对外模式＋备课六步都在容器里）、compose（容器名 listeningapp，密钥/配置/账号数据/备课台/共享发音词库全是挂载卷；`name: listening` 防止和别的 compose 撞项目名）、配置模板（复制成仓库根的 server-config.json，不进 git）、网关站点块、镜像构建排除清单 | SPEC-009 R10、R11 |
 | `.zcode/commands/wrap.md` | 收尾命令 `/wrap`：压缩上下文之前把只活在对话里的东西写到盘上、扫文档、提交 | — |
 | `api-keys.txt` | 密钥，不进仓库（`.gitignore` 第一行） | SPEC-000 R2 |
 
