@@ -1,0 +1,5280 @@
+{
+  "lesson": "250123",
+  "audio": "6MinuteEnglish-20250123-HowTheWorldLearnedToLoveFastFood.mp3",
+  "sentences": [
+    {
+      "id": 0,
+      "speaker": "片头片尾",
+      "start": 1.6,
+      "end": 6.08,
+      "text": "Six Minute English from BBC Learning English dot com.",
+      "words": [
+        {
+          "text": "Six",
+          "start": 1.6,
+          "end": 2.04
+        },
+        {
+          "text": "Minute",
+          "start": 2.04,
+          "end": 2.4
+        },
+        {
+          "text": "English",
+          "start": 2.4,
+          "end": 3.2
+        },
+        {
+          "text": "from",
+          "start": 3.2,
+          "end": 3.6
+        },
+        {
+          "text": "BBC",
+          "start": 3.6,
+          "end": 4.2
+        },
+        {
+          "text": "Learning",
+          "start": 4.2,
+          "end": 4.64
+        },
+        {
+          "text": "English",
+          "start": 4.64,
+          "end": 5.2
+        },
+        {
+          "text": "dot",
+          "start": 5.2,
+          "end": 5.44
+        },
+        {
+          "text": "com.",
+          "start": 5.44,
+          "end": 6.08
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "speaker": "Phil",
+      "start": 8.26,
+      "end": 11.65,
+      "text": "Hello, This is six Minute English from BBC Learning English.",
+      "words": [
+        {
+          "text": "Hello,",
+          "start": 8.4,
+          "end": 8.64
+        },
+        {
+          "text": "This",
+          "start": 8.84,
+          "end": 9.04
+        },
+        {
+          "text": "is",
+          "start": 9.04,
+          "end": 9.32
+        },
+        {
+          "text": "six",
+          "start": 9.32,
+          "end": 9.64
+        },
+        {
+          "text": "Minute",
+          "start": 9.64,
+          "end": 9.92
+        },
+        {
+          "text": "English",
+          "start": 9.92,
+          "end": 10.2
+        },
+        {
+          "text": "from",
+          "start": 10.2,
+          "end": 10.6
+        },
+        {
+          "text": "BBC",
+          "start": 10.6,
+          "end": 11.08
+        },
+        {
+          "text": "Learning",
+          "start": 11.08,
+          "end": 11.4
+        },
+        {
+          "text": "English.",
+          "start": 11.4,
+          "end": 11.72
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "speaker": "Phil",
+      "start": 11.87,
+      "end": 12.57,
+      "text": "I'm Phil.",
+      "words": [
+        {
+          "text": "I'm",
+          "start": 11.96,
+          "end": 12.28
+        },
+        {
+          "text": "Phil.",
+          "start": 12.28,
+          "end": 12.56
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "speaker": "Beth",
+      "start": 12.67,
+      "end": 13.65,
+      "text": "And I'm Beth.",
+      "words": [
+        {
+          "text": "And",
+          "start": 12.76,
+          "end": 13.08
+        },
+        {
+          "text": "I'm",
+          "start": 13.08,
+          "end": 13.32
+        },
+        {
+          "text": "Beth.",
+          "start": 13.32,
+          "end": 13.76
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "speaker": "Phil",
+      "start": 14.32,
+      "end": 18.5,
+      "text": "Love it or hate it, there's no doubt fast food is popular.",
+      "words": [
+        {
+          "text": "Love",
+          "start": 14.32,
+          "end": 14.52
+        },
+        {
+          "text": "it",
+          "start": 14.52,
+          "end": 14.96
+        },
+        {
+          "text": "or",
+          "start": 14.96,
+          "end": 15.28
+        },
+        {
+          "text": "hate",
+          "start": 15.28,
+          "end": 15.56
+        },
+        {
+          "text": "it,",
+          "start": 15.56,
+          "end": 15.72
+        },
+        {
+          "text": "there's",
+          "start": 15.84,
+          "end": 16.28
+        },
+        {
+          "text": "no",
+          "start": 16.28,
+          "end": 16.52
+        },
+        {
+          "text": "doubt",
+          "start": 16.52,
+          "end": 17.08
+        },
+        {
+          "text": "fast",
+          "start": 17.08,
+          "end": 17.52
+        },
+        {
+          "text": "food",
+          "start": 17.52,
+          "end": 17.84
+        },
+        {
+          "text": "is",
+          "start": 17.84,
+          "end": 18.16
+        },
+        {
+          "text": "popular.",
+          "start": 18.16,
+          "end": 18.6
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "speaker": "Phil",
+      "start": 19.13,
+      "end": 20.77,
+      "text": "Are you a fast food fan, Beth?",
+      "words": [
+        {
+          "text": "Are",
+          "start": 19.12,
+          "end": 19.28
+        },
+        {
+          "text": "you",
+          "start": 19.28,
+          "end": 19.4
+        },
+        {
+          "text": "a",
+          "start": 19.4,
+          "end": 19.56
+        },
+        {
+          "text": "fast",
+          "start": 19.56,
+          "end": 19.84
+        },
+        {
+          "text": "food",
+          "start": 19.84,
+          "end": 20.12
+        },
+        {
+          "text": "fan,",
+          "start": 20.12,
+          "end": 20.36
+        },
+        {
+          "text": "Beth?",
+          "start": 20.48,
+          "end": 20.88
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "speaker": "Phil",
+      "start": 21.15,
+      "end": 22.03,
+      "text": "Um,",
+      "words": [
+        {
+          "text": "Um,",
+          "start": 21.32,
+          "end": 21.92
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "speaker": "Beth",
+      "start": 22.05,
+      "end": 23.36,
+      "text": "not really, no.",
+      "words": [
+        {
+          "text": "not",
+          "start": 22.2,
+          "end": 22.6
+        },
+        {
+          "text": "really,",
+          "start": 22.6,
+          "end": 23.0
+        },
+        {
+          "text": "no.",
+          "start": 23.08,
+          "end": 23.36
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "speaker": "Beth",
+      "start": 23.54,
+      "end": 29.33,
+      "text": "I think sometimes it can be quite convenient, obviously, because it's quick, but not really.",
+      "words": [
+        {
+          "text": "I",
+          "start": 23.44,
+          "end": 23.6
+        },
+        {
+          "text": "think",
+          "start": 23.6,
+          "end": 24.44
+        },
+        {
+          "text": "sometimes",
+          "start": 24.44,
+          "end": 24.76
+        },
+        {
+          "text": "it",
+          "start": 24.76,
+          "end": 24.88
+        },
+        {
+          "text": "can",
+          "start": 24.88,
+          "end": 25.0
+        },
+        {
+          "text": "be",
+          "start": 25.0,
+          "end": 25.2
+        },
+        {
+          "text": "quite",
+          "start": 25.2,
+          "end": 25.56
+        },
+        {
+          "text": "convenient,",
+          "start": 25.56,
+          "end": 26.08
+        },
+        {
+          "text": "obviously,",
+          "start": 26.28,
+          "end": 26.72
+        },
+        {
+          "text": "because",
+          "start": 26.96,
+          "end": 27.16
+        },
+        {
+          "text": "it's",
+          "start": 27.16,
+          "end": 27.4
+        },
+        {
+          "text": "quick,",
+          "start": 27.4,
+          "end": 27.68
+        },
+        {
+          "text": "but",
+          "start": 27.8,
+          "end": 28.52
+        },
+        {
+          "text": "not",
+          "start": 28.52,
+          "end": 28.88
+        },
+        {
+          "text": "really.",
+          "start": 28.88,
+          "end": 29.32
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "speaker": "Phil",
+      "start": 29.41,
+      "end": 38.87,
+      "text": "Well, whatever you think about them fast food brands like KFC, Domino's and, of course the big one, McDonald's, are incredibly successful.",
+      "words": [
+        {
+          "text": "Well,",
+          "start": 29.52,
+          "end": 29.76
+        },
+        {
+          "text": "whatever",
+          "start": 30.24,
+          "end": 30.52
+        },
+        {
+          "text": "you",
+          "start": 30.52,
+          "end": 30.64
+        },
+        {
+          "text": "think",
+          "start": 30.64,
+          "end": 30.88
+        },
+        {
+          "text": "about",
+          "start": 30.88,
+          "end": 31.08
+        },
+        {
+          "text": "them",
+          "start": 31.08,
+          "end": 31.5
+        },
+        {
+          "text": "fast",
+          "start": 31.78,
+          "end": 32.14
+        },
+        {
+          "text": "food",
+          "start": 32.14,
+          "end": 32.5
+        },
+        {
+          "text": "brands",
+          "start": 32.5,
+          "end": 32.86
+        },
+        {
+          "text": "like",
+          "start": 32.86,
+          "end": 33.22
+        },
+        {
+          "text": "KFC,",
+          "start": 33.22,
+          "end": 33.54
+        },
+        {
+          "text": "Domino's",
+          "start": 33.54,
+          "end": 34.62
+        },
+        {
+          "text": "and,",
+          "start": 34.62,
+          "end": 34.71
+        },
+        {
+          "text": "of",
+          "start": 34.71,
+          "end": 34.82
+        },
+        {
+          "text": "course",
+          "start": 34.82,
+          "end": 35.02
+        },
+        {
+          "text": "the",
+          "start": 35.02,
+          "end": 35.3
+        },
+        {
+          "text": "big",
+          "start": 35.3,
+          "end": 35.54
+        },
+        {
+          "text": "one,",
+          "start": 35.54,
+          "end": 36.18
+        },
+        {
+          "text": "McDonald's,",
+          "start": 36.18,
+          "end": 37.18
+        },
+        {
+          "text": "are",
+          "start": 37.18,
+          "end": 37.54
+        },
+        {
+          "text": "incredibly",
+          "start": 37.54,
+          "end": 38.3
+        },
+        {
+          "text": "successful.",
+          "start": 38.3,
+          "end": 38.98
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "speaker": "Beth",
+      "start": 39.23,
+      "end": 46.51,
+      "text": "In this programme, we'll discussing the global spread fast food from its beginnings in 1950s America.",
+      "words": [
+        {
+          "text": "In",
+          "start": 39.3,
+          "end": 39.5
+        },
+        {
+          "text": "this",
+          "start": 39.5,
+          "end": 39.86
+        },
+        {
+          "text": "programme,",
+          "start": 39.86,
+          "end": 40.34
+        },
+        {
+          "text": "we'll",
+          "start": 40.34,
+          "end": 40.54
+        },
+        {
+          "text": "discussing",
+          "start": 40.54,
+          "end": 41.34
+        },
+        {
+          "text": "the",
+          "start": 41.34,
+          "end": 41.58
+        },
+        {
+          "text": "global",
+          "start": 41.58,
+          "end": 41.66
+        },
+        {
+          "text": "spread",
+          "start": 41.66,
+          "end": 42.79
+        },
+        {
+          "text": "fast",
+          "start": 42.79,
+          "end": 43.26
+        },
+        {
+          "text": "food",
+          "start": 43.26,
+          "end": 43.82
+        },
+        {
+          "text": "from",
+          "start": 43.82,
+          "end": 44.02
+        },
+        {
+          "text": "its",
+          "start": 44.02,
+          "end": 44.22
+        },
+        {
+          "text": "beginnings",
+          "start": 44.22,
+          "end": 44.94
+        },
+        {
+          "text": "in",
+          "start": 44.94,
+          "end": 45.1
+        },
+        {
+          "text": "1950s",
+          "start": 45.1,
+          "end": 46.06
+        },
+        {
+          "text": "America.",
+          "start": 46.06,
+          "end": 46.58
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "speaker": "Beth",
+      "start": 46.93,
+      "end": 50.38,
+      "text": "As usual, we'll be learning some useful new words and phrases.",
+      "words": [
+        {
+          "text": "As",
+          "start": 46.98,
+          "end": 47.22
+        },
+        {
+          "text": "usual,",
+          "start": 47.22,
+          "end": 47.74
+        },
+        {
+          "text": "we'll",
+          "start": 47.74,
+          "end": 47.9
+        },
+        {
+          "text": "be",
+          "start": 47.9,
+          "end": 48.1
+        },
+        {
+          "text": "learning",
+          "start": 48.1,
+          "end": 48.3
+        },
+        {
+          "text": "some",
+          "start": 48.3,
+          "end": 48.7
+        },
+        {
+          "text": "useful",
+          "start": 48.7,
+          "end": 49.14
+        },
+        {
+          "text": "new",
+          "start": 49.14,
+          "end": 49.3
+        },
+        {
+          "text": "words",
+          "start": 49.3,
+          "end": 49.66
+        },
+        {
+          "text": "and",
+          "start": 49.66,
+          "end": 49.86
+        },
+        {
+          "text": "phrases.",
+          "start": 49.86,
+          "end": 50.42
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "speaker": "Phil",
+      "start": 50.75,
+      "end": 58.51,
+      "text": "But first, I have a question for you, Beth. Roughly how many fast food restaurants are there in the UK?",
+      "words": [
+        {
+          "text": "But",
+          "start": 50.78,
+          "end": 51.06
+        },
+        {
+          "text": "first,",
+          "start": 51.06,
+          "end": 51.7
+        },
+        {
+          "text": "I",
+          "start": 51.7,
+          "end": 51.94
+        },
+        {
+          "text": "have",
+          "start": 51.94,
+          "end": 52.1
+        },
+        {
+          "text": "a",
+          "start": 52.1,
+          "end": 52.3
+        },
+        {
+          "text": "question",
+          "start": 52.3,
+          "end": 52.74
+        },
+        {
+          "text": "for",
+          "start": 52.74,
+          "end": 52.78
+        },
+        {
+          "text": "you,",
+          "start": 52.78,
+          "end": 53.1
+        },
+        {
+          "text": "Beth.",
+          "start": 53.1,
+          "end": 54.02
+        },
+        {
+          "text": "Roughly",
+          "start": 54.02,
+          "end": 54.66
+        },
+        {
+          "text": "how",
+          "start": 54.66,
+          "end": 54.98
+        },
+        {
+          "text": "many",
+          "start": 54.98,
+          "end": 55.42
+        },
+        {
+          "text": "fast",
+          "start": 55.42,
+          "end": 55.82
+        },
+        {
+          "text": "food",
+          "start": 55.82,
+          "end": 56.18
+        },
+        {
+          "text": "restaurants",
+          "start": 56.18,
+          "end": 56.86
+        },
+        {
+          "text": "are",
+          "start": 56.86,
+          "end": 57.18
+        },
+        {
+          "text": "there",
+          "start": 57.18,
+          "end": 57.66
+        },
+        {
+          "text": "in",
+          "start": 57.66,
+          "end": 57.82
+        },
+        {
+          "text": "the",
+          "start": 57.82,
+          "end": 57.98
+        },
+        {
+          "text": "UK?",
+          "start": 57.98,
+          "end": 58.62
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "speaker": "Phil",
+      "start": 58.99,
+      "end": 67.13,
+      "text": "Is it a), 4,000, b), 42,000, or c), 4 million?",
+      "words": [
+        {
+          "text": "Is",
+          "start": 59.1,
+          "end": 59.26
+        },
+        {
+          "text": "it",
+          "start": 59.26,
+          "end": 59.9
+        },
+        {
+          "text": "a),",
+          "start": 59.9,
+          "end": 60.26
+        },
+        {
+          "text": "4,000,",
+          "start": 60.74,
+          "end": 61.78
+        },
+        {
+          "text": "b),",
+          "start": 62.3,
+          "end": 62.66
+        },
+        {
+          "text": "42,000,",
+          "start": 63.54,
+          "end": 64.46
+        },
+        {
+          "text": "or",
+          "start": 64.94,
+          "end": 65.22
+        },
+        {
+          "text": "c),",
+          "start": 65.22,
+          "end": 65.62
+        },
+        {
+          "text": "4",
+          "start": 66.06,
+          "end": 66.7
+        },
+        {
+          "text": "million?",
+          "start": 66.7,
+          "end": 67.14
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "speaker": "Beth",
+      "start": 67.38,
+      "end": 71.18,
+      "text": "I'm going to go for b), 42,000 okay,",
+      "words": [
+        {
+          "text": "I'm",
+          "start": 67.38,
+          "end": 67.54
+        },
+        {
+          "text": "going",
+          "start": 67.54,
+          "end": 67.62
+        },
+        {
+          "text": "to",
+          "start": 67.62,
+          "end": 67.78
+        },
+        {
+          "text": "go",
+          "start": 67.78,
+          "end": 68.38
+        },
+        {
+          "text": "for",
+          "start": 68.38,
+          "end": 68.62
+        },
+        {
+          "text": "b),",
+          "start": 68.62,
+          "end": 68.86
+        },
+        {
+          "text": "42,000",
+          "start": 69.34,
+          "end": 70.18
+        },
+        {
+          "text": "okay,",
+          "start": 71.02,
+          "end": 71.18
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "speaker": "Phil",
+      "start": 71.26,
+      "end": 73.34,
+      "text": "well, later on we'll find out the answer.",
+      "words": [
+        {
+          "text": "well,",
+          "start": 71.26,
+          "end": 71.42
+        },
+        {
+          "text": "later",
+          "start": 71.58,
+          "end": 71.86
+        },
+        {
+          "text": "on",
+          "start": 71.86,
+          "end": 72.02
+        },
+        {
+          "text": "we'll",
+          "start": 72.02,
+          "end": 72.3
+        },
+        {
+          "text": "find",
+          "start": 72.3,
+          "end": 72.46
+        },
+        {
+          "text": "out",
+          "start": 72.46,
+          "end": 72.62
+        },
+        {
+          "text": "the",
+          "start": 72.62,
+          "end": 72.86
+        },
+        {
+          "text": "answer.",
+          "start": 72.86,
+          "end": 73.22
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "speaker": "Phil",
+      "start": 73.93,
+      "end": 81.71,
+      "text": "In the United States, cheap and easy food like hamburgers, French fries, and milkshakes have been popular since the 1950s.",
+      "words": [
+        {
+          "text": "In",
+          "start": 73.98,
+          "end": 74.14
+        },
+        {
+          "text": "the",
+          "start": 74.14,
+          "end": 74.34
+        },
+        {
+          "text": "United",
+          "start": 74.34,
+          "end": 74.74
+        },
+        {
+          "text": "States,",
+          "start": 74.74,
+          "end": 75.1
+        },
+        {
+          "text": "cheap",
+          "start": 75.22,
+          "end": 75.58
+        },
+        {
+          "text": "and",
+          "start": 75.58,
+          "end": 75.98
+        },
+        {
+          "text": "easy",
+          "start": 75.98,
+          "end": 76.26
+        },
+        {
+          "text": "food",
+          "start": 76.26,
+          "end": 76.5
+        },
+        {
+          "text": "like",
+          "start": 76.5,
+          "end": 76.82
+        },
+        {
+          "text": "hamburgers,",
+          "start": 76.82,
+          "end": 77.5
+        },
+        {
+          "text": "French",
+          "start": 77.9,
+          "end": 78.18
+        },
+        {
+          "text": "fries,",
+          "start": 78.18,
+          "end": 78.5
+        },
+        {
+          "text": "and",
+          "start": 78.58,
+          "end": 78.78
+        },
+        {
+          "text": "milkshakes",
+          "start": 78.78,
+          "end": 79.54
+        },
+        {
+          "text": "have",
+          "start": 79.54,
+          "end": 79.66
+        },
+        {
+          "text": "been",
+          "start": 79.66,
+          "end": 79.98
+        },
+        {
+          "text": "popular",
+          "start": 79.98,
+          "end": 80.34
+        },
+        {
+          "text": "since",
+          "start": 80.34,
+          "end": 80.54
+        },
+        {
+          "text": "the",
+          "start": 80.54,
+          "end": 81.14
+        },
+        {
+          "text": "1950s.",
+          "start": 81.14,
+          "end": 81.82
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "speaker": "Phil",
+      "start": 82.38,
+      "end": 94.47,
+      "text": "Listen as Adam Chandler, author of the book drive-through dreams, which traces the history of American fast food, tells BBC World Service program The Food Chain how it all got started.",
+      "words": [
+        {
+          "text": "Listen",
+          "start": 82.38,
+          "end": 82.7
+        },
+        {
+          "text": "as",
+          "start": 82.7,
+          "end": 83.14
+        },
+        {
+          "text": "Adam",
+          "start": 83.14,
+          "end": 83.38
+        },
+        {
+          "text": "Chandler,",
+          "start": 83.38,
+          "end": 83.82
+        },
+        {
+          "text": "author",
+          "start": 84.1,
+          "end": 84.34
+        },
+        {
+          "text": "of",
+          "start": 84.34,
+          "end": 84.5
+        },
+        {
+          "text": "the",
+          "start": 84.5,
+          "end": 84.62
+        },
+        {
+          "text": "book",
+          "start": 84.62,
+          "end": 85.02
+        },
+        {
+          "text": "drive-through",
+          "start": 85.02,
+          "end": 85.86
+        },
+        {
+          "text": "dreams, which",
+          "start": 85.86,
+          "end": 86.98
+        },
+        {
+          "text": "traces",
+          "start": 86.98,
+          "end": 87.34
+        },
+        {
+          "text": "the",
+          "start": 87.34,
+          "end": 87.54
+        },
+        {
+          "text": "history",
+          "start": 87.54,
+          "end": 87.7
+        },
+        {
+          "text": "of",
+          "start": 87.7,
+          "end": 87.86
+        },
+        {
+          "text": "American",
+          "start": 87.86,
+          "end": 88.3
+        },
+        {
+          "text": "fast",
+          "start": 88.3,
+          "end": 88.58
+        },
+        {
+          "text": "food,",
+          "start": 88.58,
+          "end": 88.9
+        },
+        {
+          "text": "tells",
+          "start": 89.38,
+          "end": 89.86
+        },
+        {
+          "text": "BBC",
+          "start": 89.86,
+          "end": 90.5
+        },
+        {
+          "text": "World",
+          "start": 90.5,
+          "end": 90.94
+        },
+        {
+          "text": "Service",
+          "start": 90.94,
+          "end": 91.3
+        },
+        {
+          "text": "program",
+          "start": 91.3,
+          "end": 91.78
+        },
+        {
+          "text": "The",
+          "start": 91.78,
+          "end": 92.02
+        },
+        {
+          "text": "Food",
+          "start": 92.02,
+          "end": 92.38
+        },
+        {
+          "text": "Chain",
+          "start": 92.38,
+          "end": 93.14
+        },
+        {
+          "text": "how",
+          "start": 93.14,
+          "end": 93.3
+        },
+        {
+          "text": "it",
+          "start": 93.3,
+          "end": 93.46
+        },
+        {
+          "text": "all",
+          "start": 93.46,
+          "end": 93.62
+        },
+        {
+          "text": "got",
+          "start": 93.62,
+          "end": 93.98
+        },
+        {
+          "text": "started.",
+          "start": 93.98,
+          "end": 94.58
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "speaker": "Phil",
+      "start": 95.18,
+      "end": 100.77,
+      "text": "At the heart of the story of fast food is a very anyone can do this sense.",
+      "words": [
+        {
+          "text": "At",
+          "start": 95.26,
+          "end": 95.42
+        },
+        {
+          "text": "the",
+          "start": 95.42,
+          "end": 95.58
+        },
+        {
+          "text": "heart",
+          "start": 95.58,
+          "end": 95.7
+        },
+        {
+          "text": "of",
+          "start": 95.7,
+          "end": 95.82
+        },
+        {
+          "text": "the",
+          "start": 95.82,
+          "end": 95.98
+        },
+        {
+          "text": "story",
+          "start": 95.98,
+          "end": 96.22
+        },
+        {
+          "text": "of",
+          "start": 96.22,
+          "end": 96.38
+        },
+        {
+          "text": "fast",
+          "start": 96.38,
+          "end": 96.74
+        },
+        {
+          "text": "food",
+          "start": 96.74,
+          "end": 97.18
+        },
+        {
+          "text": "is",
+          "start": 97.18,
+          "end": 97.66
+        },
+        {
+          "text": "a",
+          "start": 97.66,
+          "end": 97.98
+        },
+        {
+          "text": "very",
+          "start": 97.98,
+          "end": 98.54
+        },
+        {
+          "text": "anyone",
+          "start": 98.54,
+          "end": 99.02
+        },
+        {
+          "text": "can",
+          "start": 99.02,
+          "end": 99.26
+        },
+        {
+          "text": "do",
+          "start": 99.26,
+          "end": 99.54
+        },
+        {
+          "text": "this",
+          "start": 99.54,
+          "end": 100.26
+        },
+        {
+          "text": "sense.",
+          "start": 100.26,
+          "end": 100.82
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "speaker": "Phil",
+      "start": 101.16,
+      "end": 115.44,
+      "text": "A lot of the company founders didn't have a college degree, who didn't have a high school degree in a lot of instances, didn't come from money, were oftentimes just people who were ready to plug themselves into a system that would work for them.",
+      "words": [
+        {
+          "text": "A",
+          "start": 101.26,
+          "end": 101.46
+        },
+        {
+          "text": "lot",
+          "start": 101.46,
+          "end": 101.82
+        },
+        {
+          "text": "of",
+          "start": 101.82,
+          "end": 102.42
+        },
+        {
+          "text": "the",
+          "start": 102.42,
+          "end": 102.66
+        },
+        {
+          "text": "company",
+          "start": 102.66,
+          "end": 103.02
+        },
+        {
+          "text": "founders",
+          "start": 103.02,
+          "end": 103.58
+        },
+        {
+          "text": "didn't",
+          "start": 103.58,
+          "end": 104.02
+        },
+        {
+          "text": "have",
+          "start": 104.02,
+          "end": 104.7
+        },
+        {
+          "text": "a",
+          "start": 104.7,
+          "end": 104.94
+        },
+        {
+          "text": "college",
+          "start": 104.94,
+          "end": 105.3
+        },
+        {
+          "text": "degree,",
+          "start": 105.3,
+          "end": 105.78
+        },
+        {
+          "text": "who",
+          "start": 106.06,
+          "end": 106.46
+        },
+        {
+          "text": "didn't",
+          "start": 106.46,
+          "end": 106.66
+        },
+        {
+          "text": "have",
+          "start": 106.66,
+          "end": 106.78
+        },
+        {
+          "text": "a",
+          "start": 106.78,
+          "end": 106.94
+        },
+        {
+          "text": "high",
+          "start": 106.94,
+          "end": 107.14
+        },
+        {
+          "text": "school",
+          "start": 107.14,
+          "end": 107.46
+        },
+        {
+          "text": "degree",
+          "start": 107.46,
+          "end": 107.66
+        },
+        {
+          "text": "in",
+          "start": 107.66,
+          "end": 107.74
+        },
+        {
+          "text": "a",
+          "start": 107.74,
+          "end": 107.82
+        },
+        {
+          "text": "lot",
+          "start": 107.82,
+          "end": 107.98
+        },
+        {
+          "text": "of",
+          "start": 107.98,
+          "end": 108.18
+        },
+        {
+          "text": "instances,",
+          "start": 108.18,
+          "end": 108.54
+        },
+        {
+          "text": "didn't",
+          "start": 108.66,
+          "end": 108.9
+        },
+        {
+          "text": "come",
+          "start": 108.9,
+          "end": 109.1
+        },
+        {
+          "text": "from",
+          "start": 109.1,
+          "end": 109.26
+        },
+        {
+          "text": "money,",
+          "start": 109.26,
+          "end": 109.5
+        },
+        {
+          "text": "were",
+          "start": 109.58,
+          "end": 109.86
+        },
+        {
+          "text": "oftentimes",
+          "start": 109.86,
+          "end": 110.79
+        },
+        {
+          "text": "just",
+          "start": 111.03,
+          "end": 111.35
+        },
+        {
+          "text": "people",
+          "start": 111.35,
+          "end": 111.63
+        },
+        {
+          "text": "who",
+          "start": 111.63,
+          "end": 111.75
+        },
+        {
+          "text": "were",
+          "start": 111.75,
+          "end": 112.03
+        },
+        {
+          "text": "ready",
+          "start": 112.03,
+          "end": 112.19
+        },
+        {
+          "text": "to",
+          "start": 112.19,
+          "end": 112.43
+        },
+        {
+          "text": "plug",
+          "start": 112.43,
+          "end": 112.67
+        },
+        {
+          "text": "themselves",
+          "start": 112.67,
+          "end": 113.27
+        },
+        {
+          "text": "into",
+          "start": 113.27,
+          "end": 113.59
+        },
+        {
+          "text": "a",
+          "start": 113.59,
+          "end": 113.99
+        },
+        {
+          "text": "system",
+          "start": 113.99,
+          "end": 114.27
+        },
+        {
+          "text": "that",
+          "start": 114.27,
+          "end": 114.43
+        },
+        {
+          "text": "would",
+          "start": 114.43,
+          "end": 114.71
+        },
+        {
+          "text": "work",
+          "start": 114.71,
+          "end": 114.99
+        },
+        {
+          "text": "for",
+          "start": 114.99,
+          "end": 115.15
+        },
+        {
+          "text": "them.",
+          "start": 115.15,
+          "end": 115.51
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "speaker": "Phil",
+      "start": 115.81,
+      "end": 116.9,
+      "text": "And it did.",
+      "words": [
+        {
+          "text": "And",
+          "start": 115.95,
+          "end": 116.31
+        },
+        {
+          "text": "it",
+          "start": 116.31,
+          "end": 116.51
+        },
+        {
+          "text": "did.",
+          "start": 116.51,
+          "end": 116.83
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "speaker": "Phil",
+      "start": 117.16,
+      "end": 126.15,
+      "text": "It made opportunity very, very easy in a time when that was a new part of the American experience.",
+      "words": [
+        {
+          "text": "It",
+          "start": 117.27,
+          "end": 117.55
+        },
+        {
+          "text": "made",
+          "start": 117.55,
+          "end": 118.35
+        },
+        {
+          "text": "opportunity",
+          "start": 118.35,
+          "end": 119.39
+        },
+        {
+          "text": "very,",
+          "start": 119.39,
+          "end": 119.67
+        },
+        {
+          "text": "very",
+          "start": 120.03,
+          "end": 120.87
+        },
+        {
+          "text": "easy",
+          "start": 120.87,
+          "end": 121.67
+        },
+        {
+          "text": "in",
+          "start": 121.67,
+          "end": 121.79
+        },
+        {
+          "text": "a",
+          "start": 121.79,
+          "end": 121.99
+        },
+        {
+          "text": "time",
+          "start": 121.99,
+          "end": 122.55
+        },
+        {
+          "text": "when",
+          "start": 122.55,
+          "end": 123.39
+        },
+        {
+          "text": "that",
+          "start": 123.39,
+          "end": 123.63
+        },
+        {
+          "text": "was",
+          "start": 123.63,
+          "end": 124.19
+        },
+        {
+          "text": "a",
+          "start": 124.19,
+          "end": 124.43
+        },
+        {
+          "text": "new",
+          "start": 124.43,
+          "end": 124.71
+        },
+        {
+          "text": "part",
+          "start": 124.71,
+          "end": 124.99
+        },
+        {
+          "text": "of",
+          "start": 124.99,
+          "end": 125.11
+        },
+        {
+          "text": "the",
+          "start": 125.11,
+          "end": 125.31
+        },
+        {
+          "text": "American",
+          "start": 125.31,
+          "end": 125.75
+        },
+        {
+          "text": "experience.",
+          "start": 125.75,
+          "end": 126.15
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "speaker": "Phil",
+      "start": 126.23,
+      "end": 132.17,
+      "text": "So it was the American dream in a very small way that became the American dream in a very big way.",
+      "words": [
+        {
+          "text": "So",
+          "start": 126.23,
+          "end": 126.83
+        },
+        {
+          "text": "it",
+          "start": 126.83,
+          "end": 127.03
+        },
+        {
+          "text": "was",
+          "start": 127.03,
+          "end": 127.31
+        },
+        {
+          "text": "the",
+          "start": 127.31,
+          "end": 127.51
+        },
+        {
+          "text": "American",
+          "start": 127.51,
+          "end": 127.95
+        },
+        {
+          "text": "dream",
+          "start": 127.95,
+          "end": 128.23
+        },
+        {
+          "text": "in",
+          "start": 128.23,
+          "end": 128.31
+        },
+        {
+          "text": "a",
+          "start": 128.31,
+          "end": 128.55
+        },
+        {
+          "text": "very",
+          "start": 128.55,
+          "end": 128.95
+        },
+        {
+          "text": "small",
+          "start": 128.95,
+          "end": 129.27
+        },
+        {
+          "text": "way",
+          "start": 129.27,
+          "end": 129.95
+        },
+        {
+          "text": "that",
+          "start": 129.95,
+          "end": 130.23
+        },
+        {
+          "text": "became",
+          "start": 130.23,
+          "end": 130.67
+        },
+        {
+          "text": "the",
+          "start": 130.67,
+          "end": 130.83
+        },
+        {
+          "text": "American",
+          "start": 130.83,
+          "end": 131.11
+        },
+        {
+          "text": "dream",
+          "start": 131.11,
+          "end": 131.27
+        },
+        {
+          "text": "in",
+          "start": 131.27,
+          "end": 131.35
+        },
+        {
+          "text": "a",
+          "start": 131.35,
+          "end": 131.51
+        },
+        {
+          "text": "very",
+          "start": 131.51,
+          "end": 131.71
+        },
+        {
+          "text": "big",
+          "start": 131.71,
+          "end": 131.91
+        },
+        {
+          "text": "way.",
+          "start": 131.91,
+          "end": 132.23
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "speaker": "Beth",
+      "start": 132.83,
+      "end": 139.05,
+      "text": "The rise of fast food reflected the rise of American economic power after the Second World War.",
+      "words": [
+        {
+          "text": "The",
+          "start": 132.88,
+          "end": 133.12
+        },
+        {
+          "text": "rise",
+          "start": 133.12,
+          "end": 133.4
+        },
+        {
+          "text": "of",
+          "start": 133.4,
+          "end": 133.6
+        },
+        {
+          "text": "fast",
+          "start": 133.6,
+          "end": 133.96
+        },
+        {
+          "text": "food",
+          "start": 133.96,
+          "end": 134.4
+        },
+        {
+          "text": "reflected",
+          "start": 134.4,
+          "end": 135.12
+        },
+        {
+          "text": "the",
+          "start": 135.12,
+          "end": 135.28
+        },
+        {
+          "text": "rise",
+          "start": 135.28,
+          "end": 135.56
+        },
+        {
+          "text": "of",
+          "start": 135.56,
+          "end": 135.76
+        },
+        {
+          "text": "American",
+          "start": 135.76,
+          "end": 136.44
+        },
+        {
+          "text": "economic",
+          "start": 136.44,
+          "end": 137.08
+        },
+        {
+          "text": "power",
+          "start": 137.08,
+          "end": 137.64
+        },
+        {
+          "text": "after",
+          "start": 137.64,
+          "end": 137.92
+        },
+        {
+          "text": "the",
+          "start": 137.92,
+          "end": 138.2
+        },
+        {
+          "text": "Second",
+          "start": 138.2,
+          "end": 138.44
+        },
+        {
+          "text": "World",
+          "start": 138.44,
+          "end": 138.72
+        },
+        {
+          "text": "War.",
+          "start": 138.72,
+          "end": 139.16
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "speaker": "Beth",
+      "start": 139.53,
+      "end": 147.09,
+      "text": "When Adam says that this lies at the heart of the story, he means it's the most important part of the story",
+      "words": [
+        {
+          "text": "When",
+          "start": 139.6,
+          "end": 139.92
+        },
+        {
+          "text": "Adam",
+          "start": 139.92,
+          "end": 140.28
+        },
+        {
+          "text": "says",
+          "start": 140.28,
+          "end": 140.6
+        },
+        {
+          "text": "that",
+          "start": 140.6,
+          "end": 140.84
+        },
+        {
+          "text": "this",
+          "start": 140.84,
+          "end": 141.16
+        },
+        {
+          "text": "lies",
+          "start": 141.16,
+          "end": 141.64
+        },
+        {
+          "text": "at",
+          "start": 141.64,
+          "end": 141.88
+        },
+        {
+          "text": "the",
+          "start": 141.88,
+          "end": 142.12
+        },
+        {
+          "text": "heart",
+          "start": 142.12,
+          "end": 142.44
+        },
+        {
+          "text": "of",
+          "start": 142.44,
+          "end": 142.64
+        },
+        {
+          "text": "the",
+          "start": 142.64,
+          "end": 142.88
+        },
+        {
+          "text": "story,",
+          "start": 142.88,
+          "end": 143.36
+        },
+        {
+          "text": "he",
+          "start": 143.56,
+          "end": 143.8
+        },
+        {
+          "text": "means",
+          "start": 143.8,
+          "end": 144.12
+        },
+        {
+          "text": "it's",
+          "start": 144.12,
+          "end": 144.36
+        },
+        {
+          "text": "the",
+          "start": 144.36,
+          "end": 144.52
+        },
+        {
+          "text": "most",
+          "start": 144.52,
+          "end": 144.92
+        },
+        {
+          "text": "important",
+          "start": 144.92,
+          "end": 145.56
+        },
+        {
+          "text": "part",
+          "start": 145.56,
+          "end": 145.84
+        },
+        {
+          "text": "of",
+          "start": 145.84,
+          "end": 146.0
+        },
+        {
+          "text": "the",
+          "start": 146.0,
+          "end": 146.12
+        },
+        {
+          "text": "story",
+          "start": 146.12,
+          "end": 147.2
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "speaker": "Phil",
+      "start": 147.2,
+      "end": 156.26,
+      "text": "In the 1950s, when the famous brands we know today were just beginning anyone with can-do attitude could sell fast food.",
+      "words": [
+        {
+          "text": "In",
+          "start": 147.2,
+          "end": 147.4
+        },
+        {
+          "text": "the",
+          "start": 147.4,
+          "end": 148.0
+        },
+        {
+          "text": "1950s,",
+          "start": 148.0,
+          "end": 148.48
+        },
+        {
+          "text": "when",
+          "start": 148.88,
+          "end": 149.08
+        },
+        {
+          "text": "the",
+          "start": 149.08,
+          "end": 149.36
+        },
+        {
+          "text": "famous",
+          "start": 149.36,
+          "end": 149.68
+        },
+        {
+          "text": "brands",
+          "start": 149.68,
+          "end": 150.08
+        },
+        {
+          "text": "we",
+          "start": 150.08,
+          "end": 150.2
+        },
+        {
+          "text": "know",
+          "start": 150.2,
+          "end": 150.52
+        },
+        {
+          "text": "today",
+          "start": 150.52,
+          "end": 150.72
+        },
+        {
+          "text": "were",
+          "start": 150.72,
+          "end": 150.92
+        },
+        {
+          "text": "just",
+          "start": 150.92,
+          "end": 151.32
+        },
+        {
+          "text": "beginning",
+          "start": 151.32,
+          "end": 151.8
+        },
+        {
+          "text": "anyone",
+          "start": 152.48,
+          "end": 152.88
+        },
+        {
+          "text": "with",
+          "start": 152.88,
+          "end": 153.48
+        },
+        {
+          "text": "can-do",
+          "start": 153.48,
+          "end": 154.4
+        },
+        {
+          "text": "attitude",
+          "start": 154.4,
+          "end": 155.04
+        },
+        {
+          "text": "could",
+          "start": 155.04,
+          "end": 155.28
+        },
+        {
+          "text": "sell",
+          "start": 155.28,
+          "end": 155.6
+        },
+        {
+          "text": "fast",
+          "start": 155.6,
+          "end": 155.96
+        },
+        {
+          "text": "food.",
+          "start": 155.96,
+          "end": 156.36
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "speaker": "Phil",
+      "start": 156.92,
+      "end": 163.27,
+      "text": "A can-do attitude describes someone who is confident and determined to fix problems and achieve results.",
+      "words": [
+        {
+          "text": "A",
+          "start": 156.96,
+          "end": 157.16
+        },
+        {
+          "text": "can-do",
+          "start": 157.16,
+          "end": 157.76
+        },
+        {
+          "text": "attitude",
+          "start": 157.76,
+          "end": 158.24
+        },
+        {
+          "text": "describes",
+          "start": 158.24,
+          "end": 158.64
+        },
+        {
+          "text": "someone",
+          "start": 158.64,
+          "end": 158.97
+        },
+        {
+          "text": "who",
+          "start": 158.97,
+          "end": 159.16
+        },
+        {
+          "text": "is",
+          "start": 159.16,
+          "end": 159.72
+        },
+        {
+          "text": "confident",
+          "start": 159.72,
+          "end": 160.12
+        },
+        {
+          "text": "and",
+          "start": 160.12,
+          "end": 160.36
+        },
+        {
+          "text": "determined",
+          "start": 160.36,
+          "end": 160.92
+        },
+        {
+          "text": "to",
+          "start": 160.92,
+          "end": 161.32
+        },
+        {
+          "text": "fix",
+          "start": 161.32,
+          "end": 161.72
+        },
+        {
+          "text": "problems",
+          "start": 161.72,
+          "end": 162.12
+        },
+        {
+          "text": "and",
+          "start": 162.12,
+          "end": 162.36
+        },
+        {
+          "text": "achieve",
+          "start": 162.36,
+          "end": 162.64
+        },
+        {
+          "text": "results.",
+          "start": 162.64,
+          "end": 163.24
+        }
+      ]
+    },
+    {
+      "id": 27,
+      "speaker": "Beth",
+      "start": 163.53,
+      "end": 181.53,
+      "text": "Which exactly what happened successful restaurants like Kentucky Fried Chicken and McDonald's many, these fast food brands symbolised The American dream the idea that anyone in the United States can achieve success through hard work and determination.",
+      "words": [
+        {
+          "text": "Which",
+          "start": 163.44,
+          "end": 163.72
+        },
+        {
+          "text": "exactly",
+          "start": 163.72,
+          "end": 164.52
+        },
+        {
+          "text": "what",
+          "start": 164.52,
+          "end": 164.64
+        },
+        {
+          "text": "happened",
+          "start": 164.64,
+          "end": 165.16
+        },
+        {
+          "text": "successful",
+          "start": 165.16,
+          "end": 166.16
+        },
+        {
+          "text": "restaurants",
+          "start": 166.16,
+          "end": 166.76
+        },
+        {
+          "text": "like",
+          "start": 166.76,
+          "end": 167.2
+        },
+        {
+          "text": "Kentucky",
+          "start": 167.2,
+          "end": 167.64
+        },
+        {
+          "text": "Fried",
+          "start": 167.64,
+          "end": 167.88
+        },
+        {
+          "text": "Chicken",
+          "start": 167.88,
+          "end": 168.24
+        },
+        {
+          "text": "and",
+          "start": 168.24,
+          "end": 168.36
+        },
+        {
+          "text": "McDonald's",
+          "start": 168.36,
+          "end": 169.2
+        },
+        {
+          "text": "many,",
+          "start": 170.04,
+          "end": 170.72
+        },
+        {
+          "text": "these",
+          "start": 170.72,
+          "end": 171.01
+        },
+        {
+          "text": "fast",
+          "start": 171.01,
+          "end": 171.48
+        },
+        {
+          "text": "food",
+          "start": 171.48,
+          "end": 171.8
+        },
+        {
+          "text": "brands",
+          "start": 171.8,
+          "end": 172.0
+        },
+        {
+          "text": "symbolised",
+          "start": 172.0,
+          "end": 173.24
+        },
+        {
+          "text": "The",
+          "start": 173.24,
+          "end": 173.48
+        },
+        {
+          "text": "American",
+          "start": 173.48,
+          "end": 173.88
+        },
+        {
+          "text": "dream",
+          "start": 173.88,
+          "end": 174.52
+        },
+        {
+          "text": "the",
+          "start": 174.84,
+          "end": 175.08
+        },
+        {
+          "text": "idea",
+          "start": 175.08,
+          "end": 175.4
+        },
+        {
+          "text": "that",
+          "start": 175.4,
+          "end": 175.84
+        },
+        {
+          "text": "anyone",
+          "start": 175.84,
+          "end": 176.32
+        },
+        {
+          "text": "in",
+          "start": 176.32,
+          "end": 176.44
+        },
+        {
+          "text": "the",
+          "start": 176.44,
+          "end": 176.68
+        },
+        {
+          "text": "United",
+          "start": 176.68,
+          "end": 177.16
+        },
+        {
+          "text": "States",
+          "start": 177.16,
+          "end": 177.6
+        },
+        {
+          "text": "can",
+          "start": 177.6,
+          "end": 177.88
+        },
+        {
+          "text": "achieve",
+          "start": 177.88,
+          "end": 178.04
+        },
+        {
+          "text": "success",
+          "start": 178.04,
+          "end": 178.44
+        },
+        {
+          "text": "through",
+          "start": 178.44,
+          "end": 179.56
+        },
+        {
+          "text": "hard",
+          "start": 179.56,
+          "end": 179.92
+        },
+        {
+          "text": "work",
+          "start": 179.92,
+          "end": 180.36
+        },
+        {
+          "text": "and",
+          "start": 180.36,
+          "end": 180.68
+        },
+        {
+          "text": "determination.",
+          "start": 180.68,
+          "end": 181.64
+        }
+      ]
+    },
+    {
+      "id": 28,
+      "speaker": "Phil",
+      "start": 182.19,
+      "end": 186.95,
+      "text": "The success of KFC, McDonald’s and the rest wasn't limited to America.",
+      "words": [
+        {
+          "text": "The",
+          "start": 182.22,
+          "end": 182.54
+        },
+        {
+          "text": "success",
+          "start": 182.54,
+          "end": 182.9
+        },
+        {
+          "text": "of",
+          "start": 182.9,
+          "end": 183.1
+        },
+        {
+          "text": "KFC,",
+          "start": 183.1,
+          "end": 183.66
+        },
+        {
+          "text": "McDonald’s",
+          "start": 183.98,
+          "end": 184.46
+        },
+        {
+          "text": "and",
+          "start": 184.46,
+          "end": 184.7
+        },
+        {
+          "text": "the",
+          "start": 184.7,
+          "end": 184.9
+        },
+        {
+          "text": "rest",
+          "start": 184.9,
+          "end": 185.34
+        },
+        {
+          "text": "wasn't",
+          "start": 185.34,
+          "end": 185.9
+        },
+        {
+          "text": "limited",
+          "start": 185.9,
+          "end": 186.3
+        },
+        {
+          "text": "to",
+          "start": 186.3,
+          "end": 186.54
+        },
+        {
+          "text": "America.",
+          "start": 186.54,
+          "end": 187.06
+        }
+      ]
+    },
+    {
+      "id": 29,
+      "speaker": "Phil",
+      "start": 187.6,
+      "end": 194.23,
+      "text": "Nowadays, you can visit two McDonald's on opposite sides of the planet and eat exactly the same meal.",
+      "words": [
+        {
+          "text": "Nowadays,",
+          "start": 187.7,
+          "end": 188.26
+        },
+        {
+          "text": "you",
+          "start": 188.34,
+          "end": 188.5
+        },
+        {
+          "text": "can",
+          "start": 188.5,
+          "end": 188.74
+        },
+        {
+          "text": "visit",
+          "start": 188.74,
+          "end": 189.14
+        },
+        {
+          "text": "two",
+          "start": 189.14,
+          "end": 189.5
+        },
+        {
+          "text": "McDonald's",
+          "start": 189.5,
+          "end": 189.9
+        },
+        {
+          "text": "on",
+          "start": 189.9,
+          "end": 190.3
+        },
+        {
+          "text": "opposite",
+          "start": 190.3,
+          "end": 190.74
+        },
+        {
+          "text": "sides",
+          "start": 190.74,
+          "end": 191.06
+        },
+        {
+          "text": "of",
+          "start": 191.06,
+          "end": 191.22
+        },
+        {
+          "text": "the",
+          "start": 191.22,
+          "end": 191.62
+        },
+        {
+          "text": "planet",
+          "start": 191.62,
+          "end": 192.46
+        },
+        {
+          "text": "and",
+          "start": 192.46,
+          "end": 192.58
+        },
+        {
+          "text": "eat",
+          "start": 192.58,
+          "end": 192.98
+        },
+        {
+          "text": "exactly",
+          "start": 192.98,
+          "end": 193.46
+        },
+        {
+          "text": "the",
+          "start": 193.46,
+          "end": 193.66
+        },
+        {
+          "text": "same",
+          "start": 193.66,
+          "end": 193.94
+        },
+        {
+          "text": "meal.",
+          "start": 193.94,
+          "end": 194.34
+        }
+      ]
+    },
+    {
+      "id": 30,
+      "speaker": "Beth",
+      "start": 194.8,
+      "end": 200.63,
+      "text": "But not every country opened its arms in welcome the tiny island of Iceland, for one.",
+      "words": [
+        {
+          "text": "But",
+          "start": 194.86,
+          "end": 195.1
+        },
+        {
+          "text": "not",
+          "start": 195.1,
+          "end": 195.5
+        },
+        {
+          "text": "every",
+          "start": 195.5,
+          "end": 195.94
+        },
+        {
+          "text": "country",
+          "start": 195.94,
+          "end": 196.46
+        },
+        {
+          "text": "opened",
+          "start": 196.46,
+          "end": 196.78
+        },
+        {
+          "text": "its",
+          "start": 196.78,
+          "end": 196.98
+        },
+        {
+          "text": "arms",
+          "start": 196.98,
+          "end": 197.22
+        },
+        {
+          "text": "in",
+          "start": 197.22,
+          "end": 197.58
+        },
+        {
+          "text": "welcome",
+          "start": 197.58,
+          "end": 197.9
+        },
+        {
+          "text": "the",
+          "start": 198.1,
+          "end": 198.34
+        },
+        {
+          "text": "tiny",
+          "start": 198.34,
+          "end": 198.86
+        },
+        {
+          "text": "island",
+          "start": 198.86,
+          "end": 199.22
+        },
+        {
+          "text": "of",
+          "start": 199.22,
+          "end": 199.5
+        },
+        {
+          "text": "Iceland,",
+          "start": 199.5,
+          "end": 200.06
+        },
+        {
+          "text": "for",
+          "start": 200.18,
+          "end": 200.34
+        },
+        {
+          "text": "one.",
+          "start": 200.34,
+          "end": 200.7
+        }
+      ]
+    },
+    {
+      "id": 31,
+      "speaker": "Beth",
+      "start": 201.32,
+      "end": 207.59,
+      "text": "Andy Sophia Fontaine, who used to work in McDonald's, now edits The Iceland Review.",
+      "words": [
+        {
+          "text": "Andy",
+          "start": 201.42,
+          "end": 202.02
+        },
+        {
+          "text": "Sophia",
+          "start": 202.02,
+          "end": 202.38
+        },
+        {
+          "text": "Fontaine,",
+          "start": 202.38,
+          "end": 202.98
+        },
+        {
+          "text": "who",
+          "start": 203.14,
+          "end": 203.38
+        },
+        {
+          "text": "used",
+          "start": 203.38,
+          "end": 203.62
+        },
+        {
+          "text": "to",
+          "start": 203.62,
+          "end": 203.78
+        },
+        {
+          "text": "work",
+          "start": 203.78,
+          "end": 203.98
+        },
+        {
+          "text": "in",
+          "start": 203.98,
+          "end": 204.34
+        },
+        {
+          "text": "McDonald's,",
+          "start": 204.34,
+          "end": 204.94
+        },
+        {
+          "text": "now",
+          "start": 205.26,
+          "end": 205.7
+        },
+        {
+          "text": "edits",
+          "start": 205.7,
+          "end": 206.22
+        },
+        {
+          "text": "The",
+          "start": 206.22,
+          "end": 206.5
+        },
+        {
+          "text": "Iceland",
+          "start": 206.5,
+          "end": 207.18
+        },
+        {
+          "text": "Review.",
+          "start": 207.18,
+          "end": 207.7
+        }
+      ]
+    },
+    {
+      "id": 32,
+      "speaker": "Beth",
+      "start": 208.04,
+      "end": 218.63,
+      "text": "Here she tells BBC World Service programme The Food Chain how McDonald's got a frosty reception when it started selling burgers in Iceland's capital, Reykjavik.",
+      "words": [
+        {
+          "text": "Here",
+          "start": 208.14,
+          "end": 208.54
+        },
+        {
+          "text": "she",
+          "start": 208.54,
+          "end": 208.78
+        },
+        {
+          "text": "tells",
+          "start": 208.78,
+          "end": 209.22
+        },
+        {
+          "text": "BBC",
+          "start": 209.22,
+          "end": 209.7
+        },
+        {
+          "text": "World",
+          "start": 209.7,
+          "end": 210.1
+        },
+        {
+          "text": "Service",
+          "start": 210.1,
+          "end": 210.54
+        },
+        {
+          "text": "programme",
+          "start": 210.54,
+          "end": 210.94
+        },
+        {
+          "text": "The",
+          "start": 210.94,
+          "end": 211.14
+        },
+        {
+          "text": "Food",
+          "start": 211.14,
+          "end": 211.5
+        },
+        {
+          "text": "Chain",
+          "start": 211.5,
+          "end": 212.18
+        },
+        {
+          "text": "how",
+          "start": 212.18,
+          "end": 212.58
+        },
+        {
+          "text": "McDonald's",
+          "start": 212.58,
+          "end": 213.1
+        },
+        {
+          "text": "got",
+          "start": 213.1,
+          "end": 213.34
+        },
+        {
+          "text": "a",
+          "start": 213.34,
+          "end": 213.62
+        },
+        {
+          "text": "frosty",
+          "start": 213.62,
+          "end": 214.26
+        },
+        {
+          "text": "reception",
+          "start": 214.26,
+          "end": 214.98
+        },
+        {
+          "text": "when",
+          "start": 214.98,
+          "end": 215.14
+        },
+        {
+          "text": "it",
+          "start": 215.14,
+          "end": 215.3
+        },
+        {
+          "text": "started",
+          "start": 215.3,
+          "end": 215.7
+        },
+        {
+          "text": "selling",
+          "start": 215.7,
+          "end": 216.1
+        },
+        {
+          "text": "burgers",
+          "start": 216.1,
+          "end": 216.58
+        },
+        {
+          "text": "in",
+          "start": 216.58,
+          "end": 216.78
+        },
+        {
+          "text": "Iceland's",
+          "start": 216.78,
+          "end": 217.38
+        },
+        {
+          "text": "capital,",
+          "start": 217.38,
+          "end": 217.74
+        },
+        {
+          "text": "Reykjavik.",
+          "start": 217.9,
+          "end": 218.74
+        }
+      ]
+    },
+    {
+      "id": 33,
+      "speaker": "Beth",
+      "start": 219.37,
+      "end": 223.84,
+      "text": "There's been a long-standing burger culture in Iceland.",
+      "words": [
+        {
+          "text": "There's",
+          "start": 219.45,
+          "end": 219.77
+        },
+        {
+          "text": "been",
+          "start": 219.77,
+          "end": 220.25
+        },
+        {
+          "text": "a",
+          "start": 220.25,
+          "end": 220.49
+        },
+        {
+          "text": "long-standing",
+          "start": 220.49,
+          "end": 221.57
+        },
+        {
+          "text": "burger",
+          "start": 221.57,
+          "end": 222.09
+        },
+        {
+          "text": "culture",
+          "start": 222.09,
+          "end": 223.13
+        },
+        {
+          "text": "in",
+          "start": 223.13,
+          "end": 223.37
+        },
+        {
+          "text": "Iceland.",
+          "start": 223.37,
+          "end": 223.85
+        }
+      ]
+    },
+    {
+      "id": 34,
+      "speaker": "Beth",
+      "start": 223.93,
+      "end": 238.2,
+      "text": "They have their own take on a hamburger, wherein they'll use lettuce and raw cucumbers and a type of fry sauce that's called a shop burger and that's been around for ages.",
+      "words": [
+        {
+          "text": "They",
+          "start": 223.93,
+          "end": 224.13
+        },
+        {
+          "text": "have",
+          "start": 224.13,
+          "end": 224.29
+        },
+        {
+          "text": "their",
+          "start": 224.29,
+          "end": 224.45
+        },
+        {
+          "text": "own",
+          "start": 224.45,
+          "end": 224.69
+        },
+        {
+          "text": "take",
+          "start": 224.69,
+          "end": 225.49
+        },
+        {
+          "text": "on",
+          "start": 225.49,
+          "end": 225.65
+        },
+        {
+          "text": "a",
+          "start": 225.65,
+          "end": 225.89
+        },
+        {
+          "text": "hamburger,",
+          "start": 225.89,
+          "end": 226.37
+        },
+        {
+          "text": "wherein",
+          "start": 226.81,
+          "end": 227.17
+        },
+        {
+          "text": "they'll",
+          "start": 227.17,
+          "end": 227.37
+        },
+        {
+          "text": "use",
+          "start": 227.37,
+          "end": 228.13
+        },
+        {
+          "text": "lettuce",
+          "start": 228.13,
+          "end": 228.73
+        },
+        {
+          "text": "and",
+          "start": 228.73,
+          "end": 228.97
+        },
+        {
+          "text": "raw",
+          "start": 228.97,
+          "end": 229.37
+        },
+        {
+          "text": "cucumbers",
+          "start": 229.37,
+          "end": 230.09
+        },
+        {
+          "text": "and",
+          "start": 230.09,
+          "end": 230.25
+        },
+        {
+          "text": "a",
+          "start": 230.25,
+          "end": 230.37
+        },
+        {
+          "text": "type",
+          "start": 230.37,
+          "end": 230.57
+        },
+        {
+          "text": "of",
+          "start": 230.57,
+          "end": 230.69
+        },
+        {
+          "text": "fry",
+          "start": 230.69,
+          "end": 231.05
+        },
+        {
+          "text": "sauce",
+          "start": 231.05,
+          "end": 232.13
+        },
+        {
+          "text": "that's",
+          "start": 232.13,
+          "end": 232.61
+        },
+        {
+          "text": "called",
+          "start": 232.61,
+          "end": 232.85
+        },
+        {
+          "text": "a",
+          "start": 232.85,
+          "end": 234.05
+        },
+        {
+          "text": "shop",
+          "start": 234.45,
+          "end": 234.81
+        },
+        {
+          "text": "burger",
+          "start": 234.81,
+          "end": 235.33
+        },
+        {
+          "text": "and",
+          "start": 235.93,
+          "end": 236.89
+        },
+        {
+          "text": "that's",
+          "start": 236.89,
+          "end": 237.13
+        },
+        {
+          "text": "been",
+          "start": 237.13,
+          "end": 237.33
+        },
+        {
+          "text": "around",
+          "start": 237.33,
+          "end": 237.49
+        },
+        {
+          "text": "for",
+          "start": 237.49,
+          "end": 237.69
+        },
+        {
+          "text": "ages.",
+          "start": 237.69,
+          "end": 238.17
+        }
+      ]
+    },
+    {
+      "id": 35,
+      "speaker": "Beth",
+      "start": 238.45,
+      "end": 242.17,
+      "text": "Yeah, so McDonald's, they struggled to try to maintain a market.",
+      "words": [
+        {
+          "text": "Yeah,",
+          "start": 238.57,
+          "end": 238.77
+        },
+        {
+          "text": "so",
+          "start": 238.93,
+          "end": 239.13
+        },
+        {
+          "text": "McDonald's,",
+          "start": 239.13,
+          "end": 239.65
+        },
+        {
+          "text": "they",
+          "start": 239.85,
+          "end": 240.17
+        },
+        {
+          "text": "struggled",
+          "start": 240.17,
+          "end": 240.65
+        },
+        {
+          "text": "to",
+          "start": 240.65,
+          "end": 240.89
+        },
+        {
+          "text": "try",
+          "start": 240.89,
+          "end": 241.05
+        },
+        {
+          "text": "to",
+          "start": 241.05,
+          "end": 241.33
+        },
+        {
+          "text": "maintain",
+          "start": 241.33,
+          "end": 241.57
+        },
+        {
+          "text": "a",
+          "start": 241.57,
+          "end": 241.85
+        },
+        {
+          "text": "market.",
+          "start": 241.85,
+          "end": 242.13
+        }
+      ]
+    },
+    {
+      "id": 36,
+      "speaker": "Beth",
+      "start": 242.17,
+      "end": 249.62,
+      "text": "The final nail in the coffin was the global financial crisis in two thousand eight, two thousand nine.",
+      "words": [
+        {
+          "text": "The",
+          "start": 242.25,
+          "end": 242.53
+        },
+        {
+          "text": "final",
+          "start": 242.53,
+          "end": 242.81
+        },
+        {
+          "text": "nail",
+          "start": 242.81,
+          "end": 243.33
+        },
+        {
+          "text": "in",
+          "start": 243.33,
+          "end": 243.49
+        },
+        {
+          "text": "the",
+          "start": 243.49,
+          "end": 243.85
+        },
+        {
+          "text": "coffin",
+          "start": 243.85,
+          "end": 244.45
+        },
+        {
+          "text": "was",
+          "start": 244.45,
+          "end": 244.73
+        },
+        {
+          "text": "the",
+          "start": 244.73,
+          "end": 245.33
+        },
+        {
+          "text": "global",
+          "start": 245.33,
+          "end": 246.11
+        },
+        {
+          "text": "financial",
+          "start": 246.11,
+          "end": 247.29
+        },
+        {
+          "text": "crisis",
+          "start": 247.29,
+          "end": 248.01
+        },
+        {
+          "text": "in",
+          "start": 248.01,
+          "end": 248.25
+        },
+        {
+          "text": "two",
+          "start": 248.25,
+          "end": 248.37
+        },
+        {
+          "text": "thousand",
+          "start": 248.37,
+          "end": 248.65
+        },
+        {
+          "text": "eight,",
+          "start": 248.65,
+          "end": 248.69
+        },
+        {
+          "text": "two",
+          "start": 248.77,
+          "end": 248.89
+        },
+        {
+          "text": "thousand",
+          "start": 248.89,
+          "end": 249.25
+        },
+        {
+          "text": "nine.",
+          "start": 249.25,
+          "end": 249.69
+        }
+      ]
+    },
+    {
+      "id": 37,
+      "speaker": "Phil",
+      "start": 250.52,
+      "end": 258.22,
+      "text": "Iceland already had a long standing tradition of eating burgers, a tradition that had existed for a long time.",
+      "words": [
+        {
+          "text": "Iceland",
+          "start": 250.65,
+          "end": 251.41
+        },
+        {
+          "text": "already",
+          "start": 251.41,
+          "end": 251.85
+        },
+        {
+          "text": "had",
+          "start": 251.85,
+          "end": 252.05
+        },
+        {
+          "text": "a",
+          "start": 252.05,
+          "end": 252.41
+        },
+        {
+          "text": "long",
+          "start": 252.41,
+          "end": 252.89
+        },
+        {
+          "text": "standing",
+          "start": 252.89,
+          "end": 253.49
+        },
+        {
+          "text": "tradition",
+          "start": 253.49,
+          "end": 253.97
+        },
+        {
+          "text": "of",
+          "start": 253.97,
+          "end": 254.17
+        },
+        {
+          "text": "eating",
+          "start": 254.17,
+          "end": 254.57
+        },
+        {
+          "text": "burgers,",
+          "start": 254.57,
+          "end": 255.09
+        },
+        {
+          "text": "a",
+          "start": 255.65,
+          "end": 255.89
+        },
+        {
+          "text": "tradition",
+          "start": 255.89,
+          "end": 256.37
+        },
+        {
+          "text": "that",
+          "start": 256.37,
+          "end": 256.53
+        },
+        {
+          "text": "had",
+          "start": 256.53,
+          "end": 256.77
+        },
+        {
+          "text": "existed",
+          "start": 256.77,
+          "end": 257.21
+        },
+        {
+          "text": "for",
+          "start": 257.21,
+          "end": 257.41
+        },
+        {
+          "text": "a",
+          "start": 257.41,
+          "end": 257.57
+        },
+        {
+          "text": "long",
+          "start": 257.57,
+          "end": 257.85
+        },
+        {
+          "text": "time.",
+          "start": 257.85,
+          "end": 258.33
+        }
+      ]
+    },
+    {
+      "id": 38,
+      "speaker": "Phil",
+      "start": 258.8,
+      "end": 266.14,
+      "text": "For example, the Schalpul Bulgari, or shop burger, was a take on, or variation of, the American hamburger.",
+      "words": [
+        {
+          "text": "For",
+          "start": 258.81,
+          "end": 259.01
+        },
+        {
+          "text": "example,",
+          "start": 259.01,
+          "end": 259.37
+        },
+        {
+          "text": "the",
+          "start": 259.49,
+          "end": 259.69
+        },
+        {
+          "text": "Schalpul",
+          "start": 259.69,
+          "end": 260.25
+        },
+        {
+          "text": "Bulgari,",
+          "start": 260.25,
+          "end": 261.01
+        },
+        {
+          "text": "or",
+          "start": 261.21,
+          "end": 261.45
+        },
+        {
+          "text": "shop",
+          "start": 261.45,
+          "end": 261.71
+        },
+        {
+          "text": "burger,",
+          "start": 261.71,
+          "end": 262.09
+        },
+        {
+          "text": "was",
+          "start": 262.45,
+          "end": 262.61
+        },
+        {
+          "text": "a",
+          "start": 262.61,
+          "end": 262.77
+        },
+        {
+          "text": "take",
+          "start": 262.77,
+          "end": 263.05
+        },
+        {
+          "text": "on,",
+          "start": 263.05,
+          "end": 263.29
+        },
+        {
+          "text": "or",
+          "start": 263.49,
+          "end": 263.81
+        },
+        {
+          "text": "variation",
+          "start": 263.81,
+          "end": 264.33
+        },
+        {
+          "text": "of,",
+          "start": 264.33,
+          "end": 264.57
+        },
+        {
+          "text": "the",
+          "start": 264.81,
+          "end": 265.01
+        },
+        {
+          "text": "American",
+          "start": 265.01,
+          "end": 265.65
+        },
+        {
+          "text": "hamburger.",
+          "start": 265.65,
+          "end": 266.25
+        }
+      ]
+    },
+    {
+      "id": 39,
+      "speaker": "Beth",
+      "start": 266.77,
+      "end": 270.85,
+      "text": "McDonald’s weren't as successful in Iceland as they'd been elsewhere.",
+      "words": [
+        {
+          "text": "McDonald’s",
+          "start": 266.85,
+          "end": 267.49
+        },
+        {
+          "text": "weren't",
+          "start": 267.49,
+          "end": 267.85
+        },
+        {
+          "text": "as",
+          "start": 267.85,
+          "end": 268.13
+        },
+        {
+          "text": "successful",
+          "start": 268.13,
+          "end": 268.61
+        },
+        {
+          "text": "in",
+          "start": 268.61,
+          "end": 268.89
+        },
+        {
+          "text": "Iceland",
+          "start": 268.89,
+          "end": 269.41
+        },
+        {
+          "text": "as",
+          "start": 269.41,
+          "end": 269.61
+        },
+        {
+          "text": "they'd",
+          "start": 269.61,
+          "end": 269.85
+        },
+        {
+          "text": "been",
+          "start": 269.85,
+          "end": 270.17
+        },
+        {
+          "text": "elsewhere.",
+          "start": 270.17,
+          "end": 270.96
+        }
+      ]
+    },
+    {
+      "id": 40,
+      "speaker": "Beth",
+      "start": 271.07,
+      "end": 281.29,
+      "text": "And the global financial crash of 2008 was the final nail in the coffin, an event which caused the failure of something that had already started to go wrong.",
+      "words": [
+        {
+          "text": "And",
+          "start": 271.16,
+          "end": 271.32
+        },
+        {
+          "text": "the",
+          "start": 271.32,
+          "end": 271.48
+        },
+        {
+          "text": "global",
+          "start": 271.48,
+          "end": 272.04
+        },
+        {
+          "text": "financial",
+          "start": 272.04,
+          "end": 272.56
+        },
+        {
+          "text": "crash",
+          "start": 272.56,
+          "end": 272.92
+        },
+        {
+          "text": "of",
+          "start": 272.92,
+          "end": 273.76
+        },
+        {
+          "text": "2008",
+          "start": 273.76,
+          "end": 274.08
+        },
+        {
+          "text": "was",
+          "start": 274.08,
+          "end": 274.32
+        },
+        {
+          "text": "the",
+          "start": 274.32,
+          "end": 274.76
+        },
+        {
+          "text": "final",
+          "start": 274.76,
+          "end": 275.12
+        },
+        {
+          "text": "nail",
+          "start": 275.12,
+          "end": 275.48
+        },
+        {
+          "text": "in",
+          "start": 275.48,
+          "end": 275.68
+        },
+        {
+          "text": "the",
+          "start": 275.68,
+          "end": 276.0
+        },
+        {
+          "text": "coffin,",
+          "start": 276.0,
+          "end": 276.36
+        },
+        {
+          "text": "an",
+          "start": 276.76,
+          "end": 276.96
+        },
+        {
+          "text": "event",
+          "start": 276.96,
+          "end": 277.32
+        },
+        {
+          "text": "which",
+          "start": 277.32,
+          "end": 277.6
+        },
+        {
+          "text": "caused",
+          "start": 277.6,
+          "end": 277.88
+        },
+        {
+          "text": "the",
+          "start": 277.88,
+          "end": 278.2
+        },
+        {
+          "text": "failure",
+          "start": 278.2,
+          "end": 278.48
+        },
+        {
+          "text": "of",
+          "start": 278.48,
+          "end": 278.68
+        },
+        {
+          "text": "something",
+          "start": 278.68,
+          "end": 279.12
+        },
+        {
+          "text": "that",
+          "start": 279.12,
+          "end": 279.28
+        },
+        {
+          "text": "had",
+          "start": 279.28,
+          "end": 279.64
+        },
+        {
+          "text": "already",
+          "start": 279.64,
+          "end": 280.12
+        },
+        {
+          "text": "started",
+          "start": 280.12,
+          "end": 280.48
+        },
+        {
+          "text": "to",
+          "start": 280.48,
+          "end": 280.64
+        },
+        {
+          "text": "go",
+          "start": 280.64,
+          "end": 280.92
+        },
+        {
+          "text": "wrong.",
+          "start": 280.92,
+          "end": 281.4
+        }
+      ]
+    },
+    {
+      "id": 41,
+      "speaker": "Beth",
+      "start": 282.17,
+      "end": 289.55,
+      "text": "To this day, there are no McDonald's in Iceland, unlike Britain, which reminds me of your question, Phil.",
+      "words": [
+        {
+          "text": "To",
+          "start": 282.16,
+          "end": 282.4
+        },
+        {
+          "text": "this",
+          "start": 282.4,
+          "end": 282.6
+        },
+        {
+          "text": "day,",
+          "start": 282.6,
+          "end": 282.88
+        },
+        {
+          "text": "there",
+          "start": 283.04,
+          "end": 283.24
+        },
+        {
+          "text": "are",
+          "start": 283.24,
+          "end": 283.52
+        },
+        {
+          "text": "no",
+          "start": 283.52,
+          "end": 283.84
+        },
+        {
+          "text": "McDonald's",
+          "start": 283.84,
+          "end": 284.56
+        },
+        {
+          "text": "in",
+          "start": 284.56,
+          "end": 284.76
+        },
+        {
+          "text": "Iceland,",
+          "start": 284.76,
+          "end": 285.4
+        },
+        {
+          "text": "unlike",
+          "start": 285.88,
+          "end": 286.32
+        },
+        {
+          "text": "Britain,",
+          "start": 286.32,
+          "end": 286.84
+        },
+        {
+          "text": "which",
+          "start": 287.16,
+          "end": 287.56
+        },
+        {
+          "text": "reminds",
+          "start": 287.56,
+          "end": 287.92
+        },
+        {
+          "text": "me",
+          "start": 287.92,
+          "end": 288.12
+        },
+        {
+          "text": "of",
+          "start": 288.12,
+          "end": 288.32
+        },
+        {
+          "text": "your",
+          "start": 288.32,
+          "end": 288.64
+        },
+        {
+          "text": "question,",
+          "start": 288.64,
+          "end": 289.04
+        },
+        {
+          "text": "Phil.",
+          "start": 289.2,
+          "end": 289.56
+        }
+      ]
+    },
+    {
+      "id": 42,
+      "speaker": "Phil",
+      "start": 289.76,
+      "end": 294.07,
+      "text": "Yes, I asked you how many fast food restaurants there are in Britain.",
+      "words": [
+        {
+          "text": "Yes,",
+          "start": 289.92,
+          "end": 290.24
+        },
+        {
+          "text": "I",
+          "start": 290.36,
+          "end": 290.56
+        },
+        {
+          "text": "asked",
+          "start": 290.56,
+          "end": 290.76
+        },
+        {
+          "text": "you",
+          "start": 290.76,
+          "end": 291.04
+        },
+        {
+          "text": "how",
+          "start": 291.04,
+          "end": 291.32
+        },
+        {
+          "text": "many",
+          "start": 291.32,
+          "end": 291.76
+        },
+        {
+          "text": "fast",
+          "start": 291.76,
+          "end": 292.16
+        },
+        {
+          "text": "food",
+          "start": 292.16,
+          "end": 292.64
+        },
+        {
+          "text": "restaurants",
+          "start": 292.64,
+          "end": 293.08
+        },
+        {
+          "text": "there",
+          "start": 293.08,
+          "end": 293.28
+        },
+        {
+          "text": "are",
+          "start": 293.28,
+          "end": 293.56
+        },
+        {
+          "text": "in",
+          "start": 293.56,
+          "end": 293.76
+        },
+        {
+          "text": "Britain.",
+          "start": 293.76,
+          "end": 294.12
+        }
+      ]
+    },
+    {
+      "id": 43,
+      "speaker": "Phil",
+      "start": 294.64,
+      "end": 303.91,
+      "text": "I asked you if there were four thousand, forty two thousand or four million, And of course the answer is forty two thousand, so you were right well done.",
+      "words": [
+        {
+          "text": "I",
+          "start": 294.76,
+          "end": 295.2
+        },
+        {
+          "text": "asked",
+          "start": 295.2,
+          "end": 295.4
+        },
+        {
+          "text": "you",
+          "start": 295.4,
+          "end": 295.52
+        },
+        {
+          "text": "if",
+          "start": 295.52,
+          "end": 295.64
+        },
+        {
+          "text": "there",
+          "start": 295.64,
+          "end": 295.76
+        },
+        {
+          "text": "were",
+          "start": 295.76,
+          "end": 296.16
+        },
+        {
+          "text": "four",
+          "start": 296.16,
+          "end": 296.48
+        },
+        {
+          "text": "thousand,",
+          "start": 296.48,
+          "end": 297.0
+        },
+        {
+          "text": "forty",
+          "start": 297.36,
+          "end": 297.72
+        },
+        {
+          "text": "two",
+          "start": 297.72,
+          "end": 297.96
+        },
+        {
+          "text": "thousand",
+          "start": 297.96,
+          "end": 298.48
+        },
+        {
+          "text": "or",
+          "start": 298.48,
+          "end": 298.68
+        },
+        {
+          "text": "four",
+          "start": 298.68,
+          "end": 299.0
+        },
+        {
+          "text": "million,",
+          "start": 299.0,
+          "end": 299.36
+        },
+        {
+          "text": "And",
+          "start": 299.76,
+          "end": 300.24
+        },
+        {
+          "text": "of",
+          "start": 300.24,
+          "end": 300.4
+        },
+        {
+          "text": "course",
+          "start": 300.4,
+          "end": 300.76
+        },
+        {
+          "text": "the",
+          "start": 300.76,
+          "end": 300.96
+        },
+        {
+          "text": "answer",
+          "start": 300.96,
+          "end": 301.24
+        },
+        {
+          "text": "is",
+          "start": 301.24,
+          "end": 301.52
+        },
+        {
+          "text": "forty",
+          "start": 301.52,
+          "end": 301.88
+        },
+        {
+          "text": "two",
+          "start": 301.88,
+          "end": 302.2
+        },
+        {
+          "text": "thousand,",
+          "start": 302.2,
+          "end": 302.48
+        },
+        {
+          "text": "so",
+          "start": 302.56,
+          "end": 302.72
+        },
+        {
+          "text": "you",
+          "start": 302.72,
+          "end": 302.8
+        },
+        {
+          "text": "were",
+          "start": 302.8,
+          "end": 303.0
+        },
+        {
+          "text": "right",
+          "start": 303.0,
+          "end": 303.2
+        },
+        {
+          "text": "well",
+          "start": 303.28,
+          "end": 303.44
+        },
+        {
+          "text": "done.",
+          "start": 303.44,
+          "end": 304.02
+        }
+      ]
+    },
+    {
+      "id": 44,
+      "speaker": "Phil",
+      "start": 305.12,
+      "end": 314.55,
+      "text": "Okay, let's recap the vocabulary we've learned, starting with at the heart of, meaning the most important part or the cause of something.",
+      "words": [
+        {
+          "text": "Okay,",
+          "start": 305.26,
+          "end": 305.54
+        },
+        {
+          "text": "let's",
+          "start": 305.98,
+          "end": 306.58
+        },
+        {
+          "text": "recap",
+          "start": 306.58,
+          "end": 306.86
+        },
+        {
+          "text": "the",
+          "start": 306.86,
+          "end": 307.1
+        },
+        {
+          "text": "vocabulary",
+          "start": 307.1,
+          "end": 307.66
+        },
+        {
+          "text": "we've",
+          "start": 307.66,
+          "end": 308.06
+        },
+        {
+          "text": "learned,",
+          "start": 308.06,
+          "end": 308.34
+        },
+        {
+          "text": "starting",
+          "start": 308.78,
+          "end": 309.18
+        },
+        {
+          "text": "with",
+          "start": 309.18,
+          "end": 309.78
+        },
+        {
+          "text": "at",
+          "start": 309.78,
+          "end": 310.02
+        },
+        {
+          "text": "the",
+          "start": 310.02,
+          "end": 310.3
+        },
+        {
+          "text": "heart",
+          "start": 310.3,
+          "end": 310.66
+        },
+        {
+          "text": "of,",
+          "start": 310.66,
+          "end": 310.9
+        },
+        {
+          "text": "meaning",
+          "start": 311.06,
+          "end": 311.5
+        },
+        {
+          "text": "the",
+          "start": 311.5,
+          "end": 311.78
+        },
+        {
+          "text": "most",
+          "start": 311.78,
+          "end": 312.3
+        },
+        {
+          "text": "important",
+          "start": 312.3,
+          "end": 312.78
+        },
+        {
+          "text": "part",
+          "start": 312.78,
+          "end": 313.22
+        },
+        {
+          "text": "or",
+          "start": 313.22,
+          "end": 313.42
+        },
+        {
+          "text": "the",
+          "start": 313.42,
+          "end": 313.7
+        },
+        {
+          "text": "cause",
+          "start": 313.7,
+          "end": 313.98
+        },
+        {
+          "text": "of",
+          "start": 313.98,
+          "end": 314.14
+        },
+        {
+          "text": "something.",
+          "start": 314.14,
+          "end": 314.66
+        }
+      ]
+    },
+    {
+      "id": 45,
+      "speaker": "Beth",
+      "start": 315.72,
+      "end": 324.5,
+      "text": "If you say that someone has a can-do attitude, you mean they are confident to take action, fix problems, and deal with new challenges.",
+      "words": [
+        {
+          "text": "If",
+          "start": 315.82,
+          "end": 315.98
+        },
+        {
+          "text": "you",
+          "start": 315.98,
+          "end": 316.14
+        },
+        {
+          "text": "say",
+          "start": 316.14,
+          "end": 316.34
+        },
+        {
+          "text": "that",
+          "start": 316.34,
+          "end": 316.54
+        },
+        {
+          "text": "someone",
+          "start": 316.54,
+          "end": 316.94
+        },
+        {
+          "text": "has",
+          "start": 316.94,
+          "end": 317.22
+        },
+        {
+          "text": "a",
+          "start": 317.22,
+          "end": 317.5
+        },
+        {
+          "text": "can-do",
+          "start": 317.5,
+          "end": 318.3
+        },
+        {
+          "text": "attitude,",
+          "start": 318.3,
+          "end": 318.9
+        },
+        {
+          "text": "you",
+          "start": 319.18,
+          "end": 319.34
+        },
+        {
+          "text": "mean",
+          "start": 319.34,
+          "end": 319.58
+        },
+        {
+          "text": "they",
+          "start": 319.58,
+          "end": 319.7
+        },
+        {
+          "text": "are",
+          "start": 319.7,
+          "end": 320.18
+        },
+        {
+          "text": "confident",
+          "start": 320.18,
+          "end": 320.62
+        },
+        {
+          "text": "to",
+          "start": 320.62,
+          "end": 320.86
+        },
+        {
+          "text": "take",
+          "start": 320.86,
+          "end": 321.34
+        },
+        {
+          "text": "action,",
+          "start": 321.34,
+          "end": 321.62
+        },
+        {
+          "text": "fix",
+          "start": 321.9,
+          "end": 322.22
+        },
+        {
+          "text": "problems,",
+          "start": 322.22,
+          "end": 322.62
+        },
+        {
+          "text": "and",
+          "start": 322.74,
+          "end": 323.06
+        },
+        {
+          "text": "deal",
+          "start": 323.06,
+          "end": 323.34
+        },
+        {
+          "text": "with",
+          "start": 323.34,
+          "end": 323.58
+        },
+        {
+          "text": "new",
+          "start": 323.58,
+          "end": 323.94
+        },
+        {
+          "text": "challenges.",
+          "start": 323.94,
+          "end": 324.54
+        }
+      ]
+    },
+    {
+      "id": 46,
+      "speaker": "Phil",
+      "start": 324.88,
+      "end": 333.31,
+      "text": "The American dream is the belief that everyone in the USA has the opportunity to be successful and happy if they work hard.",
+      "words": [
+        {
+          "text": "The",
+          "start": 324.94,
+          "end": 325.18
+        },
+        {
+          "text": "American",
+          "start": 325.18,
+          "end": 325.82
+        },
+        {
+          "text": "dream",
+          "start": 325.82,
+          "end": 326.22
+        },
+        {
+          "text": "is",
+          "start": 326.22,
+          "end": 326.42
+        },
+        {
+          "text": "the",
+          "start": 326.42,
+          "end": 326.62
+        },
+        {
+          "text": "belief",
+          "start": 326.62,
+          "end": 326.98
+        },
+        {
+          "text": "that",
+          "start": 326.98,
+          "end": 327.34
+        },
+        {
+          "text": "everyone",
+          "start": 327.34,
+          "end": 327.9
+        },
+        {
+          "text": "in",
+          "start": 327.9,
+          "end": 328.06
+        },
+        {
+          "text": "the",
+          "start": 328.06,
+          "end": 328.22
+        },
+        {
+          "text": "USA",
+          "start": 328.22,
+          "end": 328.82
+        },
+        {
+          "text": "has",
+          "start": 328.82,
+          "end": 329.02
+        },
+        {
+          "text": "the",
+          "start": 329.02,
+          "end": 329.38
+        },
+        {
+          "text": "opportunity",
+          "start": 329.38,
+          "end": 329.94
+        },
+        {
+          "text": "to",
+          "start": 329.94,
+          "end": 330.06
+        },
+        {
+          "text": "be",
+          "start": 330.06,
+          "end": 330.38
+        },
+        {
+          "text": "successful",
+          "start": 330.38,
+          "end": 331.22
+        },
+        {
+          "text": "and",
+          "start": 331.22,
+          "end": 331.54
+        },
+        {
+          "text": "happy",
+          "start": 331.54,
+          "end": 332.18
+        },
+        {
+          "text": "if",
+          "start": 332.18,
+          "end": 332.34
+        },
+        {
+          "text": "they",
+          "start": 332.34,
+          "end": 332.58
+        },
+        {
+          "text": "work",
+          "start": 332.58,
+          "end": 332.9
+        },
+        {
+          "text": "hard.",
+          "start": 332.9,
+          "end": 333.42
+        }
+      ]
+    },
+    {
+      "id": 47,
+      "speaker": "Beth",
+      "start": 334.03,
+      "end": 338.3,
+      "text": "The adjective long standing means having existed for a long time.",
+      "words": [
+        {
+          "text": "The",
+          "start": 334.16,
+          "end": 334.4
+        },
+        {
+          "text": "adjective",
+          "start": 334.4,
+          "end": 334.96
+        },
+        {
+          "text": "long",
+          "start": 334.96,
+          "end": 335.32
+        },
+        {
+          "text": "standing",
+          "start": 335.32,
+          "end": 336.04
+        },
+        {
+          "text": "means",
+          "start": 336.04,
+          "end": 336.36
+        },
+        {
+          "text": "having",
+          "start": 336.36,
+          "end": 336.84
+        },
+        {
+          "text": "existed",
+          "start": 336.84,
+          "end": 337.36
+        },
+        {
+          "text": "for",
+          "start": 337.36,
+          "end": 337.56
+        },
+        {
+          "text": "a",
+          "start": 337.56,
+          "end": 337.68
+        },
+        {
+          "text": "long",
+          "start": 337.68,
+          "end": 337.92
+        },
+        {
+          "text": "time.",
+          "start": 337.92,
+          "end": 338.4
+        }
+      ]
+    },
+    {
+      "id": 48,
+      "speaker": "Phil",
+      "start": 338.7,
+      "end": 342.73,
+      "text": "A take on something means a variation or new way of presenting it.",
+      "words": [
+        {
+          "text": "A",
+          "start": 338.76,
+          "end": 339.0
+        },
+        {
+          "text": "take",
+          "start": 339.0,
+          "end": 339.28
+        },
+        {
+          "text": "on",
+          "start": 339.28,
+          "end": 339.48
+        },
+        {
+          "text": "something",
+          "start": 339.48,
+          "end": 339.88
+        },
+        {
+          "text": "means",
+          "start": 339.88,
+          "end": 340.12
+        },
+        {
+          "text": "a",
+          "start": 340.12,
+          "end": 340.48
+        },
+        {
+          "text": "variation",
+          "start": 340.48,
+          "end": 341.12
+        },
+        {
+          "text": "or",
+          "start": 341.12,
+          "end": 341.48
+        },
+        {
+          "text": "new",
+          "start": 341.48,
+          "end": 341.72
+        },
+        {
+          "text": "way",
+          "start": 341.72,
+          "end": 341.88
+        },
+        {
+          "text": "of",
+          "start": 341.88,
+          "end": 342.16
+        },
+        {
+          "text": "presenting",
+          "start": 342.16,
+          "end": 342.56
+        },
+        {
+          "text": "it.",
+          "start": 342.56,
+          "end": 342.84
+        }
+      ]
+    },
+    {
+      "id": 49,
+      "speaker": "Beth",
+      "start": 343.68,
+      "end": 353.61,
+      "text": "And finally, the idiom the final nail in the coffin refers to an event that causes the final end of something that had already started to fail.",
+      "words": [
+        {
+          "text": "And",
+          "start": 343.76,
+          "end": 344.12
+        },
+        {
+          "text": "finally,",
+          "start": 344.12,
+          "end": 344.6
+        },
+        {
+          "text": "the",
+          "start": 344.76,
+          "end": 345.04
+        },
+        {
+          "text": "idiom",
+          "start": 345.04,
+          "end": 345.56
+        },
+        {
+          "text": "the",
+          "start": 345.56,
+          "end": 346.0
+        },
+        {
+          "text": "final",
+          "start": 346.0,
+          "end": 346.32
+        },
+        {
+          "text": "nail",
+          "start": 346.32,
+          "end": 346.68
+        },
+        {
+          "text": "in",
+          "start": 346.68,
+          "end": 346.84
+        },
+        {
+          "text": "the",
+          "start": 346.84,
+          "end": 347.16
+        },
+        {
+          "text": "coffin",
+          "start": 347.16,
+          "end": 347.88
+        },
+        {
+          "text": "refers",
+          "start": 347.88,
+          "end": 348.28
+        },
+        {
+          "text": "to",
+          "start": 348.28,
+          "end": 348.44
+        },
+        {
+          "text": "an",
+          "start": 348.44,
+          "end": 348.64
+        },
+        {
+          "text": "event",
+          "start": 348.64,
+          "end": 349.0
+        },
+        {
+          "text": "that",
+          "start": 349.0,
+          "end": 349.28
+        },
+        {
+          "text": "causes",
+          "start": 349.28,
+          "end": 349.76
+        },
+        {
+          "text": "the",
+          "start": 349.76,
+          "end": 350.2
+        },
+        {
+          "text": "final",
+          "start": 350.2,
+          "end": 350.52
+        },
+        {
+          "text": "end",
+          "start": 350.52,
+          "end": 350.76
+        },
+        {
+          "text": "of",
+          "start": 350.76,
+          "end": 350.96
+        },
+        {
+          "text": "something",
+          "start": 350.96,
+          "end": 351.4
+        },
+        {
+          "text": "that",
+          "start": 351.4,
+          "end": 351.6
+        },
+        {
+          "text": "had",
+          "start": 351.6,
+          "end": 352.04
+        },
+        {
+          "text": "already",
+          "start": 352.04,
+          "end": 352.6
+        },
+        {
+          "text": "started",
+          "start": 352.6,
+          "end": 353.0
+        },
+        {
+          "text": "to",
+          "start": 353.0,
+          "end": 353.24
+        },
+        {
+          "text": "fail.",
+          "start": 353.24,
+          "end": 353.72
+        }
+      ]
+    },
+    {
+      "id": 50,
+      "speaker": "Beth",
+      "start": 354.19,
+      "end": 364.11,
+      "text": "Once again, our six minutes are up but why not head over to the BBC Learning English website where you'll find a worksheet and quiz especially for this program.",
+      "words": [
+        {
+          "text": "Once",
+          "start": 354.28,
+          "end": 354.56
+        },
+        {
+          "text": "again,",
+          "start": 354.56,
+          "end": 354.8
+        },
+        {
+          "text": "our",
+          "start": 354.92,
+          "end": 355.24
+        },
+        {
+          "text": "six",
+          "start": 355.24,
+          "end": 355.6
+        },
+        {
+          "text": "minutes",
+          "start": 355.6,
+          "end": 355.84
+        },
+        {
+          "text": "are",
+          "start": 355.84,
+          "end": 356.0
+        },
+        {
+          "text": "up",
+          "start": 356.0,
+          "end": 356.28
+        },
+        {
+          "text": "but",
+          "start": 356.52,
+          "end": 356.84
+        },
+        {
+          "text": "why",
+          "start": 356.84,
+          "end": 357.04
+        },
+        {
+          "text": "not",
+          "start": 357.04,
+          "end": 357.24
+        },
+        {
+          "text": "head",
+          "start": 357.24,
+          "end": 357.52
+        },
+        {
+          "text": "over",
+          "start": 357.52,
+          "end": 357.76
+        },
+        {
+          "text": "to",
+          "start": 357.76,
+          "end": 357.88
+        },
+        {
+          "text": "the",
+          "start": 357.88,
+          "end": 358.16
+        },
+        {
+          "text": "BBC",
+          "start": 358.16,
+          "end": 358.72
+        },
+        {
+          "text": "Learning",
+          "start": 358.72,
+          "end": 359.12
+        },
+        {
+          "text": "English",
+          "start": 359.12,
+          "end": 359.52
+        },
+        {
+          "text": "website",
+          "start": 359.52,
+          "end": 360.12
+        },
+        {
+          "text": "where",
+          "start": 360.12,
+          "end": 360.28
+        },
+        {
+          "text": "you'll",
+          "start": 360.28,
+          "end": 360.56
+        },
+        {
+          "text": "find",
+          "start": 360.56,
+          "end": 360.8
+        },
+        {
+          "text": "a",
+          "start": 360.8,
+          "end": 361.0
+        },
+        {
+          "text": "worksheet",
+          "start": 361.0,
+          "end": 361.68
+        },
+        {
+          "text": "and",
+          "start": 361.68,
+          "end": 361.96
+        },
+        {
+          "text": "quiz",
+          "start": 361.96,
+          "end": 362.72
+        },
+        {
+          "text": "especially",
+          "start": 362.72,
+          "end": 363.24
+        },
+        {
+          "text": "for",
+          "start": 363.24,
+          "end": 363.44
+        },
+        {
+          "text": "this",
+          "start": 363.44,
+          "end": 363.76
+        },
+        {
+          "text": "program.",
+          "start": 363.76,
+          "end": 364.16
+        }
+      ]
+    },
+    {
+      "id": 51,
+      "speaker": "Beth",
+      "start": 364.32,
+      "end": 365.23,
+      "text": "See you there soon.",
+      "words": [
+        {
+          "text": "See",
+          "start": 364.4,
+          "end": 364.56
+        },
+        {
+          "text": "you",
+          "start": 364.56,
+          "end": 364.68
+        },
+        {
+          "text": "there",
+          "start": 364.68,
+          "end": 364.92
+        },
+        {
+          "text": "soon.",
+          "start": 364.92,
+          "end": 365.28
+        }
+      ]
+    },
+    {
+      "id": 52,
+      "speaker": "Phil",
+      "start": 365.72,
+      "end": 366.24,
+      "text": "Goodbye.",
+      "words": [
+        {
+          "text": "Goodbye.",
+          "start": 365.72,
+          "end": 366.28
+        }
+      ]
+    },
+    {
+      "id": 53,
+      "speaker": "Phil",
+      "start": 367.79,
+      "end": 373.44,
+      "text": "Six minutes English from BBC Learning English dot com.",
+      "words": [
+        {
+          "text": "Six",
+          "start": 367.79,
+          "end": 368.23
+        },
+        {
+          "text": "minutes",
+          "start": 368.23,
+          "end": 368.63
+        },
+        {
+          "text": "English",
+          "start": 368.63,
+          "end": 369.39
+        },
+        {
+          "text": "from",
+          "start": 369.39,
+          "end": 369.79
+        },
+        {
+          "text": "BBC",
+          "start": 369.79,
+          "end": 370.43
+        },
+        {
+          "text": "Learning",
+          "start": 370.43,
+          "end": 370.87
+        },
+        {
+          "text": "English",
+          "start": 370.87,
+          "end": 371.43
+        },
+        {
+          "text": "dot",
+          "start": 371.43,
+          "end": 371.63
+        },
+        {
+          "text": "com.",
+          "start": 371.63,
+          "end": 373.44
+        }
+      ]
+    },
+    {
+      "id": 54,
+      "speaker": "Phil",
+      "start": 374.67,
+      "end": 376.96,
+      "text": "Thanks for listening to six Minute English.",
+      "words": [
+        {
+          "text": "Thanks",
+          "start": 374.79,
+          "end": 375.03
+        },
+        {
+          "text": "for",
+          "start": 375.03,
+          "end": 375.27
+        },
+        {
+          "text": "listening",
+          "start": 375.27,
+          "end": 375.59
+        },
+        {
+          "text": "to",
+          "start": 375.59,
+          "end": 375.91
+        },
+        {
+          "text": "six",
+          "start": 375.91,
+          "end": 376.23
+        },
+        {
+          "text": "Minute",
+          "start": 376.23,
+          "end": 376.55
+        },
+        {
+          "text": "English.",
+          "start": 376.55,
+          "end": 377.03
+        }
+      ]
+    },
+    {
+      "id": 55,
+      "speaker": "片头片尾",
+      "start": 377.31,
+      "end": 379.57,
+      "text": "Have you heard our new music series?",
+      "words": [
+        {
+          "text": "Have",
+          "start": 377.39,
+          "end": 377.59
+        },
+        {
+          "text": "you",
+          "start": 377.59,
+          "end": 377.79
+        },
+        {
+          "text": "heard",
+          "start": 377.79,
+          "end": 378.07
+        },
+        {
+          "text": "our",
+          "start": 378.07,
+          "end": 378.35
+        },
+        {
+          "text": "new",
+          "start": 378.35,
+          "end": 378.75
+        },
+        {
+          "text": "music",
+          "start": 378.75,
+          "end": 379.23
+        },
+        {
+          "text": "series?",
+          "start": 379.23,
+          "end": 379.55
+        }
+      ]
+    },
+    {
+      "id": 56,
+      "speaker": "片头片尾",
+      "start": 379.71,
+      "end": 382.71,
+      "text": "My song, my home in each episode.",
+      "words": [
+        {
+          "text": "My",
+          "start": 379.71,
+          "end": 379.99
+        },
+        {
+          "text": "song,",
+          "start": 379.99,
+          "end": 380.27
+        },
+        {
+          "text": "my",
+          "start": 380.39,
+          "end": 380.67
+        },
+        {
+          "text": "home",
+          "start": 380.67,
+          "end": 381.63
+        },
+        {
+          "text": "in",
+          "start": 381.63,
+          "end": 381.91
+        },
+        {
+          "text": "each",
+          "start": 381.91,
+          "end": 382.27
+        },
+        {
+          "text": "episode.",
+          "start": 382.27,
+          "end": 382.71
+        }
+      ]
+    },
+    {
+      "id": 57,
+      "speaker": "片头片尾",
+      "start": 382.83,
+      "end": 387.36,
+      "text": "We visit a different place in the uk and meet a musician that lives there.",
+      "words": [
+        {
+          "text": "We",
+          "start": 382.83,
+          "end": 383.11
+        },
+        {
+          "text": "visit",
+          "start": 383.11,
+          "end": 383.43
+        },
+        {
+          "text": "a",
+          "start": 383.43,
+          "end": 383.67
+        },
+        {
+          "text": "different",
+          "start": 383.67,
+          "end": 383.95
+        },
+        {
+          "text": "place",
+          "start": 383.95,
+          "end": 384.35
+        },
+        {
+          "text": "in",
+          "start": 384.35,
+          "end": 384.51
+        },
+        {
+          "text": "the",
+          "start": 384.51,
+          "end": 384.79
+        },
+        {
+          "text": "uk",
+          "start": 384.79,
+          "end": 385.47
+        },
+        {
+          "text": "and",
+          "start": 385.47,
+          "end": 385.79
+        },
+        {
+          "text": "meet",
+          "start": 385.79,
+          "end": 386.03
+        },
+        {
+          "text": "a",
+          "start": 386.03,
+          "end": 386.23
+        },
+        {
+          "text": "musician",
+          "start": 386.23,
+          "end": 386.63
+        },
+        {
+          "text": "that",
+          "start": 386.63,
+          "end": 386.79
+        },
+        {
+          "text": "lives",
+          "start": 386.79,
+          "end": 387.07
+        },
+        {
+          "text": "there.",
+          "start": 387.07,
+          "end": 387.47
+        }
+      ]
+    },
+    {
+      "id": 58,
+      "speaker": "片头片尾",
+      "start": 388.02,
+      "end": 391.68,
+      "text": "Learn english from songs and hear natural british speakers.",
+      "words": [
+        {
+          "text": "Learn",
+          "start": 388.19,
+          "end": 388.51
+        },
+        {
+          "text": "english",
+          "start": 388.51,
+          "end": 388.95
+        },
+        {
+          "text": "from",
+          "start": 388.95,
+          "end": 389.27
+        },
+        {
+          "text": "songs",
+          "start": 389.27,
+          "end": 389.75
+        },
+        {
+          "text": "and",
+          "start": 389.75,
+          "end": 390.07
+        },
+        {
+          "text": "hear",
+          "start": 390.07,
+          "end": 390.43
+        },
+        {
+          "text": "natural",
+          "start": 390.43,
+          "end": 390.79
+        },
+        {
+          "text": "british",
+          "start": 390.79,
+          "end": 391.15
+        },
+        {
+          "text": "speakers.",
+          "start": 391.15,
+          "end": 391.79
+        }
+      ]
+    },
+    {
+      "id": 59,
+      "speaker": "片头片尾",
+      "start": 392.18,
+      "end": 392.71,
+      "text": "Find the",
+      "words": [
+        {
+          "text": "Find",
+          "start": 392.27,
+          "end": 392.47
+        },
+        {
+          "text": "the",
+          "start": 392.47,
+          "end": 392.71
+        }
+      ]
+    },
+    {
+      "id": 60,
+      "speaker": "片头片尾",
+      "start": 392.71,
+      "end": 400.31,
+      "text": "series on our website bbc learning english com or follow the learning english conversations podcast in your podcast app.",
+      "words": [
+        {
+          "text": "series",
+          "start": 392.71,
+          "end": 393.07
+        },
+        {
+          "text": "on",
+          "start": 393.07,
+          "end": 393.23
+        },
+        {
+          "text": "our",
+          "start": 393.23,
+          "end": 393.43
+        },
+        {
+          "text": "website",
+          "start": 393.43,
+          "end": 394.11
+        },
+        {
+          "text": "bbc",
+          "start": 394.11,
+          "end": 394.71
+        },
+        {
+          "text": "learning",
+          "start": 394.71,
+          "end": 395.03
+        },
+        {
+          "text": "english",
+          "start": 395.03,
+          "end": 395.39
+        },
+        {
+          "text": "com",
+          "start": 395.55,
+          "end": 396.31
+        },
+        {
+          "text": "or",
+          "start": 396.31,
+          "end": 396.67
+        },
+        {
+          "text": "follow",
+          "start": 396.67,
+          "end": 397.03
+        },
+        {
+          "text": "the",
+          "start": 397.03,
+          "end": 397.27
+        },
+        {
+          "text": "learning",
+          "start": 397.27,
+          "end": 397.63
+        },
+        {
+          "text": "english",
+          "start": 397.63,
+          "end": 398.07
+        },
+        {
+          "text": "conversations",
+          "start": 398.07,
+          "end": 398.67
+        },
+        {
+          "text": "podcast",
+          "start": 398.67,
+          "end": 399.31
+        },
+        {
+          "text": "in",
+          "start": 399.31,
+          "end": 399.47
+        },
+        {
+          "text": "your",
+          "start": 399.47,
+          "end": 399.59
+        },
+        {
+          "text": "podcast",
+          "start": 399.59,
+          "end": 400.11
+        },
+        {
+          "text": "app.",
+          "start": 400.11,
+          "end": 400.31
+        }
+      ]
+    }
+  ]
+}

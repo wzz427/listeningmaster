@@ -21,8 +21,8 @@ from serve import make_server  # noqa: E402
 import stable_copy  # noqa: E402
 
 PORT = 8799
-URL = f"http://127.0.0.1:{PORT}/web/"
 LESSON = sys.argv[sys.argv.index("--lesson") + 1] if "--lesson" in sys.argv else "260821"
+URL = f"http://127.0.0.1:{PORT}/web/?lesson={LESSON}"   # 不带课名页面会落回默认第一课，A7m/A9 就对不上了
 # 下面两处检查写死了第一集的数据（第 66 句的 cut down on），换课跑时跳过：
 FIXTURE_ONLY = LESSON == "260821"
 
@@ -331,8 +331,14 @@ def run(page, shots: Path | None) -> None:
     saved = page.evaluate(f"JSON.parse(localStorage.getItem('listening:{LESSON}') || '{{}}')")
     check("A9b 刚开始就按重听，这次记在上一句头上",
           saved.get(str(body[13]["id"]), {}).get("replays", 0) >= 1)
-    check("A15d 重听过的句子在进度条上有小圆点",
-          page.locator(".seg.stuck").count() >= 2, f"{page.locator('.seg.stuck').count()} 段")
+    # 小圆点画在当前这段的进度条上：两次重听的句子分属两段时（250918 分段短），当前这条上只有一颗
+    goto_body(page, 12)
+    page.wait_for_timeout(300)
+    both = page.evaluate(
+        "(() => { const s = parts.find((p) => p.kind === 'section' && p.first <= body[12].id && body[12].id <= p.last);"
+        " return s && s.first <= body[13].id && body[13].id <= s.last; })()")
+    dots = page.locator(".seg.stuck").count()
+    check("A15d 重听过的句子在进度条上有小圆点", dots >= (2 if both else 1), f"{dots} 段（同段：{bool(both)}）")
 
     print("\n【语速】")
     goto_body(page, 2)
@@ -407,7 +413,10 @@ def drag_part(page, shots: Path | None) -> None:
     def longest_in_shown(skip: set[int]) -> int:
         q = parts[page.evaluate("shownPart")]
         pool = [i for i in range(q["first"], q["last"] + 1) if i not in skip]
-        return max(pool, key=lambda i: sentences[i]["end"] - sentences[i]["start"])
+        # 避开这段的最后一句：选到它时 A52b 的状态牌会是「这段播完会停」而不是「连续播放」
+        # （播放器的行为没错，是 261009 的最长句恰好是段末句）
+        inner = [i for i in pool if i != q["last"]]
+        return max(inner or pool, key=lambda i: sentences[i]["end"] - sentences[i]["start"])
 
     # A52 / A56：暂停着拖，松手停在松手的位置，不播，也没被当成点了一下
     goto_body(page, 3)
@@ -653,7 +662,8 @@ def sections_part(page, shots: Path | None, body: list[dict]) -> None:
 
     _, p1 = nth[1]
     page.evaluate(f"playFrom({p1['last'] - 1})")
-    wait_paused(page, timeout=15000)
+    # 播的是这一段的最后两句，加起来可能超过 15 秒（250918 第 1 段末两句 16.3 秒）——等够
+    wait_paused(page, timeout=30000)
     stopped = page.evaluate("window.__pauseAt")
     end1 = sentences[p1["last"]]["end"]
     check("A25 连续播放到一段的末尾自动停", abs(stopped - end1) < 0.04,

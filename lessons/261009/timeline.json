@@ -1,0 +1,6184 @@
+{
+  "lesson": "261009",
+  "audio": "REE_cinema_download.mp3",
+  "sentences": [
+    {
+      "id": 0,
+      "speaker": "Georgie",
+      "start": 0.0,
+      "end": 0.64,
+      "text": "Hi Phil.",
+      "words": [
+        {
+          "text": "Hi",
+          "start": 0.24,
+          "end": 0.44
+        },
+        {
+          "text": "Phil.",
+          "start": 0.44,
+          "end": 0.72
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "speaker": "Phil",
+      "start": 1.04,
+      "end": 1.64,
+      "text": "Hi Georgie.",
+      "words": [
+        {
+          "text": "Hi",
+          "start": 1.12,
+          "end": 1.28
+        },
+        {
+          "text": "Georgie.",
+          "start": 1.28,
+          "end": 1.72
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "speaker": "Phil",
+      "start": 1.98,
+      "end": 3.23,
+      "text": "How's your week going?",
+      "words": [
+        {
+          "text": "How's",
+          "start": 2.16,
+          "end": 2.48
+        },
+        {
+          "text": "your",
+          "start": 2.48,
+          "end": 2.68
+        },
+        {
+          "text": "week",
+          "start": 2.68,
+          "end": 2.92
+        },
+        {
+          "text": "going?",
+          "start": 2.92,
+          "end": 3.28
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "speaker": "Georgie",
+      "start": 3.56,
+      "end": 5.24,
+      "text": "It's going very well, thank you.",
+      "words": [
+        {
+          "text": "It's",
+          "start": 3.64,
+          "end": 3.92
+        },
+        {
+          "text": "going",
+          "start": 3.92,
+          "end": 4.28
+        },
+        {
+          "text": "very",
+          "start": 4.28,
+          "end": 4.44
+        },
+        {
+          "text": "well,",
+          "start": 4.44,
+          "end": 4.6
+        },
+        {
+          "text": "thank",
+          "start": 4.72,
+          "end": 4.92
+        },
+        {
+          "text": "you.",
+          "start": 4.92,
+          "end": 5.24
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "speaker": "Georgie",
+      "start": 5.26,
+      "end": 7.24,
+      "text": "Um, I watched a really good film last night.",
+      "words": [
+        {
+          "text": "Um,",
+          "start": 5.36,
+          "end": 5.52
+        },
+        {
+          "text": "I",
+          "start": 5.56,
+          "end": 5.68
+        },
+        {
+          "text": "watched",
+          "start": 5.68,
+          "end": 5.92
+        },
+        {
+          "text": "a",
+          "start": 5.92,
+          "end": 6.04
+        },
+        {
+          "text": "really",
+          "start": 6.04,
+          "end": 6.2
+        },
+        {
+          "text": "good",
+          "start": 6.2,
+          "end": 6.52
+        },
+        {
+          "text": "film",
+          "start": 6.52,
+          "end": 6.76
+        },
+        {
+          "text": "last",
+          "start": 6.76,
+          "end": 7.0
+        },
+        {
+          "text": "night.",
+          "start": 7.0,
+          "end": 7.24
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "speaker": "Phil",
+      "start": 7.3,
+      "end": 9.82,
+      "text": "Did you watch it at home or at the cinema?",
+      "words": [
+        {
+          "text": "Did",
+          "start": 7.4,
+          "end": 7.52
+        },
+        {
+          "text": "you",
+          "start": 7.52,
+          "end": 7.64
+        },
+        {
+          "text": "watch",
+          "start": 7.64,
+          "end": 7.88
+        },
+        {
+          "text": "it",
+          "start": 7.88,
+          "end": 8.12
+        },
+        {
+          "text": "at",
+          "start": 8.12,
+          "end": 8.36
+        },
+        {
+          "text": "home",
+          "start": 8.36,
+          "end": 8.92
+        },
+        {
+          "text": "or",
+          "start": 8.92,
+          "end": 9.24
+        },
+        {
+          "text": "at",
+          "start": 9.24,
+          "end": 9.36
+        },
+        {
+          "text": "the",
+          "start": 9.36,
+          "end": 9.52
+        },
+        {
+          "text": "cinema?",
+          "start": 9.52,
+          "end": 9.88
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "speaker": "Georgie",
+      "start": 10.22,
+      "end": 14.05,
+      "text": "I watched it at home on my sofa with my housemates.",
+      "words": [
+        {
+          "text": "I",
+          "start": 10.32,
+          "end": 10.56
+        },
+        {
+          "text": "watched",
+          "start": 10.56,
+          "end": 10.88
+        },
+        {
+          "text": "it",
+          "start": 10.88,
+          "end": 11.08
+        },
+        {
+          "text": "at",
+          "start": 11.08,
+          "end": 11.32
+        },
+        {
+          "text": "home",
+          "start": 11.32,
+          "end": 11.84
+        },
+        {
+          "text": "on",
+          "start": 11.84,
+          "end": 12.08
+        },
+        {
+          "text": "my",
+          "start": 12.08,
+          "end": 12.44
+        },
+        {
+          "text": "sofa",
+          "start": 12.44,
+          "end": 13.08
+        },
+        {
+          "text": "with",
+          "start": 13.08,
+          "end": 13.36
+        },
+        {
+          "text": "my",
+          "start": 13.36,
+          "end": 13.6
+        },
+        {
+          "text": "housemates.",
+          "start": 13.6,
+          "end": 14.16
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "speaker": "Phil",
+      "start": 14.34,
+      "end": 15.5,
+      "text": "Oh, was it good?",
+      "words": [
+        {
+          "text": "Oh,",
+          "start": 14.48,
+          "end": 14.8
+        },
+        {
+          "text": "was",
+          "start": 15.04,
+          "end": 15.2
+        },
+        {
+          "text": "it",
+          "start": 15.2,
+          "end": 15.32
+        },
+        {
+          "text": "good?",
+          "start": 15.32,
+          "end": 15.56
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "speaker": "Georgie",
+      "start": 15.7,
+      "end": 17.08,
+      "text": "It was very good.",
+      "words": [
+        {
+          "text": "It",
+          "start": 15.84,
+          "end": 16.04
+        },
+        {
+          "text": "was",
+          "start": 16.04,
+          "end": 16.44
+        },
+        {
+          "text": "very",
+          "start": 16.44,
+          "end": 16.64
+        },
+        {
+          "text": "good.",
+          "start": 16.64,
+          "end": 17.04
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "speaker": "Georgie",
+      "start": 17.08,
+      "end": 25.96,
+      "text": "Uh, Now I told you I watched a film last night at home, but in this episode of Real Easy English, we're talking about cinema.",
+      "words": [
+        {
+          "text": "Uh,",
+          "start": 17.2,
+          "end": 17.4
+        },
+        {
+          "text": "Now",
+          "start": 17.52,
+          "end": 17.96
+        },
+        {
+          "text": "I",
+          "start": 17.96,
+          "end": 18.52
+        },
+        {
+          "text": "told",
+          "start": 18.52,
+          "end": 18.84
+        },
+        {
+          "text": "you",
+          "start": 18.84,
+          "end": 19.12
+        },
+        {
+          "text": "I",
+          "start": 19.12,
+          "end": 19.28
+        },
+        {
+          "text": "watched",
+          "start": 19.28,
+          "end": 19.52
+        },
+        {
+          "text": "a",
+          "start": 19.52,
+          "end": 19.72
+        },
+        {
+          "text": "film",
+          "start": 19.72,
+          "end": 20.2
+        },
+        {
+          "text": "last",
+          "start": 20.2,
+          "end": 20.48
+        },
+        {
+          "text": "night",
+          "start": 20.48,
+          "end": 20.84
+        },
+        {
+          "text": "at",
+          "start": 20.84,
+          "end": 21.08
+        },
+        {
+          "text": "home,",
+          "start": 21.08,
+          "end": 21.48
+        },
+        {
+          "text": "but",
+          "start": 21.84,
+          "end": 22.12
+        },
+        {
+          "text": "in",
+          "start": 22.12,
+          "end": 22.32
+        },
+        {
+          "text": "this",
+          "start": 22.32,
+          "end": 22.56
+        },
+        {
+          "text": "episode",
+          "start": 22.56,
+          "end": 22.96
+        },
+        {
+          "text": "of",
+          "start": 22.96,
+          "end": 23.12
+        },
+        {
+          "text": "Real",
+          "start": 23.12,
+          "end": 23.44
+        },
+        {
+          "text": "Easy",
+          "start": 23.44,
+          "end": 23.72
+        },
+        {
+          "text": "English,",
+          "start": 23.72,
+          "end": 23.96
+        },
+        {
+          "text": "we're",
+          "start": 24.04,
+          "end": 24.28
+        },
+        {
+          "text": "talking",
+          "start": 24.28,
+          "end": 24.84
+        },
+        {
+          "text": "about",
+          "start": 24.84,
+          "end": 25.52
+        },
+        {
+          "text": "cinema.",
+          "start": 25.52,
+          "end": 25.96
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "speaker": "Georgie",
+      "start": 25.97,
+      "end": 31.33,
+      "text": "So the cinema is where you watch films, or in American English, they're sometimes called movies.",
+      "words": [
+        {
+          "text": "So",
+          "start": 26.08,
+          "end": 26.36
+        },
+        {
+          "text": "the",
+          "start": 26.36,
+          "end": 26.56
+        },
+        {
+          "text": "cinema",
+          "start": 26.56,
+          "end": 27.0
+        },
+        {
+          "text": "is",
+          "start": 27.0,
+          "end": 27.2
+        },
+        {
+          "text": "where",
+          "start": 27.2,
+          "end": 27.4
+        },
+        {
+          "text": "you",
+          "start": 27.4,
+          "end": 27.56
+        },
+        {
+          "text": "watch",
+          "start": 27.56,
+          "end": 27.96
+        },
+        {
+          "text": "films,",
+          "start": 27.96,
+          "end": 28.32
+        },
+        {
+          "text": "or",
+          "start": 28.48,
+          "end": 28.72
+        },
+        {
+          "text": "in",
+          "start": 28.72,
+          "end": 28.92
+        },
+        {
+          "text": "American",
+          "start": 28.92,
+          "end": 29.36
+        },
+        {
+          "text": "English,",
+          "start": 29.36,
+          "end": 29.72
+        },
+        {
+          "text": "they're",
+          "start": 29.8,
+          "end": 30.2
+        },
+        {
+          "text": "sometimes",
+          "start": 30.2,
+          "end": 30.52
+        },
+        {
+          "text": "called",
+          "start": 30.52,
+          "end": 31.0
+        },
+        {
+          "text": "movies.",
+          "start": 31.0,
+          "end": 31.44
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "speaker": "Phil",
+      "start": 31.62,
+      "end": 43.66,
+      "text": "And before we get started, let's just um remind everyone that if you go to BBC Learning English dot com, there's a worksheet where you can practice all the language that you'll hear in this episode.",
+      "words": [
+        {
+          "text": "And",
+          "start": 31.76,
+          "end": 32.16
+        },
+        {
+          "text": "before",
+          "start": 32.16,
+          "end": 32.44
+        },
+        {
+          "text": "we",
+          "start": 32.44,
+          "end": 32.56
+        },
+        {
+          "text": "get",
+          "start": 32.56,
+          "end": 32.84
+        },
+        {
+          "text": "started,",
+          "start": 32.84,
+          "end": 33.2
+        },
+        {
+          "text": "let's",
+          "start": 33.4,
+          "end": 33.64
+        },
+        {
+          "text": "just",
+          "start": 33.64,
+          "end": 33.96
+        },
+        {
+          "text": "um",
+          "start": 33.96,
+          "end": 34.28
+        },
+        {
+          "text": "remind",
+          "start": 34.28,
+          "end": 34.64
+        },
+        {
+          "text": "everyone",
+          "start": 34.64,
+          "end": 35.21
+        },
+        {
+          "text": "that",
+          "start": 35.45,
+          "end": 35.65
+        },
+        {
+          "text": "if",
+          "start": 35.65,
+          "end": 35.77
+        },
+        {
+          "text": "you",
+          "start": 35.77,
+          "end": 35.89
+        },
+        {
+          "text": "go",
+          "start": 35.89,
+          "end": 36.13
+        },
+        {
+          "text": "to",
+          "start": 36.13,
+          "end": 36.65
+        },
+        {
+          "text": "BBC",
+          "start": 36.65,
+          "end": 37.29
+        },
+        {
+          "text": "Learning",
+          "start": 37.29,
+          "end": 37.73
+        },
+        {
+          "text": "English",
+          "start": 37.73,
+          "end": 38.09
+        },
+        {
+          "text": "dot",
+          "start": 38.09,
+          "end": 38.25
+        },
+        {
+          "text": "com,",
+          "start": 38.25,
+          "end": 38.61
+        },
+        {
+          "text": "there's",
+          "start": 38.97,
+          "end": 39.21
+        },
+        {
+          "text": "a",
+          "start": 39.21,
+          "end": 39.53
+        },
+        {
+          "text": "worksheet",
+          "start": 39.53,
+          "end": 40.25
+        },
+        {
+          "text": "where",
+          "start": 40.25,
+          "end": 40.37
+        },
+        {
+          "text": "you",
+          "start": 40.37,
+          "end": 40.53
+        },
+        {
+          "text": "can",
+          "start": 40.53,
+          "end": 40.89
+        },
+        {
+          "text": "practice",
+          "start": 40.89,
+          "end": 41.37
+        },
+        {
+          "text": "all",
+          "start": 41.37,
+          "end": 41.57
+        },
+        {
+          "text": "the",
+          "start": 41.57,
+          "end": 41.81
+        },
+        {
+          "text": "language",
+          "start": 41.81,
+          "end": 42.21
+        },
+        {
+          "text": "that",
+          "start": 42.21,
+          "end": 42.33
+        },
+        {
+          "text": "you'll",
+          "start": 42.33,
+          "end": 42.61
+        },
+        {
+          "text": "hear",
+          "start": 42.61,
+          "end": 42.85
+        },
+        {
+          "text": "in",
+          "start": 42.85,
+          "end": 43.01
+        },
+        {
+          "text": "this",
+          "start": 43.01,
+          "end": 43.21
+        },
+        {
+          "text": "episode.",
+          "start": 43.21,
+          "end": 43.77
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "speaker": "Georgie",
+      "start": 49.35,
+      "end": 52.41,
+      "text": "So, Phil, do you go to the cinema often?",
+      "words": [
+        {
+          "text": "So,",
+          "start": 49.47,
+          "end": 49.75
+        },
+        {
+          "text": "Phil,",
+          "start": 50.03,
+          "end": 50.43
+        },
+        {
+          "text": "do",
+          "start": 50.59,
+          "end": 50.83
+        },
+        {
+          "text": "you",
+          "start": 50.83,
+          "end": 51.07
+        },
+        {
+          "text": "go",
+          "start": 51.07,
+          "end": 51.31
+        },
+        {
+          "text": "to",
+          "start": 51.31,
+          "end": 51.43
+        },
+        {
+          "text": "the",
+          "start": 51.43,
+          "end": 51.63
+        },
+        {
+          "text": "cinema",
+          "start": 51.63,
+          "end": 52.07
+        },
+        {
+          "text": "often?",
+          "start": 52.07,
+          "end": 52.47
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "speaker": "Phil",
+      "start": 53.83,
+      "end": 57.44,
+      "text": "No, No, I don't go very often at all.",
+      "words": [
+        {
+          "text": "No,",
+          "start": 54.07,
+          "end": 54.39
+        },
+        {
+          "text": "No,",
+          "start": 54.99,
+          "end": 55.27
+        },
+        {
+          "text": "I",
+          "start": 55.39,
+          "end": 55.59
+        },
+        {
+          "text": "don't",
+          "start": 55.59,
+          "end": 55.83
+        },
+        {
+          "text": "go",
+          "start": 55.83,
+          "end": 56.19
+        },
+        {
+          "text": "very",
+          "start": 56.19,
+          "end": 56.51
+        },
+        {
+          "text": "often",
+          "start": 56.51,
+          "end": 57.03
+        },
+        {
+          "text": "at",
+          "start": 57.03,
+          "end": 57.27
+        },
+        {
+          "text": "all.",
+          "start": 57.27,
+          "end": 57.55
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "speaker": "Phil",
+      "start": 59.11,
+      "end": 59.78,
+      "text": "What about you?",
+      "words": [
+        {
+          "text": "What",
+          "start": 59.19,
+          "end": 59.35
+        },
+        {
+          "text": "about",
+          "start": 59.35,
+          "end": 59.55
+        },
+        {
+          "text": "you?",
+          "start": 59.55,
+          "end": 59.87
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "speaker": "Georgie",
+      "start": 60.37,
+      "end": 63.95,
+      "text": "I don't go often, but I did go a couple of weeks ago.",
+      "words": [
+        {
+          "text": "I",
+          "start": 60.47,
+          "end": 60.75
+        },
+        {
+          "text": "don't",
+          "start": 60.75,
+          "end": 60.95
+        },
+        {
+          "text": "go",
+          "start": 60.95,
+          "end": 61.27
+        },
+        {
+          "text": "often,",
+          "start": 61.27,
+          "end": 61.51
+        },
+        {
+          "text": "but",
+          "start": 61.59,
+          "end": 61.79
+        },
+        {
+          "text": "I",
+          "start": 61.79,
+          "end": 61.95
+        },
+        {
+          "text": "did",
+          "start": 61.95,
+          "end": 62.23
+        },
+        {
+          "text": "go",
+          "start": 62.23,
+          "end": 62.67
+        },
+        {
+          "text": "a",
+          "start": 62.67,
+          "end": 62.91
+        },
+        {
+          "text": "couple",
+          "start": 62.91,
+          "end": 63.11
+        },
+        {
+          "text": "of",
+          "start": 63.11,
+          "end": 63.23
+        },
+        {
+          "text": "weeks",
+          "start": 63.23,
+          "end": 63.59
+        },
+        {
+          "text": "ago.",
+          "start": 63.59,
+          "end": 63.91
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "speaker": "Georgie",
+      "start": 63.95,
+      "end": 69.99,
+      "text": "I went to see an action film, a recent action film, and it was really spectacular.",
+      "words": [
+        {
+          "text": "I",
+          "start": 64.03,
+          "end": 64.23
+        },
+        {
+          "text": "went",
+          "start": 64.23,
+          "end": 64.43
+        },
+        {
+          "text": "to",
+          "start": 64.43,
+          "end": 64.59
+        },
+        {
+          "text": "see",
+          "start": 64.59,
+          "end": 64.91
+        },
+        {
+          "text": "an",
+          "start": 64.91,
+          "end": 65.35
+        },
+        {
+          "text": "action",
+          "start": 65.35,
+          "end": 65.79
+        },
+        {
+          "text": "film,",
+          "start": 65.79,
+          "end": 66.07
+        },
+        {
+          "text": "a",
+          "start": 66.23,
+          "end": 66.51
+        },
+        {
+          "text": "recent",
+          "start": 66.51,
+          "end": 66.95
+        },
+        {
+          "text": "action",
+          "start": 66.95,
+          "end": 67.27
+        },
+        {
+          "text": "film,",
+          "start": 67.27,
+          "end": 67.47
+        },
+        {
+          "text": "and",
+          "start": 67.55,
+          "end": 67.71
+        },
+        {
+          "text": "it",
+          "start": 67.71,
+          "end": 67.91
+        },
+        {
+          "text": "was",
+          "start": 67.91,
+          "end": 68.83
+        },
+        {
+          "text": "really",
+          "start": 68.83,
+          "end": 69.19
+        },
+        {
+          "text": "spectacular.",
+          "start": 69.19,
+          "end": 69.99
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "speaker": "Georgie",
+      "start": 70.08,
+      "end": 74.38,
+      "text": "And I'm not a big fan of action movies, action films.",
+      "words": [
+        {
+          "text": "And",
+          "start": 70.63,
+          "end": 70.83
+        },
+        {
+          "text": "I'm",
+          "start": 70.83,
+          "end": 71.15
+        },
+        {
+          "text": "not",
+          "start": 71.15,
+          "end": 71.35
+        },
+        {
+          "text": "a",
+          "start": 71.35,
+          "end": 71.51
+        },
+        {
+          "text": "big",
+          "start": 71.51,
+          "end": 71.75
+        },
+        {
+          "text": "fan",
+          "start": 71.75,
+          "end": 72.47
+        },
+        {
+          "text": "of",
+          "start": 72.47,
+          "end": 72.83
+        },
+        {
+          "text": "action",
+          "start": 72.83,
+          "end": 73.19
+        },
+        {
+          "text": "movies,",
+          "start": 73.19,
+          "end": 73.51
+        },
+        {
+          "text": "action",
+          "start": 73.71,
+          "end": 74.07
+        },
+        {
+          "text": "films.",
+          "start": 74.07,
+          "end": 74.47
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "speaker": "Georgie",
+      "start": 74.82,
+      "end": 94.62,
+      "text": "I prefer films that are a bit less stressful, um, so I wouldn't usually watch action films at home, but in the cinema it was really an amazing experience because you have the big screen, You have amazing sound, um, And I really enjoyed it.",
+      "words": [
+        {
+          "text": "I",
+          "start": 74.92,
+          "end": 75.2
+        },
+        {
+          "text": "prefer",
+          "start": 75.2,
+          "end": 76.04
+        },
+        {
+          "text": "films",
+          "start": 76.04,
+          "end": 76.4
+        },
+        {
+          "text": "that",
+          "start": 76.4,
+          "end": 76.56
+        },
+        {
+          "text": "are",
+          "start": 76.56,
+          "end": 77.32
+        },
+        {
+          "text": "a",
+          "start": 77.32,
+          "end": 77.44
+        },
+        {
+          "text": "bit",
+          "start": 77.44,
+          "end": 78.04
+        },
+        {
+          "text": "less",
+          "start": 78.04,
+          "end": 78.48
+        },
+        {
+          "text": "stressful,",
+          "start": 78.48,
+          "end": 79.16
+        },
+        {
+          "text": "um,",
+          "start": 79.68,
+          "end": 80.16
+        },
+        {
+          "text": "so",
+          "start": 80.72,
+          "end": 80.88
+        },
+        {
+          "text": "I",
+          "start": 80.88,
+          "end": 81.04
+        },
+        {
+          "text": "wouldn't",
+          "start": 81.04,
+          "end": 81.52
+        },
+        {
+          "text": "usually",
+          "start": 81.52,
+          "end": 81.92
+        },
+        {
+          "text": "watch",
+          "start": 81.92,
+          "end": 82.48
+        },
+        {
+          "text": "action",
+          "start": 82.48,
+          "end": 82.8
+        },
+        {
+          "text": "films",
+          "start": 82.8,
+          "end": 83.2
+        },
+        {
+          "text": "at",
+          "start": 83.2,
+          "end": 83.48
+        },
+        {
+          "text": "home,",
+          "start": 83.48,
+          "end": 83.92
+        },
+        {
+          "text": "but",
+          "start": 84.08,
+          "end": 84.28
+        },
+        {
+          "text": "in",
+          "start": 84.28,
+          "end": 84.4
+        },
+        {
+          "text": "the",
+          "start": 84.4,
+          "end": 84.6
+        },
+        {
+          "text": "cinema",
+          "start": 84.6,
+          "end": 85.12
+        },
+        {
+          "text": "it",
+          "start": 85.12,
+          "end": 85.28
+        },
+        {
+          "text": "was",
+          "start": 85.28,
+          "end": 85.8
+        },
+        {
+          "text": "really",
+          "start": 85.8,
+          "end": 86.32
+        },
+        {
+          "text": "an",
+          "start": 86.32,
+          "end": 86.52
+        },
+        {
+          "text": "amazing",
+          "start": 86.52,
+          "end": 87.04
+        },
+        {
+          "text": "experience",
+          "start": 87.04,
+          "end": 87.72
+        },
+        {
+          "text": "because",
+          "start": 87.72,
+          "end": 88.4
+        },
+        {
+          "text": "you",
+          "start": 88.4,
+          "end": 88.56
+        },
+        {
+          "text": "have",
+          "start": 88.56,
+          "end": 88.8
+        },
+        {
+          "text": "the",
+          "start": 88.8,
+          "end": 89.04
+        },
+        {
+          "text": "big",
+          "start": 89.04,
+          "end": 89.36
+        },
+        {
+          "text": "screen,",
+          "start": 89.36,
+          "end": 90.0
+        },
+        {
+          "text": "You",
+          "start": 90.44,
+          "end": 90.6
+        },
+        {
+          "text": "have",
+          "start": 90.6,
+          "end": 90.88
+        },
+        {
+          "text": "amazing",
+          "start": 90.88,
+          "end": 91.52
+        },
+        {
+          "text": "sound,",
+          "start": 91.52,
+          "end": 92.04
+        },
+        {
+          "text": "um,",
+          "start": 92.36,
+          "end": 92.8
+        },
+        {
+          "text": "And",
+          "start": 93.12,
+          "end": 93.6
+        },
+        {
+          "text": "I",
+          "start": 93.6,
+          "end": 93.88
+        },
+        {
+          "text": "really",
+          "start": 93.88,
+          "end": 94.2
+        },
+        {
+          "text": "enjoyed",
+          "start": 94.2,
+          "end": 94.48
+        },
+        {
+          "text": "it.",
+          "start": 94.48,
+          "end": 94.72
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "speaker": "Phil",
+      "start": 94.88,
+      "end": 100.47,
+      "text": "I've not actually been to the cinema for maybe two years, I think.",
+      "words": [
+        {
+          "text": "I've",
+          "start": 95.0,
+          "end": 95.28
+        },
+        {
+          "text": "not",
+          "start": 95.28,
+          "end": 95.52
+        },
+        {
+          "text": "actually",
+          "start": 95.52,
+          "end": 95.8
+        },
+        {
+          "text": "been",
+          "start": 95.8,
+          "end": 96.0
+        },
+        {
+          "text": "to",
+          "start": 96.0,
+          "end": 96.12
+        },
+        {
+          "text": "the",
+          "start": 96.12,
+          "end": 96.32
+        },
+        {
+          "text": "cinema",
+          "start": 96.32,
+          "end": 97.08
+        },
+        {
+          "text": "for",
+          "start": 97.08,
+          "end": 97.76
+        },
+        {
+          "text": "maybe",
+          "start": 98.26,
+          "end": 98.98
+        },
+        {
+          "text": "two",
+          "start": 98.98,
+          "end": 99.3
+        },
+        {
+          "text": "years,",
+          "start": 99.3,
+          "end": 99.78
+        },
+        {
+          "text": "I",
+          "start": 99.98,
+          "end": 100.14
+        },
+        {
+          "text": "think.",
+          "start": 100.14,
+          "end": 100.5
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "speaker": "Georgie",
+      "start": 100.54,
+      "end": 102.82,
+      "text": "Wow, Phil, Why don't you go to the cinema?",
+      "words": [
+        {
+          "text": "Wow,",
+          "start": 100.78,
+          "end": 101.06
+        },
+        {
+          "text": "Phil,",
+          "start": 101.18,
+          "end": 101.42
+        },
+        {
+          "text": "Why",
+          "start": 101.54,
+          "end": 101.82
+        },
+        {
+          "text": "don't",
+          "start": 101.82,
+          "end": 102.02
+        },
+        {
+          "text": "you",
+          "start": 102.02,
+          "end": 102.1
+        },
+        {
+          "text": "go",
+          "start": 102.1,
+          "end": 102.26
+        },
+        {
+          "text": "to",
+          "start": 102.26,
+          "end": 102.38
+        },
+        {
+          "text": "the",
+          "start": 102.38,
+          "end": 102.58
+        },
+        {
+          "text": "cinema?",
+          "start": 102.58,
+          "end": 102.82
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "speaker": "Georgie",
+      "start": 102.88,
+      "end": 103.81,
+      "text": "Do you not like it?",
+      "words": [
+        {
+          "text": "Do",
+          "start": 102.9,
+          "end": 102.94
+        },
+        {
+          "text": "you",
+          "start": 102.94,
+          "end": 103.18
+        },
+        {
+          "text": "not",
+          "start": 103.18,
+          "end": 103.34
+        },
+        {
+          "text": "like",
+          "start": 103.34,
+          "end": 103.58
+        },
+        {
+          "text": "it?",
+          "start": 103.58,
+          "end": 103.86
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "speaker": "Phil",
+      "start": 104.18,
+      "end": 110.0,
+      "text": "I like, I like the cinema as an event so the last time I went, I went with my kids.",
+      "words": [
+        {
+          "text": "I",
+          "start": 104.3,
+          "end": 104.46
+        },
+        {
+          "text": "like,",
+          "start": 104.46,
+          "end": 104.74
+        },
+        {
+          "text": "I",
+          "start": 104.94,
+          "end": 105.06
+        },
+        {
+          "text": "like",
+          "start": 105.06,
+          "end": 105.22
+        },
+        {
+          "text": "the",
+          "start": 105.22,
+          "end": 105.42
+        },
+        {
+          "text": "cinema",
+          "start": 105.42,
+          "end": 105.86
+        },
+        {
+          "text": "as",
+          "start": 105.86,
+          "end": 106.3
+        },
+        {
+          "text": "an",
+          "start": 106.3,
+          "end": 106.7
+        },
+        {
+          "text": "event",
+          "start": 106.7,
+          "end": 107.3
+        },
+        {
+          "text": "so",
+          "start": 107.5,
+          "end": 107.86
+        },
+        {
+          "text": "the",
+          "start": 107.86,
+          "end": 108.02
+        },
+        {
+          "text": "last",
+          "start": 108.02,
+          "end": 108.26
+        },
+        {
+          "text": "time",
+          "start": 108.26,
+          "end": 108.42
+        },
+        {
+          "text": "I",
+          "start": 108.42,
+          "end": 108.54
+        },
+        {
+          "text": "went,",
+          "start": 108.54,
+          "end": 108.78
+        },
+        {
+          "text": "I",
+          "start": 108.86,
+          "end": 108.98
+        },
+        {
+          "text": "went",
+          "start": 108.98,
+          "end": 109.26
+        },
+        {
+          "text": "with",
+          "start": 109.26,
+          "end": 109.46
+        },
+        {
+          "text": "my",
+          "start": 109.46,
+          "end": 109.62
+        },
+        {
+          "text": "kids.",
+          "start": 109.62,
+          "end": 110.06
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "speaker": "Phil",
+      "start": 110.46,
+      "end": 116.5,
+      "text": "Um, I can't remember what film, but it was a big thing for them to go, and they're excited about it, but.",
+      "words": [
+        {
+          "text": "Um,",
+          "start": 110.62,
+          "end": 110.82
+        },
+        {
+          "text": "I",
+          "start": 110.9,
+          "end": 111.06
+        },
+        {
+          "text": "can't",
+          "start": 111.06,
+          "end": 111.34
+        },
+        {
+          "text": "remember",
+          "start": 111.34,
+          "end": 111.66
+        },
+        {
+          "text": "what",
+          "start": 111.66,
+          "end": 111.94
+        },
+        {
+          "text": "film,",
+          "start": 111.94,
+          "end": 112.1
+        },
+        {
+          "text": "but",
+          "start": 112.18,
+          "end": 112.42
+        },
+        {
+          "text": "it",
+          "start": 112.42,
+          "end": 112.54
+        },
+        {
+          "text": "was",
+          "start": 112.54,
+          "end": 112.86
+        },
+        {
+          "text": "a",
+          "start": 112.86,
+          "end": 113.02
+        },
+        {
+          "text": "big",
+          "start": 113.02,
+          "end": 113.18
+        },
+        {
+          "text": "thing",
+          "start": 113.18,
+          "end": 113.5
+        },
+        {
+          "text": "for",
+          "start": 113.5,
+          "end": 113.62
+        },
+        {
+          "text": "them",
+          "start": 113.62,
+          "end": 113.82
+        },
+        {
+          "text": "to",
+          "start": 113.82,
+          "end": 113.94
+        },
+        {
+          "text": "go,",
+          "start": 113.94,
+          "end": 114.1
+        },
+        {
+          "text": "and",
+          "start": 114.22,
+          "end": 114.34
+        },
+        {
+          "text": "they're",
+          "start": 114.34,
+          "end": 114.74
+        },
+        {
+          "text": "excited",
+          "start": 114.74,
+          "end": 115.18
+        },
+        {
+          "text": "about",
+          "start": 115.18,
+          "end": 115.38
+        },
+        {
+          "text": "it,",
+          "start": 115.38,
+          "end": 115.66
+        },
+        {
+          "text": "but.",
+          "start": 116.14,
+          "end": 116.61
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "speaker": "Phil",
+      "start": 116.9,
+      "end": 117.55,
+      "text": "I don't know.",
+      "words": [
+        {
+          "text": "I",
+          "start": 117.03,
+          "end": 117.19
+        },
+        {
+          "text": "don't",
+          "start": 117.19,
+          "end": 117.35
+        },
+        {
+          "text": "know.",
+          "start": 117.35,
+          "end": 117.55
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "speaker": "Phil",
+      "start": 117.57,
+      "end": 119.93,
+      "text": "I, I like the big screen.",
+      "words": [
+        {
+          "text": "I,",
+          "start": 117.67,
+          "end": 117.99
+        },
+        {
+          "text": "I",
+          "start": 118.83,
+          "end": 118.99
+        },
+        {
+          "text": "like",
+          "start": 118.99,
+          "end": 119.19
+        },
+        {
+          "text": "the",
+          "start": 119.19,
+          "end": 119.31
+        },
+        {
+          "text": "big",
+          "start": 119.31,
+          "end": 119.55
+        },
+        {
+          "text": "screen.",
+          "start": 119.55,
+          "end": 119.99
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "speaker": "Phil",
+      "start": 120.39,
+      "end": 121.6,
+      "text": "I like the sound.",
+      "words": [
+        {
+          "text": "I",
+          "start": 120.47,
+          "end": 120.67
+        },
+        {
+          "text": "like",
+          "start": 120.67,
+          "end": 120.95
+        },
+        {
+          "text": "the",
+          "start": 120.95,
+          "end": 121.27
+        },
+        {
+          "text": "sound.",
+          "start": 121.27,
+          "end": 121.67
+        }
+      ]
+    },
+    {
+      "id": 27,
+      "speaker": "Phil",
+      "start": 121.86,
+      "end": 123.04,
+      "text": "I like the event.",
+      "words": [
+        {
+          "text": "I",
+          "start": 121.95,
+          "end": 122.15
+        },
+        {
+          "text": "like",
+          "start": 122.15,
+          "end": 122.39
+        },
+        {
+          "text": "the",
+          "start": 122.39,
+          "end": 122.59
+        },
+        {
+          "text": "event.",
+          "start": 122.59,
+          "end": 123.15
+        }
+      ]
+    },
+    {
+      "id": 28,
+      "speaker": "Phil",
+      "start": 123.71,
+      "end": 130.76,
+      "text": "But if you want to spend time with people, I think in a cinema you can't talk to anyone.",
+      "words": [
+        {
+          "text": "But",
+          "start": 123.83,
+          "end": 124.79
+        },
+        {
+          "text": "if",
+          "start": 124.79,
+          "end": 124.95
+        },
+        {
+          "text": "you",
+          "start": 124.95,
+          "end": 125.07
+        },
+        {
+          "text": "want",
+          "start": 125.07,
+          "end": 125.27
+        },
+        {
+          "text": "to",
+          "start": 125.27,
+          "end": 125.47
+        },
+        {
+          "text": "spend",
+          "start": 125.47,
+          "end": 125.91
+        },
+        {
+          "text": "time",
+          "start": 125.91,
+          "end": 126.35
+        },
+        {
+          "text": "with",
+          "start": 126.35,
+          "end": 126.59
+        },
+        {
+          "text": "people,",
+          "start": 126.59,
+          "end": 127.11
+        },
+        {
+          "text": "I",
+          "start": 127.59,
+          "end": 127.79
+        },
+        {
+          "text": "think",
+          "start": 127.79,
+          "end": 128.19
+        },
+        {
+          "text": "in",
+          "start": 128.19,
+          "end": 128.35
+        },
+        {
+          "text": "a",
+          "start": 128.35,
+          "end": 128.59
+        },
+        {
+          "text": "cinema",
+          "start": 128.59,
+          "end": 129.39
+        },
+        {
+          "text": "you",
+          "start": 129.39,
+          "end": 129.55
+        },
+        {
+          "text": "can't",
+          "start": 129.55,
+          "end": 129.87
+        },
+        {
+          "text": "talk",
+          "start": 129.87,
+          "end": 130.11
+        },
+        {
+          "text": "to",
+          "start": 130.11,
+          "end": 130.35
+        },
+        {
+          "text": "anyone.",
+          "start": 130.35,
+          "end": 130.87
+        }
+      ]
+    },
+    {
+      "id": 29,
+      "speaker": "Phil",
+      "start": 131.23,
+      "end": 132.35,
+      "text": "You sit in the dark.",
+      "words": [
+        {
+          "text": "You",
+          "start": 131.35,
+          "end": 131.55
+        },
+        {
+          "text": "sit",
+          "start": 131.55,
+          "end": 131.71
+        },
+        {
+          "text": "in",
+          "start": 131.71,
+          "end": 131.83
+        },
+        {
+          "text": "the",
+          "start": 131.83,
+          "end": 131.99
+        },
+        {
+          "text": "dark.",
+          "start": 131.99,
+          "end": 132.43
+        }
+      ]
+    },
+    {
+      "id": 30,
+      "speaker": "Phil",
+      "start": 132.56,
+      "end": 133.84,
+      "text": "You can't talk.",
+      "words": [
+        {
+          "text": "You",
+          "start": 132.63,
+          "end": 132.95
+        },
+        {
+          "text": "can't",
+          "start": 132.95,
+          "end": 133.43
+        },
+        {
+          "text": "talk.",
+          "start": 133.43,
+          "end": 133.91
+        }
+      ]
+    },
+    {
+      "id": 31,
+      "speaker": "Phil",
+      "start": 134.34,
+      "end": 144.44,
+      "text": "Um, And it's not the best when you want to talk to people when you want to get to know people so I tend to watch films more at home to be honest.",
+      "words": [
+        {
+          "text": "Um,",
+          "start": 134.51,
+          "end": 134.83
+        },
+        {
+          "text": "And",
+          "start": 135.27,
+          "end": 135.91
+        },
+        {
+          "text": "it's",
+          "start": 135.91,
+          "end": 136.11
+        },
+        {
+          "text": "not",
+          "start": 136.11,
+          "end": 136.27
+        },
+        {
+          "text": "the",
+          "start": 136.27,
+          "end": 136.35
+        },
+        {
+          "text": "best",
+          "start": 136.35,
+          "end": 136.71
+        },
+        {
+          "text": "when",
+          "start": 137.35,
+          "end": 137.51
+        },
+        {
+          "text": "you",
+          "start": 137.51,
+          "end": 137.59
+        },
+        {
+          "text": "want",
+          "start": 137.59,
+          "end": 137.75
+        },
+        {
+          "text": "to",
+          "start": 137.75,
+          "end": 137.87
+        },
+        {
+          "text": "talk",
+          "start": 137.87,
+          "end": 138.03
+        },
+        {
+          "text": "to",
+          "start": 138.03,
+          "end": 138.19
+        },
+        {
+          "text": "people",
+          "start": 138.19,
+          "end": 138.55
+        },
+        {
+          "text": "when",
+          "start": 138.55,
+          "end": 138.67
+        },
+        {
+          "text": "you",
+          "start": 138.67,
+          "end": 138.75
+        },
+        {
+          "text": "want",
+          "start": 138.75,
+          "end": 138.87
+        },
+        {
+          "text": "to",
+          "start": 138.87,
+          "end": 138.99
+        },
+        {
+          "text": "get",
+          "start": 138.99,
+          "end": 139.15
+        },
+        {
+          "text": "to",
+          "start": 139.15,
+          "end": 139.27
+        },
+        {
+          "text": "know",
+          "start": 139.27,
+          "end": 139.51
+        },
+        {
+          "text": "people",
+          "start": 139.51,
+          "end": 140.55
+        },
+        {
+          "text": "so",
+          "start": 140.55,
+          "end": 141.63
+        },
+        {
+          "text": "I",
+          "start": 141.63,
+          "end": 141.79
+        },
+        {
+          "text": "tend",
+          "start": 141.79,
+          "end": 141.95
+        },
+        {
+          "text": "to",
+          "start": 141.95,
+          "end": 142.07
+        },
+        {
+          "text": "watch",
+          "start": 142.07,
+          "end": 142.35
+        },
+        {
+          "text": "films",
+          "start": 142.35,
+          "end": 142.59
+        },
+        {
+          "text": "more",
+          "start": 142.59,
+          "end": 142.75
+        },
+        {
+          "text": "at",
+          "start": 142.75,
+          "end": 142.91
+        },
+        {
+          "text": "home",
+          "start": 142.91,
+          "end": 143.19
+        },
+        {
+          "text": "to",
+          "start": 143.19,
+          "end": 143.27
+        },
+        {
+          "text": "be",
+          "start": 143.27,
+          "end": 143.47
+        },
+        {
+          "text": "honest.",
+          "start": 143.47,
+          "end": 144.55
+        }
+      ]
+    },
+    {
+      "id": 32,
+      "speaker": "Georgie",
+      "start": 144.44,
+      "end": 155.68,
+      "text": "Yeah but what about if you go to the cinema with people that you see very often and you don't need to catch up or find out about their lives You're just going to watch a film and to relax.",
+      "words": [
+        {
+          "text": "Yeah",
+          "start": 144.55,
+          "end": 144.83
+        },
+        {
+          "text": "but",
+          "start": 144.83,
+          "end": 145.03
+        },
+        {
+          "text": "what",
+          "start": 145.03,
+          "end": 145.19
+        },
+        {
+          "text": "about",
+          "start": 145.19,
+          "end": 145.51
+        },
+        {
+          "text": "if",
+          "start": 145.51,
+          "end": 145.63
+        },
+        {
+          "text": "you",
+          "start": 145.63,
+          "end": 145.75
+        },
+        {
+          "text": "go",
+          "start": 145.75,
+          "end": 145.95
+        },
+        {
+          "text": "to",
+          "start": 145.95,
+          "end": 146.07
+        },
+        {
+          "text": "the",
+          "start": 146.07,
+          "end": 146.27
+        },
+        {
+          "text": "cinema",
+          "start": 146.27,
+          "end": 146.83
+        },
+        {
+          "text": "with",
+          "start": 146.83,
+          "end": 147.07
+        },
+        {
+          "text": "people",
+          "start": 147.07,
+          "end": 147.39
+        },
+        {
+          "text": "that",
+          "start": 147.39,
+          "end": 147.55
+        },
+        {
+          "text": "you",
+          "start": 147.55,
+          "end": 147.71
+        },
+        {
+          "text": "see",
+          "start": 147.71,
+          "end": 148.15
+        },
+        {
+          "text": "very",
+          "start": 148.15,
+          "end": 148.47
+        },
+        {
+          "text": "often",
+          "start": 148.47,
+          "end": 148.95
+        },
+        {
+          "text": "and",
+          "start": 148.95,
+          "end": 149.11
+        },
+        {
+          "text": "you",
+          "start": 149.11,
+          "end": 149.23
+        },
+        {
+          "text": "don't",
+          "start": 149.23,
+          "end": 149.47
+        },
+        {
+          "text": "need",
+          "start": 149.47,
+          "end": 149.71
+        },
+        {
+          "text": "to",
+          "start": 149.71,
+          "end": 150.15
+        },
+        {
+          "text": "catch",
+          "start": 150.15,
+          "end": 150.47
+        },
+        {
+          "text": "up",
+          "start": 150.47,
+          "end": 150.87
+        },
+        {
+          "text": "or",
+          "start": 150.87,
+          "end": 151.19
+        },
+        {
+          "text": "find",
+          "start": 151.19,
+          "end": 151.39
+        },
+        {
+          "text": "out",
+          "start": 151.39,
+          "end": 151.59
+        },
+        {
+          "text": "about",
+          "start": 151.59,
+          "end": 151.83
+        },
+        {
+          "text": "their",
+          "start": 151.83,
+          "end": 152.07
+        },
+        {
+          "text": "lives",
+          "start": 152.07,
+          "end": 152.47
+        },
+        {
+          "text": "You're",
+          "start": 152.47,
+          "end": 152.67
+        },
+        {
+          "text": "just",
+          "start": 152.67,
+          "end": 152.91
+        },
+        {
+          "text": "going",
+          "start": 152.91,
+          "end": 153.59
+        },
+        {
+          "text": "to",
+          "start": 153.59,
+          "end": 153.79
+        },
+        {
+          "text": "watch",
+          "start": 153.79,
+          "end": 153.95
+        },
+        {
+          "text": "a",
+          "start": 153.95,
+          "end": 154.15
+        },
+        {
+          "text": "film",
+          "start": 154.15,
+          "end": 154.35
+        },
+        {
+          "text": "and",
+          "start": 154.35,
+          "end": 154.47
+        },
+        {
+          "text": "to",
+          "start": 154.47,
+          "end": 154.71
+        },
+        {
+          "text": "relax.",
+          "start": 154.71,
+          "end": 155.79
+        }
+      ]
+    },
+    {
+      "id": 33,
+      "speaker": "Phil",
+      "start": 155.68,
+      "end": 163.5,
+      "text": "Yeah I mean yeah that makes sense because it is it is it is nice to get out It is nice to get out of the house and see it on a big screen.",
+      "words": [
+        {
+          "text": "Yeah",
+          "start": 155.79,
+          "end": 156.03
+        },
+        {
+          "text": "I",
+          "start": 156.03,
+          "end": 156.15
+        },
+        {
+          "text": "mean",
+          "start": 156.15,
+          "end": 156.55
+        },
+        {
+          "text": "yeah",
+          "start": 156.55,
+          "end": 156.83
+        },
+        {
+          "text": "that",
+          "start": 156.83,
+          "end": 156.99
+        },
+        {
+          "text": "makes",
+          "start": 156.99,
+          "end": 157.19
+        },
+        {
+          "text": "sense",
+          "start": 157.19,
+          "end": 157.63
+        },
+        {
+          "text": "because",
+          "start": 157.63,
+          "end": 158.03
+        },
+        {
+          "text": "it",
+          "start": 158.03,
+          "end": 158.19
+        },
+        {
+          "text": "is",
+          "start": 158.19,
+          "end": 158.43
+        },
+        {
+          "text": "it",
+          "start": 158.43,
+          "end": 158.59
+        },
+        {
+          "text": "is",
+          "start": 158.59,
+          "end": 158.99
+        },
+        {
+          "text": "it",
+          "start": 158.99,
+          "end": 159.15
+        },
+        {
+          "text": "is",
+          "start": 159.15,
+          "end": 159.31
+        },
+        {
+          "text": "nice",
+          "start": 159.31,
+          "end": 159.47
+        },
+        {
+          "text": "to",
+          "start": 159.47,
+          "end": 159.63
+        },
+        {
+          "text": "get",
+          "start": 159.63,
+          "end": 159.79
+        },
+        {
+          "text": "out",
+          "start": 159.79,
+          "end": 160.03
+        },
+        {
+          "text": "It",
+          "start": 160.03,
+          "end": 160.15
+        },
+        {
+          "text": "is",
+          "start": 160.15,
+          "end": 160.35
+        },
+        {
+          "text": "nice",
+          "start": 160.35,
+          "end": 160.55
+        },
+        {
+          "text": "to",
+          "start": 160.55,
+          "end": 160.67
+        },
+        {
+          "text": "get",
+          "start": 160.67,
+          "end": 160.83
+        },
+        {
+          "text": "out",
+          "start": 160.83,
+          "end": 160.99
+        },
+        {
+          "text": "of",
+          "start": 160.99,
+          "end": 161.11
+        },
+        {
+          "text": "the",
+          "start": 161.11,
+          "end": 161.23
+        },
+        {
+          "text": "house",
+          "start": 161.23,
+          "end": 161.59
+        },
+        {
+          "text": "and",
+          "start": 161.59,
+          "end": 162.06
+        },
+        {
+          "text": "see",
+          "start": 162.5,
+          "end": 162.7
+        },
+        {
+          "text": "it",
+          "start": 162.7,
+          "end": 162.82
+        },
+        {
+          "text": "on",
+          "start": 162.82,
+          "end": 162.9
+        },
+        {
+          "text": "a",
+          "start": 162.9,
+          "end": 163.02
+        },
+        {
+          "text": "big",
+          "start": 163.02,
+          "end": 163.22
+        },
+        {
+          "text": "screen.",
+          "start": 163.22,
+          "end": 163.58
+        }
+      ]
+    },
+    {
+      "id": 34,
+      "speaker": "Georgie",
+      "start": 163.89,
+      "end": 166.96,
+      "text": "There are also other downsides to going to the cinema.",
+      "words": [
+        {
+          "text": "There",
+          "start": 163.98,
+          "end": 164.18
+        },
+        {
+          "text": "are",
+          "start": 164.18,
+          "end": 164.46
+        },
+        {
+          "text": "also",
+          "start": 164.46,
+          "end": 164.78
+        },
+        {
+          "text": "other",
+          "start": 164.78,
+          "end": 165.02
+        },
+        {
+          "text": "downsides",
+          "start": 165.02,
+          "end": 165.58
+        },
+        {
+          "text": "to",
+          "start": 165.58,
+          "end": 165.94
+        },
+        {
+          "text": "going",
+          "start": 165.94,
+          "end": 166.22
+        },
+        {
+          "text": "to",
+          "start": 166.22,
+          "end": 166.34
+        },
+        {
+          "text": "the",
+          "start": 166.34,
+          "end": 166.54
+        },
+        {
+          "text": "cinema.",
+          "start": 166.54,
+          "end": 167.02
+        }
+      ]
+    },
+    {
+      "id": 35,
+      "speaker": "Georgie",
+      "start": 167.03,
+      "end": 172.15,
+      "text": "My big thing with the cinema is that the seats are not very comfortable.",
+      "words": [
+        {
+          "text": "My",
+          "start": 167.3,
+          "end": 168.22
+        },
+        {
+          "text": "big",
+          "start": 168.22,
+          "end": 168.7
+        },
+        {
+          "text": "thing",
+          "start": 168.7,
+          "end": 169.1
+        },
+        {
+          "text": "with",
+          "start": 169.1,
+          "end": 169.18
+        },
+        {
+          "text": "the",
+          "start": 169.18,
+          "end": 169.38
+        },
+        {
+          "text": "cinema",
+          "start": 169.38,
+          "end": 169.78
+        },
+        {
+          "text": "is",
+          "start": 169.78,
+          "end": 169.98
+        },
+        {
+          "text": "that",
+          "start": 169.98,
+          "end": 170.22
+        },
+        {
+          "text": "the",
+          "start": 170.22,
+          "end": 170.66
+        },
+        {
+          "text": "seats",
+          "start": 170.66,
+          "end": 170.98
+        },
+        {
+          "text": "are",
+          "start": 170.98,
+          "end": 171.14
+        },
+        {
+          "text": "not",
+          "start": 171.14,
+          "end": 171.38
+        },
+        {
+          "text": "very",
+          "start": 171.38,
+          "end": 171.7
+        },
+        {
+          "text": "comfortable.",
+          "start": 171.7,
+          "end": 172.18
+        }
+      ]
+    },
+    {
+      "id": 36,
+      "speaker": "Georgie",
+      "start": 172.6,
+      "end": 186.14,
+      "text": "It's much more comfortable to watch a film at home because you might have a sofa, blankets, you can lie down, You don't have to sit like we are now in a chair, upright.",
+      "words": [
+        {
+          "text": "It's",
+          "start": 172.66,
+          "end": 172.98
+        },
+        {
+          "text": "much",
+          "start": 172.98,
+          "end": 173.38
+        },
+        {
+          "text": "more",
+          "start": 173.38,
+          "end": 173.7
+        },
+        {
+          "text": "comfortable",
+          "start": 173.7,
+          "end": 174.06
+        },
+        {
+          "text": "to",
+          "start": 174.06,
+          "end": 174.18
+        },
+        {
+          "text": "watch",
+          "start": 174.18,
+          "end": 174.38
+        },
+        {
+          "text": "a",
+          "start": 174.38,
+          "end": 174.54
+        },
+        {
+          "text": "film",
+          "start": 174.54,
+          "end": 174.9
+        },
+        {
+          "text": "at",
+          "start": 174.9,
+          "end": 175.18
+        },
+        {
+          "text": "home",
+          "start": 175.18,
+          "end": 175.86
+        },
+        {
+          "text": "because",
+          "start": 175.86,
+          "end": 176.34
+        },
+        {
+          "text": "you",
+          "start": 176.34,
+          "end": 176.5
+        },
+        {
+          "text": "might",
+          "start": 176.5,
+          "end": 176.78
+        },
+        {
+          "text": "have",
+          "start": 176.78,
+          "end": 177.42
+        },
+        {
+          "text": "a",
+          "start": 177.42,
+          "end": 177.82
+        },
+        {
+          "text": "sofa,",
+          "start": 177.82,
+          "end": 178.34
+        },
+        {
+          "text": "blankets,",
+          "start": 178.98,
+          "end": 179.54
+        },
+        {
+          "text": "you",
+          "start": 179.66,
+          "end": 179.82
+        },
+        {
+          "text": "can",
+          "start": 179.82,
+          "end": 180.06
+        },
+        {
+          "text": "lie",
+          "start": 180.06,
+          "end": 180.38
+        },
+        {
+          "text": "down,",
+          "start": 180.38,
+          "end": 180.82
+        },
+        {
+          "text": "You",
+          "start": 180.98,
+          "end": 181.1
+        },
+        {
+          "text": "don't",
+          "start": 181.1,
+          "end": 181.3
+        },
+        {
+          "text": "have",
+          "start": 181.3,
+          "end": 181.46
+        },
+        {
+          "text": "to",
+          "start": 181.46,
+          "end": 181.66
+        },
+        {
+          "text": "sit",
+          "start": 181.66,
+          "end": 182.5
+        },
+        {
+          "text": "like",
+          "start": 182.5,
+          "end": 182.7
+        },
+        {
+          "text": "we",
+          "start": 182.7,
+          "end": 182.86
+        },
+        {
+          "text": "are",
+          "start": 182.86,
+          "end": 183.06
+        },
+        {
+          "text": "now",
+          "start": 183.06,
+          "end": 183.58
+        },
+        {
+          "text": "in",
+          "start": 183.58,
+          "end": 183.74
+        },
+        {
+          "text": "a",
+          "start": 183.74,
+          "end": 183.86
+        },
+        {
+          "text": "chair,",
+          "start": 183.86,
+          "end": 184.3
+        },
+        {
+          "text": "upright.",
+          "start": 184.94,
+          "end": 186.18
+        }
+      ]
+    },
+    {
+      "id": 37,
+      "speaker": "Georgie",
+      "start": 186.6,
+      "end": 188.49,
+      "text": "Yeah, it's really nice at home.",
+      "words": [
+        {
+          "text": "Yeah,",
+          "start": 186.83,
+          "end": 187.19
+        },
+        {
+          "text": "it's",
+          "start": 187.35,
+          "end": 187.59
+        },
+        {
+          "text": "really",
+          "start": 187.59,
+          "end": 187.79
+        },
+        {
+          "text": "nice",
+          "start": 187.79,
+          "end": 188.03
+        },
+        {
+          "text": "at",
+          "start": 188.03,
+          "end": 188.19
+        },
+        {
+          "text": "home.",
+          "start": 188.19,
+          "end": 188.51
+        }
+      ]
+    },
+    {
+      "id": 38,
+      "speaker": "Georgie",
+      "start": 188.55,
+      "end": 189.78,
+      "text": "You have your snacks.",
+      "words": [
+        {
+          "text": "You",
+          "start": 188.67,
+          "end": 188.83
+        },
+        {
+          "text": "have",
+          "start": 188.83,
+          "end": 189.07
+        },
+        {
+          "text": "your",
+          "start": 189.07,
+          "end": 189.43
+        },
+        {
+          "text": "snacks.",
+          "start": 189.43,
+          "end": 189.79
+        }
+      ]
+    },
+    {
+      "id": 39,
+      "speaker": "Georgie",
+      "start": 189.78,
+      "end": 191.47,
+      "text": "You don't have to pay for them as well.",
+      "words": [
+        {
+          "text": "You",
+          "start": 189.87,
+          "end": 189.95
+        },
+        {
+          "text": "don't",
+          "start": 189.95,
+          "end": 190.11
+        },
+        {
+          "text": "have",
+          "start": 190.11,
+          "end": 190.23
+        },
+        {
+          "text": "to",
+          "start": 190.23,
+          "end": 190.35
+        },
+        {
+          "text": "pay",
+          "start": 190.35,
+          "end": 190.59
+        },
+        {
+          "text": "for",
+          "start": 190.59,
+          "end": 190.75
+        },
+        {
+          "text": "them",
+          "start": 190.75,
+          "end": 190.99
+        },
+        {
+          "text": "as",
+          "start": 190.99,
+          "end": 191.07
+        },
+        {
+          "text": "well.",
+          "start": 191.07,
+          "end": 191.51
+        }
+      ]
+    },
+    {
+      "id": 40,
+      "speaker": "Phil",
+      "start": 191.77,
+      "end": 196.07,
+      "text": "I also think TVs that people have at home now are much better than they used to be.",
+      "words": [
+        {
+          "text": "I",
+          "start": 191.83,
+          "end": 191.99
+        },
+        {
+          "text": "also",
+          "start": 191.99,
+          "end": 192.15
+        },
+        {
+          "text": "think",
+          "start": 192.15,
+          "end": 192.63
+        },
+        {
+          "text": "TVs",
+          "start": 192.63,
+          "end": 193.03
+        },
+        {
+          "text": "that",
+          "start": 193.03,
+          "end": 193.23
+        },
+        {
+          "text": "people",
+          "start": 193.23,
+          "end": 193.55
+        },
+        {
+          "text": "have",
+          "start": 193.55,
+          "end": 193.71
+        },
+        {
+          "text": "at",
+          "start": 193.71,
+          "end": 193.83
+        },
+        {
+          "text": "home",
+          "start": 193.83,
+          "end": 194.03
+        },
+        {
+          "text": "now",
+          "start": 194.03,
+          "end": 194.23
+        },
+        {
+          "text": "are",
+          "start": 194.23,
+          "end": 194.43
+        },
+        {
+          "text": "much",
+          "start": 194.43,
+          "end": 194.87
+        },
+        {
+          "text": "better",
+          "start": 194.87,
+          "end": 195.31
+        },
+        {
+          "text": "than",
+          "start": 195.31,
+          "end": 195.47
+        },
+        {
+          "text": "they",
+          "start": 195.47,
+          "end": 195.63
+        },
+        {
+          "text": "used",
+          "start": 195.63,
+          "end": 195.83
+        },
+        {
+          "text": "to",
+          "start": 195.83,
+          "end": 195.95
+        },
+        {
+          "text": "be.",
+          "start": 195.95,
+          "end": 196.15
+        }
+      ]
+    },
+    {
+      "id": 41,
+      "speaker": "Phil",
+      "start": 196.38,
+      "end": 201.76,
+      "text": "When I was a kid, you had a tiny little TV and it was so different to watching something at the cinema.",
+      "words": [
+        {
+          "text": "When",
+          "start": 196.43,
+          "end": 196.59
+        },
+        {
+          "text": "I",
+          "start": 196.59,
+          "end": 196.67
+        },
+        {
+          "text": "was",
+          "start": 196.67,
+          "end": 196.83
+        },
+        {
+          "text": "a",
+          "start": 196.83,
+          "end": 196.99
+        },
+        {
+          "text": "kid,",
+          "start": 196.99,
+          "end": 197.27
+        },
+        {
+          "text": "you",
+          "start": 197.59,
+          "end": 197.67
+        },
+        {
+          "text": "had",
+          "start": 197.67,
+          "end": 197.83
+        },
+        {
+          "text": "a",
+          "start": 197.83,
+          "end": 198.11
+        },
+        {
+          "text": "tiny",
+          "start": 198.11,
+          "end": 198.47
+        },
+        {
+          "text": "little",
+          "start": 198.47,
+          "end": 198.91
+        },
+        {
+          "text": "TV",
+          "start": 198.91,
+          "end": 199.35
+        },
+        {
+          "text": "and",
+          "start": 199.35,
+          "end": 199.47
+        },
+        {
+          "text": "it",
+          "start": 199.47,
+          "end": 199.55
+        },
+        {
+          "text": "was",
+          "start": 199.55,
+          "end": 199.79
+        },
+        {
+          "text": "so",
+          "start": 199.79,
+          "end": 200.11
+        },
+        {
+          "text": "different",
+          "start": 200.11,
+          "end": 200.43
+        },
+        {
+          "text": "to",
+          "start": 200.43,
+          "end": 200.67
+        },
+        {
+          "text": "watching",
+          "start": 200.67,
+          "end": 200.95
+        },
+        {
+          "text": "something",
+          "start": 200.95,
+          "end": 201.23
+        },
+        {
+          "text": "at",
+          "start": 201.23,
+          "end": 201.35
+        },
+        {
+          "text": "the",
+          "start": 201.35,
+          "end": 201.51
+        },
+        {
+          "text": "cinema.",
+          "start": 201.51,
+          "end": 201.83
+        }
+      ]
+    },
+    {
+      "id": 42,
+      "speaker": "Phil",
+      "start": 202.06,
+      "end": 203.68,
+      "text": "But now I've got quite a nice telly.",
+      "words": [
+        {
+          "text": "But",
+          "start": 202.11,
+          "end": 202.31
+        },
+        {
+          "text": "now",
+          "start": 202.31,
+          "end": 202.63
+        },
+        {
+          "text": "I've",
+          "start": 202.63,
+          "end": 202.83
+        },
+        {
+          "text": "got",
+          "start": 202.83,
+          "end": 202.95
+        },
+        {
+          "text": "quite",
+          "start": 202.95,
+          "end": 203.11
+        },
+        {
+          "text": "a",
+          "start": 203.11,
+          "end": 203.19
+        },
+        {
+          "text": "nice",
+          "start": 203.19,
+          "end": 203.39
+        },
+        {
+          "text": "telly.",
+          "start": 203.39,
+          "end": 203.79
+        }
+      ]
+    },
+    {
+      "id": 43,
+      "speaker": "Georgie",
+      "start": 203.89,
+      "end": 207.83,
+      "text": "So Phil, you talked about going to the cinema as like an event.",
+      "words": [
+        {
+          "text": "So",
+          "start": 204.03,
+          "end": 204.31
+        },
+        {
+          "text": "Phil,",
+          "start": 204.31,
+          "end": 204.59
+        },
+        {
+          "text": "you",
+          "start": 204.71,
+          "end": 204.95
+        },
+        {
+          "text": "talked",
+          "start": 204.95,
+          "end": 205.19
+        },
+        {
+          "text": "about",
+          "start": 205.19,
+          "end": 205.47
+        },
+        {
+          "text": "going",
+          "start": 205.47,
+          "end": 205.75
+        },
+        {
+          "text": "to",
+          "start": 205.75,
+          "end": 205.87
+        },
+        {
+          "text": "the",
+          "start": 205.87,
+          "end": 206.07
+        },
+        {
+          "text": "cinema",
+          "start": 206.07,
+          "end": 206.59
+        },
+        {
+          "text": "as",
+          "start": 206.59,
+          "end": 206.91
+        },
+        {
+          "text": "like",
+          "start": 206.91,
+          "end": 207.11
+        },
+        {
+          "text": "an",
+          "start": 207.11,
+          "end": 207.31
+        },
+        {
+          "text": "event.",
+          "start": 207.31,
+          "end": 207.79
+        }
+      ]
+    },
+    {
+      "id": 44,
+      "speaker": "Georgie",
+      "start": 207.85,
+      "end": 210.13,
+      "text": "So something we do for special occasions.",
+      "words": [
+        {
+          "text": "So",
+          "start": 207.99,
+          "end": 208.27
+        },
+        {
+          "text": "something",
+          "start": 208.27,
+          "end": 208.59
+        },
+        {
+          "text": "we",
+          "start": 208.59,
+          "end": 208.71
+        },
+        {
+          "text": "do",
+          "start": 208.71,
+          "end": 208.91
+        },
+        {
+          "text": "for",
+          "start": 208.91,
+          "end": 209.15
+        },
+        {
+          "text": "special",
+          "start": 209.15,
+          "end": 209.59
+        },
+        {
+          "text": "occasions.",
+          "start": 209.59,
+          "end": 210.19
+        }
+      ]
+    },
+    {
+      "id": 45,
+      "speaker": "Georgie",
+      "start": 210.53,
+      "end": 220.54,
+      "text": "I really feel that I love going to the cinema because you can buy snacks that you wouldn't normally eat, Like popcorn is something I don't eat at home, but I eat at the cinema.",
+      "words": [
+        {
+          "text": "I",
+          "start": 210.64,
+          "end": 210.92
+        },
+        {
+          "text": "really",
+          "start": 210.92,
+          "end": 211.16
+        },
+        {
+          "text": "feel",
+          "start": 211.16,
+          "end": 211.44
+        },
+        {
+          "text": "that",
+          "start": 211.44,
+          "end": 211.76
+        },
+        {
+          "text": "I",
+          "start": 211.76,
+          "end": 211.96
+        },
+        {
+          "text": "love",
+          "start": 211.96,
+          "end": 212.36
+        },
+        {
+          "text": "going",
+          "start": 212.36,
+          "end": 212.56
+        },
+        {
+          "text": "to",
+          "start": 212.56,
+          "end": 212.68
+        },
+        {
+          "text": "the",
+          "start": 212.68,
+          "end": 212.88
+        },
+        {
+          "text": "cinema",
+          "start": 212.88,
+          "end": 213.44
+        },
+        {
+          "text": "because",
+          "start": 213.44,
+          "end": 213.72
+        },
+        {
+          "text": "you",
+          "start": 213.72,
+          "end": 213.84
+        },
+        {
+          "text": "can",
+          "start": 213.84,
+          "end": 214.52
+        },
+        {
+          "text": "buy",
+          "start": 214.52,
+          "end": 214.96
+        },
+        {
+          "text": "snacks",
+          "start": 214.96,
+          "end": 215.32
+        },
+        {
+          "text": "that",
+          "start": 215.32,
+          "end": 215.44
+        },
+        {
+          "text": "you",
+          "start": 215.44,
+          "end": 215.6
+        },
+        {
+          "text": "wouldn't",
+          "start": 215.6,
+          "end": 216.12
+        },
+        {
+          "text": "normally",
+          "start": 216.12,
+          "end": 216.48
+        },
+        {
+          "text": "eat,",
+          "start": 216.48,
+          "end": 216.68
+        },
+        {
+          "text": "Like",
+          "start": 216.8,
+          "end": 217.04
+        },
+        {
+          "text": "popcorn",
+          "start": 217.04,
+          "end": 217.72
+        },
+        {
+          "text": "is",
+          "start": 217.72,
+          "end": 217.88
+        },
+        {
+          "text": "something",
+          "start": 217.88,
+          "end": 218.2
+        },
+        {
+          "text": "I",
+          "start": 218.2,
+          "end": 218.32
+        },
+        {
+          "text": "don't",
+          "start": 218.32,
+          "end": 218.6
+        },
+        {
+          "text": "eat",
+          "start": 218.6,
+          "end": 218.8
+        },
+        {
+          "text": "at",
+          "start": 218.8,
+          "end": 218.96
+        },
+        {
+          "text": "home,",
+          "start": 218.96,
+          "end": 219.2
+        },
+        {
+          "text": "but",
+          "start": 219.28,
+          "end": 219.48
+        },
+        {
+          "text": "I",
+          "start": 219.48,
+          "end": 219.68
+        },
+        {
+          "text": "eat",
+          "start": 219.68,
+          "end": 219.88
+        },
+        {
+          "text": "at",
+          "start": 219.88,
+          "end": 220.0
+        },
+        {
+          "text": "the",
+          "start": 220.0,
+          "end": 220.2
+        },
+        {
+          "text": "cinema.",
+          "start": 220.2,
+          "end": 220.56
+        }
+      ]
+    },
+    {
+      "id": 46,
+      "speaker": "Georgie",
+      "start": 220.85,
+      "end": 230.82,
+      "text": "And then going in a little bit early and watching the film trailers, which are short adverts for films that are coming up soon that are shown at the cinema.",
+      "words": [
+        {
+          "text": "And",
+          "start": 221.48,
+          "end": 221.64
+        },
+        {
+          "text": "then",
+          "start": 221.64,
+          "end": 221.88
+        },
+        {
+          "text": "going",
+          "start": 221.88,
+          "end": 222.24
+        },
+        {
+          "text": "in",
+          "start": 222.24,
+          "end": 222.64
+        },
+        {
+          "text": "a",
+          "start": 222.64,
+          "end": 222.76
+        },
+        {
+          "text": "little",
+          "start": 222.76,
+          "end": 222.96
+        },
+        {
+          "text": "bit",
+          "start": 222.96,
+          "end": 223.24
+        },
+        {
+          "text": "early",
+          "start": 223.24,
+          "end": 223.76
+        },
+        {
+          "text": "and",
+          "start": 223.76,
+          "end": 223.96
+        },
+        {
+          "text": "watching",
+          "start": 223.96,
+          "end": 224.52
+        },
+        {
+          "text": "the",
+          "start": 224.52,
+          "end": 224.76
+        },
+        {
+          "text": "film",
+          "start": 224.76,
+          "end": 225.16
+        },
+        {
+          "text": "trailers,",
+          "start": 225.16,
+          "end": 225.64
+        },
+        {
+          "text": "which",
+          "start": 225.72,
+          "end": 225.92
+        },
+        {
+          "text": "are",
+          "start": 225.92,
+          "end": 226.2
+        },
+        {
+          "text": "short",
+          "start": 226.2,
+          "end": 226.48
+        },
+        {
+          "text": "adverts",
+          "start": 226.48,
+          "end": 227.04
+        },
+        {
+          "text": "for",
+          "start": 227.04,
+          "end": 227.32
+        },
+        {
+          "text": "films",
+          "start": 227.32,
+          "end": 228.12
+        },
+        {
+          "text": "that",
+          "start": 228.12,
+          "end": 228.24
+        },
+        {
+          "text": "are",
+          "start": 228.24,
+          "end": 228.36
+        },
+        {
+          "text": "coming",
+          "start": 228.36,
+          "end": 228.64
+        },
+        {
+          "text": "up",
+          "start": 228.64,
+          "end": 228.92
+        },
+        {
+          "text": "soon",
+          "start": 228.92,
+          "end": 229.72
+        },
+        {
+          "text": "that",
+          "start": 229.72,
+          "end": 229.84
+        },
+        {
+          "text": "are",
+          "start": 229.84,
+          "end": 229.96
+        },
+        {
+          "text": "shown",
+          "start": 229.96,
+          "end": 230.16
+        },
+        {
+          "text": "at",
+          "start": 230.16,
+          "end": 230.28
+        },
+        {
+          "text": "the",
+          "start": 230.28,
+          "end": 230.44
+        },
+        {
+          "text": "cinema.",
+          "start": 230.44,
+          "end": 230.84
+        }
+      ]
+    },
+    {
+      "id": 47,
+      "speaker": "Georgie",
+      "start": 230.87,
+      "end": 232.82,
+      "text": "Is there anything else you like about the cinema?",
+      "words": [
+        {
+          "text": "Is",
+          "start": 230.96,
+          "end": 231.08
+        },
+        {
+          "text": "there",
+          "start": 231.08,
+          "end": 231.28
+        },
+        {
+          "text": "anything",
+          "start": 231.28,
+          "end": 231.56
+        },
+        {
+          "text": "else",
+          "start": 231.56,
+          "end": 231.8
+        },
+        {
+          "text": "you",
+          "start": 231.8,
+          "end": 231.96
+        },
+        {
+          "text": "like",
+          "start": 231.96,
+          "end": 232.2
+        },
+        {
+          "text": "about",
+          "start": 232.2,
+          "end": 232.36
+        },
+        {
+          "text": "the",
+          "start": 232.36,
+          "end": 232.56
+        },
+        {
+          "text": "cinema?",
+          "start": 232.56,
+          "end": 232.88
+        }
+      ]
+    },
+    {
+      "id": 48,
+      "speaker": "Phil",
+      "start": 233.57,
+      "end": 257.69,
+      "text": "What is nice about the cinema is that you can have no distractions You just have the film You put your phone away At least you should put your phone away Some people some people in the cinema don't follow the rules but hopefully everyone watching puts their phone away There's no distractions You can just relax and get involved in the film.",
+      "words": [
+        {
+          "text": "What",
+          "start": 233.79,
+          "end": 234.03
+        },
+        {
+          "text": "is",
+          "start": 234.03,
+          "end": 234.27
+        },
+        {
+          "text": "nice",
+          "start": 234.27,
+          "end": 234.59
+        },
+        {
+          "text": "about",
+          "start": 234.59,
+          "end": 234.79
+        },
+        {
+          "text": "the",
+          "start": 234.79,
+          "end": 234.99
+        },
+        {
+          "text": "cinema",
+          "start": 234.99,
+          "end": 235.83
+        },
+        {
+          "text": "is",
+          "start": 235.83,
+          "end": 236.15
+        },
+        {
+          "text": "that",
+          "start": 236.15,
+          "end": 236.43
+        },
+        {
+          "text": "you",
+          "start": 236.43,
+          "end": 236.67
+        },
+        {
+          "text": "can",
+          "start": 236.67,
+          "end": 237.03
+        },
+        {
+          "text": "have",
+          "start": 237.03,
+          "end": 237.71
+        },
+        {
+          "text": "no",
+          "start": 237.71,
+          "end": 238.19
+        },
+        {
+          "text": "distractions",
+          "start": 238.19,
+          "end": 238.99
+        },
+        {
+          "text": "You",
+          "start": 238.99,
+          "end": 239.15
+        },
+        {
+          "text": "just",
+          "start": 239.15,
+          "end": 239.39
+        },
+        {
+          "text": "have",
+          "start": 239.39,
+          "end": 239.59
+        },
+        {
+          "text": "the",
+          "start": 239.59,
+          "end": 239.83
+        },
+        {
+          "text": "film",
+          "start": 239.83,
+          "end": 240.43
+        },
+        {
+          "text": "You",
+          "start": 240.43,
+          "end": 240.71
+        },
+        {
+          "text": "put",
+          "start": 240.71,
+          "end": 240.99
+        },
+        {
+          "text": "your",
+          "start": 240.99,
+          "end": 241.35
+        },
+        {
+          "text": "phone",
+          "start": 241.35,
+          "end": 241.75
+        },
+        {
+          "text": "away",
+          "start": 241.75,
+          "end": 242.31
+        },
+        {
+          "text": "At",
+          "start": 242.31,
+          "end": 242.43
+        },
+        {
+          "text": "least",
+          "start": 242.43,
+          "end": 242.71
+        },
+        {
+          "text": "you",
+          "start": 242.71,
+          "end": 242.99
+        },
+        {
+          "text": "should",
+          "start": 242.99,
+          "end": 243.27
+        },
+        {
+          "text": "put",
+          "start": 243.27,
+          "end": 243.47
+        },
+        {
+          "text": "your",
+          "start": 243.47,
+          "end": 243.71
+        },
+        {
+          "text": "phone",
+          "start": 243.71,
+          "end": 244.03
+        },
+        {
+          "text": "away",
+          "start": 244.03,
+          "end": 244.35
+        },
+        {
+          "text": "Some",
+          "start": 244.35,
+          "end": 244.75
+        },
+        {
+          "text": "people",
+          "start": 244.75,
+          "end": 245.55
+        },
+        {
+          "text": "some",
+          "start": 245.55,
+          "end": 245.79
+        },
+        {
+          "text": "people",
+          "start": 245.79,
+          "end": 246.03
+        },
+        {
+          "text": "in",
+          "start": 246.03,
+          "end": 246.15
+        },
+        {
+          "text": "the",
+          "start": 246.15,
+          "end": 246.35
+        },
+        {
+          "text": "cinema",
+          "start": 246.35,
+          "end": 246.71
+        },
+        {
+          "text": "don't",
+          "start": 246.71,
+          "end": 247.03
+        },
+        {
+          "text": "follow",
+          "start": 247.03,
+          "end": 247.23
+        },
+        {
+          "text": "the",
+          "start": 247.23,
+          "end": 247.39
+        },
+        {
+          "text": "rules",
+          "start": 247.39,
+          "end": 247.87
+        },
+        {
+          "text": "but",
+          "start": 247.87,
+          "end": 248.59
+        },
+        {
+          "text": "hopefully",
+          "start": 248.59,
+          "end": 249.27
+        },
+        {
+          "text": "everyone",
+          "start": 249.27,
+          "end": 249.67
+        },
+        {
+          "text": "watching",
+          "start": 249.67,
+          "end": 249.99
+        },
+        {
+          "text": "puts",
+          "start": 249.99,
+          "end": 250.31
+        },
+        {
+          "text": "their",
+          "start": 250.31,
+          "end": 250.51
+        },
+        {
+          "text": "phone",
+          "start": 250.51,
+          "end": 250.83
+        },
+        {
+          "text": "away",
+          "start": 250.83,
+          "end": 251.67
+        },
+        {
+          "text": "There's",
+          "start": 251.67,
+          "end": 252.07
+        },
+        {
+          "text": "no",
+          "start": 252.07,
+          "end": 252.47
+        },
+        {
+          "text": "distractions",
+          "start": 252.47,
+          "end": 253.55
+        },
+        {
+          "text": "You",
+          "start": 253.55,
+          "end": 253.67
+        },
+        {
+          "text": "can",
+          "start": 253.67,
+          "end": 253.83
+        },
+        {
+          "text": "just",
+          "start": 253.83,
+          "end": 254.19
+        },
+        {
+          "text": "relax",
+          "start": 254.19,
+          "end": 254.67
+        },
+        {
+          "text": "and",
+          "start": 254.67,
+          "end": 254.87
+        },
+        {
+          "text": "get",
+          "start": 254.87,
+          "end": 255.28
+        },
+        {
+          "text": "involved",
+          "start": 256.48,
+          "end": 257.16
+        },
+        {
+          "text": "in",
+          "start": 257.16,
+          "end": 257.28
+        },
+        {
+          "text": "the",
+          "start": 257.28,
+          "end": 257.52
+        },
+        {
+          "text": "film.",
+          "start": 257.52,
+          "end": 257.76
+        }
+      ]
+    },
+    {
+      "id": 49,
+      "speaker": "Georgie",
+      "start": 257.88,
+      "end": 259.4,
+      "text": "It's really nice.",
+      "words": [
+        {
+          "text": "It's",
+          "start": 258.6,
+          "end": 258.92
+        },
+        {
+          "text": "really",
+          "start": 258.92,
+          "end": 259.16
+        },
+        {
+          "text": "nice.",
+          "start": 259.16,
+          "end": 259.48
+        }
+      ]
+    },
+    {
+      "id": 50,
+      "speaker": "Georgie",
+      "start": 259.49,
+      "end": 266.82,
+      "text": "It is really annoying when people in front of you or next to you are talking really loudly throughout the film.",
+      "words": [
+        {
+          "text": "It",
+          "start": 259.6,
+          "end": 259.72
+        },
+        {
+          "text": "is",
+          "start": 259.72,
+          "end": 259.96
+        },
+        {
+          "text": "really",
+          "start": 259.96,
+          "end": 260.24
+        },
+        {
+          "text": "annoying",
+          "start": 260.24,
+          "end": 260.6
+        },
+        {
+          "text": "when",
+          "start": 260.6,
+          "end": 261.2
+        },
+        {
+          "text": "people",
+          "start": 261.2,
+          "end": 261.56
+        },
+        {
+          "text": "in",
+          "start": 261.56,
+          "end": 261.72
+        },
+        {
+          "text": "front",
+          "start": 261.72,
+          "end": 261.92
+        },
+        {
+          "text": "of",
+          "start": 261.92,
+          "end": 262.08
+        },
+        {
+          "text": "you",
+          "start": 262.08,
+          "end": 262.36
+        },
+        {
+          "text": "or",
+          "start": 262.36,
+          "end": 262.6
+        },
+        {
+          "text": "next",
+          "start": 262.6,
+          "end": 262.84
+        },
+        {
+          "text": "to",
+          "start": 262.84,
+          "end": 263.0
+        },
+        {
+          "text": "you",
+          "start": 263.0,
+          "end": 263.36
+        },
+        {
+          "text": "are",
+          "start": 263.36,
+          "end": 263.72
+        },
+        {
+          "text": "talking",
+          "start": 263.72,
+          "end": 264.12
+        },
+        {
+          "text": "really",
+          "start": 264.12,
+          "end": 264.36
+        },
+        {
+          "text": "loudly",
+          "start": 264.36,
+          "end": 266.0
+        },
+        {
+          "text": "throughout",
+          "start": 266.0,
+          "end": 266.44
+        },
+        {
+          "text": "the",
+          "start": 266.44,
+          "end": 266.64
+        },
+        {
+          "text": "film.",
+          "start": 266.64,
+          "end": 266.8
+        }
+      ]
+    },
+    {
+      "id": 51,
+      "speaker": "Georgie",
+      "start": 266.88,
+      "end": 270.37,
+      "text": "It's okay to whisper, So that's when you whisper like that.",
+      "words": [
+        {
+          "text": "It's",
+          "start": 266.84,
+          "end": 267.16
+        },
+        {
+          "text": "okay",
+          "start": 267.16,
+          "end": 267.44
+        },
+        {
+          "text": "to",
+          "start": 267.44,
+          "end": 268.12
+        },
+        {
+          "text": "whisper,",
+          "start": 268.12,
+          "end": 268.52
+        },
+        {
+          "text": "So",
+          "start": 268.68,
+          "end": 268.84
+        },
+        {
+          "text": "that's",
+          "start": 268.84,
+          "end": 269.04
+        },
+        {
+          "text": "when",
+          "start": 269.04,
+          "end": 269.2
+        },
+        {
+          "text": "you",
+          "start": 269.2,
+          "end": 269.68
+        },
+        {
+          "text": "whisper",
+          "start": 269.68,
+          "end": 269.96
+        },
+        {
+          "text": "like",
+          "start": 269.96,
+          "end": 270.12
+        },
+        {
+          "text": "that.",
+          "start": 270.12,
+          "end": 270.48
+        }
+      ]
+    },
+    {
+      "id": 52,
+      "speaker": "Georgie",
+      "start": 270.9,
+      "end": 277.13,
+      "text": "It's okay to do that every now and again, but if they're talking all the way through the film, that is really annoying.",
+      "words": [
+        {
+          "text": "It's",
+          "start": 270.92,
+          "end": 271.2
+        },
+        {
+          "text": "okay",
+          "start": 271.2,
+          "end": 271.4
+        },
+        {
+          "text": "to",
+          "start": 271.4,
+          "end": 271.56
+        },
+        {
+          "text": "do",
+          "start": 271.56,
+          "end": 271.72
+        },
+        {
+          "text": "that",
+          "start": 271.72,
+          "end": 272.48
+        },
+        {
+          "text": "every",
+          "start": 272.48,
+          "end": 272.68
+        },
+        {
+          "text": "now",
+          "start": 272.68,
+          "end": 272.84
+        },
+        {
+          "text": "and",
+          "start": 272.84,
+          "end": 272.96
+        },
+        {
+          "text": "again,",
+          "start": 272.96,
+          "end": 273.2
+        },
+        {
+          "text": "but",
+          "start": 273.24,
+          "end": 273.4
+        },
+        {
+          "text": "if",
+          "start": 273.4,
+          "end": 273.52
+        },
+        {
+          "text": "they're",
+          "start": 273.52,
+          "end": 273.8
+        },
+        {
+          "text": "talking",
+          "start": 273.8,
+          "end": 274.68
+        },
+        {
+          "text": "all",
+          "start": 274.68,
+          "end": 274.84
+        },
+        {
+          "text": "the",
+          "start": 274.84,
+          "end": 274.96
+        },
+        {
+          "text": "way",
+          "start": 274.96,
+          "end": 275.16
+        },
+        {
+          "text": "through",
+          "start": 275.16,
+          "end": 275.36
+        },
+        {
+          "text": "the",
+          "start": 275.36,
+          "end": 275.56
+        },
+        {
+          "text": "film,",
+          "start": 275.56,
+          "end": 275.8
+        },
+        {
+          "text": "that",
+          "start": 276.0,
+          "end": 276.32
+        },
+        {
+          "text": "is",
+          "start": 276.32,
+          "end": 276.56
+        },
+        {
+          "text": "really",
+          "start": 276.56,
+          "end": 276.8
+        },
+        {
+          "text": "annoying.",
+          "start": 276.8,
+          "end": 277.2
+        }
+      ]
+    },
+    {
+      "id": 53,
+      "speaker": "Phil",
+      "start": 277.9,
+      "end": 278.18,
+      "text": "Yeah.",
+      "words": [
+        {
+          "text": "Yeah.",
+          "start": 278.02,
+          "end": 278.18
+        }
+      ]
+    },
+    {
+      "id": 54,
+      "speaker": "Phil",
+      "start": 278.18,
+      "end": 278.99,
+      "text": "I can't stand that.",
+      "words": [
+        {
+          "text": "I",
+          "start": 278.22,
+          "end": 278.34
+        },
+        {
+          "text": "can't",
+          "start": 278.34,
+          "end": 278.58
+        },
+        {
+          "text": "stand",
+          "start": 278.58,
+          "end": 278.82
+        },
+        {
+          "text": "that.",
+          "start": 278.82,
+          "end": 279.1
+        }
+      ]
+    },
+    {
+      "id": 55,
+      "speaker": "Georgie",
+      "start": 279.46,
+      "end": 282.75,
+      "text": "Phil, what kind of films do you like to watch at the cinema?",
+      "words": [
+        {
+          "text": "Phil,",
+          "start": 279.58,
+          "end": 279.82
+        },
+        {
+          "text": "what",
+          "start": 279.9,
+          "end": 280.1
+        },
+        {
+          "text": "kind",
+          "start": 280.1,
+          "end": 280.38
+        },
+        {
+          "text": "of",
+          "start": 280.38,
+          "end": 280.62
+        },
+        {
+          "text": "films",
+          "start": 280.62,
+          "end": 281.02
+        },
+        {
+          "text": "do",
+          "start": 281.02,
+          "end": 281.22
+        },
+        {
+          "text": "you",
+          "start": 281.22,
+          "end": 281.38
+        },
+        {
+          "text": "like",
+          "start": 281.38,
+          "end": 281.58
+        },
+        {
+          "text": "to",
+          "start": 281.58,
+          "end": 281.74
+        },
+        {
+          "text": "watch",
+          "start": 281.74,
+          "end": 281.98
+        },
+        {
+          "text": "at",
+          "start": 281.98,
+          "end": 282.14
+        },
+        {
+          "text": "the",
+          "start": 282.14,
+          "end": 282.34
+        },
+        {
+          "text": "cinema?",
+          "start": 282.34,
+          "end": 282.86
+        }
+      ]
+    },
+    {
+      "id": 56,
+      "speaker": "Phil",
+      "start": 283.21,
+      "end": 288.54,
+      "text": "I think a film that takes you to a different place.",
+      "words": [
+        {
+          "text": "I",
+          "start": 283.26,
+          "end": 283.42
+        },
+        {
+          "text": "think",
+          "start": 283.42,
+          "end": 283.66
+        },
+        {
+          "text": "a",
+          "start": 283.66,
+          "end": 283.98
+        },
+        {
+          "text": "film",
+          "start": 283.98,
+          "end": 285.02
+        },
+        {
+          "text": "that",
+          "start": 285.02,
+          "end": 285.54
+        },
+        {
+          "text": "takes",
+          "start": 285.54,
+          "end": 285.98
+        },
+        {
+          "text": "you",
+          "start": 285.98,
+          "end": 286.58
+        },
+        {
+          "text": "to",
+          "start": 286.58,
+          "end": 286.86
+        },
+        {
+          "text": "a",
+          "start": 286.86,
+          "end": 287.34
+        },
+        {
+          "text": "different",
+          "start": 287.34,
+          "end": 287.94
+        },
+        {
+          "text": "place.",
+          "start": 287.94,
+          "end": 288.46
+        }
+      ]
+    },
+    {
+      "id": 57,
+      "speaker": "Phil",
+      "start": 289.3,
+      "end": 293.99,
+      "text": "So something that's quite spectacular there's a lot happening.",
+      "words": [
+        {
+          "text": "So",
+          "start": 289.34,
+          "end": 289.62
+        },
+        {
+          "text": "something",
+          "start": 289.62,
+          "end": 290.18
+        },
+        {
+          "text": "that's",
+          "start": 290.18,
+          "end": 290.46
+        },
+        {
+          "text": "quite",
+          "start": 290.46,
+          "end": 291.02
+        },
+        {
+          "text": "spectacular",
+          "start": 291.02,
+          "end": 291.98
+        },
+        {
+          "text": "there's",
+          "start": 292.78,
+          "end": 292.98
+        },
+        {
+          "text": "a",
+          "start": 292.98,
+          "end": 293.1
+        },
+        {
+          "text": "lot",
+          "start": 293.1,
+          "end": 293.5
+        },
+        {
+          "text": "happening.",
+          "start": 293.5,
+          "end": 293.98
+        }
+      ]
+    },
+    {
+      "id": 58,
+      "speaker": "Phil",
+      "start": 294.09,
+      "end": 295.39,
+      "text": "There's a lot to see.",
+      "words": [
+        {
+          "text": "There's",
+          "start": 294.18,
+          "end": 294.38
+        },
+        {
+          "text": "a",
+          "start": 294.38,
+          "end": 294.46
+        },
+        {
+          "text": "lot",
+          "start": 294.46,
+          "end": 294.7
+        },
+        {
+          "text": "to",
+          "start": 294.7,
+          "end": 294.94
+        },
+        {
+          "text": "see.",
+          "start": 294.94,
+          "end": 295.46
+        }
+      ]
+    },
+    {
+      "id": 59,
+      "speaker": "Phil",
+      "start": 295.93,
+      "end": 301.99,
+      "text": "Or maybe a film that shows you a bit of the world that's interesting that you don't know that well.",
+      "words": [
+        {
+          "text": "Or",
+          "start": 296.02,
+          "end": 296.3
+        },
+        {
+          "text": "maybe",
+          "start": 296.3,
+          "end": 296.74
+        },
+        {
+          "text": "a",
+          "start": 296.74,
+          "end": 296.98
+        },
+        {
+          "text": "film",
+          "start": 296.98,
+          "end": 297.3
+        },
+        {
+          "text": "that",
+          "start": 297.3,
+          "end": 297.5
+        },
+        {
+          "text": "shows",
+          "start": 297.5,
+          "end": 297.82
+        },
+        {
+          "text": "you",
+          "start": 297.82,
+          "end": 298.18
+        },
+        {
+          "text": "a",
+          "start": 298.18,
+          "end": 298.34
+        },
+        {
+          "text": "bit",
+          "start": 298.34,
+          "end": 298.54
+        },
+        {
+          "text": "of",
+          "start": 298.54,
+          "end": 298.66
+        },
+        {
+          "text": "the",
+          "start": 298.66,
+          "end": 298.86
+        },
+        {
+          "text": "world",
+          "start": 298.86,
+          "end": 299.3
+        },
+        {
+          "text": "that's",
+          "start": 299.3,
+          "end": 299.62
+        },
+        {
+          "text": "interesting",
+          "start": 299.62,
+          "end": 300.3
+        },
+        {
+          "text": "that",
+          "start": 300.3,
+          "end": 300.46
+        },
+        {
+          "text": "you",
+          "start": 300.46,
+          "end": 300.58
+        },
+        {
+          "text": "don't",
+          "start": 300.58,
+          "end": 300.82
+        },
+        {
+          "text": "know",
+          "start": 300.82,
+          "end": 301.34
+        },
+        {
+          "text": "that",
+          "start": 301.34,
+          "end": 301.66
+        },
+        {
+          "text": "well.",
+          "start": 301.66,
+          "end": 302.02
+        }
+      ]
+    },
+    {
+      "id": 60,
+      "speaker": "Phil",
+      "start": 302.05,
+      "end": 309.47,
+      "text": "I kind of like films like that films that take you somewhere, that show you something you wouldn't normally see.",
+      "words": [
+        {
+          "text": "I",
+          "start": 302.14,
+          "end": 302.3
+        },
+        {
+          "text": "kind",
+          "start": 302.3,
+          "end": 302.46
+        },
+        {
+          "text": "of",
+          "start": 302.46,
+          "end": 302.62
+        },
+        {
+          "text": "like",
+          "start": 302.62,
+          "end": 303.06
+        },
+        {
+          "text": "films",
+          "start": 303.06,
+          "end": 303.46
+        },
+        {
+          "text": "like",
+          "start": 303.46,
+          "end": 303.7
+        },
+        {
+          "text": "that",
+          "start": 303.7,
+          "end": 303.98
+        },
+        {
+          "text": "films",
+          "start": 304.38,
+          "end": 305.26
+        },
+        {
+          "text": "that",
+          "start": 305.26,
+          "end": 305.7
+        },
+        {
+          "text": "take",
+          "start": 305.7,
+          "end": 306.1
+        },
+        {
+          "text": "you",
+          "start": 306.1,
+          "end": 306.38
+        },
+        {
+          "text": "somewhere,",
+          "start": 306.38,
+          "end": 306.82
+        },
+        {
+          "text": "that",
+          "start": 306.94,
+          "end": 307.34
+        },
+        {
+          "text": "show",
+          "start": 307.34,
+          "end": 307.66
+        },
+        {
+          "text": "you",
+          "start": 307.66,
+          "end": 307.94
+        },
+        {
+          "text": "something",
+          "start": 307.94,
+          "end": 308.38
+        },
+        {
+          "text": "you",
+          "start": 308.38,
+          "end": 308.54
+        },
+        {
+          "text": "wouldn't",
+          "start": 308.54,
+          "end": 308.9
+        },
+        {
+          "text": "normally",
+          "start": 308.9,
+          "end": 309.22
+        },
+        {
+          "text": "see.",
+          "start": 309.22,
+          "end": 309.54
+        }
+      ]
+    },
+    {
+      "id": 61,
+      "speaker": "Phil",
+      "start": 309.93,
+      "end": 312.43,
+      "text": "That's definitely good to watch on a big screen.",
+      "words": [
+        {
+          "text": "That's",
+          "start": 310.06,
+          "end": 310.54
+        },
+        {
+          "text": "definitely",
+          "start": 310.54,
+          "end": 310.82
+        },
+        {
+          "text": "good",
+          "start": 310.82,
+          "end": 311.06
+        },
+        {
+          "text": "to",
+          "start": 311.06,
+          "end": 311.22
+        },
+        {
+          "text": "watch",
+          "start": 311.22,
+          "end": 311.46
+        },
+        {
+          "text": "on",
+          "start": 311.46,
+          "end": 311.58
+        },
+        {
+          "text": "a",
+          "start": 311.58,
+          "end": 311.78
+        },
+        {
+          "text": "big",
+          "start": 311.78,
+          "end": 312.1
+        },
+        {
+          "text": "screen.",
+          "start": 312.1,
+          "end": 312.46
+        }
+      ]
+    },
+    {
+      "id": 62,
+      "speaker": "Georgie",
+      "start": 312.5,
+      "end": 313.5,
+      "text": "Yeah, I agree.",
+      "words": [
+        {
+          "text": "Yeah,",
+          "start": 312.66,
+          "end": 312.86
+        },
+        {
+          "text": "I",
+          "start": 312.94,
+          "end": 313.14
+        },
+        {
+          "text": "agree.",
+          "start": 313.14,
+          "end": 313.5
+        }
+      ]
+    },
+    {
+      "id": 63,
+      "speaker": "Georgie",
+      "start": 313.52,
+      "end": 317.36,
+      "text": "I wouldn't go to the cinema to watch a romantic comedy, a romcom.",
+      "words": [
+        {
+          "text": "I",
+          "start": 313.58,
+          "end": 313.7
+        },
+        {
+          "text": "wouldn't",
+          "start": 313.7,
+          "end": 313.98
+        },
+        {
+          "text": "go",
+          "start": 313.98,
+          "end": 314.14
+        },
+        {
+          "text": "to",
+          "start": 314.14,
+          "end": 314.22
+        },
+        {
+          "text": "the",
+          "start": 314.22,
+          "end": 314.42
+        },
+        {
+          "text": "cinema",
+          "start": 314.42,
+          "end": 314.82
+        },
+        {
+          "text": "to",
+          "start": 314.82,
+          "end": 315.02
+        },
+        {
+          "text": "watch",
+          "start": 315.02,
+          "end": 315.54
+        },
+        {
+          "text": "a",
+          "start": 315.54,
+          "end": 315.82
+        },
+        {
+          "text": "romantic",
+          "start": 315.82,
+          "end": 316.3
+        },
+        {
+          "text": "comedy,",
+          "start": 316.3,
+          "end": 316.62
+        },
+        {
+          "text": "a",
+          "start": 316.7,
+          "end": 316.82
+        },
+        {
+          "text": "romcom.",
+          "start": 316.82,
+          "end": 317.42
+        }
+      ]
+    },
+    {
+      "id": 64,
+      "speaker": "Georgie",
+      "start": 317.58,
+      "end": 318.5,
+      "text": "I agree with you.",
+      "words": [
+        {
+          "text": "I",
+          "start": 317.66,
+          "end": 317.86
+        },
+        {
+          "text": "agree",
+          "start": 317.86,
+          "end": 318.06
+        },
+        {
+          "text": "with",
+          "start": 318.06,
+          "end": 318.22
+        },
+        {
+          "text": "you.",
+          "start": 318.22,
+          "end": 318.46
+        }
+      ]
+    },
+    {
+      "id": 65,
+      "speaker": "Georgie",
+      "start": 318.5,
+      "end": 321.03,
+      "text": "I'd like to watch something, yeah, spectacular.",
+      "words": [
+        {
+          "text": "I'd",
+          "start": 318.62,
+          "end": 318.86
+        },
+        {
+          "text": "like",
+          "start": 318.86,
+          "end": 319.02
+        },
+        {
+          "text": "to",
+          "start": 319.02,
+          "end": 319.18
+        },
+        {
+          "text": "watch",
+          "start": 319.18,
+          "end": 319.34
+        },
+        {
+          "text": "something,",
+          "start": 319.34,
+          "end": 319.74
+        },
+        {
+          "text": "yeah,",
+          "start": 319.86,
+          "end": 320.02
+        },
+        {
+          "text": "spectacular.",
+          "start": 320.18,
+          "end": 321.14
+        }
+      ]
+    },
+    {
+      "id": 66,
+      "speaker": "Georgie",
+      "start": 328.46,
+      "end": 338.39,
+      "text": "Okay, Phil, it's time to look at some of the vocabulary we heard in this conversation, starting with trailers, which are short adverts for new films shown at the cinema.",
+      "words": [
+        {
+          "text": "Okay,",
+          "start": 328.69,
+          "end": 328.85
+        },
+        {
+          "text": "Phil,",
+          "start": 329.01,
+          "end": 329.29
+        },
+        {
+          "text": "it's",
+          "start": 329.37,
+          "end": 329.61
+        },
+        {
+          "text": "time",
+          "start": 329.61,
+          "end": 329.93
+        },
+        {
+          "text": "to",
+          "start": 329.93,
+          "end": 330.17
+        },
+        {
+          "text": "look",
+          "start": 330.17,
+          "end": 330.33
+        },
+        {
+          "text": "at",
+          "start": 330.33,
+          "end": 330.53
+        },
+        {
+          "text": "some",
+          "start": 330.53,
+          "end": 330.65
+        },
+        {
+          "text": "of",
+          "start": 330.65,
+          "end": 330.73
+        },
+        {
+          "text": "the",
+          "start": 330.73,
+          "end": 331.05
+        },
+        {
+          "text": "vocabulary",
+          "start": 331.05,
+          "end": 331.57
+        },
+        {
+          "text": "we",
+          "start": 331.57,
+          "end": 331.77
+        },
+        {
+          "text": "heard",
+          "start": 331.77,
+          "end": 332.13
+        },
+        {
+          "text": "in",
+          "start": 332.13,
+          "end": 332.29
+        },
+        {
+          "text": "this",
+          "start": 332.29,
+          "end": 332.57
+        },
+        {
+          "text": "conversation,",
+          "start": 332.57,
+          "end": 333.09
+        },
+        {
+          "text": "starting",
+          "start": 333.33,
+          "end": 333.77
+        },
+        {
+          "text": "with",
+          "start": 333.77,
+          "end": 334.25
+        },
+        {
+          "text": "trailers,",
+          "start": 334.25,
+          "end": 334.73
+        },
+        {
+          "text": "which",
+          "start": 334.85,
+          "end": 335.05
+        },
+        {
+          "text": "are",
+          "start": 335.05,
+          "end": 335.37
+        },
+        {
+          "text": "short",
+          "start": 335.37,
+          "end": 335.65
+        },
+        {
+          "text": "adverts",
+          "start": 335.65,
+          "end": 336.21
+        },
+        {
+          "text": "for",
+          "start": 336.21,
+          "end": 336.45
+        },
+        {
+          "text": "new",
+          "start": 336.45,
+          "end": 336.81
+        },
+        {
+          "text": "films",
+          "start": 336.81,
+          "end": 337.45
+        },
+        {
+          "text": "shown",
+          "start": 337.45,
+          "end": 337.77
+        },
+        {
+          "text": "at",
+          "start": 337.77,
+          "end": 337.93
+        },
+        {
+          "text": "the",
+          "start": 337.93,
+          "end": 338.09
+        },
+        {
+          "text": "cinema.",
+          "start": 338.09,
+          "end": 338.49
+        }
+      ]
+    },
+    {
+      "id": 67,
+      "speaker": "Phil",
+      "start": 338.64,
+      "end": 341.37,
+      "text": "And we also talked about popcorn.",
+      "words": [
+        {
+          "text": "And",
+          "start": 338.93,
+          "end": 339.13
+        },
+        {
+          "text": "we",
+          "start": 339.13,
+          "end": 339.33
+        },
+        {
+          "text": "also",
+          "start": 339.33,
+          "end": 339.61
+        },
+        {
+          "text": "talked",
+          "start": 339.61,
+          "end": 340.09
+        },
+        {
+          "text": "about",
+          "start": 340.09,
+          "end": 340.65
+        },
+        {
+          "text": "popcorn.",
+          "start": 340.65,
+          "end": 341.41
+        }
+      ]
+    },
+    {
+      "id": 68,
+      "speaker": "Phil",
+      "start": 341.65,
+      "end": 344.08,
+      "text": "Now, popcorn, it's a snack.",
+      "words": [
+        {
+          "text": "Now,",
+          "start": 341.73,
+          "end": 342.01
+        },
+        {
+          "text": "popcorn,",
+          "start": 342.25,
+          "end": 342.93
+        },
+        {
+          "text": "it's",
+          "start": 343.09,
+          "end": 343.29
+        },
+        {
+          "text": "a",
+          "start": 343.29,
+          "end": 343.61
+        },
+        {
+          "text": "snack.",
+          "start": 343.61,
+          "end": 344.17
+        }
+      ]
+    },
+    {
+      "id": 69,
+      "speaker": "Phil",
+      "start": 344.56,
+      "end": 350.0,
+      "text": "It's made of corn, and it's usually either sweet or salty.",
+      "words": [
+        {
+          "text": "It's",
+          "start": 344.69,
+          "end": 345.13
+        },
+        {
+          "text": "made",
+          "start": 345.13,
+          "end": 345.37
+        },
+        {
+          "text": "of",
+          "start": 345.37,
+          "end": 345.85
+        },
+        {
+          "text": "corn,",
+          "start": 345.85,
+          "end": 346.29
+        },
+        {
+          "text": "and",
+          "start": 346.73,
+          "end": 346.93
+        },
+        {
+          "text": "it's",
+          "start": 346.93,
+          "end": 347.25
+        },
+        {
+          "text": "usually",
+          "start": 347.25,
+          "end": 347.65
+        },
+        {
+          "text": "either",
+          "start": 347.65,
+          "end": 348.05
+        },
+        {
+          "text": "sweet",
+          "start": 348.05,
+          "end": 348.89
+        },
+        {
+          "text": "or",
+          "start": 348.89,
+          "end": 349.57
+        },
+        {
+          "text": "salty.",
+          "start": 349.57,
+          "end": 350.09
+        }
+      ]
+    },
+    {
+      "id": 70,
+      "speaker": "Phil",
+      "start": 350.41,
+      "end": 353.02,
+      "text": "Um, and it's very nice, and you get it at the cinema.",
+      "words": [
+        {
+          "text": "Um,",
+          "start": 350.57,
+          "end": 350.81
+        },
+        {
+          "text": "and",
+          "start": 350.93,
+          "end": 351.09
+        },
+        {
+          "text": "it's",
+          "start": 351.09,
+          "end": 351.33
+        },
+        {
+          "text": "very",
+          "start": 351.33,
+          "end": 351.49
+        },
+        {
+          "text": "nice,",
+          "start": 351.49,
+          "end": 351.81
+        },
+        {
+          "text": "and",
+          "start": 351.97,
+          "end": 352.13
+        },
+        {
+          "text": "you",
+          "start": 352.13,
+          "end": 352.25
+        },
+        {
+          "text": "get",
+          "start": 352.25,
+          "end": 352.33
+        },
+        {
+          "text": "it",
+          "start": 352.33,
+          "end": 352.45
+        },
+        {
+          "text": "at",
+          "start": 352.45,
+          "end": 352.57
+        },
+        {
+          "text": "the",
+          "start": 352.57,
+          "end": 352.73
+        },
+        {
+          "text": "cinema.",
+          "start": 352.73,
+          "end": 353.13
+        }
+      ]
+    },
+    {
+      "id": 71,
+      "speaker": "Georgie",
+      "start": 353.33,
+      "end": 360.24,
+      "text": "We also heard spectacular, which is a very strong adjective to describe something that is very exciting to look at.",
+      "words": [
+        {
+          "text": "We",
+          "start": 353.47,
+          "end": 353.75
+        },
+        {
+          "text": "also",
+          "start": 353.75,
+          "end": 354.11
+        },
+        {
+          "text": "heard",
+          "start": 354.11,
+          "end": 354.67
+        },
+        {
+          "text": "spectacular,",
+          "start": 354.67,
+          "end": 355.35
+        },
+        {
+          "text": "which",
+          "start": 355.43,
+          "end": 355.59
+        },
+        {
+          "text": "is",
+          "start": 355.59,
+          "end": 355.71
+        },
+        {
+          "text": "a",
+          "start": 355.71,
+          "end": 355.95
+        },
+        {
+          "text": "very",
+          "start": 355.95,
+          "end": 356.39
+        },
+        {
+          "text": "strong",
+          "start": 356.39,
+          "end": 356.91
+        },
+        {
+          "text": "adjective",
+          "start": 356.91,
+          "end": 357.43
+        },
+        {
+          "text": "to",
+          "start": 357.43,
+          "end": 357.67
+        },
+        {
+          "text": "describe",
+          "start": 357.67,
+          "end": 358.11
+        },
+        {
+          "text": "something",
+          "start": 358.11,
+          "end": 358.51
+        },
+        {
+          "text": "that",
+          "start": 358.51,
+          "end": 358.67
+        },
+        {
+          "text": "is",
+          "start": 358.67,
+          "end": 358.95
+        },
+        {
+          "text": "very",
+          "start": 358.95,
+          "end": 359.31
+        },
+        {
+          "text": "exciting",
+          "start": 359.31,
+          "end": 359.79
+        },
+        {
+          "text": "to",
+          "start": 359.79,
+          "end": 359.91
+        },
+        {
+          "text": "look",
+          "start": 359.91,
+          "end": 360.07
+        },
+        {
+          "text": "at.",
+          "start": 360.07,
+          "end": 360.35
+        }
+      ]
+    },
+    {
+      "id": 72,
+      "speaker": "Phil",
+      "start": 360.96,
+      "end": 373.21,
+      "text": "And we talked about distractions, Things that are distractions, things that make you look at something you might not have wanted to look at, like someone's phone screen instead of the film.",
+      "words": [
+        {
+          "text": "And",
+          "start": 361.11,
+          "end": 361.43
+        },
+        {
+          "text": "we",
+          "start": 361.43,
+          "end": 361.71
+        },
+        {
+          "text": "talked",
+          "start": 361.71,
+          "end": 362.03
+        },
+        {
+          "text": "about",
+          "start": 362.03,
+          "end": 362.75
+        },
+        {
+          "text": "distractions,",
+          "start": 362.75,
+          "end": 363.67
+        },
+        {
+          "text": "Things",
+          "start": 364.47,
+          "end": 364.87
+        },
+        {
+          "text": "that",
+          "start": 364.87,
+          "end": 365.03
+        },
+        {
+          "text": "are",
+          "start": 365.03,
+          "end": 365.47
+        },
+        {
+          "text": "distractions,",
+          "start": 365.47,
+          "end": 366.27
+        },
+        {
+          "text": "things",
+          "start": 366.87,
+          "end": 367.11
+        },
+        {
+          "text": "that",
+          "start": 367.11,
+          "end": 367.31
+        },
+        {
+          "text": "make",
+          "start": 367.31,
+          "end": 367.51
+        },
+        {
+          "text": "you",
+          "start": 367.51,
+          "end": 367.75
+        },
+        {
+          "text": "look",
+          "start": 367.75,
+          "end": 367.99
+        },
+        {
+          "text": "at",
+          "start": 367.99,
+          "end": 368.19
+        },
+        {
+          "text": "something",
+          "start": 368.19,
+          "end": 368.55
+        },
+        {
+          "text": "you",
+          "start": 368.55,
+          "end": 368.91
+        },
+        {
+          "text": "might",
+          "start": 368.91,
+          "end": 369.11
+        },
+        {
+          "text": "not",
+          "start": 369.11,
+          "end": 369.31
+        },
+        {
+          "text": "have",
+          "start": 369.31,
+          "end": 369.47
+        },
+        {
+          "text": "wanted",
+          "start": 369.47,
+          "end": 369.87
+        },
+        {
+          "text": "to",
+          "start": 369.87,
+          "end": 370.03
+        },
+        {
+          "text": "look",
+          "start": 370.03,
+          "end": 370.19
+        },
+        {
+          "text": "at,",
+          "start": 370.19,
+          "end": 370.35
+        },
+        {
+          "text": "like",
+          "start": 370.43,
+          "end": 370.71
+        },
+        {
+          "text": "someone's",
+          "start": 370.71,
+          "end": 371.27
+        },
+        {
+          "text": "phone",
+          "start": 371.27,
+          "end": 371.67
+        },
+        {
+          "text": "screen",
+          "start": 371.67,
+          "end": 372.31
+        },
+        {
+          "text": "instead",
+          "start": 372.31,
+          "end": 372.55
+        },
+        {
+          "text": "of",
+          "start": 372.55,
+          "end": 372.67
+        },
+        {
+          "text": "the",
+          "start": 372.67,
+          "end": 372.91
+        },
+        {
+          "text": "film.",
+          "start": 372.91,
+          "end": 373.19
+        }
+      ]
+    },
+    {
+      "id": 73,
+      "speaker": "Georgie",
+      "start": 373.65,
+      "end": 379.29,
+      "text": "And the things that you watch in the cinema are called films or sometimes called movies as well okay,",
+      "words": [
+        {
+          "text": "And",
+          "start": 373.77,
+          "end": 373.97
+        },
+        {
+          "text": "the",
+          "start": 373.97,
+          "end": 374.09
+        },
+        {
+          "text": "things",
+          "start": 374.09,
+          "end": 374.25
+        },
+        {
+          "text": "that",
+          "start": 374.25,
+          "end": 374.41
+        },
+        {
+          "text": "you",
+          "start": 374.41,
+          "end": 374.57
+        },
+        {
+          "text": "watch",
+          "start": 374.57,
+          "end": 374.81
+        },
+        {
+          "text": "in",
+          "start": 374.81,
+          "end": 374.93
+        },
+        {
+          "text": "the",
+          "start": 374.93,
+          "end": 375.09
+        },
+        {
+          "text": "cinema",
+          "start": 375.09,
+          "end": 375.49
+        },
+        {
+          "text": "are",
+          "start": 375.49,
+          "end": 375.77
+        },
+        {
+          "text": "called",
+          "start": 375.77,
+          "end": 376.21
+        },
+        {
+          "text": "films",
+          "start": 376.21,
+          "end": 376.65
+        },
+        {
+          "text": "or",
+          "start": 376.65,
+          "end": 377.05
+        },
+        {
+          "text": "sometimes",
+          "start": 377.05,
+          "end": 377.33
+        },
+        {
+          "text": "called",
+          "start": 377.33,
+          "end": 377.77
+        },
+        {
+          "text": "movies",
+          "start": 377.77,
+          "end": 378.17
+        },
+        {
+          "text": "as",
+          "start": 378.17,
+          "end": 378.29
+        },
+        {
+          "text": "well",
+          "start": 378.29,
+          "end": 378.65
+        },
+        {
+          "text": "okay,",
+          "start": 379.05,
+          "end": 379.29
+        }
+      ]
+    },
+    {
+      "id": 74,
+      "speaker": "Phil",
+      "start": 379.29,
+      "end": 388.82,
+      "text": "And that's it for this week's episode of Real Easy English but don't worry, we'll be back next week with another episode in easy English.",
+      "words": [
+        {
+          "text": "And",
+          "start": 379.37,
+          "end": 379.73
+        },
+        {
+          "text": "that's",
+          "start": 379.73,
+          "end": 380.29
+        },
+        {
+          "text": "it",
+          "start": 380.29,
+          "end": 380.65
+        },
+        {
+          "text": "for",
+          "start": 380.65,
+          "end": 381.01
+        },
+        {
+          "text": "this",
+          "start": 381.01,
+          "end": 381.25
+        },
+        {
+          "text": "week's",
+          "start": 381.25,
+          "end": 381.57
+        },
+        {
+          "text": "episode",
+          "start": 381.57,
+          "end": 381.93
+        },
+        {
+          "text": "of",
+          "start": 381.93,
+          "end": 382.17
+        },
+        {
+          "text": "Real",
+          "start": 382.17,
+          "end": 382.61
+        },
+        {
+          "text": "Easy",
+          "start": 382.61,
+          "end": 382.97
+        },
+        {
+          "text": "English",
+          "start": 382.97,
+          "end": 383.29
+        },
+        {
+          "text": "but",
+          "start": 383.85,
+          "end": 384.01
+        },
+        {
+          "text": "don't",
+          "start": 384.01,
+          "end": 384.33
+        },
+        {
+          "text": "worry,",
+          "start": 384.33,
+          "end": 384.57
+        },
+        {
+          "text": "we'll",
+          "start": 384.77,
+          "end": 384.93
+        },
+        {
+          "text": "be",
+          "start": 384.93,
+          "end": 385.09
+        },
+        {
+          "text": "back",
+          "start": 385.09,
+          "end": 385.53
+        },
+        {
+          "text": "next",
+          "start": 385.53,
+          "end": 385.77
+        },
+        {
+          "text": "week",
+          "start": 385.77,
+          "end": 386.17
+        },
+        {
+          "text": "with",
+          "start": 386.17,
+          "end": 386.53
+        },
+        {
+          "text": "another",
+          "start": 386.53,
+          "end": 387.01
+        },
+        {
+          "text": "episode",
+          "start": 387.01,
+          "end": 387.81
+        },
+        {
+          "text": "in",
+          "start": 387.81,
+          "end": 388.13
+        },
+        {
+          "text": "easy",
+          "start": 388.13,
+          "end": 388.45
+        },
+        {
+          "text": "English.",
+          "start": 388.45,
+          "end": 388.89
+        }
+      ]
+    },
+    {
+      "id": 75,
+      "speaker": "Georgie",
+      "start": 389.0,
+      "end": 396.13,
+      "text": "And don't forget to download a free worksheet to test what you've learned at bbc learning english dot com goodbye for now.",
+      "words": [
+        {
+          "text": "And",
+          "start": 389.09,
+          "end": 389.33
+        },
+        {
+          "text": "don't",
+          "start": 389.33,
+          "end": 389.61
+        },
+        {
+          "text": "forget",
+          "start": 389.61,
+          "end": 389.89
+        },
+        {
+          "text": "to",
+          "start": 389.89,
+          "end": 390.37
+        },
+        {
+          "text": "download",
+          "start": 390.37,
+          "end": 390.61
+        },
+        {
+          "text": "a",
+          "start": 390.61,
+          "end": 390.81
+        },
+        {
+          "text": "free",
+          "start": 390.81,
+          "end": 391.05
+        },
+        {
+          "text": "worksheet",
+          "start": 391.05,
+          "end": 391.57
+        },
+        {
+          "text": "to",
+          "start": 391.57,
+          "end": 391.69
+        },
+        {
+          "text": "test",
+          "start": 391.69,
+          "end": 391.93
+        },
+        {
+          "text": "what",
+          "start": 391.93,
+          "end": 392.05
+        },
+        {
+          "text": "you've",
+          "start": 392.05,
+          "end": 392.33
+        },
+        {
+          "text": "learned",
+          "start": 392.33,
+          "end": 392.57
+        },
+        {
+          "text": "at",
+          "start": 392.57,
+          "end": 392.81
+        },
+        {
+          "text": "bbc",
+          "start": 392.81,
+          "end": 393.49
+        },
+        {
+          "text": "learning",
+          "start": 393.49,
+          "end": 393.81
+        },
+        {
+          "text": "english",
+          "start": 393.81,
+          "end": 394.21
+        },
+        {
+          "text": "dot",
+          "start": 394.21,
+          "end": 394.37
+        },
+        {
+          "text": "com",
+          "start": 394.37,
+          "end": 394.77
+        },
+        {
+          "text": "goodbye",
+          "start": 395.57,
+          "end": 395.73
+        },
+        {
+          "text": "for",
+          "start": 395.73,
+          "end": 395.89
+        },
+        {
+          "text": "now.",
+          "start": 395.89,
+          "end": 396.13
+        }
+      ]
+    },
+    {
+      "id": 76,
+      "speaker": "Phil",
+      "start": 396.32,
+      "end": 396.93,
+      "text": "Bye.",
+      "words": [
+        {
+          "text": "Bye.",
+          "start": 396.37,
+          "end": 396.93
+        }
+      ]
+    }
+  ]
+}

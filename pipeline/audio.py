@@ -44,6 +44,9 @@ def to_m4a(src: Path, dst: Path) -> Path:
     dst.parent.mkdir(parents=True, exist_ok=True)
     subprocess.run(
         [FFMPEG, "-y", "-loglevel", "error", "-i", str(src),
+         # -vn：BBC 2025 起下载的 mp3 里嵌着封面图（一条 mjpeg 视频流），不丢掉它 ffmpeg
+         # 拒绝写进 m4a 容器、产出 0 字节（2026-10-28，250123 踩到）
+         "-vn",
          "-c:a", "aac", "-b:a", "96k", "-movflags", "+faststart", str(dst)],
         check=True,
     )

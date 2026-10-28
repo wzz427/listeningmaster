@@ -36,9 +36,20 @@
 | 百炼报找不到文件或地址无效 | 录音文件转写模型只收公网地址，不收本地路径 | 用 `dashscope.utils.oss_utils.upload_file` 传到临时存储，并加请求头 `X-DashScope-OssResourceResolve: enable` |
 | 整目录搬完家，体验版里 git 命令全报 not a git repository，`worktree list` 报 prunable | worktree 靠绝对路径互指，拷贝后两头都指旧路径 | 改写体验版 `.git` 文件指向新主仓库＋`git worktree repair`；见下面 2026-10-25 那条 |
 | `test_stable_copy` 报「新版本的服务起不来（退出码 1）」 | serve.py 重写后启动要 `import accounts`，测试自建最小仓库的文件清单没跟着加 | 清单补 `accounts.py`；给 serve.py 加启动 import 时同步补这类清单 |
+| BBC 下载的 mp3 备课时 m4a 产出 0 字节，ffmpeg 报 h264 写不进 ipod 容器 | 2025 起的 BBC 下载 mp3 里嵌着封面图（一条 mjpeg 视频流），不丢掉它就写不进纯音频容器 | `audio.py` 的 ffmpeg 加 `-vn`（2026-10-28，250123、250918 都带） |
+| 对齐报告里整句词粘成一串（FastfoodbrandslikeKFC…）、对上率跌破八成 | 那段识别没给词间空格：词片全不带前导空格、时间间隙也是零，按前导空格拼词只能拼成巨词 | `align.py` 拿讲稿做字符级对齐重切（`merge_tokens` 里的 `_regroup_by_script`）；相邻两三个词的小粘连（It means→Itmeans、cando）由 `split_glued_pairs` 拆；见下面 2026-10-28 那条 |
 | 双击 .bat 页面打不开（2026-10-28，start-hosted.bat） | 两个可能都真实存在：服务窗口被关了（关窗即停服，页面自然 404）；bat 被编辑工具写成 LF 换行，不合 cmd 的 CRLF 惯例 | 页面打不开先 `netstat -ano | grep 8790` 看有没有人听；bat 落盘后一律转成 CRLF（`start-player.bat` 头注释早有此规） |
 
 ## 全部（新的在上）
+
+### 2026-10-28 · 接第二三四集 BBC：识别粘词两层修、mp3 带封面图
+
+- 症状一：250123（6 Minute English 快餐）audio.m4a 产出 0 字节，ffmpeg 报 h264 写不进 ipod 容器；症状二：对齐报告整句词粘成一串（"FastfoodbrandslikeKFC Domino's…"），对上率 71%（手册红线：低于八成停查）；症状三：小粘连词（cando、dreamswhich、shopburger）——就是欠账表里「出现第二次再修」的那个 Itmeans 类问题。
+- 根因：①2025 起的 BBC 下载 mp3 里嵌封面图（mjpeg 视频流），纯音频容器写不进；②那段识别结果词片全不带前导空格、时间间隙为零，按前导空格拼词的 `merge_tokens` 只能拼成一个几十字符的巨词，整句对不上讲稿；③相邻词的粘连是同一毛病的小号。
+- 修法：`audio.py` 加 `-vn`；`align.py` 两层——巨词触发时拿讲稿做**字符级**对齐按讲稿词界重切（拼写用讲稿、时间取词片首尾，对不上八成的不硬切），`split_glued_pairs` 把对不上但等于讲稿游标后两到四个连续词的粘连词拆开。
+- 怎么确认修好了：250123 对上率 71%→84%（重切 9 句、拆 2 处），260821/261009/250918 复跑不变；四课 `test_player.py` 全绿。
+- 连带：`test_player.py --lesson` 这条路第一次真跑别的课，修了四处写死第一课的假设（URL 不带课名、段末两句时长 15 秒不够、小圆点同段假设、最长句恰好是段末句）。
+- 残留：cando、dreamswhich 两个词没拆开（讲稿游标错位时拆不上），945 个词里剩 2 个，出现多了再把游标找法泛化；250123 结尾 30 秒 BBC 节目预告误匹配进讲稿词表、手工标成片头片尾（自动剔预告是以后的活）。
 
 ### 2026-10-25 · 搬家后 worktree 两头指旧路径；test_stable_copy 的临时仓库缺 accounts.py
 
