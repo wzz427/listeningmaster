@@ -73,7 +73,7 @@
 | `tests/test_hosted_frontend.py` | 资料库前端整条用户路的自动检查（Playwright 开真页面）：匿名直接进站听公共课 → 登录注册进站空库待机 → 上传（选错文件的人话）→ 备课轮询到变课高亮 → 点课切换 → 进度点 → 失败重试 → 删除 → 登出 | SPEC-009 R8 |
 | `tests/test_stable_copy.py` | 换版本的自动检查：临时目录里造真的仓库和体验版，真的切版本、真的起服务 | SPEC-008 |
 | `start-player.bat` | 双击：旁边有体验版就转去体验版，然后调 `pipeline/stable_copy.py run` 起服务、打开浏览器。只放英文字符 | SPEC-008 R2 |
-| `start-hosted.bat` | 双击：起对外模式的**本地验收版**（`serve.py --hosted --open`，8790，读仓库根 gitignore 里的 server-config.json），owner 验收用（D54：确认过了才上服务器）；访客直接进。只放英文字符 | SPEC-009 R1、D54 |
+| `start-hosted.bat` | 双击：起对外模式的**本地验收版**（`serve.py --hosted --open`，8790，读仓库根 gitignore 里的 server-config.json），owner 验收用（D54：确认过了才上服务器）；访客直接进。**服务已开着就只开一页浏览器、不重复起**（2026-10-28 owner 要求：点这一个脚本就完）。只放英文字符 | SPEC-009 R1、D54 |
 | `start-speak-lab.bat` | 双击：起口语实验页（`pipeline/speak_lab.py`）并打开浏览器，关窗口就停。实验件，只放英文字符 | —（D52 实验） |
 | `requirements.txt` | 服务器上要装的 Python 包（版本是开发机验证过的一组；wordfreq 只有重建发音词典才要，没列） | SPEC-009 R10 |
 | `deploy/listening.service`、`deploy/server-config.example.json`、`deploy/caddy-listen-app.conf` | 发布物料：systemd 服务、配置模板（复制成仓库根的 server-config.json，不进 git）、Caddy 站点块（改前先拉回现有配置 diff） | SPEC-009 R10、R11 |

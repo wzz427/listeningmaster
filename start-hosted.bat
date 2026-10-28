@@ -1,9 +1,12 @@
 @echo off
-rem Double-click to start the hosted (visitor-facing) trial server on this PC, for
-rem owner acceptance before anything goes to the real server (SPEC-009 v7).
-rem Visitors go straight in without an account; the login link sits at the sidebar
-rem bottom. Port and invite code come from server-config.json (gitignored) in the
-rem repo root. Close this window to stop the server.
-rem Keep this file ASCII-only: cmd reads .bat bytes in the console code page.
+rem THE one script for the visitor-facing site (local acceptance, SPEC-009 v7).
+rem Double-click it: if the site is already up it just opens the page again;
+rem if not, it starts the server first (keep this window open while listening,
+rem closing it stops the site). Keep this file ASCII + CRLF.
 setlocal
+netstat -ano | findstr /C:":8790 " | findstr /C:"LISTENING" >nul
+if %errorlevel%==0 goto open
 "C:\Users\wzzpk\.conda\envs\pywork\python.exe" "%~dp0pipeline\serve.py" --hosted --open & exit /b
+:open
+start "" "http://localhost:8790/"
+exit /b
