@@ -13,6 +13,7 @@
 - **自检全绿**：test_docs 26、test_player 84（无头）、test_stable_copy 13。
 - **起服务验证**：`serve.py 8766` 页面/课程 JSON/整段音频 200、**Range 206**（从文件中间取段、跳句能力在）、单词发音音频 200，验完已停。没跑的：test_audio（要花几分钱、改句子边界才必跑）、start-hosted/start-player 没真起（同代码已验）。
 - 更正两处旧机器残留：CLAUDE.md 和本文档群的机器行 RTX 500 Ada → RTX 5070 Laptop。
+- **迁移暂存清理（owner 指令，23:30）**：删 `BayesAPP/` 根的 `final-a/final-c.sha.dirs` 比对清单、`.staging-listeningmaster`（1.1G：两份运输 tar、中断的 playwright `.part` 半截包、migration-docs）和 `.staging-WordsAudio`（541M：batch-c.tar＋校验清单）。删前对账：三份落位报告 actual=expected、WordsAudio 50993 文件哈希零差异，永久证据不丢——密钥在 `Desktop\Secrets\ListeningMaster\`、登记在 `D:\SourceCode\迁移登记\ListeningMaster-仓库迁移.md`、本仓 git 在双远端。**没删的**：`.staging-SheepAndWord`（羊了个词会话的工作区，归它清）、`VibeCoding/` 根那批 `.migration-*` 暂存（别的项目迁移 23:23 还在写入、TinkerWorld 验证未开始、VibeReading 暂存是指定留存的证据档案）——动那些要等各自迁移收尾。
 - 下一步从哪接：迁移无事待办；主线照旧在 owner 验收在线站（见 2026-10-28 上线那条）。
 
 ### 2026-10-28 · 部署上线：listening.app.bayescode.com 开站（统一部署机、容器形态）；部署前堵了一个密钥泄露真洞
