@@ -8,7 +8,7 @@
 
 | 东西 | 在哪 · 什么版本 | 管什么 |
 |---|---|---|
-| 电脑 | Windows 11 家庭中文版；显卡 RTX 500 Ada（4GB 显存，本项目用不上：识别和模型都在云上） | — |
+| 电脑 | Windows 11 家庭中文版（笔记本，2026-10-29 换机，用户名没变、绝对路径照用）；显卡 RTX 5070 Laptop（12GB 显存，本项目用不上：识别和模型都在云上） | — |
 | Python | conda 环境 pywork：`C:\Users\wzzpk\.conda\envs\pywork\python.exe`，Python 3.12。**不在 PATH 上**，一律用绝对路径调；不用系统 Python，不另建环境 | 备课程序、本地服务、全部测试 |
 | dashscope 1.25 | pywork 里 | 百炼：录音文件识别、临时存储、机器耳朵、Emily 朗读 |
 | openai 3.3 | pywork 里 | 按 OpenAI 兼容接口调 DeepSeek 和百炼的文字模型（`pipeline/llm.py`） |

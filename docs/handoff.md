@@ -6,6 +6,15 @@
 
 ## 现在在哪（最新在上）
 
+### 2026-10-29 · 换电脑迁移体检：环境与仓库全绿，程序跑通
+
+- owner 把整个项目群迁到新笔记本。会话里的活：体检仓库＋起服务验证跑通。
+- **环境逐项验过全绿**：pywork Python 3.12.13 在文档写的原路径（用户名没变）、`pip check` 无冲突、十个依赖包全可导入、Playwright chromium 已下载、Chrome 在、SSH 双备份钥匙通（两头 dry-run 推送 Everything up-to-date）、git 工作区干净且与 github/master 一致。旁边并排的 WordsAudio（615MB）、体验版 ListeningMaster-stable、api-keys.txt、server-config.json、server-data/ 全都随迁到位。
+- **自检全绿**：test_docs 26、test_player 84（无头）、test_stable_copy 13。
+- **起服务验证**：`serve.py 8766` 页面/课程 JSON/整段音频 200、**Range 206**（从文件中间取段、跳句能力在）、单词发音音频 200，验完已停。没跑的：test_audio（要花几分钱、改句子边界才必跑）、start-hosted/start-player 没真起（同代码已验）。
+- 更正两处旧机器残留：CLAUDE.md 和本文档群的机器行 RTX 500 Ada → RTX 5070 Laptop。
+- 下一步从哪接：迁移无事待办；主线照旧在 owner 验收在线站（见 2026-10-28 上线那条）。
+
 ### 2026-10-28 · 部署上线：listening.app.bayescode.com 开站（统一部署机、容器形态）；部署前堵了一个密钥泄露真洞
 
 - owner 下指令部署，给了《服务器部署指南》（兄弟软件 SheepAndWord 的 `.ai-local/docs/`，私有区永不入库）：统一部署机 **182.92.206.53**（`*.app.bayescode.com` 泛解析已指它，**DNS 一条没加**）、网关容器 `deploy-caddy-1` 按容器名反代、各应用容器挂 `deploy_default`。他中途补了两句：谷歌发音词库兄弟软件已在用（已铺在服务器上）；要单独词典就按指南 §4 的共享规范来。

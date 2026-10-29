@@ -42,7 +42,7 @@
 工具清单、版本、端口、换电脑从零搭、装包前先干什么：`docs/environment.md`。
 
 - Python：`C:\Users\wzzpk\.conda\envs\pywork\python.exe`（conda 环境 pywork，不在 PATH 上，用绝对路径调用；装包用 `<该路径> -m pip install`）。不要用系统 Python，也不要另建环境。
-- 机器：Windows 11，显卡 RTX 500 Ada（4GB 显存）。
+- 机器：Windows 11 笔记本（2026-10-29 换机），显卡 RTX 5070 Laptop（12GB 显存）。
 - 测试（什么时候跑哪份、看什么，全在 `docs/workflow.md`「验证」）：`<pywork python> tests/test_player.py`——用 Playwright 真的开浏览器、真的点按钮、真的看音频播到第几秒，80 项，不到 1 分钟。**改完播放器必须跑**。加 `--show` 能看见浏览器窗口，加 `--shots <目录>` 存截图看界面。Playwright 和 chromium 已经装在 pywork 里。改了文档或加删文件跑 `tests/test_docs.py`（不到 1 秒）：文档里写到的文件、字段、验收编号和代码对不上就报错。
 - 验声音：`<pywork python> tests/test_audio.py`——录下真的 Chrome 放出来的每一句，交给机器耳朵听开头结尾对不对，做一页试听给人耳抽查，约 5 分钟、几分钱。**改了句子边界或播放器的停法就跑**。只核对数字发现不了声音问题（`docs/lessons.md` 2026-09-22）。
 - 两份代码：owner 和孩子用旁边的体验版 `ListeningMaster-stable`（8765，一个字不手改），claude 只改这个目录（开发版）。双击 `start-player.bat` 起的是体验版。新版本经 `pipeline/stable_copy.py invite` 钉给他、他点页面上的「更新」过去（`specs/SPEC-008-stable-and-dev.md` 操作手册）。改了换版本的代码跑 `tests/test_stable_copy.py`（约半分钟）。
