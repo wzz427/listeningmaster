@@ -2,6 +2,7 @@ api-keys.txt
 /开发密钥.md
 /开发密钥.txt
 docs/refs/阿里云配置指南.md
+docs/refs/服务器部署指南.md
 server-data/
 server-config.json
 *.local.*

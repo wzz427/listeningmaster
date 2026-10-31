@@ -11,7 +11,7 @@
 - **不碰别人的站**：这台机器跑着 TinkerCode 网关栈和羊了个词全家。网关 Caddyfile 改前先备份、改完先 validate 再 reload；羊了个词和别的容器一概不动。
 - **compose 项目名**：我们的 compose 必须带 `name: listening`——不写会取目录名 `deploy`，和网关栈、羊了个词撞项目名，`down`/`--remove-orphans` 会把别人的容器当孤儿清掉（2026-10-28 部署时撞见，已修）。
 - 服务器上这些永不入库、不外发：`api-keys.txt`、`server-config.json`、`server-data/`（各家资料库＋公共课库）。**各家账号里的材料不进公共库**（R14 红线）。
-- 《服务器部署指南》在兄弟软件仓 `SheepAndWord/.ai-local/docs/`（owner 私有区，永不入库、不外传）；本文只写我们这一摊。
+- 《服务器部署指南》正本在兄弟软件仓 `SheepAndWord/.ai-local/docs/`（owner 私有区，永不入库、不外传）；本仓 `docs/refs/服务器部署指南.md` 留了份同样 gitignore 的快照（现 v1.2，2026-10-31，以正本为准）；本文只写我们这一摊。
 
 ## 服务器是什么形状（和 39.105.73.114 不同在哪）
 
@@ -71,6 +71,11 @@ docker exec deploy-caddy-1 caddy reload  --config /etc/caddy/Caddyfile
 ```
 
 块内容（也存了一份在仓库 `deploy/caddy-listen-app.conf`）：`listening.app.bayescode.com { encode zstd gzip; reverse_proxy listeningapp:8790 }`。证书自动签：**新域名首签要几十秒**，这期间 curl 连不上不是挂了，等等再试。DNS 不用动（泛解析已指这台）。
+
+改完必须回写两件（《服务器部署指南》v1.2 §6.3，owner 2026-10-31 定——改配置的应用会话**当场**做，不攒给 TinkerCode 会话事后收口；10-23~28 三次部署没这步，16 行网关配置一度成服务器孤本）：
+
+1. **片段入本仓**：`deploy/caddy-listen-app.conf` 就是本应用网关块的仓库副本，块内容变了就改它、随本仓提交。
+2. **完整版回填 TinkerCode 仓**：把服务器现行 `/opt/tinkercode/deploy/Caddyfile` 拉回来覆盖 `TinkerCode 仓 deploy/Caddyfile` 并提交，说明写清哪个应用、哪次部署、改了什么——**仓库版是重建服务器时的单源**。
 
 ## 4. 验证清单（从免费到花钱，按顺序）
 
