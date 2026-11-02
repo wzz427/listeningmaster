@@ -70,6 +70,7 @@ async function boot() {
   audio.src = BASE + lesson.audio;
   audio.preservesPitch = true;
   $('title').textContent = lesson.title || '听力练习';
+  document.title = lesson.title ? `${lesson.title} · 听力练习` : '听力练习';  // 标签页上认得出在听哪一集
   $('source').textContent = lesson.source || '';
   records = readJSON(recordKey(), {});
   buildLegend();
