@@ -15734,6 +15734,82 @@
       "hard": false
     }
   },
+  "warmup": {
+    "words": [
+      {
+        "term": "at the heart of",
+        "ipa": "",
+        "zh": "是……的核心；最关键的部分",
+        "sentence": "Family is at the heart of everything for me.",
+        "sentenceZh": "家庭对我来说是最重要的。",
+        "termAudio": "tts/bailian_emily/at_the_heart_of.mp3",
+        "sentenceAudio": "tts/bailian_emily/warmup_at_the_heart_of.mp3"
+      },
+      {
+        "term": "can-do attitude",
+        "ipa": "/ˌkænˈduː ˈætɪtjuːd/",
+        "zh": "积极肯干的态度；自信能解决问题的劲头",
+        "sentence": "She has a can-do attitude, so she always finishes her work.",
+        "sentenceZh": "她做事很积极，所以总能完成工作。",
+        "termAudio": "tts/bailian_emily/cando_attitude.mp3",
+        "sentenceAudio": "tts/bailian_emily/warmup_cando_attitude.mp3"
+      },
+      {
+        "term": "the American dream",
+        "ipa": "",
+        "zh": "美国梦（指在美国只要努力就能成功）",
+        "sentence": "Many people go to America to chase the American dream.",
+        "sentenceZh": "很多人去美国追求美国梦。",
+        "termAudio": "tts/bailian_emily/the_american_dream.mp3",
+        "sentenceAudio": "tts/bailian_emily/warmup_the_american_dream.mp3"
+      },
+      {
+        "term": "long-standing",
+        "ipa": "/ˌlɒŋˈstændɪŋ/",
+        "zh": "长期存在的；由来已久的",
+        "sentence": "There is a long-standing shop on my street.",
+        "sentenceZh": "我住的街上有一家开了很久的店。",
+        "sentenceAudio": "tts/bailian_emily/warmup_longstanding.mp3",
+        "termAudio": "tts/google_en-GB/longstanding.mp3"
+      },
+      {
+        "term": "take on",
+        "ipa": "",
+        "zh": "（对某事物的）理解方式；新做法",
+        "sentence": "His take on the song is very different from mine.",
+        "sentenceZh": "他对这首歌的理解和我的很不一样。",
+        "termAudio": "tts/bailian_emily/take_on.mp3",
+        "sentenceAudio": "tts/bailian_emily/warmup_take_on.mp3"
+      },
+      {
+        "term": "the final nail in the coffin",
+        "ipa": "",
+        "zh": "致命一击；压垮某事的最后一件事",
+        "sentence": "The last goal was the final nail in the coffin for our team.",
+        "sentenceZh": "最后一个进球对我们队来说是致命一击。",
+        "termAudio": "tts/bailian_emily/the_final_nail_in_the_coffin.mp3",
+        "sentenceAudio": "tts/bailian_emily/warmup_the_final_nail_in_the_coffin.mp3"
+      },
+      {
+        "term": "frosty reception",
+        "ipa": "/ˈfrɒsti rɪˈsepʃn/",
+        "zh": "冷淡的接待；不热情的回应",
+        "sentence": "The new plan got a frosty reception from my parents.",
+        "sentenceZh": "我爸妈对新计划反应很冷淡。",
+        "termAudio": "tts/bailian_emily/frosty_reception.mp3",
+        "sentenceAudio": "tts/bailian_emily/warmup_frosty_reception.mp3"
+      },
+      {
+        "term": "economic",
+        "ipa": "/ˌiːkəˈnɒmɪk/",
+        "zh": "经济的",
+        "sentence": "The country is facing economic problems.",
+        "sentenceZh": "这个国家正面临经济问题。",
+        "sentenceAudio": "tts/bailian_emily/warmup_economic.mp3",
+        "termAudio": "tts/google_en-GB/economic.mp3"
+      }
+    ]
+  },
   "tts": {
     "voice": "单词：谷歌翻译英音；词组和词典里没有的词：百炼 Emily 英音",
     "files": {

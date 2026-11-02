@@ -27,6 +27,10 @@
   <div class="top-actions">
     <!-- 只在体验版里有（SPEC-008 R5）：平时灰着，claude 钉了新版本亮起来；悬停写着多了什么。开发版和线上没有 -->
     <button id="updateBtn" class="update-btn idle" aria-disabled="true" hidden><i class="lamp" aria-hidden="true"></i>更新</button>
+    <!-- 预热（SPEC-010 R8）：这一课有预热词才亮；第一次开课已经自动进过，这是随时再看的小入口 -->
+    <button id="warmBtn" class="ghost-btn" hidden>预热</button>
+    <!-- 只在预热里（SPEC-010 R7）：跳过就是进播放器，这一课以后不再自动进预热 -->
+    <button id="warmSkip" class="ghost-btn" hidden>跳过预热</button>
     <button id="fullBtn" class="ghost-btn">全文</button>
     <button id="settingsBtn" class="icon-btn" aria-label="设置" aria-expanded="false">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>
@@ -38,6 +42,46 @@
 </header>
 
 <main class="stage">
+  <!-- 预热（SPEC-010）：第一次开一课先进——一页一词，先听词的读音，听完整句话才滑入，
+       默认只有声音；听不懂点开看中英。完了「开始听」进播放器 -->
+  <section id="warmup" class="warmup" hidden>
+    <div class="warm-top">
+      <div id="warmDots" class="warm-dots" aria-hidden="true"></div>
+      <span id="warmCount" class="warm-count"></span>
+    </div>
+    <div class="warm-card card">
+      <div id="warmWord" class="warm-word">
+        <h2 id="warmTerm" class="warm-term"></h2>
+        <p id="warmIpa" class="warm-ipa"></p>
+        <p id="warmZh" class="warm-zh"></p>
+        <button id="warmTermBtn" class="pill accent big warm-listen">
+          <svg class="tri" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          <span class="eq" aria-hidden="true"><i></i><i></i><i></i></span>听读音
+        </button>
+      </div>
+      <div id="warmSent" class="warm-sent" hidden>
+        <p class="warm-ask">只用耳朵，听听这句话能不能懂</p>
+        <button id="warmSentBtn" class="pill big warm-listen">
+          <svg class="tri" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          <span class="eq" aria-hidden="true"><i></i><i></i><i></i></span>听这句话
+        </button>
+        <div class="warm-reveal-row">
+          <button id="warmReveal" class="warm-reveal">听不懂？点开这句话</button>
+        </div>
+        <div id="warmOpen" class="warm-open" hidden>
+          <p id="warmEn" class="warm-en"></p>
+          <p id="warmCn" class="warm-cn"></p>
+        </div>
+      </div>
+    </div>
+    <div class="warm-nav">
+      <button id="warmPrev" class="part-nav" aria-label="上一个词" disabled>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5.5 8 12l6.5 6.5"/></svg>
+      </button>
+      <button id="warmNext" class="pill big">下一个</button>
+    </div>
+  </section>
+
   <section class="now" aria-live="polite">
     <div class="who">
       <span id="avatar" class="avatar">·</span>

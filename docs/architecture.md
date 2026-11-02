@@ -113,6 +113,7 @@
 | `sentences[].words[].text`、`sentences[].words[].start`、`sentences[].words[].end`、`sentences[].words[].key` | 每个词：原样的写法、识别给的起止（只用来高亮正在读的词）、查朗读和生词用的小写形式 |
 | `sentences[].notes[].words`、`sentences[].notes[].text`、`sentences[].notes[].pos`、`sentences[].notes[].ipa`、`sentences[].notes[].zh`、`sentences[].notes[].more` | 每个词的那一行（SPEC-006）：管这句里哪几个词（词组是几个）、词或词组、词性、音标、意思、给不给展开 |
 | `glossary.*.hard` | 这一集每个词（小写形式）是不是生词（SPEC-005） |
+| `warmup.words[].term`、`warmup.words[].ipa`、`warmup.words[].zh`、`warmup.words[].sentence`、`warmup.words[].sentenceZh`、`warmup.words[].termAudio`、`warmup.words[].sentenceAudio` | 预热关键词（SPEC-010）：词或词组、音标（词组可空）、中文、配的简单句、句子的中文、两条读音文件的路径 |
 | `tts.voice`、`tts.files` | 朗读用的是谁的声音；词 → 朗读文件（相对课程文件夹） |
 
 ## 本地服务（`pipeline/serve.py`）

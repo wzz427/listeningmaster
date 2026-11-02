@@ -18581,6 +18581,73 @@
       "hard": false
     }
   },
+  "warmup": {
+    "words": [
+      {
+        "term": "trailers",
+        "ipa": "/ˈtreɪləz/",
+        "zh": "电影预告片",
+        "sentence": "I watched some trailers for new films on my phone.",
+        "sentenceZh": "我在手机上看了一些新电影的预告片。",
+        "termAudio": "tts/google_en-GB/trailers.mp3",
+        "sentenceAudio": "tts/bailian_emily/warmup_trailers.mp3"
+      },
+      {
+        "term": "popcorn",
+        "ipa": "/ˈpɒpkɔːn/",
+        "zh": "爆米花",
+        "sentence": "We made popcorn and watched a film at home.",
+        "sentenceZh": "我们在家做了爆米花，看了一部电影。",
+        "termAudio": "tts/google_en-GB/popcorn.mp3",
+        "sentenceAudio": "tts/bailian_emily/warmup_popcorn.mp3"
+      },
+      {
+        "term": "spectacular",
+        "ipa": "/spekˈtækjələ/",
+        "zh": "非常壮观的，令人惊叹的",
+        "sentence": "The fireworks were spectacular last night.",
+        "sentenceZh": "昨晚的烟花非常壮观。",
+        "termAudio": "tts/google_en-GB/spectacular.mp3",
+        "sentenceAudio": "tts/bailian_emily/warmup_spectacular.mp3"
+      },
+      {
+        "term": "distractions",
+        "ipa": "/dɪˈstrækʃənz/",
+        "zh": "让人分心的事",
+        "sentence": "I can't study with too many distractions.",
+        "sentenceZh": "有太多让人分心的事，我没法学习。",
+        "termAudio": "tts/google_en-GB/distractions.mp3",
+        "sentenceAudio": "tts/bailian_emily/warmup_distractions.mp3"
+      },
+      {
+        "term": "whisper",
+        "ipa": "/ˈwɪspə/",
+        "zh": "小声说，耳语",
+        "sentence": "Please whisper in the library.",
+        "sentenceZh": "在图书馆里请小声说话。",
+        "termAudio": "tts/google_en-GB/whisper.mp3",
+        "sentenceAudio": "tts/bailian_emily/warmup_whisper.mp3"
+      },
+      {
+        "term": "snacks",
+        "ipa": "/snæks/",
+        "zh": "零食",
+        "sentence": "I brought some snacks for the trip.",
+        "sentenceZh": "我带了一些零食路上吃。",
+        "termAudio": "tts/google_en-GB/snacks.mp3",
+        "sentenceAudio": "tts/bailian_emily/warmup_snacks.mp3"
+      },
+      {
+        "term": "romcom",
+        "ipa": "/ˈrɒmkɒm/",
+        "zh": "浪漫喜剧（爱情喜剧片）",
+        "sentence": "My sister loves watching a romcom on Friday nights.",
+        "sentenceZh": "我姐姐喜欢在周五晚上看浪漫喜剧。",
+        "termAudio": "tts/bailian_emily/romcom.mp3",
+        "sentenceAudio": "tts/bailian_emily/warmup_romcom.mp3"
+      }
+    ]
+  },
   "tts": {
     "voice": "单词：谷歌翻译英音；词组和词典里没有的词：百炼 Emily 英音",
     "files": {

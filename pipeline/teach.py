@@ -12,7 +12,8 @@
 
 重跑时默认复用上一版 lesson.json 里已有的翻译、每个词的那一行、生词和分段，只给新出现的句子和词调模型。
 这样改了句子起止时间（refine_bounds.py）之后重建课程文件，不会把 owner 审过的中文换掉。
-要全部重新生成就加 --fresh；只重切分段、中文不动就加 --resplit；改了那一行的提示词、只重写每个词的那一行就加 --renote。
+要全部重新生成就加 --fresh；只重切分段、中文不动就加 --resplit；改了那一行的提示词、只重写每个词的那一行就加 --renote；
+只重挑预热关键词就加 --rewarmup（SPEC-010）。
 """
 
 import json
@@ -144,17 +145,80 @@ def normalize(token: str) -> str:
 
 
 
-def load_previous(lesson_dir: Path) -> tuple[dict[str, str], dict[str, dict], dict[str, str], dict[str, list]]:
-    """上一版课程文件里已有的内容：{英文句子: 中文}、词条、{每段第一句的英文: 小标题}、{英文句子: 每个词的那一行}。"""
+def warmup(body: list[dict], hard_words: list[str], model: str = MODEL) -> list[dict]:
+    """挑 5 到 8 个预热关键词并给每个配一句简单例句（SPEC-010 R1、R2）。
+
+    挑词和造句一次问完。实验（2026-11-03，Fast Food 三遍）：前 7 个词三遍完全一致，
+    6 个正是 BBC 官方 worksheet 的教学词——模型从全文认得出这一集在反复教哪几个词，
+    所以不用像挑生词那样逐个问（SPEC-005 R6 的教训针对的是只给一串裸词）。
+    例句难度跟着材料走（比材料低一级），让模型先读材料自己定档：REE（A2）的课例句会更浅。
+    """
+    text = " ".join(s["text"] for s in body)
+    words: list[dict] = []
+    for attempt in range(2):
+        data, _ = call(
+            model,
+            WHO + "这一集开听之前有个预热环节：挑 5 到 8 个关键词，先让他的耳朵认识，"
+                  "免得听的时候因为不认识这些词整段跟丢。挑词只有一条判据：不认识（或听不出）"
+                  "就会影响理解这一集内容的词。单词、词组都行——可以是难单词，也可以是"
+                  " the American dream、the final nail in the coffin 这样的词组或习语，"
+                  "不刻意凑词组、也不刻意避开；他多半已认识的主题词（fast food、burger）不挑；"
+                  "人名、品牌名、网址、纯数字不挑。"
+                  "每个词再配一句例句帮他预热：围绕这个词说一件日常小事，不用这一集里的情节；"
+                  "例句的用词要比这一集容易一档（这一集像 FCE/B2，例句就用 PET/B1 及以下的常用词；"
+                  "这一集本身浅，例句就用最简单的词），一句最多 20 个词；关键词在句里原样出现。"
+                  "释义和例句的中文都要口语、说人话；音标用英式，词组可不写音标。"
+                  '只输出 JSON：{"words":[{"term":"...","ipa":"...","zh":"...","sentence":"...","sentenceZh":"..."}]}',
+            f"这一集的完整内容：\n{text}\n\n"
+            f"备课时标出的生词（仅作参考，可超出）：{json.dumps(hard_words, ensure_ascii=False)}",
+        )
+        words = []
+        for w in data.get("words") or []:
+            term = (w.get("term") or "").strip()
+            sentence = (w.get("sentence") or "").strip()
+            if not term or not sentence or len(sentence.split()) > 20:
+                continue
+            # 模型偶尔会自造词组：只收第一个词在正文里真出现过的
+            if not re.search(r"\b" + re.escape(term.split()[0].lower()) + r"\b", text.lower()):
+                continue
+            words.append({"term": term, "ipa": (w.get("ipa") or "").strip(), "zh": (w.get("zh") or "").strip(),
+                          "sentence": sentence, "sentenceZh": (w.get("sentenceZh") or "").strip()})
+        if 5 <= len(words) <= 8:
+            print(f"  预热：挑出 {len(words)} 个关键词并造好例句")
+            return words
+        if attempt == 0 and words:
+            print(f"  预热：这遍挑出 {len(words)} 个（要 5 到 8 个），再试一遍")
+    print(f"  预热：挑出的不到 5 个（{len(words)} 个），就用这些——播放器对空预热不挡路（SPEC-010 R7）")
+    return words
+
+
+def warmup_audio(lesson: str, lesson_dir: Path, words: list[dict]) -> None:
+    """给每个词条和例句配好读音文件（SPEC-010 R3）：单个词的读音发音词典里就有（tts.build 已拷进课程文件夹），
+    词组和词典里没有的词、还有全部例句，用百炼 Emily 现读，都存在课程文件夹里——孩子点「听」只放文件，不用等。"""
+    for w in words:
+        single = normalize(w["term"])
+        in_dict = (lesson_dir / "tts" / tts.FIRST / tts.file_name(single)).exists()
+        if in_dict:
+            w["termAudio"] = f"tts/{tts.FIRST}/{tts.file_name(single)}"   # 发音词典里拷来的谷歌英音
+        else:
+            w["termAudio"] = explain.speak(lesson, w["term"].lower(), w["term"])  # 词组、生僻词：Emily 现读
+        w["sentenceAudio"] = explain.speak(lesson, "warmup " + w["term"].lower(), w["sentence"])
+    print(f"  预热读音：{len(words)} 个词的例句音频都备好了")
+
+
+def load_previous(lesson_dir: Path) -> tuple[dict[str, str], dict[str, dict], dict[str, str], dict[str, list], list[dict]]:
+    """上一版课程文件里已有的内容：{英文句子: 中文}、词条、{每段第一句的英文: 小标题}、
+    {英文句子: 每个词的那一行}、预热关键词（含例句和读音路径）。"""
     path = lesson_dir / "lesson.json"
     if not path.exists():
-        return {}, {}, {}, {}
+        return {}, {}, {}, {}, []
     old = json.loads(path.read_text(encoding="utf-8"))
     text_of = {s["id"]: s["text"] for s in old["sentences"]}
     return ({s["text"]: s["zh"] for s in old["sentences"] if s.get("zh")},
             {w: {"hard": bool(g.get("hard"))} for w, g in old.get("glossary", {}).items()},
             {text_of[x["first"]]: x["title"] for x in old.get("sections", [])},
-            {s["text"]: s["notes"] for s in old["sentences"] if s.get("notes")})
+            {s["text"]: s["notes"] for s in old["sentences"] if s.get("notes")},
+            (old.get("warmup") or {}).get("words") or [])
 
 
 def reuse_sections(old: dict[str, str], body: list[dict]) -> list[dict] | None:
@@ -168,16 +232,19 @@ def reuse_sections(old: dict[str, str], body: list[dict]) -> list[dict] | None:
                   key=lambda x: x["first"])
 
 
-def build(lesson: str, fresh: bool = False, resplit: bool = False, renote: bool = False) -> None:
+def build(lesson: str, fresh: bool = False, resplit: bool = False, renote: bool = False,
+          rewarmup: bool = False) -> None:
     lesson_dir = ROOT / "lessons" / lesson
     timeline = json.loads((lesson_dir / "timeline.json").read_text(encoding="utf-8"))
     sentences = timeline["sentences"]
     context = " ".join(s["text"] for s in sentences)
 
     forms = sorted({normalize(w["text"]) for s in sentences for w in s["words"]} - {""})
-    known_zh, glossary, old_sections, known_notes = ({}, {}, {}, {}) if fresh else load_previous(lesson_dir)
+    known_zh, glossary, old_sections, known_notes, old_warmup = ({}, {}, {}, {}, []) if fresh else load_previous(lesson_dir)
     if renote:
         known_notes = {}
+    if rewarmup:
+        old_warmup = []
     for s in sentences:
         for w in s["words"]:
             w["key"] = normalize(w["text"])
@@ -197,8 +264,17 @@ def build(lesson: str, fresh: bool = False, resplit: bool = False, renote: bool 
     print("分段：沿用上一版" if cuts else "分段：让模型按话题切")
     sections = with_last(cuts or split_sections(body), body)
 
+    # 预热关键词（SPEC-010）：重跑默认沿用（按词认，词集没变就不重新挑）；--rewarmup 重挑。
+    # 音频在沿用时也补一遍：speak 见文件在就不重读，成本为零，还兜住上一版没音频的旧课
+    if old_warmup:
+        print("预热：沿用上一版")
+        warm_words = old_warmup
+    else:
+        warm_words = warmup(body, sorted(w for w, g in glossary.items() if g.get("hard")))
+    warmup_audio(lesson, lesson_dir, warm_words)
+
     (lesson_dir / "teach_raw.json").write_text(
-        json.dumps({"zh": zh_map, "glossary": glossary, "sections": sections},
+        json.dumps({"zh": zh_map, "glossary": glossary, "sections": sections, "warmup": warm_words},
                    ensure_ascii=False, indent=2),
         encoding="utf-8")
 
@@ -217,6 +293,8 @@ def build(lesson: str, fresh: bool = False, resplit: bool = False, renote: bool 
         "sections": sections,
         "sentences": sentences,
         "glossary": glossary,
+        # 预热关键词和例句（SPEC-010），第一次开一课先进预热
+        "warmup": {"words": warm_words},
         # 单词朗读：备课时存好的文件，孩子那边不连任何外部服务（决策 D27）
         "tts": {"voice": tts.LABEL, "files": tts.build(lesson_dir, sorted(glossary))},
     }
@@ -231,4 +309,4 @@ if __name__ == "__main__":
     sys.stdout.reconfigure(encoding="utf-8")
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     build(args[0] if args else "260821", fresh="--fresh" in sys.argv, resplit="--resplit" in sys.argv,
-          renote="--renote" in sys.argv)
+          renote="--renote" in sys.argv, rewarmup="--rewarmup" in sys.argv)

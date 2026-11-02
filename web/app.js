@@ -79,6 +79,11 @@ async function boot() {
   backToPlace();
   setRate(1);
   render();
+  // 预热（SPEC-010 R8）：第一次开这一课、有预热词，先进预热；这课没有预热（旧课、生成失败）直接进播放器（R7）
+  $('warmBtn').hidden = !warmWords().length;
+  let warmed = null;
+  try { warmed = localStorage.getItem(settingKey(WARM_DONE)); } catch { /* 存不了就当没来过 */ }
+  if (warmWords().length && !warmed) enterWarmup();
   requestAnimationFrame(tick);
 }
 
@@ -751,6 +756,115 @@ async function speakKey(key, text) {
   voice.play().catch(() => {});
 }
 
+/* ---------- 预热（SPEC-010） ----------
+ * 第一次开一课先进：一页一词。词先过耳朵——听完读音，这句话才滑入，而且默认只有声音；
+ * 听不懂点开看中英（先耳朵、再文字、中文兜底，和播放器 D10 同一条路）。没有原声、没有测验。
+ * 一课只自动进一次（R8）：过完或跳过都记在 localStorage，以后开这课直接进播放器；
+ * 顶栏的「预热」随时能再看。跳过也记：想看的人走小入口，不想看的人别再被打扰。 */
+const WARM_DONE = 'warmup-done';
+let warmIdx = 0;
+const warmAudio = new Audio();
+const warmWords = () => (lesson && lesson.warmup && lesson.warmup.words) || [];
+
+function enterWarmup() {
+  if (!audio.paused) { audio.pause(); render(); }   // 两个声音不叠着听
+  warmIdx = 0;
+  document.body.classList.add('warming');
+  $('warmup').hidden = false;
+  $('warmSkip').hidden = false;
+  $('warmBtn').hidden = true;
+  renderWarmup();
+}
+
+function exitWarmup() {
+  try { localStorage.setItem(settingKey(WARM_DONE), '1'); } catch { /* 存不下：下次再进一次也无妨 */ }
+  warmAudio.pause();
+  warmAudio.onended = null;
+  document.body.classList.remove('warming', 'warm-listening');
+  document.querySelectorAll('.warm-listen.playing').forEach((b) => b.classList.remove('playing'));
+  $('warmup').hidden = true;
+  $('warmSkip').hidden = true;
+  $('warmBtn').hidden = !warmWords().length;
+  render();
+}
+
+/* 一页一词：换词只换内容、卡片不挪（owner 讨厌跳动） */
+function renderWarmup() {
+  const ws = warmWords();
+  const w = ws[warmIdx];
+  const last = warmIdx >= ws.length - 1;
+  $('warmDots').innerHTML = ws.map((_, i) =>
+    `<i class="${i === warmIdx ? 'now' : i < warmIdx ? 'done' : ''}"></i>`).join('');
+  $('warmCount').textContent = `${warmIdx + 1} / ${ws.length}`;
+  $('warmTerm').textContent = w.term;
+  $('warmIpa').textContent = w.ipa || '';
+  $('warmIpa').hidden = !w.ipa;
+  $('warmZh').textContent = w.zh;
+  $('warmTermBtn').classList.add('accent');
+  $('warmSentBtn').classList.remove('accent');
+  $('warmSent').hidden = true;            // 新的一词：句子收回，等听过读音再出现
+  $('warmOpen').hidden = true;
+  $('warmReveal').hidden = false;
+  $('warmPrev').disabled = warmIdx === 0;
+  $('warmNext').textContent = last ? '开始听' : '下一个';
+  $('warmNext').classList.toggle('accent', last);
+  const word = $('warmWord');             // 内容淡入，位置不动
+  word.classList.remove('swap');
+  void word.offsetWidth;
+  word.classList.add('swap');
+}
+
+function warmPlay(btn, file, glowTerm, onEnd) {
+  warmAudio.onended = null;
+  warmAudio.pause();
+  warmAudio.src = BASE + file;
+  btn.classList.add('playing');
+  if (glowTerm) document.body.classList.add('warm-listening');   // 读音在放：词亮着（调到台了）
+  warmAudio.onended = () => {
+    btn.classList.remove('playing');
+    document.body.classList.remove('warm-listening');
+    if (onEnd) onEnd();
+  };
+  warmAudio.play().catch(() => {
+    btn.classList.remove('playing');
+    document.body.classList.remove('warm-listening');
+  });
+}
+
+$('warmTermBtn').onclick = () => {
+  const w = warmWords()[warmIdx];
+  if (!w) return;
+  warmPlay($('warmTermBtn'), w.termAudio, true, () => {
+    // 听完读音，句子滑入，主操作交给「听这句话」
+    if ($('warmup').hidden) return;      // 已经跳走就别再动画面
+    $('warmSent').hidden = false;
+    $('warmTermBtn').classList.remove('accent');
+    $('warmSentBtn').classList.add('accent');
+  });
+};
+$('warmSentBtn').onclick = () => {
+  const w = warmWords()[warmIdx];
+  if (w) warmPlay($('warmSentBtn'), w.sentenceAudio, false);
+};
+$('warmReveal').onclick = () => {
+  const w = warmWords()[warmIdx];
+  if (!w) return;
+  const esc = (t) => String(t || '').replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+  const safe = w.term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  $('warmEn').innerHTML = esc(w.sentence).replace(new RegExp(`(${safe})`, 'i'), '<b>$1</b>');  // 关键词亮着
+  $('warmCn').textContent = w.sentenceZh;
+  $('warmOpen').hidden = false;
+  $('warmReveal').hidden = true;
+};
+$('warmPrev').onclick = () => { if (warmIdx > 0) { warmIdx -= 1; renderWarmup(); } };
+$('warmNext').onclick = () => {
+  if (warmIdx >= warmWords().length - 1) { exitWarmup(); return; }
+  warmIdx += 1;
+  renderWarmup();
+};
+$('warmSkip').onclick = exitWarmup;
+$('warmBtn').onclick = enterWarmup;      // 播放器里的小入口，随时再看（R8）
+
 /* ---------- 全文：按段列出每一句，点一句只播这一句 ---------- */
 
 function buildFullText() {
@@ -851,6 +965,18 @@ audio.addEventListener('pause', render);
 
 document.addEventListener('keydown', (e) => {
   if (updating || ['INPUT', 'TEXTAREA'].includes(e.target.tagName) || e.ctrlKey || e.metaKey || e.altKey) return;
+  if (document.body.classList.contains('warming')) {  // 预热里：空格听当前那个，← → 换词
+    if (e.key === ' ') {
+      e.preventDefault();
+      const main = document.querySelector('.warm-listen.accent') || $('warmNext');
+      main.click();
+    } else if (e.key === 'ArrowRight') {
+      $('warmNext').click();
+    } else if (e.key === 'ArrowLeft' && !$('warmPrev').disabled) {
+      $('warmPrev').click();
+    }
+    return;
+  }
   const actions = {
     ' ': togglePlay,
     ArrowLeft: () => playOne(idx - 1),

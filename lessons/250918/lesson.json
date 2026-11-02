@@ -17161,6 +17161,82 @@
       "hard": false
     }
   },
+  "warmup": {
+    "words": [
+      {
+        "term": "humanoid",
+        "ipa": "/ˈhjuːmənɔɪd/",
+        "zh": "像人的，人形的",
+        "sentence": "The robot in the film looks humanoid and can walk like a person.",
+        "sentenceZh": "电影里的那个机器人看起来像人，还能像人一样走路。",
+        "termAudio": "tts/google_en-GB/humanoid.mp3",
+        "sentenceAudio": "tts/bailian_emily/warmup_humanoid.mp3"
+      },
+      {
+        "term": "companion",
+        "ipa": "/kəmˈpæniən/",
+        "zh": "伙伴，陪伴的人",
+        "sentence": "My dog is a great companion when I am home alone.",
+        "sentenceZh": "我一个人在家的时候，我的狗是个很好的伙伴。",
+        "termAudio": "tts/google_en-GB/companion.mp3",
+        "sentenceAudio": "tts/bailian_emily/warmup_companion.mp3"
+      },
+      {
+        "term": "sassy",
+        "ipa": "/ˈsæsi/",
+        "zh": "时髦自信又有点冒失的",
+        "sentence": "She is a sassy girl who always says what she thinks.",
+        "sentenceZh": "她是个很自信又有点冒失的女孩，总是想什么说什么。",
+        "termAudio": "tts/google_en-GB/sassy.mp3",
+        "sentenceAudio": "tts/bailian_emily/warmup_sassy.mp3"
+      },
+      {
+        "term": "taken aback",
+        "ipa": "",
+        "zh": "被吓了一跳，很吃惊",
+        "sentence": "I was taken aback when he suddenly shouted my name.",
+        "sentenceZh": "他突然大喊我的名字，把我吓了一跳。",
+        "termAudio": "tts/bailian_emily/taken_aback.mp3",
+        "sentenceAudio": "tts/bailian_emily/warmup_taken_aback.mp3"
+      },
+      {
+        "term": "a mind of its own",
+        "ipa": "",
+        "zh": "（东西）好像有自己的想法，不受控制",
+        "sentence": "My old phone has a mind of its own and turns off by itself.",
+        "sentenceZh": "我的旧手机好像有自己的想法，会自己关机。",
+        "termAudio": "tts/bailian_emily/a_mind_of_its_own.mp3",
+        "sentenceAudio": "tts/bailian_emily/warmup_a_mind_of_its_own.mp3"
+      },
+      {
+        "term": "approachable",
+        "ipa": "/əˈprəʊtʃəbl/",
+        "zh": "好接近的，亲切的",
+        "sentence": "Our new teacher is very approachable and always smiles.",
+        "sentenceZh": "我们的新老师很亲切，总是笑眯眯的。",
+        "termAudio": "tts/google_en-GB/approachable.mp3",
+        "sentenceAudio": "tts/bailian_emily/warmup_approachable.mp3"
+      },
+      {
+        "term": "a splash of colour",
+        "ipa": "",
+        "zh": "一抹亮色，一点鲜艳的颜色",
+        "sentence": "The grey wall looks nice with a splash of colour from the flowers.",
+        "sentenceZh": "灰色的墙配上鲜花那一抹亮色，看起来很不错。",
+        "termAudio": "tts/bailian_emily/a_splash_of_colour.mp3",
+        "sentenceAudio": "tts/bailian_emily/warmup_a_splash_of_colour.mp3"
+      },
+      {
+        "term": "expressive",
+        "ipa": "/ɪkˈspresɪv/",
+        "zh": "表情丰富的，能表达感情的",
+        "sentence": "Her expressive face shows exactly how she feels.",
+        "sentenceZh": "她表情丰富的脸能准确表达她的感受。",
+        "termAudio": "tts/google_en-GB/expressive.mp3",
+        "sentenceAudio": "tts/bailian_emily/warmup_expressive.mp3"
+      }
+    ]
+  },
   "tts": {
     "voice": "单词：谷歌翻译英音；词组和词典里没有的词：百炼 Emily 英音",
     "files": {

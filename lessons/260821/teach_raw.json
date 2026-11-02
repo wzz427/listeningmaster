@@ -899,5 +899,79 @@
       "last": 91,
       "title": "复习词汇和道别"
     }
+  ],
+  "warmup": [
+    {
+      "term": "grumpy",
+      "ipa": "/ˈɡrʌmpi/",
+      "zh": "脾气不好，爱发火",
+      "sentence": "I'm grumpy when I wake up early.",
+      "sentenceZh": "早起的时候我脾气不好。",
+      "termAudio": "tts/google_en-GB/grumpy.mp3",
+      "sentenceAudio": "tts/bailian_emily/warmup_grumpy.mp3"
+    },
+    {
+      "term": "alert",
+      "ipa": "/əˈlɜːt/",
+      "zh": "清醒的，机灵的",
+      "sentence": "Coffee makes me feel alert in the morning.",
+      "sentenceZh": "早上喝咖啡让我觉得清醒。",
+      "termAudio": "tts/google_en-GB/alert.mp3",
+      "sentenceAudio": "tts/bailian_emily/warmup_alert.mp3"
+    },
+    {
+      "term": "caffeine",
+      "ipa": "/ˈkæfiːn/",
+      "zh": "咖啡因",
+      "sentence": "Too much caffeine can keep you awake at night.",
+      "sentenceZh": "太多咖啡因会让你晚上睡不着。",
+      "termAudio": "tts/google_en-GB/caffeine.mp3",
+      "sentenceAudio": "tts/bailian_emily/warmup_caffeine.mp3"
+    },
+    {
+      "term": "decaf",
+      "ipa": "/ˈdiːkæf/",
+      "zh": "无咖啡因的（咖啡）",
+      "sentence": "I drink decaf after dinner so I can sleep.",
+      "sentenceZh": "晚饭后我喝无咖啡因咖啡，这样能睡着。",
+      "termAudio": "tts/google_en-GB/decaf.mp3",
+      "sentenceAudio": "tts/bailian_emily/warmup_decaf.mp3"
+    },
+    {
+      "term": "cut down on",
+      "ipa": "",
+      "zh": "少喝/少吃/少用",
+      "sentence": "I'm trying to cut down on sugar.",
+      "sentenceZh": "我正在努力少吃糖。",
+      "termAudio": "tts/bailian_emily/cut_down_on.mp3",
+      "sentenceAudio": "tts/bailian_emily/warmup_cut_down_on.mp3"
+    },
+    {
+      "term": "take",
+      "ipa": "/teɪk/",
+      "zh": "（这里指）喝咖啡时加什么",
+      "sentence": "How do you take your tea?",
+      "sentenceZh": "你喝茶加什么？",
+      "termAudio": "tts/google_en-GB/take.mp3",
+      "sentenceAudio": "tts/bailian_emily/warmup_take.mp3"
+    },
+    {
+      "term": "black",
+      "ipa": "/blæk/",
+      "zh": "（咖啡）不加奶的",
+      "sentence": "He drinks his coffee black.",
+      "sentenceZh": "他喝咖啡不加奶。",
+      "termAudio": "tts/google_en-GB/black.mp3",
+      "sentenceAudio": "tts/bailian_emily/warmup_black.mp3"
+    },
+    {
+      "term": "white",
+      "ipa": "/waɪt/",
+      "zh": "（咖啡）加奶的",
+      "sentence": "She likes her coffee white.",
+      "sentenceZh": "她喜欢咖啡加奶。",
+      "termAudio": "tts/google_en-GB/white.mp3",
+      "sentenceAudio": "tts/bailian_emily/warmup_white.mp3"
+    }
   ]
 }

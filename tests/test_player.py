@@ -9,6 +9,7 @@
 不验函数内部怎么写的（指南第七章第 1 条）。
 """
 
+import json
 import re
 import sys
 import threading
@@ -77,6 +78,9 @@ def shot(page, shots: Path | None, name: str) -> None:
 def run(page, shots: Path | None) -> None:
     errors: list[str] = []
     page.on("pageerror", lambda e: errors.append(str(e)))
+    # 这一页测播放器本体：先当「这课已经预热过」，不然第一次开课进预热、后面的用例全对不上
+    # （预热自己另开一个干净页面测，见 warmup_run）
+    page.add_init_script(f"try {{ localStorage.setItem('listening:{LESSON}:warmup-done', '1'); }} catch (e) {{}}")
     page.goto(URL)
     page.wait_for_function("window.lesson !== null && document.querySelectorAll('.seg').length > 0",
                            timeout=15000)
@@ -731,6 +735,101 @@ def sections_part(page, shots: Path | None, body: list[dict]) -> None:
         page.click("#playBtn")
 
 
+def warmup_run(page, shots: Path | None) -> None:
+    """预热环节（SPEC-010）：拿 250123（Fast Food，8 个关键词）走整条流。
+    这个页面是干净的（没存过 warmup-done），第一次开课就该自动进预热。"""
+    errors: list[str] = []
+    page.on("pageerror", lambda e: errors.append(str(e)))
+    url = f"http://127.0.0.1:{PORT}/web/?lesson=250123"
+    page.goto(url)
+    page.wait_for_function("window.lesson !== null && !document.getElementById('warmup').hidden",
+                           timeout=15000)
+    page.wait_for_timeout(600)  # 等进场动画走完再截图
+    print("\n【预热：第一次开课】")
+    check("A83 第一次开这一课，先进预热、播放器让位、右上能跳过（R7、R8）",
+          page.is_visible("#warmup") and page.is_hidden(".now") and page.is_hidden(".deck")
+          and page.is_visible("#warmSkip") and page.is_hidden("#warmBtn")
+          and page.inner_text("#warmTerm").strip() != "" and page.locator("#warmDots i").count() >= 5,
+          page.inner_text("#warmTerm"))
+    shot(page, shots, "10-warmup-word")
+    check("A84 词卡先只有词、音标、中文；句子没出来、文字更没有（R4、R5）",
+          page.is_hidden("#warmSent") and page.is_hidden("#warmOpen") and page.inner_text("#warmZh") != "")
+
+    page.click("#warmTermBtn")
+    page.wait_for_function("!warmAudio.paused", timeout=5000)
+    page.wait_for_function("warmAudio.paused && !document.getElementById('warmSent').hidden", timeout=8000)
+    check("A85 点「听读音」真的出声，听完这句话才滑入，主操作交给「听这句话」（R3、R5）",
+          page.evaluate("document.getElementById('warmSentBtn').classList.contains('accent')")
+          and not page.evaluate("document.getElementById('warmTermBtn').classList.contains('accent')")
+          and page.is_hidden("#warmOpen"))
+    shot(page, shots, "11-warmup-sentence")
+
+    page.click("#warmReveal")
+    page.wait_for_timeout(250)
+    check("A86 听不懂点开这句话：英文（关键词亮着）和中文都出来（R5）",
+          page.is_visible("#warmOpen") and page.locator("#warmEn b").count() == 1
+          and page.inner_text("#warmCn").strip() != "",
+          page.inner_text("#warmEn"))
+
+    n = page.evaluate("warmWords().length")
+    for _ in range(n - 1):
+        page.click("#warmNext")
+        page.wait_for_timeout(180)
+    shot(page, shots, "12-warmup-last")
+    check("A87 一路下一个到最后，按钮变成「开始听」（R6）",
+          page.inner_text("#warmNext").strip() == "开始听"
+          and page.evaluate("document.getElementById('warmNext').classList.contains('accent')"))
+    page.click("#warmNext")
+    page.wait_for_timeout(400)
+    check("A87b 点「开始听」进播放器；这台设备记住了这一课预热过（R8）",
+          page.is_hidden("#warmup") and page.is_visible(".who") and page.is_visible(".deck")
+          and page.evaluate("localStorage.getItem('listening:250123:warmup-done')") == "1"
+          and page.is_visible("#warmBtn"))
+
+    page.reload()
+    page.wait_for_function("window.lesson !== null && document.querySelectorAll('.seg').length > 0",
+                           timeout=15000)
+    page.wait_for_timeout(400)
+    check("A88 再开这一课直接进播放器（不再自动进预热），小入口还在（R8）",
+          page.is_hidden("#warmup") and page.is_visible(".who") and page.is_visible("#warmBtn"))
+
+    print("\n【预热：随时再看】")
+    page.click("#warmBtn")
+    page.wait_for_timeout(400)
+    check("A89 播放器里的小入口「预热」随时能再看，从头开始、句子收起（R8）",
+          page.is_visible("#warmup") and page.inner_text("#warmCount").startswith("1 /")
+          and page.is_hidden("#warmSent"))
+    page.keyboard.press("ArrowRight")
+    page.wait_for_timeout(300)
+    check("A89b → 换下一个词，句子回到没听的状态", page.is_hidden("#warmSent") and page.is_hidden("#warmOpen"))
+    page.keyboard.press(" ")
+    page.wait_for_function("!warmAudio.paused", timeout=5000)
+    page.wait_for_function("warmAudio.paused && !document.getElementById('warmSent').hidden", timeout=8000)
+    check("A89c 空格＝当前主操作（听读音），听完句子照样滑入", page.is_visible("#warmSent"))
+    page.click("#warmSkip")
+    page.wait_for_timeout(300)
+    check("A89d 右上「跳过预热」直接回播放器（R7）", page.is_hidden("#warmup") and page.is_visible(".who"))
+
+    print("\n【预热：没有预热的课不挡路】")
+    no_warmup = json.loads((Path(__file__).resolve().parent.parent / "lessons/260821/lesson.json")
+                           .read_text(encoding="utf-8"))
+    no_warmup.pop("warmup", None)
+    served = json.dumps(no_warmup, ensure_ascii=False)
+
+    def strip_warmup(route):
+        route.fulfill(content_type="application/json", body=served)
+
+    page.route("**/lessons/260821/lesson.json", strip_warmup)
+    page.goto(f"http://127.0.0.1:{PORT}/web/?lesson=260821")
+    page.wait_for_function("window.lesson !== null && document.querySelectorAll('.seg').length > 0",
+                           timeout=15000)
+    page.wait_for_timeout(400)
+    check("A90 这一课没有预热（旧的课、生成失败的课）：开课直接进播放器，不空白、不报错（R7）",
+          page.is_hidden("#warmup") and page.is_visible(".who") and page.is_hidden("#warmBtn")
+          and not errors, "; ".join(errors[:2]))
+    page.unroute("**/lessons/260821/lesson.json")
+
+
 def main() -> int:
     server = make_server(PORT)
     threading.Thread(target=server.serve_forever, daemon=True).start()
@@ -740,8 +839,10 @@ def main() -> int:
         browser = p.chromium.launch(headless=not show,
                                     args=["--autoplay-policy=no-user-gesture-required"])
         page = browser.new_page(viewport={"width": 1600, "height": 900})
+        warm_page = browser.new_page(viewport={"width": 1600, "height": 900})
         try:
             run(page, shots)
+            warmup_run(warm_page, shots)
         finally:
             browser.close()
             server.shutdown()

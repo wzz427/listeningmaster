@@ -6,6 +6,13 @@
 
 ## 现在在哪（最新在上）
 
+### 2026-11-03 · 预热环节第一版做出来：等 owner 在体验版上验
+
+- 按前一天定案的 SPEC-010 全链做完：挑词实验（Fast Food 三遍，前 7 个词完全一致、6 个正是 BBC 官方 worksheet 教学词——模型从全文认得出这一集在教哪几个词，挑词＋造句一次调用 3 秒）；`pipeline/teach.py` 加 `warmup`（生成）＋`warmup_audio`（词条＋例句读音，Emily 现读存文件）、重跑沿用、`--rewarmup` 重挑；4 课（260821、250918、261009、250123）预热内容已生成，旧字段零扰动（逐字段和 git HEAD 比过）；REE（A2）课的例句难度确实跟着材料降了档。
+- 页面：`web/index.html` 的 `#warmup` 一节＋`body.warming` 切换（照 `body.no-lesson` 先例）、`web/app.js` 预热一节（键盘 ← → 换词、空格＝当前主操作）、`web/style.css` 听音室语言（进度点、eq 跳动条、读音在放时词亮起）。验收 A83-A90（12 项）进 `tests/test_player.py`；截图目检时抓到一个 bug——预热时播放器卡片还露在底下，已修（藏整个 `.now`，A83 收紧）。test_player 97、test_docs 27、test_hosted_frontend 29 全过；impeccable detect 只有 --muted 既有 token 的 4.4:1 对比度警告（全站辅助文字色，保留一致性）。
+- 设计两遍法走过：先 token 计划（全复用听音室词汇：pill/accent、part-nav、dot、eq、rise）对照 brief 审（主操作唯一 accent、不跳动、卡片高度稳定），frontend-design＋impeccable 两技能加载，craft-floor 过目。
+- 下一步从哪接：**owner 在体验版点「更新」验**——重点听 Fast Food 的 8 个词（at the heart of、can-do attitude、the American dream、long-standing、take on、the final nail in the coffin、frosty reception、economic）挑得准不准、例句难度、Emily 读音；他确认后按 D54 只发这一版上线。
+
 ### 2026-11-02 · 预热环节定案：SPEC-010 落笔，代码未动
 
 - owner 提「听之前先学重点词汇」，三轮对话定形（D56，形态他逐条拍板）：环节叫**预热**；5 到 8 个**关键词**（判据「不认识就影响理解」，单词、词组都行——owner 纠正了 claude「学生都认识只是听不出」的判断，也否了「词组习语优先」）；每词一页：词卡（词、音标、中文、「听读音」）→ 听完句子滑入（围绕关键词造的简单句，**默认只有声音**）→ 听不懂点句子看中英；配句用词比材料低一级（6ME 按 FCE 口径 → PET；REE A2 → KET）、最多 20 词；**无原声**（「根本不存在听原声这一说」）、无测验、右上可跳过；一课只第一次进预热，播放器留小入口。话题背景、预测问题（demand 第 3 条原有）暂缓待议。PET=B1、A2 是 KET（owner 问过，已写进规格）。
