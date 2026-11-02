@@ -6,7 +6,7 @@
 
 ## 红线（先读）
 
-- **上线动作**：owner 本地验收（双击 `start-hosted.bat`）说过之后才动服务器（D54）；网址发不发出去、发给谁，发起权在 owner。邀请码只发给要上传材料的熟人（SPEC-009 R13、D53）。
+- **上线动作**：owner 在体验版上验收（双击 `start-trial.bat`，8790）说「上」之后才动服务器，**发的是体验版当前停的那一版**——不是开发版最新的提交（D54、D55；SPEC-008 R12）；网址发不发出去、发给谁，发起权在 owner。邀请码只发给要上传材料的熟人（SPEC-009 R13、D53）。
 - **花钱的一步**：服务器上备真材料会调百炼识别和 DeepSeek（几毛钱一集），跑之前跟 owner 说一声。
 - **不碰别人的站**：这台机器跑着 TinkerCode 网关栈和羊了个词全家。网关 Caddyfile 改前先备份、改完先 validate 再 reload；羊了个词和别的容器一概不动。
 - **compose 项目名**：我们的 compose 必须带 `name: listening`——不写会取目录名 `deploy`，和网关栈、羊了个词撞项目名，`down`/`--remove-orphans` 会把别人的容器当孤儿清掉（2026-10-28 部署时撞见，已修）。
@@ -97,14 +97,17 @@ docker exec deploy-caddy-1 caddy reload  --config /etc/caddy/Caddyfile
 
 - **看日志**：`docker logs -f listeningapp`（json-file 自带 20m×3 轮转）。备课卡在哪：看 `server-data/<账号id>/materials/<材料id>/meta.json` 的 `state` 和 `failed_step`；备课台（诊断现场）在 `/opt/listening/materials/`、`/opt/listening/lessons/`，失败不拆。
 - **重启**：`docker restart listeningapp`（会话落盘，在线用户不掉线）。
-- **更新代码**（页面那边不用做更新机制，刷新就是新的，R4）：
+- **更新代码**（2026-11-02 起，D55：线上没有「更新」，刷新就是新的；发的版本只认体验版）：
   ```bash
-  git -c core.autocrlf=false archive --format=tar HEAD | ssh -i ~/.ssh/tinkercode_deploy root@182.92.206.53 "tar -x -C /opt/listening"
+  # 发体验版当前停的那一版（owner 在它上面验过、说过「上」；不是开发版最新的提交）
+  TRIAL=$(git -C ../ListeningMaster-stable rev-parse HEAD)
+  git -c core.autocrlf=false archive --format=tar $TRIAL | ssh -i ~/.ssh/tinkercode_deploy root@182.92.206.53 "tar -x -C /opt/listening"
   ssh -i ~/.ssh/tinkercode_deploy root@182.92.206.53 \
-    "cd /opt/listening && docker build -f deploy/Dockerfile -t listening-app:<新sha> . \
-     && sed -i 's/:listening-app:[0-9a-f]*/:listening-app:<新sha>/' deploy/docker-compose.yml \
+    "cd /opt/listening && docker build -f deploy/Dockerfile -t listening-app:${TRIAL:0:8} . \
+     && sed -i \"s/:listening-app:[0-9a-f]*/:listening-app:${TRIAL:0:8}/\" deploy/docker-compose.yml \
      && docker compose -f deploy/docker-compose.yml up -d"
   ```
+  发版前提照 SPEC-008 操作手册：那一版在体验版上待过、两份测试（player、hosted_frontend）对它全过。镜像 tag 用那一版的提交短号——回滚时对着 tag 就知道退到哪一版。
   `api-keys.txt`、`server-config.json`、`server-data/`、`materials/`、`lessons/` 都不在镜像里，覆盖代码不影响它们。
 - **备份**：`server-data/` 是各家上传的资料库＋公共课库，丢了无法重建。定期打包拉回开发机：`ssh … 'cd /opt/listening && tar -czf - server-data' > server-data-$(date +%F).tar.gz`。
 - **找回密码**：没有自助（SPEC-009 不做），家长找 owner、owner 转给 claude：照 `pipeline/accounts.py` 的 `register` 写法生成 PBKDF2 哈希，在服务器 `server-data/accounts.json` 里重写该邮箱那条，顺手清它的旧会话。

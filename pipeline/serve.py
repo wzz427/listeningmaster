@@ -16,15 +16,19 @@
 - /lessons/ 按身份指路：已登录先看自己的目录（各账号互不可见），没有的课落公共库；匿名只有公共库；
 - 所有响应带 X-Robots-Tag: noindex（不被搜索引擎收录）；
 - POST 接口按 IP 限流（每分钟 30 次；经反代时取 X-Forwarded-For 的第一个）——访客点词也在这层保护里；
-- 换版本机制整个关掉：/api/version 恒报 hosted、无「更新」，/api/update 404。
+- 线上（目录里没有体验版标记）换版本机制整个关掉：/api/version 恒报 hosted、无「更新」，/api/update 404。
+  体验版（owner 本机测新版本那份，SPEC-008 v2）跑的也是对外模式：报 stable、照样有「更新」；
+  它的公共库是这一版仓库里的 lessons/（配置 shared_root: "."），课跟着版本走。
 
 独占端口：Python 自带的 HTTPServer 会打开「地址可复用」，在 Windows 上这等于允许第二个服务同时占同一个端口，
 不报错，请求随机分给新旧两个（2026-09-24 实测，docs/lessons.md）。所以 Windows 上关掉它；
 Linux（对外模式部署）保持默认开，重启才不卡在 TIME_WAIT。
 
-用法：<pywork python> pipeline/serve.py [端口] [--open] [--managed]
-      <python> pipeline/serve.py --hosted        （读仓库根的 server-config.json：invite、port、data_dir、secure_cookie）
-  --open     起来以后打开浏览器（双击 start-player.bat 时第一次起用）
+用法：<pywork python> pipeline/serve.py [端口] [--open] [--managed]          （本地模式，默认 8766）
+      <python> pipeline/serve.py --hosted [--port N] [--open] [--managed]
+                 （对外模式：读仓库根的 server-config.json——invite、port、data_dir、shared_root、secure_cookie）
+  --port     换端口（对外模式默认用配置里的；开发版看网站用 8791，8790 留给体验版）
+  --open     起来以后打开浏览器（双击 start-trial.bat 时第一次起用）
   --managed  由 stable_copy.py run 起的：有人负责换完版本把它拉起来，「更新」才能用
 """
 
@@ -309,8 +313,8 @@ class RangeHandler(SimpleHTTPRequestHandler):
     def do_POST(self) -> None:  # noqa: N802
         """对外模式：注册/登录/登出（pipeline/accounts.py）。
         两边都有：点词时现查（pipeline/explain.py）——/api/explain 那一行，/api/more 展开的，/api/speak 现读。
-        密钥只在这里用，不给网页。/api/update 是本地模式页面上那颗「更新」。"""
-        if self.path == "/api/update" and not self.server.hosted:
+        密钥只在这里用，不给网页。/api/update 是体验版页面上那颗「更新」（本地模式、体验版的网站都有，线上没有）。"""
+        if self.path == "/api/update" and (not self.server.hosted or stable_copy.is_stable(ROOT)):
             self.update()
             return
         if self.server.hosted:
@@ -325,7 +329,7 @@ class RangeHandler(SimpleHTTPRequestHandler):
                 self.handle_logout()
                 return
             if self.path == "/api/update":
-                self.send_json(404, {"error": "没有这个接口"})  # 对外模式没有换版本（SPEC-009 R4）
+                self.send_json(404, {"error": "没有这个接口"})  # 线上没有换版本（SPEC-009 R4）；体验版在上面已经接走
                 return
             post_path = self.path.split("?")[0]
             if post_path == "/api/prep":
@@ -588,20 +592,22 @@ class RangeHandler(SimpleHTTPRequestHandler):
     def _meta_state(mdir: Path) -> str:
         return _read_meta(mdir).get("state") or ""
 
-    # ---------- 换版本（本地模式，SPEC-008） ----------
+    # ---------- 换版本（SPEC-008：本地模式和体验版的网站） ----------
 
     def version_state(self) -> dict:
-        """给页面：服务是哪一版（页面拿它判断自己旧没旧，不显示）、有没有一版等他点「更新」、上一次没换成的那句话。
-        钉住的是哪个提交不给——给了就可能被印到屏幕上（SPEC-008 R9）。对外模式恒报 hosted、无更新（R4）。"""
+        """给页面：服务是哪一版（页面拿它判断自己旧没旧，不显示）、有没有一版等他点「更新」、上一次没换成的那句话；
+        hosted 告诉页面要不要叫资料库侧边栏（library.js）。
+        钉住的是哪个提交不给——给了就可能被印到屏幕上（SPEC-008 R9）。
+        线上（对外模式、目录里没有体验版标记）恒报 hosted、无更新（SPEC-009 R4）；体验版的网站照本地的规矩报 stable。"""
         server: Server = self.server  # type: ignore[assignment]
-        if server.hosted:
-            return {"version": server.version, "copy": "hosted",
-                    "update": {"waiting": False, "what": ""}, "failed": None}
         stable = stable_copy.is_stable(ROOT)
+        if server.hosted and not stable:
+            return {"version": server.version, "copy": "hosted", "hosted": True,
+                    "update": {"waiting": False, "what": ""}, "failed": None}
         invite = stable_copy.read_json(ROOT / stable_copy.INVITE) if stable else None
         waiting = bool(invite and server.managed and invite.get("commit") != server.version)
         last = stable_copy.read_json(ROOT / stable_copy.OUTCOME) if stable else None
-        return {"version": server.version, "copy": "stable" if stable else "dev",
+        return {"version": server.version, "copy": "stable" if stable else "dev", "hosted": server.hosted,
                 "update": {"waiting": waiting, "what": (invite or {}).get("what", "") if waiting else ""},
                 "failed": last.get("said") if last and not last.get("ok") else None}
 
@@ -654,10 +660,11 @@ class RangeHandler(SimpleHTTPRequestHandler):
         pass  # 安静点
 
 
-def make_server(port: int = stable_copy.PORT, managed: bool = False, hosted_config: dict | None = None) -> Server:
-    """hosted_config：{"invite": 邀请码, "data_dir": 数据目录, "secure_cookie": bool, "bind": 绑哪个地址}——
-    给了就起对外模式（访客直接进，上传备课才要登录）。bind 默认 127.0.0.1；Caddy 跑在 docker 容器里
-    的机器上要写 "0.0.0.0"（容器经网桥 172.x.0.1 才够得着宿主机；对外仍靠轻量防火墙只放 80/443/22）。"""
+def make_server(port: int = stable_copy.DEV_PORT, managed: bool = False, hosted_config: dict | None = None) -> Server:
+    """hosted_config：{"invite": 邀请码, "data_dir": 数据目录, "secure_cookie": bool, "bind": 绑哪个地址,
+    "shared_root": 公共课库的根（可选）}——给了就起对外模式（访客直接进，上传备课才要登录）。bind 默认 127.0.0.1；
+    Caddy 跑在 docker 容器里的机器上要写 "0.0.0.0"（容器经网桥 172.x.0.1 才够得着宿主机；对外仍靠轻量防火墙只放 80/443/22）。
+    shared_root 不给就是 <data_dir>/shared（线上）；本机两份（体验版、开发版）给仓库根，公共课就是仓库里的 lessons/。"""
     import accounts
     host = (hosted_config or {}).get("bind") or "127.0.0.1"
     server = Server((host, port), partial(RangeHandler, directory=str(ROOT)))
@@ -668,7 +675,8 @@ def make_server(port: int = stable_copy.PORT, managed: bool = False, hosted_conf
         server.hosted_config = hosted_config
         server.accounts = accounts.Accounts(hosted_config["data_dir"], invite_code=hosted_config["invite"])
         server.secure_cookie = bool(hosted_config.get("secure_cookie"))
-        server.shared_root = Path(server.accounts.dir) / "shared"  # 公共课库（R14）：匿名访客听的就是它
+        shared = hosted_config.get("shared_root")
+        server.shared_root = Path(shared) if shared else Path(server.accounts.dir) / "shared"  # 公共课库（R14）：匿名访客听的就是它
         server.prep_queue = queue.Queue()
         threading.Thread(target=_prep_worker, args=(server,), daemon=True).start()
     return server
@@ -678,39 +686,47 @@ def load_hosted_config(path: Path) -> dict:
     cfg = json.loads(path.read_text(encoding="utf-8"))
     return {"invite": str(cfg["invite"]),
             "data_dir": path.parent / cfg.get("data_dir", "server-data"),
+            "shared_root": path.parent / cfg["shared_root"] if cfg.get("shared_root") else None,
             "secure_cookie": bool(cfg.get("secure_cookie", False)),
             "port": int(cfg.get("port", 8790)),
             "bind": str(cfg.get("bind", "127.0.0.1"))}
 
 
+def port_arg(argv: list[str]) -> int | None:
+    """--port N；本地模式也认老写法「serve.py 8766」。"""
+    if "--port" in argv:
+        return int(argv[argv.index("--port") + 1])
+    rest = [a for a in argv if not a.startswith("--")]
+    return int(rest[0]) if rest else None
+
+
 if __name__ == "__main__":
     sys.stdout.reconfigure(encoding="utf-8")  # type: ignore[attr-defined]
-    hosted = "--hosted" in sys.argv
+    argv = sys.argv[1:]
+    hosted = "--hosted" in argv
+    hosted_config = None
     if hosted:
-        hosted_config = load_hosted_config(ROOT / "server-config.json")
-        port = hosted_config["port"]
-    else:
-        hosted_config = None
-        args = [a for a in sys.argv[1:] if not a.startswith("--")]
-        port = int(args[0]) if args else stable_copy.PORT
+        config_path = ROOT / "server-config.json"
+        if not config_path.is_file():
+            print(f"缺 {config_path.name}（对外模式的配置，不进仓库）：照 deploy/server-config.example.json 写一份。")
+            sys.exit(2)
+        hosted_config = load_hosted_config(config_path)
+    port = port_arg(argv) or (hosted_config["port"] if hosted_config else stable_copy.DEV_PORT)
     refusal = stable_copy.port_refusal(ROOT, port)
     if refusal:
         print(refusal)
         sys.exit(2)
     try:
-        server = make_server(port, managed="--managed" in sys.argv, hosted_config=hosted_config)
+        server = make_server(port, managed="--managed" in argv, hosted_config=hosted_config)
     except OSError:
-        print(f"{port} 端口被别的服务占着，多半是还开着一个播放器的黑窗口。把它关掉再起。")
+        print(f"{port} 端口被别的服务占着，多半是还开着一个黑窗口。把它关掉再起。")
         sys.exit(1)
     if hosted:
-        url = f"http://localhost:{port}/"
-        print(f"对外模式已起：{url}　（访客直接进，不用登录；登录页在 /login。关掉这个窗口就停止）")
-        if "--open" in sys.argv:
-            webbrowser.open(url)
+        print(f"网站已起：http://localhost:{port}/　（访客直接进，不用登录；登录页在 /login。关掉这个窗口就停止）")
     else:
         print(f"播放器地址：http://localhost:{port}/web/　（关掉这个窗口就停止）")
-        if "--open" in sys.argv:
-            webbrowser.open(stable_copy.page_url(port))
+    if "--open" in argv:
+        webbrowser.open(stable_copy.page_url(port))
     server.serve_forever()
     server.server_close()
     sys.exit(server.exit_code)

@@ -507,16 +507,16 @@ def update_part(page, shots: Path | None) -> None:
     接口 /api/version、/api/update 的回答在这里伪造（page.route）；真服务怎么停、怎么换版本在 tests/test_stable_copy.py。"""
     print("\n【换版本】")
     real = page.evaluate("myVersion")
-    check("A30 没有新版本时看不到「更新」，也没有别的提示",
+    check("A30 开发版上看不到「更新」，也没有别的提示",
           page.is_hidden("#updateBtn") and page.is_hidden("#stale") and page.is_hidden("#updateFailed"),
           f"服务报的版本{'有' if real else '说不清'}")
 
     v1, v2 = "1a2b3c4d5e6f7a8b9c0d1a2b3c4d5e6f7a8b9c0d", "9f8e7d6c5b4a3f2e1d0c9f8e7d6c5b4a3f2e1d0c"
     what = "单词卡上多了例句的朗读"
-    state = {"answer": {}, "down": False}
+    state = {"answer": {}, "down": False, "posted": 0}
 
     def answer(version, waiting=False, failed=None):
-        state["answer"] = {"version": version, "copy": "stable", "failed": failed,
+        state["answer"] = {"version": version, "copy": "stable", "hosted": False, "failed": failed,
                            "update": {"waiting": waiting, "what": what if waiting else ""}}
 
     def fake_version(route):
@@ -525,8 +525,12 @@ def update_part(page, shots: Path | None) -> None:
         else:
             route.fulfill(json=state["answer"])
 
+    def fake_update(route):
+        state["posted"] += 1
+        route.fulfill(status=202, json={"ok": True})
+
     page.route("**/api/version", fake_version)
-    page.route("**/api/update", lambda route: route.fulfill(status=202, json={"ok": True}))
+    page.route("**/api/update", fake_update)
     ask = "document.dispatchEvent(new Event('visibilitychange')); 0"   # 切回这个页签时页面会马上问一次
 
     def settle():
@@ -549,11 +553,26 @@ def update_part(page, shots: Path | None) -> None:
         except Exception:  # noqa: BLE001
             return False
 
+    def idle() -> bool:
+        return page.evaluate("document.getElementById('updateBtn').classList.contains('idle') "
+                             "&& document.getElementById('updateBtn').getAttribute('aria-disabled') === 'true'")
+
+    answer(real)
+    settle()
+    grey = shows("#updateBtn") and idle()
+    grey_title = page.get_attribute("#updateBtn", "title") or ""
+    page.click("#updateBtn", force=True)
+    page.wait_for_timeout(300)
+    check("A79 体验版里没有新版本时「更新」灰着：在右上角、点了什么都不做、悬停说现在就是最新的",
+          grey and "最新" in grey_title and state["posted"] == 0 and page.is_hidden("#updating"),
+          grey_title.replace("\n", " / "))
+    shot(page, shots, "9a-update-idle")
+
     answer(real, waiting=True)
     page.evaluate(ask)
-    check("A32 页面开着时才钉的新版本，不刷新也会出现「更新」", shows("#updateBtn"))
+    check("A32 页面开着时才钉的新版本，不刷新「更新」也会亮起来", shows("#updateBtn:not(.idle)"))
     title = page.get_attribute("#updateBtn", "title") or ""
-    check("A31 有新版本时「更新」出现，悬停写着这一版多了什么", what in title, title.replace("\n", " / "))
+    check("A31 有新版本时「更新」亮着，悬停写着这一版多了什么", what in title and not idle(), title.replace("\n", " / "))
     check("A36 服务的版本没变，不挂「这一页旧了」", page.is_hidden("#stale"))
 
     answer(None)
@@ -608,9 +627,9 @@ def update_part(page, shots: Path | None) -> None:
     answer(v1)                              # 起回来了，是新的一版
     state["down"] = False
     reloaded()
-    check("A33 点「更新」出现「正在更新」，服务回来后页面自己刷新、停在原来那一句",
+    check("A33 点「更新」出现「正在更新」，服务回来后页面自己刷新、停在原来那一句，「更新」灰回去",
           "正在更新" in shown and page.inner_text("#counter") == where
-          and page.is_hidden("#updating") and page.is_hidden("#updateBtn"),
+          and page.is_hidden("#updating") and page.is_visible("#updateBtn") and idle(),
           f"{where} → {page.inner_text('#counter')}")
     seen += texts()
     leaked = [v[:7] for v in (real, v1, v2) if v and v[:7] in seen]

@@ -173,7 +173,7 @@ def check_page(lesson: str) -> None:
     page = page.replace("__DATA__", json.dumps({"voice": data["tts"]["voice"], "items": items}, ensure_ascii=False))
     (out / "index.html").write_text(page, encoding="utf-8")
     print(f"机器耳朵听着不对的 {sum(not x['ok'] for x in items)} 个 / 共 {len(items)} 个")
-    print(f"抽听页：http://localhost:8765/lessons/{lesson}/tts_check/")
+    print(f"抽听页：http://localhost:8766/lessons/{lesson}/tts_check/")
 
 
 if __name__ == "__main__":

@@ -25,8 +25,8 @@
     </div>
   </div>
   <div class="top-actions">
-    <!-- 有 claude 钉住的新版本才出现（SPEC-008 R5）；悬停写着多了什么 -->
-    <button id="updateBtn" class="update-btn" hidden><i class="lamp" aria-hidden="true"></i>更新</button>
+    <!-- 只在体验版里有（SPEC-008 R5）：平时灰着，claude 钉了新版本亮起来；悬停写着多了什么。开发版和线上没有 -->
+    <button id="updateBtn" class="update-btn idle" aria-disabled="true" hidden><i class="lamp" aria-hidden="true"></i>更新</button>
     <button id="fullBtn" class="ghost-btn">全文</button>
     <button id="settingsBtn" class="icon-btn" aria-label="设置" aria-expanded="false">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>
@@ -225,7 +225,7 @@
 <div id="notices" class="notices">
   <div id="stale" class="notice" role="status" hidden>
     <i class="lamp" aria-hidden="true"></i>
-    <span>播放器换了新版本，这一页还是旧的。</span>
+    <span>网页换了新版本，这一页还是旧的。</span>
     <button id="staleRefresh" class="notice-btn">刷新</button>
   </div>
   <div id="updateFailed" class="notice bad" role="alert" hidden>

@@ -7,8 +7,8 @@
 1. 文档里用反引号写到的仓库路径都在。<课> 换成第一集 260821；被 .gitignore 挡住的（随时能重新生成的、密钥文件）不查。
    只查描述「现在」的文档；交接页、教训、决策是历史记录，里面写到删掉的文件是正常的，不查。
 2. pipeline/、web/、tests/ 下的代码文件，docs/architecture.md 里都写到了。
-3. tests/test_player.py、tests/test_stable_copy.py 的每个自动检查（用例名开头的 A 编号）都在某份规格里写着；
-   规格里的 A 编号，没标「（人工）」的，测试里都有。
+3. tests/test_player.py、tests/test_stable_copy.py、tests/test_hosted_frontend.py 的每个自动检查（用例名开头的 A 编号）
+   都在某份规格里写着；规格里的 A 编号，没标「（人工）」的，测试里都有。
 4. docs/architecture.md「课程文件」那张表里的字段，第一集的 lesson.json 里都有。
 
 跑法：<pywork python> tests/test_docs.py   （不到 1 秒，不连网）
@@ -26,7 +26,7 @@ CURRENT_DOCS = ["AGENTS.md", "CLAUDE.md", "demand.md", "docs/architecture.md", "
                 "docs/research/2026-09-12-products-teaching-tech-survey.md", "docs/research/2026-09-26-listening-led-course-design.md",
                 *sorted(str(p.relative_to(ROOT)).replace("\\", "/") for p in (ROOT / "specs").glob("*.md"))]
 PATH_ROOTS = ("pipeline/", "web/", "tests/", "docs/", "specs/", "lessons/", "materials/", ".zcode/")
-TOP_FILES = {"AGENTS.md", "demand.md", "CLAUDE.md", "idea.txt", "start-player.bat", "api-keys.txt"}
+TOP_FILES = {"AGENTS.md", "demand.md", "CLAUDE.md", "idea.txt", "start-trial.bat", "start-speak-lab.bat", "api-keys.txt"}
 ID = re.compile(r"(?<![0-9A-Za-z-])(A(?:\d+[a-z]*\d*|-next|-prev))(?![0-9A-Za-z])")
 
 failures: list[str] = []
@@ -88,7 +88,7 @@ def main() -> None:
     check("D2 pipeline/、web/、tests/ 下每个文件 docs/architecture.md 都写到了", not absent, "、".join(absent))
 
     print("\n【自动检查的编号和规格对得上】")
-    tests = {x for f in ("tests/test_player.py", "tests/test_stable_copy.py")
+    tests = {x for f in ("tests/test_player.py", "tests/test_stable_copy.py", "tests/test_hosted_frontend.py")
              for x in re.findall(r'check\(\s*"(A[0-9A-Za-z-]+)', read(f))}
     spec_text = "\n".join(read(f"specs/{p.name}") for p in sorted((ROOT / "specs").glob("SPEC-[0-9]*.md")))
     in_specs, manual = set(), set()

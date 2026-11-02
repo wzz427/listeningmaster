@@ -869,8 +869,9 @@ document.addEventListener('keydown', (e) => {
 /* ---------- 换版本（SPEC-008） ----------
  * - 服务换了版本，一直开着的这一页照样能用，只是新做的东西安静地不在，看的人会以为「这个功能没做」。
  *   所以页面记下打开时服务是哪一版，每分钟问一次、切回这个页签马上问一次，换了就在顶上挂一条提示。
- *   不自动刷新：孩子可能正听着（R8，决策 D35）。问不到（服务正在重启）、说不清是哪一版，都不挂。
- * - 「更新」只在 claude 钉了一版、还没换过去时出现（R5，决策 D34）：平时不在，孩子的屏幕上不多一个用不上的按钮。
+ *   不自动刷新：可能正听着（R8，决策 D35）。问不到（服务正在重启）、说不清是哪一版，都不挂。
+ * - 「更新」只在体验版里有（R5，决策 D55）：一直在右上角，平时灰着点不动；claude 钉了一版、还没换过去时亮起来。
+ *   体验版只有 owner 一个人用，灰着的按钮告诉他「现在就是最新的」；开发版和线上没有这颗按钮。
  *   点了服务停几秒、换完起回来，页面自己刷新，回到刚才那一句。
  * - 服务报的版本只拿来比，不显示（R9）。
  */
@@ -897,9 +898,14 @@ async function checkVersion() {
   const version = v.version || null;
   if (myVersion === undefined) myVersion = version;
   else if (myVersion && version && version !== myVersion) $('stale').hidden = false;  // 挂上就不撤
-  const waiting = Boolean(v.update && v.update.waiting);
-  $('updateBtn').hidden = !waiting;
-  $('updateBtn').title = waiting ? `有新版本：${v.update.what}\n点一下换过去，几秒钟后页面自己回来。` : '';
+  const trial = v.copy === 'stable';
+  const waiting = trial && Boolean(v.update && v.update.waiting);
+  const btn = $('updateBtn');
+  btn.hidden = !trial;
+  btn.classList.toggle('idle', !waiting);
+  btn.setAttribute('aria-disabled', String(!waiting));
+  btn.title = waiting ? `有新版本：${v.update.what}\n点一下换过去，几秒钟后页面自己回来。`
+    : '现在就是最新的版本。有新版本时这里会亮起来。';
   const failed = v.failed || '';
   $('updateFailedText').textContent = failed;
   $('updateFailed').hidden = !failed || failed === failedClosed;
@@ -924,12 +930,13 @@ function backToPlace() {
 }
 
 async function update() {
+  if ($('updateBtn').classList.contains('idle')) return;   // 灰着：没有新版本，点了什么都不做
   $('updateBtn').disabled = true;
   let r = null;
   try { r = await fetch('/api/update', { method: 'POST' }); } catch { /* 下面一起说 */ }
   if (!r || r.status !== 202) {
     $('updateBtn').disabled = false;
-    $('updateFailedText').textContent = '现在换不了。关掉那个黑窗口，重新双击 start-player.bat，再点一次「更新」。';
+    $('updateFailedText').textContent = '现在换不了。关掉那个黑窗口，重新双击 start-trial.bat，再点一次「更新」。';
     $('updateFailed').hidden = false;
     checkVersion();
     return;
@@ -947,7 +954,7 @@ async function update() {
     if (!v) { sawDown = true; continue; }
     if (sawDown || v.version !== myVersion) { reloadHere(); return; }
   }
-  $('updatingText').textContent = '等了三分钟它还没回来。看一眼那个黑窗口，或者关掉它、重新双击 start-player.bat。';
+  $('updatingText').textContent = '等了三分钟它还没回来。看一眼那个黑窗口，或者关掉它、重新双击 start-trial.bat。';
 }
 
 function watchVersion() {
@@ -964,12 +971,16 @@ function watchVersion() {
   });
 }
 
-/* 启动：本地模式直接进播放器。对外模式（服务报 copy=hosted）先让 library.js 接手——
- * 选哪一课、空库的待机画面、资料库侧边栏都是它的事；它回 false（跳去别的课、或一节课都没有）就不进播放器 */
+/* 启动：本地模式直接进播放器。网站（服务报 hosted：线上、体验版都是）先让 library.js 接手——
+ * 选哪一课、空库的待机画面、资料库侧边栏都是它的事；它回 false（跳去别的课、或一节课都没有）就不进播放器，
+ * 但「更新」照样要亮：体验版里一节课都没有时，也得能点它换到有课的新版本 */
 async function startPage() {
-  let copy = '';
-  try { copy = ((await askVersion()) || {}).copy || ''; } catch { /* 问不到当本地模式 */ }
-  if (copy === 'hosted' && typeof hostedStart === 'function' && (await hostedStart()) === false) return;
+  const v = (await askVersion()) || {};   // 问不到当本地模式
+  const hosted = Boolean(v.hosted) || v.copy === 'hosted';
+  if (hosted && typeof hostedStart === 'function' && (await hostedStart()) === false) {
+    watchVersion();
+    return;
+  }
   boot();
   watchVersion();
 }

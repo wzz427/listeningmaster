@@ -63,7 +63,7 @@
 
 ## 量的工具
 
-- `tests/test_audio.py`：上面 R7，约 5 分钟、几分钱。结果在 `lessons/<课>/audio_check/`，试听页 http://localhost:8765/lessons/<课>/audio_check/ （本地服务开着时）。
+- `tests/test_audio.py`：上面 R7，约 5 分钟、几分钱。结果在 `lessons/<课>/audio_check/`，试听页 http://localhost:8766/lessons/<课>/audio_check/ （本地服务开着时）。
 - `pipeline/measure_bounds.py`：只看音量，量句末多播 20 / 40 / 80 毫秒就能听到声音的交界有几处、句首之前 30 毫秒仍很响的有几处；用来比较改边界前后。它会被 k、t、p 骗，只能当参考。2026-09-21：识别原始时间 16 / 17 / 22 处、句首 80 处；精修后 12 / 14 / 21 处、句首 38 处（共 97 处交界）。
 - 人耳：owner 在播放器「全文」里点 20 句听开头结尾；拿不准的几句，做一页对比（同一句几种切法并排），给 owner 听着选。
 

@@ -529,21 +529,30 @@ body.playing .t-btn.play .t-icon { animation: breathe 2.4s ease-in-out infinite;
 }
 
 /* ---------- 换版本（SPEC-008） ----------
- * 都不抢播放器的戏：「更新」平时根本不在，出现时像收音机面板上亮起的一盏小指示灯；
+ * 「更新」只在体验版里有，是收音机面板上的一盏指示灯：平时灯灭、只剩一圈轮廓，按钮灰着点不动；
+ * claude 交了新版本，灯亮起来、琥珀色一下一下地呼吸。灯从灭到亮就是全部动静——它一直在那儿，
+ * 不做进场动画，也不因为亮了就变宽挤动旁边的按钮（owner 讨厌界面跳动）。
  * 两条提示浮在顶上正中，不推开下面的东西；「正在更新」像换台时指针划过刻度。 */
 
 .update-btn {
   display: inline-flex; align-items: center; gap: 9px;
   background: rgba(242, 169, 78, .1); border: 1px solid rgba(242, 169, 78, .42); color: var(--amber-2);
   border-radius: 999px; padding: 8px 16px 8px 14px; font-size: 13.5px; font-weight: 600;
-  animation: rise .5s ease both; transition: background .2s, color .2s, border-color .2s;
+  transition: background .2s, color .2s, border-color .2s;
 }
 .update-btn:hover { background: var(--amber); border-color: var(--amber); color: var(--amber-ink); }
 .update-btn:hover .lamp { background: var(--amber-ink); animation: none; }
+.update-btn:focus-visible { outline: 2px solid var(--amber-2); outline-offset: 2px; }
 .update-btn:disabled { opacity: .5; pointer-events: none; }
+.update-btn.idle, .update-btn.idle:hover {
+  background: transparent; border-color: var(--line); color: var(--muted); cursor: default;
+}
+.update-btn.idle .lamp, .update-btn.idle:hover .lamp {
+  background: transparent; box-shadow: inset 0 0 0 1px var(--muted); animation: none;
+}
 .lamp {
   width: 7px; height: 7px; border-radius: 50%; background: var(--amber); flex: none;
-  animation: lamp 2.2s ease-out infinite;
+  animation: lamp 2.2s ease-out infinite; transition: background .3s;
 }
 
 .notices {
@@ -608,6 +617,7 @@ body.playing .t-btn.play .t-icon { animation: breathe 2.4s ease-in-out infinite;
   .top { padding: 14px 16px; }
   .source { display: none; }
   .ghost-btn { padding: 7px 12px; font-size: 12.5px; }
+  .update-btn { padding: 7px 12px 7px 11px; font-size: 12.5px; }
   .t-btn { width: 70px; }
   .t-btn.play { width: 88px; }
   .t-icon { width: 54px; height: 54px; }

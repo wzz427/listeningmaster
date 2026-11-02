@@ -3,7 +3,10 @@
 v7 起先走匿名访客路（不注册进站直接听公共课），再走完整登录用户路：
 注册（邀请码）→ 落在公共课（自己的库空）→ 上传（选错文件的人话提示）→ 未备课材料（备课／删除）→
 备课中（转圈＋已用时）→ 变课的那一刻（材料区消失、课区高亮、顶部通知）→ 点课切换 →
-进度点 → 失败重试 → 登出。不连网、不烧识别和模型的钱；音频和课都是假字节。
+进度点 → 失败重试 → 登出。最后看体验版的网站（SPEC-008 v2）：右上角的「更新」灰着、亮起来，线上没有它。
+不连网、不烧识别和模型的钱；音频和课都是假字节。
+全过时记下这份代码的指纹：体验版跑的是网站，钉版本要它和 tests/test_player.py 都对这一版全过（SPEC-008 R4）。
+用例名开头的 A 编号在规格里写着；tests/test_docs.py 核对两边对得上。
 
 跑法：<pywork python> tests/test_hosted_frontend.py   （约 20 秒；账号、备课台全在临时目录，跑完就删）
 """
@@ -18,8 +21,10 @@ from pathlib import Path
 
 from playwright.sync_api import sync_playwright
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "pipeline"))
+ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT / "pipeline"))
 import serve as serve_mod  # noqa: E402
+import stable_copy  # noqa: E402
 
 failures: list[str] = []
 passes: list[str] = []
@@ -240,6 +245,41 @@ def run(page) -> None:
           and page.evaluate("document.activeElement === document.querySelector('input[name=password]')"))
     check("全程页面没有报错", not errors, "; ".join(errors[:2]))
 
+    trial_part(page, errors)
+
+
+def trial_part(page, errors: list[str]) -> None:
+    """体验版的网站（SPEC-008 v2）：服务报 copy=stable、hosted=true——资料库侧边栏照常，右上角多一颗「更新」：
+    没有新版本灰着，钉了新版本亮起来。线上（copy=hosted）没有这颗按钮。/api/version 的回答在这里伪造。"""
+    print("\n【体验版的网站：「更新」灰着、亮起来；线上没有】")
+    state = {"answer": {"version": "1a2b3c4d5e6f", "copy": "stable", "hosted": True, "failed": None,
+                        "update": {"waiting": False, "what": ""}}}
+    page.route("**/api/version", lambda route: route.fulfill(json=state["answer"]))
+    page.goto(BASE + "/web/")
+    page.wait_for_url(f"{BASE}/web/?lesson=DAY1")
+    page.wait_for_function("document.getElementById('title').textContent === 'Coffee'")
+    page.wait_for_selector("#updateBtn", state="visible", timeout=5000)
+    grey = page.evaluate("document.getElementById('updateBtn').classList.contains('idle')")
+    sidebar = page.is_visible("#libBtn") or page.is_visible("#libPanel")
+    state["answer"] = {**state["answer"], "update": {"waiting": True, "what": "资料库里多了一集"}}
+    page.evaluate("document.dispatchEvent(new Event('visibilitychange')); 0")
+    try:
+        page.wait_for_selector("#updateBtn:not(.idle)", timeout=3000)
+        lit = "资料库里多了一集" in (page.get_attribute("#updateBtn", "title") or "")
+    except Exception:  # noqa: BLE001
+        lit = False
+    state["answer"] = {"version": None, "copy": "hosted", "hosted": True, "failed": None,
+                       "update": {"waiting": False, "what": ""}}
+    page.reload()
+    page.wait_for_function("document.getElementById('title').textContent === 'Coffee'")
+    page.wait_for_timeout(400)
+    online_hidden = page.is_hidden("#updateBtn")
+    page.unroute("**/api/version")
+    check("A80 体验版的网站：资料库照常、右上角「更新」没有新版本灰着、钉了新版本亮起来；线上的网站没有「更新」",
+          sidebar and grey and lit and online_hidden,
+          f"侧边栏 {sidebar}、灰 {grey}、亮 {lit}、线上没有 {online_hidden}")
+    check("体验版这一段页面没有报错", not errors, "; ".join(errors[:2]))
+
 
 def main() -> int:
     with sync_playwright() as p:
@@ -256,6 +296,7 @@ def main() -> int:
     if failures:
         print("未通过：" + "、".join(failures))
         return 1
+    stable_copy.record_test_pass(ROOT, len(passes), stable_copy.SITE_TESTED)
     return 0
 
 

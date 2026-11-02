@@ -32,16 +32,16 @@
 
 | 端口 | 谁用 |
 |---|---|
-| 8765 | 体验版的本地服务：双击 `start-player.bat`，owner 和孩子用。学习记录按 `localhost:8765` 存在浏览器里，不能换 |
-| 8766 | claude 在开发版里自己看效果：`pipeline/serve.py 8766`。开发版旁边有体验版时拿 8765 会被拒绝 |
+| 8790 | **体验版**的网站：双击 `start-trial.bat`，owner 测新版本用（D55）。登录和学习记录按 `localhost:8790` 存在浏览器里，不能换。开发版旁边有体验版时拿 8790 会被拒绝；服务器上也用这个端口（Caddy 反代过来） |
+| 8766 | claude 在开发版里自己看播放器：`pipeline/serve.py 8766`（本地模式，`tests/test_player.py` 同款） |
+| 8791 | claude 在开发版里自己看网站：`pipeline/serve.py --hosted`（读仓库根 gitignore 的 server-config.json，公共课就是仓库里的 lessons/） |
 | 8799 | `tests/test_player.py` 自己起的服务 |
 | 8798 | `tests/test_audio.py` 自己起的服务 |
 | 8770 | 口语实验页（`pipeline/speak_lab.py` 的 HTTP：页面、提示词），本地实验用，不进对外版 |
 | 8771 | 口语实验页的 WebSocket 桥（网页 ⇄ 百炼 Realtime） |
-| 8790 | 对外模式的**本地验收版**：双击 `start-hosted.bat`（`serve.py --hosted`，读仓库根 gitignore 的 server-config.json）；owner 验收新功能用（D54），访客免登录直接听公共课库（SPEC-009 v7）。服务器上也用这个端口（Caddy 反代过来） |
-| 随机空闲端口 | `tests/test_stable_copy.py`，和换版本时试起新版本的那一次 |
+| 随机空闲端口 | `tests/test_stable_copy.py`、`tests/test_hosted_frontend.py`，和换版本时试起新版本的那一次 |
 
-测试各用各的端口，owner 开着播放器时也能跑测试。owner 用的是体验版，claude 改开发版不影响他；新版本经页面上的「更新」过去（`specs/SPEC-008-stable-and-dev.md` 操作手册）。
+测试各用各的端口，owner 开着体验版时也能跑测试。owner 用的是体验版，claude 改开发版不影响他；新版本经页面上的「更新」过去（`specs/SPEC-008-stable-and-dev.md` 操作手册）。
 
 ## 换一台电脑从零搭
 
@@ -50,10 +50,11 @@
 3. 装 Google Chrome（验声音要用）。
 4. 拷仓库；在根目录放 `api-keys.txt`，里面 `#qwen` 下一行是百炼的密钥、`#deepseek` 下一行是 DeepSeek 的。只在程序里读，不许打印、不许 cat（CLAUDE.md 红线）。
 5. 发音词典：直接把旧电脑的 `WordsAudio/` 整个拷过来最省事；没有就开翻墙跑 `<pywork python> pipeline/tts.py library --top 50000`（实测约 2.5 小时、587MB，断了重跑接着取）。
-6. 自检：`tests/test_docs.py`（不到 1 秒）→ `tests/test_player.py`（不到 1 分钟，全过）→ `tests/test_stable_copy.py`（约半分钟）。要验声音再跑 `tests/test_audio.py`。
-7. 建体验版：`<pywork python> pipeline/stable_copy.py setup`（要求上一步 `tests/test_player.py` 全过）。之后双击 `start-player.bat` 能听。
+6. 自检：`tests/test_docs.py`（不到 1 秒）→ `tests/test_player.py`（不到 1 分钟，全过）→ `tests/test_hosted_frontend.py`（约 20 秒）→ `tests/test_stable_copy.py`（约半分钟）。要验声音再跑 `tests/test_audio.py`。
+7. 建体验版：`<pywork python> pipeline/stable_copy.py setup`（要求上一步两份测试全过）。之后双击 `start-trial.bat` 打开体验版网站（8790）。
+8. 本机网站的配置：仓库根放一份 `server-config.json`（照 `deploy/server-config.example.json`，gitignore 挡着）——claude 看网站（8791）用它，体验版那份 setup 自己建。
 
-孩子和家长那边的电脑只需要浏览器和一个起本地服务的办法（现在是 `start-player.bat`），不需要翻墙、不需要密钥以外的任何东西；以后上服务器，连密钥都不用放他们那边（SPEC-000「以后」）。
+家长和孩子那边只要浏览器，用线上 https://listening.app.bayescode.com ，不用在他们电脑上装任何东西（D55：用户全用线上版）。
 
 ## 装包、升级包之前
 
@@ -71,7 +72,7 @@
 | 用 `python -m http.server` 起服务，点下一句只能听到第一句 | 它不支持从文件中间取一段；用 `pipeline/serve.py` |
 | Bash 里没有 `bc` | 算时间用 Python |
 | 编辑器（Pyright）报 `Cannot access attribute "reconfigure" for class "TextIO"`、`Import "tts" could not be resolved` | 误报：程序运行时把 `pipeline/` 加进了搜索路径，`sys.stdout` 运行时有这个方法；不用改 |
-| 两个本地服务同时占着 8765，不报错，请求随机分给新旧两个 | Python 自带的 HTTPServer 在 Windows 上打开了「地址可复用」；`pipeline/serve.py` 已关掉。别的地方起服务也要注意 |
+| 两个本地服务同时占着 8790，不报错，请求随机分给新旧两个 | Python 自带的 HTTPServer 在 Windows 上打开了「地址可复用」；`pipeline/serve.py` 已关掉。别的地方起服务也要注意 |
 | bat 运行中被改写（比如换版本时），命令行执行出乱码命令 | 命令行会从旧位置接着读 bat；调程序的那一行末尾加 `& exit /b`，循环放进 Python（`start-player.bat`） |
 | 密钥差点进了对话 | 任何情况下都不打印、不 cat、不 grep 密钥文件，读取只走 `pipeline/keys.py` |
 

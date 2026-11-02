@@ -32,7 +32,7 @@
 |---|---|
 | 密钥不入仓库、不流向输出 | `api-keys.txt` 已在 `.gitignore` 第一行。读取只能在程序里读，不许打印、不许写进日志和报错、不许出现在命令行参数里；「看看有哪些键名」也不行。线上邀请码、服务器配置同样对待：不写进任何会提交的文件——仓库是公开的（2026-11-02 吃过亏，`docs/lessons.md`） |
 | 对外动作要 owner 同意 | 部署、分享给其他家长；发起权在他 |
-| 先本地验收再部署 | 一切改动先做 owner 能验收的本地版本（对外版双击 `start-hosted.bat`），他全部确认后才动服务器（owner 2026-10-26 定，D54） |
+| 先本地验收再部署 | 一切改动先交到 owner 能验的体验版（双击 `start-trial.bat`），他在体验版上全部确认、说「上」了才动服务器，且只发体验版那一版（owner 2026-10-26 定，D54；2026-11-02 D55） |
 | 全套测试要批准 | 相关那份随时跑；全套攒一批申请 |
 | 语言 | 正式文字中文；旁白只英文；禁止日语；标识符和文件名英文，且看名知意——一词笼统名（course、research 这类）不许用，调研报告的文件名带日期前缀（owner 2026-09-26，D46） |
 | 素材版权 | 仓库里的 BBC 素材定位是**样例（sample）**，随公开的 GitHub 仓库分发没问题（owner 2026-09-29 拍板，D51）；服务器上各家上传的材料仍只在熟人圈内用、不外传；owner 自建的听力材料库不进这个公开仓库（另建专门目录，建时先加 .gitignore） |
@@ -43,10 +43,10 @@
 
 - Python：`C:\Users\wzzpk\.conda\envs\pywork\python.exe`（conda 环境 pywork，不在 PATH 上，用绝对路径调用；装包用 `<该路径> -m pip install`）。不要用系统 Python，也不要另建环境。
 - 机器：Windows 11 笔记本（2026-10-29 换机），显卡 RTX 5070 Laptop（12GB 显存）。
-- 测试（什么时候跑哪份、看什么，全在 `docs/workflow.md`「验证」）：`<pywork python> tests/test_player.py`——用 Playwright 真的开浏览器、真的点按钮、真的看音频播到第几秒，80 项，不到 1 分钟。**改完播放器必须跑**。加 `--show` 能看见浏览器窗口，加 `--shots <目录>` 存截图看界面。Playwright 和 chromium 已经装在 pywork 里。改了文档或加删文件跑 `tests/test_docs.py`（不到 1 秒）：文档里写到的文件、字段、验收编号和代码对不上就报错。
+- 测试（什么时候跑哪份、看什么，全在 `docs/workflow.md`「验证」）：`<pywork python> tests/test_player.py`——用 Playwright 真的开浏览器、真的点按钮、真的看音频播到第几秒，85 项，不到 1 分钟。**改完播放器或本地服务必须跑**。加 `--show` 能看见浏览器窗口，加 `--shots <目录>` 存截图看界面。Playwright 和 chromium 已经装在 pywork 里。改了网站（对外模式、library.js、login.html）跑 `tests/test_hosted_frontend.py`（约 20 秒，走完整条用户路）；改了文档或加删文件跑 `tests/test_docs.py`（不到 1 秒）：文档里写到的文件、字段、验收编号和代码对不上就报错。
 - 验声音：`<pywork python> tests/test_audio.py`——录下真的 Chrome 放出来的每一句，交给机器耳朵听开头结尾对不对，做一页试听给人耳抽查，约 5 分钟、几分钱。**改了句子边界或播放器的停法就跑**。只核对数字发现不了声音问题（`docs/lessons.md` 2026-09-22）。
-- 两份代码：owner 和孩子用旁边的体验版 `ListeningMaster-stable`（8765，一个字不手改），claude 只改这个目录（开发版）。双击 `start-player.bat` 起的是体验版。新版本经 `pipeline/stable_copy.py invite` 钉给他、他点页面上的「更新」过去（`specs/SPEC-008-stable-and-dev.md` 操作手册）。改了换版本的代码跑 `tests/test_stable_copy.py`（约半分钟）。
-- 自己看效果：`<pywork python> pipeline/serve.py 8766`，打开 http://localhost:8766/web/ 。这个本地服务还管点词补查、展开、现读词组（`pipeline/explain.py`），密钥只在它这里。**不要用 `python -m http.server`**：它不支持从文件中间取一段，音频跳不动（见 `docs/lessons.md`）。
+- 三个住处、一套代码（D55）：owner 测新版本用旁边的体验版 `ListeningMaster-stable`（双击 `start-trial.bat`，http://localhost:8790/ ，跑的是网站），家长和孩子用线上正式版，claude 只改这个目录（开发版）。体验版一个字不手改，换版本只经 `pipeline/stable_copy.py`；新版本 `invite` 钉给他、他点页面右上角的「更新」（平时灰着，钉了才亮）过去（`specs/SPEC-008-stable-and-dev.md` 操作手册）；上线只发体验版那一版。改了换版本的代码跑 `tests/test_stable_copy.py`（约半分钟）。
+- 自己看效果：播放器 `<pywork python> pipeline/serve.py 8766`，打开 http://localhost:8766/web/ ；网站 `<pywork python> pipeline/serve.py --hosted`（8791，公共课就是仓库里的 lessons/，配置在仓库根 gitignore 的 server-config.json）。这个本地服务还管点词补查、展开、现读词组（`pipeline/explain.py`），密钥只在它这里。**不要用 `python -m http.server`**：它不支持从文件中间取一段，音频跳不动（见 `docs/lessons.md`）。
 - 备课（接一份新材料）：六个程序依次跑，顺序、每步出什么、跑完查什么，照 `specs/SPEC-002-prep-pipeline.md`「流程」和「接一份新材料：操作手册」。备课要在几分钟以内（owner 2026-09-22）。
 - 发音词典（换电脑时建一次）：`pipeline/tts.py library` 把常用词的谷歌英音取到仓库外并排的 `WordsAudio/`，要翻墙；`--top 50000` 取 5 万（实测约 2.5 小时、587MB、没有失败，2026-09-23 取完）；断了重跑接着取。
 - 异地备份：两处远端——`gitee`（私有库 `wzz427/listening-master-backup`，owner 2026-09-28 建，走 `~/.ssh/config` 里专门的 `gitee_wzz427` 钥匙）和 `github`（**公开库** `wzz427/listeningmaster`，owner 2026-09-29 拍板公开：仓库里的 BBC 素材定位是 sample，D51；走专门的 `github_wzz` 钥匙，GitHub 上登记名 agent-access）。**提交后顺手 `git push gitee master && git push github master`**（/wrap 第 4 步也含它）。备份不含密钥：`api-keys.txt`、`docs/refs/阿里云配置指南.md`、`server-config.json`、`server-data/` 都在 `.gitignore` 里；各家上传的资料在服务器上另做打包备份（`docs/deploy-listen-app.md` 第 7 节）。owner 自建的听力材料库以后放仓库外的专门目录，不进 git（D51）。
@@ -73,7 +73,7 @@
 | 验播放器改得对不对 | `tests/test_player.py` |
 | 交一版给 owner 试、体验版出了问题、退回上一版 | `specs/SPEC-008-stable-and-dev.md`「操作手册」 |
 | 口语实验页（听力材料当话题，A/B 两个千问实时语音模型，D52） | 双击 `start-speak-lab.bat`（或 `<pywork python> pipeline/speak_lab.py`），开 http://localhost:8770/ ；陪练提示词在 `speak_lab.py` 的 `build_prompt`，改完自己先试聊两轮；两个模型配置差异和 smart_turn 的坑见 `docs/handoff.md` 2026-10-12 |
-| 验收对外版的新功能（免登录访客、公共课库、上传登录，D53/D54） | 双击 `start-hosted.bat`，开 http://localhost:8790/ ——访客直接进；配置在仓库根 `server-config.json`（不进 git，本地邀请码 listen-2026）；公共课库铺在 `server-data/shared/lessons/`。改了对外版（serve.py 对外模式、library.js、login.html）跑 hosted 那几份测试 |
+| 验收网站的新功能（对外模式的任何改动） | owner 在体验版上验：双击 `start-trial.bat`，开 http://localhost:8790/ ——访客直接进、能登录能上传，账号数据是体验版自己的。改了对外模式（serve.py 对外模式、library.js、login.html）跑 `tests/test_hosted_frontend.py`；钉版本也要它全过（SPEC-008 R4） |
 | 把对外版发布到阿里云 / 上线后的日常运维（日志、更新、备份、找回密码） | `docs/deploy-listen-app.md`；物料在 `deploy/`、依赖清单 `requirements.txt` |
 | 改点词讲解的提示词（`specs/SPEC-006-word-card.md`） | `pipeline/explain.py`：那一行的规则在 `RULES`（备课整句写用 `LINES`，漏了补查用 `LINE`），改完 `teach.py <课> --renote`；展开的在 `MORE`，改完删 `lessons/<课>/explain_cache.json`。抽查 `explain.py sample <课> <句数> --more` |
 | 改界面 | 先加载 frontend-design 技能再动手（ZCode 里就有；owner 2026-09-28 验收上传面板「设计得真难看」后定的），按真正的前端设计标准做（owner 2026-09-21 要求）；改完跑 `tests/test_player.py --shots <目录>` 看截图 |

@@ -1,25 +1,30 @@
-"""体验版和开发版（SPEC-008，决策 D33、D34）。
+"""体验版和开发版（SPEC-008，决策 D33、D34、D55）。
 
-两份代码：
-- 开发版：这个仓库目录，claude 改的那份。
+三个地方、一套代码（D55）：
+- 开发版：这个仓库目录，claude 改的那份，随时可能改到一半。
 - 体验版：旁边的「<仓库目录名>-stable」（今天是 BayesAPP\\ListeningMaster-stable），是这个仓库的第二个工作目录，
-  不挂分支，根上有标记文件 .lm-stable-copy。owner 和孩子用的就是它。里面一个字不手改，只经这个文件换版本。
+  不挂分支，根上有标记文件 .lm-stable-copy。owner 自己测新版本用的就是它：跑的是网站（对外模式），
+  http://localhost:8790/ 。里面一个字不手改，只经这个文件换版本。
+- 正式版：线上网站，孩子和各家用。只发 owner 在体验版上验过、说「上」的那一版（docs/deploy-listen-app.md）。
 
 用法：<pywork python> pipeline/stable_copy.py <命令>
   status                  体验版在哪一版、落后几笔、有没有被改过、有没有钉着一版等他点、服务开没开
-  invite --what "<一句话>"  钉开发版当前的提交请 owner 验：他页面上出现「更新」，点了就换过去
+  invite --what "<一句话>"  钉开发版当前的提交请 owner 验：他页面右上角的「更新」从灰亮起来，点了就换过去
   rollback                把上一版钉回去，同样由他点「更新」生效
   setup                   一次性：在旁边建体验版（换电脑、目录丢了时再跑）
   run [--port N] [--no-browser]
-                          双击 start-player.bat 跑的就是它：起服务；服务因为「更新」停下，就换版本、再起
+                          双击 start-trial.bat 跑的就是它：起网站；服务因为「更新」停下，就换版本、再起
   apply-update            换到钉住的那一版。run 在服务停下后自己调；体验版的服务没开时 claude 也可以手动跑
 
 几条理由（细节在 SPEC-008）：
-- 只换到钉住的那一版，不追开发版最新的：最新的可能做了一半。钉之前核对 tests/test_player.py 对这份代码
-  跑过且全过——它全过时记下代码指纹，这里拿指纹和要钉的提交比（实验二：换行符转换不影响指纹）。
+- 只换到钉住的那一版，不追开发版最新的：最新的可能做了一半。钉之前核对 tests/test_player.py 和
+  tests/test_hosted_frontend.py 对这份代码跑过且全过——它们全过时记下代码指纹，这里拿指纹和要钉的提交比
+  （实验二：换行符转换不影响指纹）。
 - 起服务、换版本、再起服务的循环在 Python 里，不在 bat 里：换版本会改写 bat 自己，命令行会从旧位置接着读，
   执行出乱码命令（实验一）。这个文件自己也会被换掉，所以用到的东西都在开头 import 好；换完再起的服务是新文件。
-- 孩子用出来的数据（点词补查、展开查到的讲解，现读的词组朗读）换版本时留下，也不算「体验版被改过」（R7）。
+- 体验版用出来的数据（点词补查、展开查到的讲解，现读的词组朗读，上传材料备课时的备课台）换版本时留下，
+  也不算「体验版被改过」（R7）。账号和上传的材料在不进仓库的 server-data/ 里，换版本根本碰不到。
+- 体验版网站的公共课就是这一版仓库里的 lessons/：课跟着版本走，点了「更新」新课才出现（R11）。
 - 屏幕上不出现提交号：给页面的回答里没有钉住的那个提交，「一句话」里也不许带（R9）。
 """
 
@@ -27,6 +32,7 @@ import argparse
 import fnmatch
 import json
 import re
+import secrets
 import shutil
 import socket
 import subprocess
@@ -41,25 +47,32 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 
 MARKER = ".lm-stable-copy"          # 体验版根上的标记文件
-SUFFIX = "-stable"                  # 体验版目录名 = 开发版目录名 + 它；start-player.bat 里也写着
-PORT = 8765                         # 体验版的端口。学习记录按 localhost:8765 存在浏览器里，不许换（R3）
-DEV_PORT = 8766                     # claude 在开发版里自己看效果用
+SUFFIX = "-stable"                  # 体验版目录名 = 开发版目录名 + 它；start-trial.bat 里也写着
+PORT = 8790                         # 体验版网站的端口。owner 的登录和学习记录按 localhost:8790 存在浏览器里，不许换（R3）
+DEV_PORT = 8766                     # claude 在开发版里看播放器（本地模式，tests/test_player.py 也是这个模式）
+DEV_SITE_PORT = 8791                # claude 在开发版里看网站（对外模式）
 EXIT_UPDATE = 7                     # 服务因为「更新」停下时的退出码；run 认它
 INVITE = ".stable-invite.json"      # 钉住的那一版（在体验版根上）
 OUTCOME = ".stable-outcome.json"    # 上一次换版本成没成、给他看的那句话（在体验版根上）
 HISTORY = ".stable-history.jsonl"   # 每换一次一行，rollback 靠它找上一版（在体验版根上）
-TESTED = ".player-tests-passed.json"  # tests/test_player.py 全过时记下的代码指纹（在开发版根上）
+TESTED = ".player-tests-passed.json"     # tests/test_player.py 全过时记下的代码指纹（在开发版根上）
+SITE_TESTED = ".site-tests-passed.json"  # tests/test_hosted_frontend.py 全过时记下的（体验版跑的是网站，R4）
+MUST_PASS = ((TESTED, "tests/test_player.py"), (SITE_TESTED, "tests/test_hosted_frontend.py"))
+SITE_CONFIG = "server-config.json"  # 体验版网站的配置：不进仓库，体验版自己一份（ensure_site 建）
+DATA_DIR = "server-data"            # 体验版网站的账号、上传的材料：不进仓库，换版本碰不到
 
 # 我们自己放在体验版根上的文件：看「体验版有没有被改过」时按名字排掉。
 # 不靠 .gitignore——那份规则住在被检出的提交里，切到一个还没有这几行的提交上，它们就成了「被改过」（量化项目踩过）。
-OUR_OWN = {MARKER, INVITE, OUTCOME, HISTORY, "api-keys.txt"}
+OUR_OWN = {MARKER, INVITE, OUTCOME, HISTORY, "api-keys.txt", SITE_CONFIG}
 
-# 孩子用的时候服务会写的文件：讲解缓存、现读的朗读。它们变了不算体验版被改过（R7）
-RUNTIME = re.compile(r"lessons/[^/]+/(explain_cache\.json|tts/.+\.mp3)")
+# 体验版用着的时候服务会写的文件：讲解缓存、现读的朗读，还有上传材料点「备课」时的备课台
+# （materials/<材料号>/、lessons/<材料号>/，材料号＝上传时刻 12 位数字＋6 位十六进制，备好了搬进账号目录）。
+# 它们变了不算体验版被改过（R7）
+RUNTIME = re.compile(r"lessons/[^/]+/(explain_cache\.json|tts/.+\.mp3)|(materials|lessons)/\d{12}-[0-9a-f]{6}/.+")
 
-# 这些文件变了，播放器就可能变：测试的指纹只算它们。文档改了不用重跑测试
+# 这些文件变了，网站就可能变：测试的指纹只算它们。文档改了不用重跑测试
 CODE = ("web/", "pipeline/", "tests/")
-CODE_FILES = ("start-player.bat", "lessons/*/lesson.json")
+CODE_FILES = ("start-trial.bat", "lessons/*/lesson.json")
 
 # 「一句话」是给 owner 看的，不许带这些（R9）
 NOT_FOR_SCREEN = re.compile(r"[0-9a-f]{7,}|SPEC|\b[RDA]\d+[a-z]?\b|commit|worktree|invite|stable|提交号", re.I)
@@ -140,7 +153,7 @@ def say(text: str) -> None:
 
 
 def page_url(port: int = PORT) -> str:
-    """双击打开的地址。主机名必须是 localhost：学习记录按「localhost:8765」存在浏览器里（R3）。
+    """双击打开的地址。主机名必须是 localhost：登录和学习记录按「localhost:8790」存在浏览器里（R3）。
     带一个每次都不一样的尾巴，浏览器就不会把开着的旧页签拿出来充数（R2）；页面不读它。"""
     return f"http://localhost:{port}/web/?opened={time.time_ns() // 1_000_000}"
 
@@ -168,8 +181,9 @@ def port_taken(port: int) -> bool:
 def port_refusal(root: Path, port: int) -> str | None:
     """开发版不许占体验版的端口（R3）。"""
     if port == PORT and not is_stable(root) and is_stable(beside(root)):
-        return (f"这是开发版，{PORT} 端口留给体验版（孩子的学习记录按这个地址存）。"
-                f"claude 自己看效果用 {DEV_PORT}：pipeline/serve.py {DEV_PORT}")
+        return (f"这是开发版，{PORT} 端口留给体验版（owner 的登录和学习记录按这个地址存）。"
+                f"claude 自己看网站用 {DEV_SITE_PORT}：pipeline/serve.py --hosted --port {DEV_SITE_PORT}；"
+                f"看播放器用 {DEV_PORT}：pipeline/serve.py {DEV_PORT}")
     return None
 
 
@@ -198,28 +212,31 @@ def commit_fingerprint(root: Path, commit: str) -> dict[str, str]:
     return out
 
 
-def record_test_pass(root: Path, passed: int) -> None:
-    """tests/test_player.py 全过时调：记下这次测的是哪份代码。"""
-    write_json(root / TESTED, {"at": now(), "passed": passed, "fingerprint": working_fingerprint(root)})
+def record_test_pass(root: Path, passed: int, which: str = TESTED) -> None:
+    """tests/test_player.py（which=TESTED）、tests/test_hosted_frontend.py（which=SITE_TESTED）全过时调：
+    记下这次测的是哪份代码。"""
+    write_json(root / which, {"at": now(), "passed": passed, "fingerprint": working_fingerprint(root)})
 
 
 def untested(dev: Path, commit: str) -> str | None:
-    """这个提交的代码有没有被 tests/test_player.py 完整跑过且全过；没有就说为什么。"""
-    record = read_json(dev / TESTED)
-    if not record:
-        return "tests/test_player.py 还没有全过的记录。先跑到全过再钉。"
-    tested, want = record.get("fingerprint") or {}, commit_fingerprint(dev, commit)
-    differ = sorted(p for p in set(tested) | set(want) if tested.get(p) != want.get(p))
-    if differ:
-        return (f"上一次全过的 tests/test_player.py（{record.get('at')}）测的不是这一版，"
-                f"不一样的文件：{'、'.join(differ[:8])}{' 等' if len(differ) > 8 else ''}。重跑到全过再钉。")
+    """这个提交的代码有没有被播放器和网站两份测试完整跑过且全过；没有就说为什么。"""
+    want = commit_fingerprint(dev, commit)
+    for which, name in MUST_PASS:
+        record = read_json(dev / which)
+        if not record:
+            return f"{name} 还没有全过的记录。先跑到全过再钉。"
+        tested = record.get("fingerprint") or {}
+        differ = sorted(p for p in set(tested) | set(want) if tested.get(p) != want.get(p))
+        if differ:
+            return (f"上一次全过的 {name}（{record.get('at')}）测的不是这一版，"
+                    f"不一样的文件：{'、'.join(differ[:8])}{' 等' if len(differ) > 8 else ''}。重跑到全过再钉。")
     return None
 
 
 # ---------- 体验版有没有被改过（R1） ----------
 
 def hand_changes(stable: Path) -> list[str]:
-    """体验版里被改过的文件，排掉我们自己的和孩子用出来的数据。"""
+    """体验版里被改过的文件，排掉我们自己的和体验版用出来的数据。"""
     rules = dev_of(stable) / ".gitignore"
     extra = ["-c", f"core.excludesfile={rules.as_posix()}"] if rules.is_file() else []
     entries = git(stable, *extra, "status", "--porcelain", "-z", "--untracked-files=all").split("\0")
@@ -230,7 +247,8 @@ def hand_changes(stable: Path) -> list[str]:
             continue
         code, path = entry[:2], entry[3:]
         skip = code[0] in "RC"  # 改名的下一项是原来的名字
-        if path in OUR_OWN or path.endswith(".tmp") and path[:-4] in OUR_OWN or RUNTIME.fullmatch(path):
+        if (path in OUR_OWN or path.endswith(".tmp") and path[:-4] in OUR_OWN or RUNTIME.fullmatch(path)
+                or path.startswith(DATA_DIR + "/")):
             continue
         changed.append(path)
     return changed
@@ -298,6 +316,24 @@ def copy_keys(stable: Path) -> None:
         shutil.copyfile(src, dst)
 
 
+def ensure_site(stable: Path) -> list[str]:
+    """体验版跑网站要的、不进仓库的两样：配置（server-config.json）和数据目录（server-data/：账号、上传的材料）。
+    缺什么补什么，已有的一个字不动。只在本机 127.0.0.1 上开；公共课就是这一版仓库里的 lessons/（R11）；
+    注册邀请码照开发版本机那份（没有就新起一个）——本机用的，不是线上那个。"""
+    made = []
+    if not (stable / SITE_CONFIG).is_file():
+        invite = (read_json(dev_of(stable) / SITE_CONFIG) or {}).get("invite") or f"listen-{secrets.token_hex(3)}"
+        write_json(stable / SITE_CONFIG, {
+            "_说明": "体验版网站的配置（不进仓库）：只在本机开，公共课就是这一版仓库里的 lessons/（specs/SPEC-008-stable-and-dev.md）",
+            "invite": invite, "port": PORT, "bind": "127.0.0.1", "data_dir": DATA_DIR, "shared_root": ".",
+            "secure_cookie": False})
+        made.append("网站配置")
+    if not (stable / DATA_DIR).is_dir():
+        (stable / DATA_DIR).mkdir()
+        made.append("数据目录")
+    return made
+
+
 def free_port() -> int:
     with socket.socket() as s:
         s.bind(("127.0.0.1", 0))
@@ -305,10 +341,10 @@ def free_port() -> int:
 
 
 def probe(root: Path, want: str) -> None:
-    """在一个空闲端口上真起一次这份代码的服务：回答的是这一版，网页的三个文件都取得到，才算换好了。"""
+    """在一个空闲端口上真起一次这份代码的网站：回答的是这一版，网页的三个文件都取得到，才算换好了。"""
     port = free_port()
-    proc = subprocess.Popen([sys.executable, str(root / "pipeline" / "serve.py"), str(port)], cwd=root,
-                            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    proc = subprocess.Popen([sys.executable, str(root / "pipeline" / "serve.py"), "--hosted", "--port", str(port)],
+                            cwd=root, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     try:
         deadline = time.time() + 30
         answer = None
@@ -358,6 +394,7 @@ def apply_update(stable: Path = ROOT, check_running: bool = True) -> bool:
         switch(stable, new)
         kept = merge_runtime(stable, saved)
         copy_keys(stable)
+        ensure_site(stable)
         probe(stable, new)
     except Exception as e:  # noqa: BLE001  任何一步不成都要退回去，不许把人扔在半路
         say(f"没换成：{e}")
@@ -372,7 +409,7 @@ def apply_update(stable: Path = ROOT, check_running: bool = True) -> bool:
     with (stable / HISTORY).open("a", encoding="utf-8") as f:
         f.write(json.dumps({"at": now(), "from": old, "to": new, "what": what}, ensure_ascii=False) + "\n")
     outcome(stable, True, f"已经换好了：{what}")
-    say(f"换好了：{what}" + (f"（孩子查过的讲解留下了 {sum(kept.values())} 条）" if kept else ""))
+    say(f"换好了：{what}" + (f"（体验版里查过的讲解留下了 {sum(kept.values())} 条）" if kept else ""))
     return True
 
 
@@ -416,7 +453,7 @@ def rollback(dev: Path = ROOT) -> str:
 
 
 def carry_runtime(dev: Path, stable: Path) -> int:
-    """建体验版时：开发版里孩子用出来、还没提交的讲解和朗读，带过去。"""
+    """建体验版时：开发版里用出来、还没提交的讲解和朗读，带过去。"""
     count = 0
     for entry in git(dev, "status", "--porcelain", "-z", "--untracked-files=all").split("\0"):
         path = entry[3:]
@@ -448,15 +485,16 @@ def setup(dev: Path = ROOT) -> Path:
     if why:
         raise Refused(why)
     git(dev, "worktree", "add", "--detach", str(stable), commit)
-    (stable / MARKER).write_text("这是体验版：owner 和孩子用的那份。里面一个字不手改，"
+    (stable / MARKER).write_text("这是体验版：owner 测新版本用的那份（网站，http://localhost:8790/）。里面一个字不手改，"
                                  "换版本只经 pipeline/stable_copy.py（specs/SPEC-008-stable-and-dev.md）。\n",
                                  encoding="utf-8")
     copy_keys(stable)
+    ensure_site(stable)
     carried = carry_runtime(dev, stable)
     probe(stable, commit)
     with (stable / HISTORY).open("a", encoding="utf-8") as f:
         f.write(json.dumps({"at": now(), "from": None, "to": commit, "what": "建立体验版"}, ensure_ascii=False) + "\n")
-    say(f"体验版建好了：{stable}" + (f"（从开发版带过去 {carried} 份孩子用出来的数据）" if carried else ""))
+    say(f"体验版建好了：{stable}" + (f"（从开发版带过去 {carried} 份用出来的数据）" if carried else ""))
     return stable
 
 
@@ -480,14 +518,15 @@ def status(dev: Path = ROOT) -> list[str]:
     if out:
         lines.append(f"  上一次换版本：{'成了' if out.get('ok') else '没成'}，{out.get('said')}（{out.get('at')}）")
     who = ask_version(PORT)
-    lines.append("  服务：" + ("没开" if who is None else "开着（体验版）" if who.get("copy") == "stable"
+    lines.append("  网站：" + ("没开" if who is None else f"开着（体验版，http://localhost:{PORT}/）" if who.get("copy") == "stable"
                               else f"{PORT} 上是别的服务（多半是旧的黑窗口）"))
     return lines
 
 
-# ---------- 双击 start-player.bat 跑的循环（R2、R5） ----------
+# ---------- 双击 start-trial.bat 跑的循环（R2、R5） ----------
 
 def run(root: Path = ROOT, port: int = PORT, browser: bool = True) -> int:
+    """起网站（对外模式）。体验版里起之前先补齐不进仓库的配置、数据目录和密钥（换电脑、owner 换了密钥都靠这一步跟上）。"""
     say("这是体验版。" if is_stable(root) else "这是开发版（旁边没有体验版）。")
     refusal = port_refusal(root, port)
     if refusal:
@@ -495,17 +534,22 @@ def run(root: Path = ROOT, port: int = PORT, browser: bool = True) -> int:
         return 2
     if port_taken(port):
         who = ask_version(port)
-        if who and who.get("copy") == ("stable" if is_stable(root) else "dev"):
-            say("播放器已经开着了，直接打开网页。这个窗口可以关掉。")
+        if who and who.get("copy") == ("stable" if is_stable(root) else "hosted"):
+            say("网站已经开着了，直接打开网页。这个窗口可以关掉。")
             if browser:
                 webbrowser.open(page_url(port))
             return 0
-        say(f"{port} 端口被另一个服务占着，多半是还开着的旧播放器黑窗口。把它关掉，再双击一次 start-player.bat。")
+        say(f"{port} 端口被另一个服务占着，多半是还开着的旧黑窗口。把它关掉，再双击一次 start-trial.bat。")
         input("按回车关掉这个窗口")
         return 1
+    if is_stable(root):
+        made = ensure_site(root)
+        copy_keys(root)
+        if made:
+            say(f"补好了体验版的{'、'.join(made)}。")
     first = True
     while True:
-        args = [sys.executable, str(root / "pipeline" / "serve.py"), str(port), "--managed"]
+        args = [sys.executable, str(root / "pipeline" / "serve.py"), "--hosted", "--port", str(port), "--managed"]
         if first and browser:
             args.append("--open")
         first = False
@@ -520,7 +564,7 @@ def run(root: Path = ROOT, port: int = PORT, browser: bool = True) -> int:
             continue
         if code == 0:
             return 0
-        say("\n播放器的服务停了（出了错）。上面几行是原因，截个图给 claude。")
+        say("\n网站的服务停了（出了错）。上面几行是原因，截个图给 claude。")
         input("按回车关掉这个窗口")
         return code
 
@@ -544,10 +588,10 @@ def main() -> int:
             say("\n".join(status()))
         elif a.cmd == "invite":
             commit = invite(a.what)
-            say(f"钉好了：{commit[:10]}「{a.what}」。跟 owner 说：可以更新了，点页面右上角的「更新」。")
+            say(f"钉好了：{commit[:10]}「{a.what}」。跟 owner 说：可以更新了，体验版页面右上角的「更新」亮了，点一下。")
         elif a.cmd == "rollback":
             commit = rollback()
-            say(f"上一版钉回去了：{commit[:10]}。请 owner 点页面右上角的「更新」。")
+            say(f"上一版钉回去了：{commit[:10]}。请 owner 点体验版页面右上角亮着的「更新」。")
         elif a.cmd == "setup":
             setup()
         elif a.cmd == "apply-update":

@@ -53,10 +53,10 @@
 | `pipeline/tts_check.html` | `tts.py check` 用的抽听页模板 | SPEC-007 |
 | `pipeline/llm.py` | 调大模型的统一口：deepseek 开头走 DeepSeek，qwen 开头走百炼兼容接口；关掉 deepseek 的思考模式 | SPEC-000 R5 |
 | `pipeline/keys.py` | 从 `api-keys.txt` 读密钥，只读进内存 | SPEC-000 R2 |
-| `pipeline/serve.py` | 本地服务，见下面「本地服务」；`--hosted` 起对外模式（SPEC-009 v7，见下面「本地服务」末段）：**访客免登录直接听公共课库**（`server-data/shared/lessons/`，R14）、点词现查开放；注册/登录/登出、上传/资料库/删材料、讲稿补传（TXT/PDF/MD 文件，`/api/material/script`）、备课任务（串行队列跑 SPEC-002 的六步，或配置 `prep_command` 换假命令测试）仍要登录会话 | SPEC-001 R12、SPEC-009 |
+| `pipeline/serve.py` | 本地服务，见下面「本地服务」；`--hosted` 起对外模式（SPEC-009 v7，线上、体验版、开发版看网站都是它）：**访客免登录直接听公共课库**（线上 `server-data/shared/lessons/`，本机两份就是仓库里的 `lessons/`，R14）、点词现查开放；注册/登录/登出、上传/资料库/删材料、讲稿补传（TXT/PDF/MD 文件，`/api/material/script`）、备课任务（串行队列跑 SPEC-002 的六步，或配置 `prep_command` 换假命令测试）仍要登录会话 | SPEC-001 R12、SPEC-009 |
 | `pipeline/speak_lab.py` | 口语实验页的服务端（决策 D52，实验件、不进播放器和对外版）：8770 出页面和陪练提示词（拿 `lesson.json` 的标题、分段、生词、几句原话拼，教学规矩也在提示词里）；8771 当 WebSocket 桥，网页 ⇄ 百炼 Realtime 原样转发，密钥只在这一个进程；`mock` 假模型不花钱走整条事件链；`--selftest omni38\|audio31` 连真模型放一段课程音频验证 | —（实验，正式规格等 A/B 结论） |
 | `pipeline/accounts.py` | 邮箱账号（对外版地基）：注册要邀请码、登录发会话、连错锁、密码只存 PBKDF2 哈希；数据住 `server-data/`（不进 git），布局 `server-data/<账号id>/{materials/<材料id>/{audio.*, script.txt, meta.json}, lessons/<课>/}`——材料 meta.json 的 state 就是 SPEC-009 的状态机（new/prepping/done/failed） | SPEC-009 |
-| `pipeline/stable_copy.py` | 体验版和开发版：建体验版、钉版本、换版本（失败退回、留下孩子用出来的数据）、退回上一版、双击后起服务的循环；见下面「两份代码」 | SPEC-008 |
+| `pipeline/stable_copy.py` | 体验版和开发版：建体验版（自带网站配置和数据目录）、钉版本（要两份测试全过）、换版本（失败退回、留下用出来的数据）、退回上一版、双击后起网站的循环；见下面「三个住处、一套代码」 | SPEC-008 |
 | `pipeline/compare_models.py` | 一次性：比较两个模型写的中文和生词判断，出 `model_compare.md` | SPEC-005 |
 | `web/index.html`、`web/style.css`、`web/app.js` | 播放器，见下面「播放器」 | SPEC-001 |
 | `web/login.html` | 登录页（对外模式专用）：注册（要邀请码）／登录（只要邮箱密码，记住了邮箱第二次只输密码），注册成功即登录；底部「先直接体验」直达 /web/（v7：访客默认不经过这页）；自包含样式，不依赖 style.css | SPEC-009 |
@@ -70,10 +70,9 @@
 | `tests/test_hosted_server.py` | 对外模式的自动检查：真起服务真发请求——访客免登录（公共课、点词）、上传等账号接口挡 401、注册登录登出、noindex、限流、无「更新」接口 | SPEC-009 |
 | `tests/test_hosted_upload.py` | 上传、资料库、删材料的自动检查：真上传假音频字节——类型和大小闸、标题讲稿落盘、两账号隔离、课路径按账号指路 | SPEC-009 |
 | `tests/test_hosted_prep.py` | 备课任务的自动检查：假备课命令跑通状态机（排队、备课中挡重复点、成功变课、失败人话原因、重试） | SPEC-009 |
-| `tests/test_hosted_frontend.py` | 资料库前端整条用户路的自动检查（Playwright 开真页面）：匿名直接进站听公共课 → 登录注册进站空库待机 → 上传（选错文件的人话）→ 备课轮询到变课高亮 → 点课切换 → 进度点 → 失败重试 → 删除 → 登出 | SPEC-009 R8 |
-| `tests/test_stable_copy.py` | 换版本的自动检查：临时目录里造真的仓库和体验版，真的切版本、真的起服务 | SPEC-008 |
-| `start-player.bat` | 双击：旁边有体验版就转去体验版，然后调 `pipeline/stable_copy.py run` 起服务、打开浏览器。只放英文字符 | SPEC-008 R2 |
-| `start-hosted.bat` | 双击：起对外模式的**本地验收版**（`serve.py --hosted --open`，8790，读仓库根 gitignore 里的 server-config.json），owner 验收用（D54：确认过了才上服务器）；访客直接进。**服务已开着就只开一页浏览器、不重复起**（2026-10-28 owner 要求：点这一个脚本就完）。只放英文字符 | SPEC-009 R1、D54 |
+| `tests/test_hosted_frontend.py` | 资料库前端整条用户路的自动检查（Playwright 开真页面）：匿名直接进站听公共课 → 登录注册进站空库待机 → 上传（选错文件的人话）→ 备课轮询到变课高亮 → 点课切换 → 进度点 → 失败重试 → 删除 → 登出 → 体验版网站的「更新」灰/亮、线上没有。全过时把代码指纹记在 `.site-tests-passed.json`（钉版本要它，SPEC-008 R4） | SPEC-009 R8、SPEC-008 R12 |
+| `tests/test_stable_copy.py` | 换版本的自动检查：临时目录里造真的仓库和体验版，真的切版本、真的起网站、真的走一遍「点更新 → 停 → 换 → 起回来」 | SPEC-008 |
+| `start-trial.bat` | 双击：旁边有体验版就转去体验版，然后调 `pipeline/stable_copy.py run` 起体验版的网站（8790）并打开浏览器；服务已开着就只开一页浏览器。只放英文字符 | SPEC-008 R2 |
 | `start-speak-lab.bat` | 双击：起口语实验页（`pipeline/speak_lab.py`）并打开浏览器，关窗口就停。实验件，只放英文字符 | —（D52 实验） |
 | `requirements.txt` | 服务器上要装的 Python 包（版本是开发机验证过的一组；wordfreq 只有重建发音词典才要，没列） | SPEC-009 R10 |
 | `deploy/Dockerfile`、`deploy/docker-compose.yml`、`deploy/server-config.example.json`、`deploy/caddy-listen-app.conf`、`.dockerignore` | 发布物料（182.92.206.53 容器形态，SPEC-009 v8）：应用镜像（serve.py 对外模式＋备课六步都在容器里）、compose（容器名 listeningapp，密钥/配置/账号数据/备课台/共享发音词库全是挂载卷；`name: listening` 防止和别的 compose 撞项目名）、配置模板（复制成仓库根的 server-config.json，不进 git）、网关站点块、镜像构建排除清单 | SPEC-009 R10、R11 |
@@ -118,7 +117,7 @@
 
 ## 本地服务（`pipeline/serve.py`）
 
-- 只听本机 127.0.0.1，默认端口 8765；网页地址 http://localhost:8765/web/ ，`?lesson=<课>` 选哪一集（默认 260821）。
+- 只听本机 127.0.0.1，默认端口 8766（claude 自己看播放器、`tests/test_player.py` 的服务都是这个模式）；网页地址 http://localhost:8766/web/ ，`?lesson=<课>` 选哪一集（默认 260821）。
 - 静态文件：支持 Range（从文件中间取一段），不然音频跳不到指定的秒数；一律不缓存，改了代码刷新就生效。`python -m http.server` 不支持 Range，不能用（`docs/lessons.md` 2026-09-12）。
 - 接口，请求都是 JSON，都带 `lesson`；课名只许字母数字、下划线、连字符，防止借路径读别的文件：
   - `POST /api/explain` `{sentence, word}` → 那一行：先查缓存，再查 `lesson.json` 里备课写好的，都没有才问模型。
@@ -126,16 +125,16 @@
   - `POST /api/speak` `{key, text}` → `{file}`：词组或词典里没有的词的朗读文件，没有就让 Emily 现读、存下来。
   - 出错只回 `{"error": 错误的种类}`，不回详情：详情里可能带着请求头（SPEC-000 R2）。
 - 换版本的两个接口（SPEC-008），不带 `lesson`：
-  - `GET /api/version` → `{version, copy, update: {waiting, what}, failed}`：服务起来时是哪个提交（页面拿它判断自己旧没旧，不显示）、是体验版还是开发版、有没有一版等 owner 点「更新」和那一版多了什么、上一次没换成的那句话。钉住的是哪个提交不给。
-  - `POST /api/update` → 202 后服务以退出码 7 停下；没有要换的、或者服务不是 `--managed` 起的，回 409。
-- 命令行：`serve.py [端口] [--open] [--managed]`。`--open` 起来后打开浏览器；`--managed` 表示有 `stable_copy.py run` 负责换完版本把它拉起来。开发版旁边有体验版时，开发版拿 8765 当场拒绝。
+  - `GET /api/version` → `{version, copy, hosted, update: {waiting, what}, failed}`：服务起来时是哪个提交（页面拿它判断自己旧没旧，不显示）、是体验版还是开发版还是线上、是不是网站（页面拿它决定要不要叫资料库侧边栏）、有没有一版等 owner 点「更新」和那一版多了什么、上一次没换成的那句话。钉住的是哪个提交不给。
+  - `POST /api/update` → 202 后服务以退出码 7 停下；没有要换的、或者服务不是 `--managed` 起的，回 409。体验版的网站有它；线上 404。
+- 命令行：`serve.py [端口] [--open] [--managed]`（本地模式）、`serve.py --hosted [--port N] ...`（对外模式）。`--open` 起来后打开浏览器；`--managed` 表示有 `stable_copy.py run` 负责换完版本把它拉起来。开发版旁边有体验版时，开发版拿 8790 当场拒绝（看网站用 8791、播放器用 8766）。
 - 独占端口：Python 自带的 HTTPServer 在 Windows 上允许两个服务同时占一个端口，这里关掉了（`docs/lessons.md` 2026-09-24）。
-- **对外模式**（`serve.py --hosted`，读仓库根 `server-config.json`（不进 git）：invite、port（默认 8790）、bind、data_dir、secure_cookie；双击 `start-hosted.bat` 就是它，SPEC-009 v7）：
+- **对外模式**（`serve.py --hosted`，读仓库根 `server-config.json`（不进 git）：invite、port（默认 8790）、bind、data_dir、shared_root、secure_cookie。三个住处都用它：线上、owner 本机的体验版（双击 `start-trial.bat`）、claude 自己看网站（8791）；SPEC-009 v7）：
   - **访客免登录**：`/web/` 页面、`/lessons/` 音频、`GET /api/library`、点词三个接口（explain/more/speak）匿名放行——课指到公共库 `server-data/shared/lessons/`（R14，只放 owner 拍板可公开的课）。
   - 按身份指路：已登录 `/lessons/` 先指自己账号目录（`server-data/<账号id>/lessons/`，互不可见）、没有的课落公共库；匿名只有公共库；点词接口的课目录同一套逻辑。
   - `/api/library` 返回 `{user（null＝匿名）, materials（匿名恒空）, lessons（已登录＝自己的＋公共库，重名自己优先）}`。
   - 要会话的（匿名 401）：注册/登录/登出（`pipeline/accounts.py`）、上传、备课、删材料、补讲稿。
-  - 所有响应带 `X-Robots-Tag: noindex`；POST 每 IP 每分钟 30 次（反代下取 X-Forwarded-For 第一段）；`/api/version` 恒报 hosted、`/api/update` 404。
+  - 所有响应带 `X-Robots-Tag: noindex`；POST 每 IP 每分钟 30 次（反代下取 X-Forwarded-For 第一段）；线上 `/api/version` 报 hosted、`/api/update` 404——体验版除外（报 stable、有「更新」，SPEC-008 R12）。
   - 完整需求在 `specs/SPEC-009-hosted-trial.md`；上线手册 `docs/deploy-listen-app.md`（域名 `listening.app.bayescode.com`）。
 
 ## 播放器（`web/`）
@@ -145,15 +144,15 @@
 - 声音走 Web Audio 的音量节点，停之前在上面做渐弱（SPEC-001 R16）；验声音时在同一个节点后面接录音（`tests/test_audio.py`）。
 - 学习记录和设置存在浏览器本地（`localStorage`，按课名分开），「导出」存成文件（决策 D9）。
 - 字体全在 `web/fonts/`，中文用系统字体（决策 D19）。
-- 换版本（SPEC-008）：每分钟、切回页签时问一次 `/api/version`；服务换了版本挂「这一页旧了」；有钉住的版本才出现「更新」。刷新前把当前句子记在 `sessionStorage`，刷新后回到这一句。
+- 换版本（SPEC-008）：每分钟、切回页签时问一次 `/api/version`；服务换了版本挂「这一页旧了」；「更新」只在体验版里有——平时灰着、钉了新版本亮起来（D55）。刷新前把当前句子记在 `sessionStorage`，刷新后回到这一句。
 
-## 两份代码（SPEC-008）
+## 三个住处、一套代码（SPEC-008 v2，D55）
 
-- 开发版：这个仓库目录，claude 改。体验版：旁边的 `ListeningMaster-stable`（两份同在 `BayesAPP/` 下，2026-10-25 搬家），这个仓库的第二个工作目录（`git worktree`，不挂分支），owner 和孩子用，一个字不手改。两份共用一个 git 仓库，体验版能切到开发版里的任何提交。
-- 双击任何一份里的 `start-player.bat`，起的都是体验版，地址 http://localhost:8765/web/ 。
-- 新版本怎么过去：claude `stable_copy.py invite` 钉一版（要求 `tests/test_player.py` 对这份代码全过，它全过时把代码指纹记在开发版根上的 `.player-tests-passed.json`）→ 钉的记录写在体验版根上的 `.stable-invite.json` → 页面出现「更新」→ owner 点 → 服务以 7 退出 → `stable_copy.py run` 换版本（`git checkout`）、在空闲端口试起一次、失败就退回 → 再起服务。结果写 `.stable-outcome.json`，每换一次记一行 `.stable-history.jsonl`。这几个文件都不进仓库。
-- 孩子用出来的数据住在体验版里：`lessons/<课>/explain_cache.json` 里点词补查和展开查到的、`lessons/<课>/tts/` 下现读的。换版本时留下（SPEC-008 R7）。学习记录在浏览器里，按 `localhost:8765` 存。
-- 密钥：体验版里的 `api-keys.txt` 是换版本时从开发版拷的（只比字节）。发音词典 `WordsAudio/` 两份共用（和两个目录并排）。
+- 开发版：这个仓库目录，claude 改（随时可能改到一半）。体验版：旁边的 `ListeningMaster-stable`（两份同在 `BayesAPP/` 下，2026-10-25 搬家），这个仓库的第二个工作目录（`git worktree`，不挂分支），owner 测新版本用的，一个字不手改。正式版：线上网站（`listening.app.bayescode.com`），孩子和各家用，只发体验版验过的那一版。三份共用一个 git 仓库，体验版能切到开发版里的任何提交。
+- 双击任何一份里的 `start-trial.bat`，起的都是体验版的网站，地址 http://localhost:8790/ ：访客直接听、能登录能上传，配置（`server-config.json`）和账号数据（`server-data/`）是体验版自己的一份（不进仓库，`stable_copy.py` 补齐），公共课就是这一版仓库里的 `lessons/`。
+- 新版本怎么过去：claude `stable_copy.py invite` 钉一版（要求 `tests/test_player.py` 和 `tests/test_hosted_frontend.py` 都对这份代码全过，全过时把代码指纹记在开发版根上的 `.player-tests-passed.json`、`.site-tests-passed.json`）→ 钉的记录写在体验版根上的 `.stable-invite.json` → 页面右上角的「更新」亮起来 → owner 点 → 服务以 7 退出 → `stable_copy.py run` 换版本（`git checkout`）、在空闲端口试起一次、失败就退回 → 再起服务。结果写 `.stable-outcome.json`，每换一次记一行 `.stable-history.jsonl`。这几个文件都不进仓库。
+- owner 用出来的数据住在体验版里：`lessons/<课>/explain_cache.json` 里点词补查和展开查到的、`lessons/<课>/tts/` 下现读的、上传材料点备课时留下的备课台（`materials/<材料号>/` 等）。换版本时留下（SPEC-008 R7）；账号和上传的材料在体验版自己的 `server-data/` 里，换版本碰不到。登录和学习记录在浏览器里，按 `localhost:8790` 存。
+- 密钥：体验版里的 `api-keys.txt` 是起服务和换版本时从开发版拷的（只比字节）。发音词典 `WordsAudio/` 两份共用（和两个目录并排）。
 
 ## 外部服务
 

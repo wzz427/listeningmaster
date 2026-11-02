@@ -1,5 +1,6 @@
 /* 资料库侧边栏、上传面板、空库的播放器（SPEC-009，对外模式专用）。
- * app.js 只在服务报 copy=hosted 时叫这一层（startPage → hostedStart）；本地模式没有账号和上传，这层整个不动。
+ * app.js 只在服务报 hosted 时叫这一层（startPage → hostedStart）——线上和 owner 本机的体验版都是；
+ * 本地模式没有账号和上传，这层整个不动。
  * 给 app.js 的两个入口：hostedStart()（开页选课——回 false 表示不进播放器：跳去别的课、或一节课都没有）、
  * hostedLessonMissing()（要播的课不在了，换个去处）。
  * 学习记录的键跟 app.js 一致：listening:<课名>（进行中）、listening:<课名>:done（整集听完，app.js 在最后一段
