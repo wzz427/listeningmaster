@@ -6,6 +6,12 @@
 
 ## 现在在哪（最新在上）
 
+### 2026-11-02 · 两处泄露止血：旧机作废服务能匿名取密钥（已停）；线上邀请码进过公开仓库（已换）
+
+- owner 问三个启动文件是什么、要分体验版和开发版。查的时候顺出两件安全事：①旧机 39.105.73.114 上 9 月那次部署（systemd `listening`，没有 GET 白名单的老代码）一直开着，DNS 删了，但按 IP 强连（`curl --resolve listen-app.bayescode.com:443:39.105.73.114`）匿名 HEAD `/api-keys.txt`、`/server-config.json` 都是 200——「域名没公开」挡不住人：证书透明日志公开列着这个子域名，公开仓库里也写着这台机器和这个洞；②线上邀请码明文写在欠账表和本页，随 10-28 的提交推到了公开 GitHub。
+- 处理：旧机 `systemctl disable --now listening`（可逆，`/opt/listening` 一个文件没删），复测全 502，同机活站 bayescourse.gewucode.cn 200 无恙；owner 说「换个新的就完了」→ 服务器换新邀请码（旧配置备份在服务器 `/root/listening-config-backups/`，不在构建目录里）、重启容器，旧码报「邀请码不对」、新码过关（一位数密码试，不建账号）；线上只有部署探针一个账号，没有陌生人注册。文档里的明文删了，新码只在服务器和对话里。
+- 下一步从哪接：**两把密钥（百炼、DeepSeek）等 owner 去控制台换**，他改完开发版的 `api-keys.txt`，我同步体验版目录和服务器；旧机清目录等他发话。教训见 `docs/lessons.md` 2026-11-02。
+
 ### 2026-10-31 · 《服务器部署指南》升 v1.2：网关「改完必须回写」入规；本仓快照落位
 
 - owner 前两轮追问「总 Caddyfile 服务器比仓库多 16 行该谁提交」，同日指南升 v1.2 补上设计缺口（§6.3 新规，修订记录原话即那 16 行孤本事）：**改完网关当场回写两件**——应用片段入应用仓（本仓 `deploy/caddy-listen-app.conf` 被点名为模板，10-28 已做）＋服务器完整版回填 TinkerCode 仓（仓库版 = 重建服务器的单源）。
@@ -29,7 +35,7 @@
 - **部署前堵了一个真洞**（老代码 2026-09-28 起就有，旧域名没公开所以没出过事）：对外模式 GET/HEAD 没有白名单，匿名 `GET /api-keys.txt`、`/server-config.json`（含邀请码）直接 200。修法：serve.py GET/HEAD 白名单只放行 `/web/`、`/lessons/`、`/api/`；hosted 测试加 5 项（29 全绿），player 84、upload 22、prep 11、frontend 27、accounts 14、docs 26 全过。
 - **踩了一个 compose 坑**：项目名不写默认取目录名 `deploy`，和网关栈、羊了个词撞名——这边跑 `down`/`--remove-orphans` 会把别人容器当孤儿清掉。compose 加 `name: listening` 修死。
 - **验证**（全过）：303→/web/＋noindex；四集公共课匿名可听、真播放前进（Playwright 无头 26.5s→29.5s、零 JS 报错）；Range 206；密钥/配置/源码/数据路径全 404；注册错码拒绝、对码发 Secure+HttpOnly 会话（探针账号 deploy-probe@bayescode.local）；匿名上传 401；羊了个词正式站 200 无恙。服务器真材料备课（清单第 8 项，花钱）留到第一份新材料再首跑。
-- 邀请码新生成 **listen-92ddf9**（只住服务器 server-config.json 和这条记录）；发不发、发给谁归 owner。旧机 39.105.73.114 的 2026-09-28 部署作废待下线（等 owner 发话，见 `docs/deploy-listen-app.md` §8）。
+- 邀请码新生成（只住服务器 server-config.json；本行原先写着明文，而仓库是公开的——2026-11-02 已在服务器换新码、删掉明文）；发不发、发给谁归 owner。旧机 39.105.73.114 的 2026-09-28 部署作废待下线（2026-11-02 服务已停，清目录等 owner 发话，见 `docs/deploy-listen-app.md` §8）。
 - 下一步从哪接：owner 亲自过 https://listening.app.bayescode.com → 拍板发网址＋邀请码；有反馈按 v9 改。手册全量重写在 `docs/deploy-listen-app.md`（含发版记录 §7）。
 
 ### 2026-10-28 · 接第二三四集 BBC：公共课库四集齐（本地站）；流程检验修好三个真问题

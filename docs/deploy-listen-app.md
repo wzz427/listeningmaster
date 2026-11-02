@@ -10,7 +10,7 @@
 - **花钱的一步**：服务器上备真材料会调百炼识别和 DeepSeek（几毛钱一集），跑之前跟 owner 说一声。
 - **不碰别人的站**：这台机器跑着 TinkerCode 网关栈和羊了个词全家。网关 Caddyfile 改前先备份、改完先 validate 再 reload；羊了个词和别的容器一概不动。
 - **compose 项目名**：我们的 compose 必须带 `name: listening`——不写会取目录名 `deploy`，和网关栈、羊了个词撞项目名，`down`/`--remove-orphans` 会把别人的容器当孤儿清掉（2026-10-28 部署时撞见，已修）。
-- 服务器上这些永不入库、不外发：`api-keys.txt`、`server-config.json`、`server-data/`（各家资料库＋公共课库）。**各家账号里的材料不进公共库**（R14 红线）。
+- 服务器上这些永不入库、不外发：`api-keys.txt`、`server-config.json`、`server-data/`（各家资料库＋公共课库）。**各家账号里的材料不进公共库**（R14 红线）。**邀请码也不写进仓库里任何文件**：仓库是公开的（D51），2026-10-28 那次把邀请码明文记进了交接文档，2026-11-02 换了码。
 - 《服务器部署指南》正本在兄弟软件仓 `SheepAndWord/.ai-local/docs/`（owner 私有区，永不入库、不外传）；本仓 `docs/refs/服务器部署指南.md` 留了份同样 gitignore 的快照（现 v1.2，2026-10-31，以正本为准）；本文只写我们这一摊。
 
 ## 服务器是什么形状（和 39.105.73.114 不同在哪）
@@ -108,7 +108,7 @@ docker exec deploy-caddy-1 caddy reload  --config /etc/caddy/Caddyfile
   `api-keys.txt`、`server-config.json`、`server-data/`、`materials/`、`lessons/` 都不在镜像里，覆盖代码不影响它们。
 - **备份**：`server-data/` 是各家上传的资料库＋公共课库，丢了无法重建。定期打包拉回开发机：`ssh … 'cd /opt/listening && tar -czf - server-data' > server-data-$(date +%F).tar.gz`。
 - **找回密码**：没有自助（SPEC-009 不做），家长找 owner、owner 转给 claude：照 `pipeline/accounts.py` 的 `register` 写法生成 PBKDF2 哈希，在服务器 `server-data/accounts.json` 里重写该邮箱那条，顺手清它的旧会话。
-- **换邀请码**：改 `/opt/listening/server-config.json` 的 `invite` 后 `docker restart listeningapp`。
+- **换邀请码**：改 `/opt/listening/server-config.json` 的 `invite` 后 `docker restart listeningapp`。新码只告诉 owner，不写进仓库。换前把旧配置备份到构建目录**之外**（`/root/listening-config-backups/`）——放在 `/opt/listening/` 下会被下次 `docker build` 打进镜像。验新码不用建账号：拿一位数密码去注册，新码报「密码至少 6 位」、旧码报「邀请码不对」（先验邀请码、后验密码长度）。
 
 ## 6. 回滚
 
@@ -122,9 +122,12 @@ docker exec deploy-caddy-1 caddy reload  --config /etc/caddy/Caddyfile
 
 | 时间 | 操作人 | Commit | 镜像 tag / 回滚点 | 结论 |
 |---|---|---|---|---|
+| 2026-11-02 | claude（owner 说「换个新的就完了」） | 不变（`934f5488`） | 镜像不变；旧配置备份 `/root/listening-config-backups/server-config.json.bak-20261102` | 只换邀请码（旧码进过公开仓库）：重启后旧码拒、新码过；线上只有部署探针一个账号，无陌生注册 |
 | 2026-10-28 | claude（owner 下指令部署） | `934f5488` | `listening-app:934f5488`；网关备份 `Caddyfile.bak-20261028-add-listening` | 首次部署。验证清单 1-7、9 全过（第 8 项真材料备课留到下次）；同批堵了密钥泄露洞（对外模式 GET/HEAD 白名单），hosted 29 项全绿 |
 | 2026-09-28 | claude | （旧机 39.105.73.114 的部署，随换机作废） | 旧机 systemd 形态；机器已被 182.92.206.53 取代 | 旧机服务还在跑旧代码（含已堵的洞，域名从未公开）；**等 owner 发话再下线** |
 
 ## 8. 旧机器（39.105.73.114）处置
 
-统一部署机定了 182.92.206.53 后旧机作废：上面还有 2026-09-28 部署的 systemd 版 `listening` 服务和 `/opt/listening`、`/opt/WordsAudio`。旧域名 `listen-app.bayescode.com` 的 DNS owner 已说可删。**下线动作（`systemctl disable --now listening`＋清目录）等 owner 发话再做**——那台还跑着别人的站，不急不动。
+统一部署机定了 182.92.206.53 后旧机作废：上面还有 2026-09-28 部署的 systemd 版 `listening` 服务和 `/opt/listening`、`/opt/WordsAudio`。旧域名 `listen-app.bayescode.com` 的 DNS 已删。
+
+**2026-11-02 服务已停**（`systemctl disable --now listening`）：DNS 删了，但按 IP 强连（`curl --resolve listen-app.bayescode.com:443:39.105.73.114 …`）匿名取 `/api-keys.txt` 仍是 200——老代码没有 GET 白名单。停后三条路径都 502，同机的 bayescourse.gewucode.cn 无恙。要临时拉回来：`systemctl enable --now listening`（别拉，它带着洞）。**剩下的清目录（`/opt/listening` 里还有一份旧密钥文件、`/opt/WordsAudio`）和删网关里 listen-app 那块，等 owner 发话再做**——那台还跑着别人的站，动网关要照《服务器部署指南》备份、validate、回写。
