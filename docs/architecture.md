@@ -36,7 +36,7 @@
 | `AGENTS.md` | ZCode 自动读到的入口：指针、开机三步、红线摘录；第一读物仍是 `CLAUDE.md`（决策 D36） | — |
 | `idea.txt` | owner 起步时写的最初想法，只作历史 | — |
 | `specs/` | 规格：`SPEC-000-overview.md` 是总需求和模块表，其余一块一份；`SPEC-template.md` 是空模板 | — |
-| `docs/` | 本文、`workflow.md`（开发流程和验证）、`environment.md`（开发环境和工具）、`deploy-listen-app.md`（对外版上线到阿里云的操作手册和日常运维）、`decisions.md`、`lessons.md`、`debts.md`、`handoff.md`、`listening-led-course.md`（课程方案：理念、一集六步、单元阶段）；`research/` 放调研产出——`2026-09-12-products-teaching-tech-survey.md` 是三轮调研摘要（产品、教学研究、技术），报告一篇一文件、文件名带日期前缀（D46）；`refs/qwen-asr-api.md` 是百炼识别的官方文档存档；`history/` 放整批搬走的旧交接记录 | — |
+| `docs/` | 本文、`workflow.md`（开发流程和验证）、`copies-and-release.md`（三版管理与发版的操作手册：改→测→交→验→上）、`environment.md`（开发环境和工具）、`deploy-listen-app.md`（对外版上线到阿里云的操作手册和日常运维）、`decisions.md`、`lessons.md`、`debts.md`、`handoff.md`、`listening-led-course.md`（课程方案：理念、一集六步、单元阶段）；`research/` 放调研产出——`2026-09-12-products-teaching-tech-survey.md` 是三轮调研摘要（产品、教学研究、技术），报告一篇一文件、文件名带日期前缀（D46）；`refs/qwen-asr-api.md` 是百炼识别的官方文档存档；`history/` 放整批搬走的旧交接记录 | — |
 | `materials/<课>/` | 原始素材：音频、讲稿、练习 | SPEC-002 |
 | `lessons/<课>/` | 备好的一集，见下面「每一集的文件」 | SPEC-002 |
 | `pipeline/audio.py` | 转音频：16k 单声道 wav（识别、量音量用）、m4a（播放器用）；用 imageio-ffmpeg 自带的 ffmpeg | SPEC-002 |
@@ -155,6 +155,7 @@
 - 新版本怎么过去：claude `stable_copy.py invite` 钉一版（要求 `tests/test_player.py` 和 `tests/test_hosted_frontend.py` 都对这份代码全过，全过时把代码指纹记在开发版根上的 `.player-tests-passed.json`、`.site-tests-passed.json`）→ 钉的记录写在体验版根上的 `.stable-invite.json` → 页面右上角的「更新」亮起来 → owner 点 → 服务以 7 退出 → `stable_copy.py run` 换版本（`git checkout`）、在空闲端口试起一次、失败就退回 → 再起服务。结果写 `.stable-outcome.json`，每换一次记一行 `.stable-history.jsonl`。这几个文件都不进仓库。
 - owner 用出来的数据住在体验版里：`lessons/<课>/explain_cache.json` 里点词补查和展开查到的、`lessons/<课>/tts/` 下现读的、上传材料点备课时留下的备课台（`materials/<材料号>/` 等）。换版本时留下（SPEC-008 R7）；账号和上传的材料在体验版自己的 `server-data/` 里，换版本碰不到。登录和学习记录在浏览器里，按 `localhost:8790` 存。
 - 密钥：体验版里的 `api-keys.txt` 是起服务和换版本时从开发版拷的（只比字节）。发音词典 `WordsAudio/` 两份共用（和两个目录并排）。
+- 日常操作（交版、点「更新」、退回、上线发哪一版）：手册在 `docs/copies-and-release.md`。
 
 ## 外部服务
 

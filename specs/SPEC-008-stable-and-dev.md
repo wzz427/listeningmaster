@@ -57,16 +57,9 @@ A40 到 A50 是 `tests/test_stable_copy.py` 里的（在临时目录里造一个
 - 实验一（2026-09-24）：一个 bat 运行到一半，调 Python 把 bat 自己改写成更长的新内容。普通写法：Python 退出后命令行从旧位置接着读，执行出 `'ng' is not recognized as an internal or external command`，再接着执行新文件后半截。把「调 Python」和 `exit /b` 写在同一行（`& exit /b`）：退出后什么都不再执行。结论：bat 里调 Python 的那一行一律带 `& exit /b`，循环放进 Python。
 - 实验二（2026-09-24）：这台电脑的 git 开着换行符转换（仓库里存 LF，工作区是 CRLF）。`git hash-object --stdin-paths` 算工作区 32 个文件的指纹，和 `git ls-tree HEAD` 里的逐个相同。结论：测试跑完记下工作区的指纹，钉版本时和那个提交的指纹比，能判断「测过的就是这一版」。
 
-## 操作手册：怎么交一版给 owner
+## 操作手册
 
-1. 在开发版里改、提交；改了播放器、本地服务、网页跑 `tests/test_player.py` 到全过，改了网站（对外模式、library.js、login.html）跑 `tests/test_hosted_frontend.py` 到全过——两份各自记下这份代码的指纹，钉版本两边都要（R4）。改了句子边界或停法照旧跑 `tests/test_audio.py`（钉版本不查这一条，靠 claude 自己，见 `docs/workflow.md`「验证」）。
-2. `<pywork python> pipeline/stable_copy.py invite --what "<一句人话：这一版多了什么>"`。
-3. 跟 owner 说：「可以更新了：多了 X。体验版页面右上角的『更新』亮了，点一下。」不说提交号、不说内部编号。
-4. `status` 看他点了没有。
-5. 他说新版本有问题：`rollback`，再请他点「更新」回到上一版；然后在开发版里修。
-6. 开发版正有做了一半的活、又要修体验版上的问题：从体验版那个提交拉一个临时分支（`git switch -c stable-fix <提交>`）→ 修 → 测 → 提交 → `invite`（钉的是当前提交）→ 回 master，`git cherry-pick` 这个修复 → 下次正常交版后删掉临时分支。
-7. owner 验完说「上」：照 `docs/deploy-listen-app.md` 部署——发的是体验版当前停的那一版（R12），不是开发版最新的。
-8. 换电脑、或者体验版目录丢了：`<pywork python> pipeline/stable_copy.py setup` 在旁边重新建一份（要求两份测试全过）。密钥换了：改开发版根目录的 `api-keys.txt`，双击体验版的 `start-trial.bat`，起服务前自己会拷过去。
+操作步骤（怎么交版、owner 怎么点、出问题怎么退、怎么上线）住在 `docs/copies-and-release.md`——面向操作者的手册，含上线；这里只放规则（上面的规则表）、验收和依据。
 
 ## 改版记录
 
