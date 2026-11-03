@@ -128,6 +128,7 @@ docker exec deploy-caddy-1 caddy reload  --config /etc/caddy/Caddyfile
 
 | 时间 | 操作人 | Commit | 镜像 tag / 回滚点 | 结论 |
 |---|---|---|---|---|
+| 2026-11-03 | claude（owner 说「确实有问题，你就现在上吧」——他明确说验不了逐句听，授权机器验证代发；**这是第一次跳过他在体验版亲验的上线**，代替的是：金样考卷 14 项、test_docs 33、test_player 三课 103/98/98、逐课 lesson.json diff 检查） | `a4ae23a` 的 `lessons/`（**只盖数据，代码和镜像不动、仍 `4e217d6`，无需重启**——lessons 从挂载卷现读） | 数据卷 `server-data/shared/lessons/`（回滚＝盖回 `cf01950` 的 lessons） | 公共课数据刷新：250123 的 38 处旧句首按其自家耳朵报告值修正；250918 句 15 you'll 拼回＋句 18 句尾；260821 句 82 Itmeans→「–– it means」（引擎 1.0.1 缩略词拼回，SPEC-003 R10）。中文/生词/分段/预热全沿用（仅两句新中文）。线上 curl 验证：250123 句 2 起点 11.78 ✓、250918 you'll ✓、260821 it means ✓、261009 无恙 ✓ |
 | 2026-11-03 | claude（owner 说「服务器也同步更新吧，记得把几个材料都加上预热模块」） | `4e217d6`（=体验版当前那版） | `listening-app:4e217d6`（旧镜像 `934f5488` 还在，可回滚） | 三件上线：预热环节（D56/D57 横摊＋先英后中＋句中点词）、环节进入页两张节目卡（D58）、四集公共课补齐预热数据和读音文件（lessons 盖到 server-data/shared）。浏览器全链过：预热卡图出→预热 7 词→横摊→精听卡→播放器播起来→零 JS 报错；303/noindex、warmup mp3 Range 206、art 200、兄弟站无恙 |
 | 2026-11-02 | claude（owner 说「换个新的就完了」） | 不变（`934f5488`） | 镜像不变；旧配置备份 `/root/listening-config-backups/server-config.json.bak-20261102` | 只换邀请码（旧码进过公开仓库）：重启后旧码拒、新码过；线上只有部署探针一个账号，无陌生注册 |
 | 2026-10-28 | claude（owner 下指令部署） | `934f5488` | `listening-app:934f5488`；网关备份 `Caddyfile.bak-20261028-add-listening` | 首次部署。验证清单 1-7、9 全过（第 8 项真材料备课留到下次）；同批堵了密钥泄露洞（对外模式 GET/HEAD 白名单），hosted 29 项全绿 |
