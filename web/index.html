@@ -42,14 +42,15 @@
 </header>
 
 <main class="stage">
-  <!-- 预热（SPEC-010）：第一次开一课先进——一页一词，先听词的读音，听完整句话才滑入，
-       默认只有声音；听不懂点开看中英。完了「开始听」进播放器 -->
+  <!-- 预热（SPEC-010）：第一次开一课先进——一页一词，先听词的读音，听完卡片摊开：
+       词移到左半边，右半边出这句话，默认只有声音；听不懂点开先看英文（每个词都能点着查），
+       再点「看中文」。完了「开始听」进播放器 -->
   <section id="warmup" class="warmup" hidden>
     <div class="warm-top">
       <div id="warmDots" class="warm-dots" aria-hidden="true"></div>
       <span id="warmCount" class="warm-count"></span>
     </div>
-    <div class="warm-card card">
+    <div id="warmCard" class="warm-card card">
       <div id="warmWord" class="warm-word">
         <h2 id="warmTerm" class="warm-term"></h2>
         <p id="warmIpa" class="warm-ipa"></p>
@@ -59,18 +60,21 @@
           <span class="eq" aria-hidden="true"><i></i><i></i><i></i></span>听读音
         </button>
       </div>
-      <div id="warmSent" class="warm-sent" hidden>
-        <p class="warm-ask">只用耳朵，听听这句话能不能懂</p>
-        <button id="warmSentBtn" class="pill big warm-listen">
-          <svg class="tri" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-          <span class="eq" aria-hidden="true"><i></i><i></i><i></i></span>听这句话
-        </button>
-        <div class="warm-reveal-row">
-          <button id="warmReveal" class="warm-reveal">听不懂？点开这句话</button>
-        </div>
-        <div id="warmOpen" class="warm-open" hidden>
-          <p id="warmEn" class="warm-en"></p>
-          <p id="warmCn" class="warm-cn"></p>
+      <div id="warmSent" class="warm-sent">
+        <div class="warm-sent-in">
+          <p class="warm-ask">只用耳朵，听听这句话能不能懂</p>
+          <button id="warmSentBtn" class="pill big warm-listen">
+            <svg class="tri" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            <span class="eq" aria-hidden="true"><i></i><i></i><i></i></span>听这句话
+          </button>
+          <div class="warm-reveal-row">
+            <button id="warmReveal" class="warm-reveal">听不懂？点开这句话</button>
+          </div>
+          <div id="warmOpen" class="warm-open" hidden>
+            <p id="warmEn" class="warm-en"></p>
+            <button id="warmCnBtn" class="warm-reveal warm-cn-btn" hidden>看中文</button>
+            <p id="warmCn" class="warm-cn" hidden></p>
+          </div>
         </div>
       </div>
     </div>

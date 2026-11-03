@@ -219,6 +219,38 @@ def explain_more(lesson: str, sid: int, i: int, root: Path | None = None) -> dic
     return note["detail"]
 
 
+def warm_sentence(lesson: str, wi: int, root: Path | None = None) -> dict:
+    """预热配句摆成正文句子的形状：词按空格拆、key 照 teach.normalize 的同一套规矩，
+    前端拆词的 JS 也按同一规矩来（web/app.js 的 wNorm），两边的词序号才对得上。"""
+    entry = _load(lesson, root)["warmup"]["words"][wi]
+    words = [{"text": t, "key": re.sub(r"[^a-z0-9']", "", t.lower().replace("\u2019", "'"))}
+             for t in entry["sentence"].split()]
+    return {"id": f"w{wi}", "text": entry["sentence"], "words": words}
+
+
+def warm_explain(lesson: str, wi: int, i: int, root: Path | None = None) -> dict:
+    """预热配句第 i 个词的那一行：查过的沿用，没有的现查。键是 w<第几个词>，不碰正文的句号（owner 2026-11-03：句中每个词都能点）。"""
+    with LOCK:
+        note = _read_cache(lesson, root).get(f"w{wi}:{i}")
+    if note:
+        return note
+    s = warm_sentence(lesson, wi, root)
+    note = _note(s, _ask(LINE, {**_context([s], 0), "clicked": i}), i)
+    _store(lesson, f"w{wi}", note, root)
+    return note
+
+
+def warm_more(lesson: str, wi: int, i: int, root: Path | None = None) -> dict:
+    """预热配句里点的词也能展开：同 explain_more 的路子。"""
+    note = warm_explain(lesson, wi, i, root=root)
+    if note.get("detail"):
+        return note["detail"]
+    s = warm_sentence(lesson, wi, root)
+    note = {**note, "detail": ask_more([s], 0, note)}
+    _store(lesson, f"w{wi}", note, root)
+    return note["detail"]
+
+
 def speak(lesson: str, key: str, text: str, root: Path | None = None) -> str:
     """词组、词典里没有的词：用百炼 Emily 现读，存进课程文件夹，返回相对课程目录的路径。"""
     key = " ".join(re.sub(r"[^a-z0-9']", "", t) for t in key.lower().split()).strip()

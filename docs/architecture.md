@@ -121,8 +121,8 @@
 - 只听本机 127.0.0.1，默认端口 8766（claude 自己看播放器、`tests/test_player.py` 的服务都是这个模式）；网页地址 http://localhost:8766/web/ ，`?lesson=<课>` 选哪一集（默认 260821）。
 - 静态文件：支持 Range（从文件中间取一段），不然音频跳不到指定的秒数；一律不缓存，改了代码刷新就生效。`python -m http.server` 不支持 Range，不能用（`docs/lessons.md` 2026-09-12）。
 - 接口，请求都是 JSON，都带 `lesson`；课名只许字母数字、下划线、连字符，防止借路径读别的文件：
-  - `POST /api/explain` `{sentence, word}` → 那一行：先查缓存，再查 `lesson.json` 里备课写好的，都没有才问模型。
-  - `POST /api/more` `{sentence, word}` → 展开的内容，查过的存进缓存。
+  - `POST /api/explain` `{sentence, word}` → 那一行：先查缓存，再查 `lesson.json` 里备课写好的，都没有才问模型。`sentence` 是 `w<数字>` 时是预热配句（第几个关键词），走 `explain.warm_explain`，缓存键同样带 `w` 前缀，不碰正文的句号（SPEC-010 R5）。
+  - `POST /api/more` `{sentence, word}` → 展开的内容，查过的存进缓存；`w<数字>` 同上走 `explain.warm_more`。
   - `POST /api/speak` `{key, text}` → `{file}`：词组或词典里没有的词的朗读文件，没有就让 Emily 现读、存下来。
   - 出错只回 `{"error": 错误的种类}`，不回详情：详情里可能带着请求头（SPEC-000 R2）。
 - 换版本的两个接口（SPEC-008），不带 `lesson`：

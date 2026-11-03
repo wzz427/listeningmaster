@@ -753,12 +753,15 @@ def warmup_run(page, shots: Path | None) -> None:
           page.inner_text("#warmTerm"))
     shot(page, shots, "10-warmup-word")
     check("A84 词卡先只有词、音标、中文；句子没出来、文字更没有（R4、R5）",
-          page.is_hidden("#warmSent") and page.is_hidden("#warmOpen") and page.inner_text("#warmZh") != "")
+          page.evaluate("!document.getElementById('warmCard').classList.contains('spread')")
+          and page.is_hidden("#warmOpen") and page.inner_text("#warmZh") != "")
 
     page.click("#warmTermBtn")
     page.wait_for_function("!warmAudio.paused", timeout=5000)
-    page.wait_for_function("warmAudio.paused && !document.getElementById('warmSent').hidden", timeout=8000)
-    check("A85 点「听读音」真的出声，听完这句话才滑入，主操作交给「听这句话」（R3、R5）",
+    page.wait_for_function("warmAudio.paused && document.getElementById('warmCard').classList.contains('spread')",
+                           timeout=8000)
+    page.wait_for_timeout(700)  # 等摊开动画走完再截图
+    check("A85 点「听读音」真的出声，听完卡片摊开（词去左、句在右），主操作交给「听这句话」（R3、R5）",
           page.evaluate("document.getElementById('warmSentBtn').classList.contains('accent')")
           and not page.evaluate("document.getElementById('warmTermBtn').classList.contains('accent')")
           and page.is_hidden("#warmOpen"))
@@ -766,10 +769,33 @@ def warmup_run(page, shots: Path | None) -> None:
 
     page.click("#warmReveal")
     page.wait_for_timeout(250)
-    check("A86 听不懂点开这句话：英文（关键词亮着）和中文都出来（R5）",
-          page.is_visible("#warmOpen") and page.locator("#warmEn b").count() == 1
-          and page.inner_text("#warmCn").strip() != "",
+    check("A86 听不懂点开这句话：先只出英文（关键词亮着、每个词都能点），中文还不出来（R5）",
+          page.is_visible("#warmOpen")
+          and page.locator("#warmEn w").count() >= 5
+          and page.locator("#warmEn w.kw").count() >= 1
+          and page.is_hidden("#warmCn") and page.is_visible("#warmCnBtn"),
           page.inner_text("#warmEn"))
+    shot(page, shots, "11b-warmup-en")
+
+    page.click("#warmCnBtn")
+    page.wait_for_timeout(250)
+    check("A86b 再点「看中文」中文才出来，入口跟着收掉（R5）",
+          page.is_visible("#warmCn") and page.inner_text("#warmCn").strip() != ""
+          and page.is_hidden("#warmCnBtn"),
+          page.inner_text("#warmCn"))
+
+    # 点句中的词：讲解接口拦下来回假数据，不真花钱；验证预热句复用了点词那套（含词组整组亮）
+    note = {"words": [2, 3, 4, 5], "text": "at the heart of", "pos": "词组",
+            "ipa": "/æt ðə hɑːt əv/", "zh": "是……的核心", "more": True}
+    page.route("**/api/explain*", lambda route: route.fulfill(
+        content_type="application/json", body=json.dumps(note, ensure_ascii=False)))
+    page.click("#warmEn w >> nth=2")
+    page.wait_for_timeout(300)
+    check("A86c 句中每个词都能点：点词出那一行，词组的每个词一起亮（R5，复用 SPEC-006 那套）",
+          page.is_visible("#wordbox") and "是……的核心" in page.inner_text("#wordbox")
+          and page.locator("#warmEn w.picked").count() == 4)
+    page.unroute("**/api/explain*")
+    shot(page, shots, "11c-warmup-cn-wordbox")
 
     n = page.evaluate("warmWords().length")
     for _ in range(n - 1):
@@ -798,14 +824,18 @@ def warmup_run(page, shots: Path | None) -> None:
     page.wait_for_timeout(400)
     check("A89 播放器里的小入口「预热」随时能再看，从头开始、句子收起（R8）",
           page.is_visible("#warmup") and page.inner_text("#warmCount").startswith("1 /")
-          and page.is_hidden("#warmSent"))
+          and page.evaluate("!document.getElementById('warmCard').classList.contains('spread')"))
     page.keyboard.press("ArrowRight")
     page.wait_for_timeout(300)
-    check("A89b → 换下一个词，句子回到没听的状态", page.is_hidden("#warmSent") and page.is_hidden("#warmOpen"))
+    check("A89b → 换下一个词，句子回到没听的状态",
+          page.evaluate("!document.getElementById('warmCard').classList.contains('spread')")
+          and page.is_hidden("#warmOpen"))
     page.keyboard.press(" ")
     page.wait_for_function("!warmAudio.paused", timeout=5000)
-    page.wait_for_function("warmAudio.paused && !document.getElementById('warmSent').hidden", timeout=8000)
-    check("A89c 空格＝当前主操作（听读音），听完句子照样滑入", page.is_visible("#warmSent"))
+    page.wait_for_function("warmAudio.paused && document.getElementById('warmCard').classList.contains('spread')",
+                           timeout=8000)
+    check("A89c 空格＝当前主操作（听读音），听完卡片照样摊开",
+          page.evaluate("document.getElementById('warmCard').classList.contains('spread')"))
     page.click("#warmSkip")
     page.wait_for_timeout(300)
     check("A89d 右上「跳过预热」直接回播放器（R7）", page.is_hidden("#warmup") and page.is_visible(".who"))

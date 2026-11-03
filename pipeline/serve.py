@@ -374,10 +374,19 @@ class RangeHandler(SimpleHTTPRequestHandler):
                 self.send_json(404, {"error": "没有这一课"})
                 return
             import explain
+            # 句号是数字＝正文第几句；w<数字>＝预热第几个词的配句（SPEC-010：句中每个词都能点，同一套讲解）
+            sid = str(body.get("sentence", ""))
+            wi = int(sid[1:]) if sid.startswith("w") and sid[1:].isdigit() else None
             if self.path == "/api/explain":
-                self.send_json(200, explain.explain(lesson, int(body["sentence"]), int(body["word"]), root=lessons_root))
+                if wi is not None:
+                    self.send_json(200, explain.warm_explain(lesson, wi, int(body["word"]), root=lessons_root))
+                else:
+                    self.send_json(200, explain.explain(lesson, int(sid), int(body["word"]), root=lessons_root))
             elif self.path == "/api/more":
-                self.send_json(200, explain.explain_more(lesson, int(body["sentence"]), int(body["word"]), root=lessons_root))
+                if wi is not None:
+                    self.send_json(200, explain.warm_more(lesson, wi, int(body["word"]), root=lessons_root))
+                else:
+                    self.send_json(200, explain.explain_more(lesson, int(sid), int(body["word"]), root=lessons_root))
             elif self.path == "/api/speak":
                 self.send_json(200, {"file": explain.speak(lesson, str(body.get("key", "")), str(body.get("text", "")), root=lessons_root)})
             else:

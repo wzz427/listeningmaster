@@ -620,32 +620,43 @@ async function api(path, body) {
 }
 
 function openWord(i, tag) {
-  const s = cur();
+  askWord(cur(), i, tag);
+}
+
+/* 预热配句里的词也走同一套（owner 2026-11-03）：s 是摆成正文句子形状的配句（warm: true）。
+ * 不记学习记录——预热是听前的热身，卡点以精听里的动作为准 */
+function warmWord(i, tag) {
+  askWord(warmSentence(warmIdx), i, tag);
+}
+
+function askWord(s, i, tag) {
   const w = s.words[i];
   const clean = w.text.replace(/^[^A-Za-z']+|[^A-Za-z']+$/g, '');
   const ticket = ++asking;
   showNote(s, i, { words: [i], text: clean, loading: true });
   $('wordbox').hidden = false;
   placeWordbox(tag);
-  record((old) => ({ words: old.words.indexOf(w.key) < 0 ? old.words.concat(w.key) : old.words }));
-  const known = notes[`${s.id}:${i}`];
+  if (!s.warm) record((old) => ({ words: old.words.indexOf(w.key) < 0 ? old.words.concat(w.key) : old.words }));
+  const store = s.warm ? warmNotes : notes;
+  const known = store[`${s.id}:${i}`];
   if (known) { showNote(s, i, known); return; }
   api('/api/explain', { sentence: s.id, word: i }).then((note) => {
-    note.words.forEach((k) => { notes[`${s.id}:${k}`] = note; });
-    if (ticket === asking && cur() === s && !$('wordbox').hidden) showNote(s, i, note);
+    note.words.forEach((k) => { store[`${s.id}:${k}`] = note; });
+    if (ticket === asking && shown && shown.s === s && shown.i === i && !$('wordbox').hidden) showNote(s, i, note);
   }).catch(() => {
-    if (ticket !== asking) return;
+    if (ticket !== asking || !shown || shown.s !== s || shown.i !== i) return;
     $('wordZh').textContent = '没查到，点这里再试一次';
     $('wordZh').className = 'word-zh retry';
-    $('wordZh').onclick = () => openWord(i, tag);
+    $('wordZh').onclick = () => askWord(s, i, tag);
   });
 }
 
-/* 把那一行填进单词卡；loading 表示还在查 */
+/* 把那一行填进单词卡；loading 表示还在查。词亮哪几个按句子的地盘找：正文在 #text，预热配句在 #warmEn */
 function showNote(s, i, note) {
   const members = note.words.length > 1 ? note.words : [i];
-  const tags = document.querySelectorAll('#text w');
-  document.querySelectorAll('.sentence w.picked').forEach((el) => el.classList.remove('picked'));
+  const scope = s.warm ? '#warmEn' : '#text';
+  const tags = document.querySelectorAll(`${scope} w`);
+  document.querySelectorAll(`${scope} w.picked`).forEach((el) => el.classList.remove('picked'));
   members.forEach((k) => tags[k] && tags[k].classList.add('picked'));
   shown = { s, i, note };
   $('wordText').textContent = note.text;
@@ -757,14 +768,25 @@ async function speakKey(key, text) {
 }
 
 /* ---------- 预热（SPEC-010） ----------
- * 第一次开一课先进：一页一词。词先过耳朵——听完读音，这句话才滑入，而且默认只有声音；
- * 听不懂点开看中英（先耳朵、再文字、中文兜底，和播放器 D10 同一条路）。没有原声、没有测验。
+ * 第一次开一课先进：一页一词。词先过耳朵——听完读音，卡片摊开：词去左半边，右半边出这句话，
+ * 默认只有声音；听不懂点开先看英文（句中每个词都能点着查，和精听同一套），再点「看中文」
+ * （先耳朵、再英文、中文兜底，和播放器 D10 同一条路）。没有原声、没有测验。
  * 一课只自动进一次（R8）：过完或跳过都记在 localStorage，以后开这课直接进播放器；
  * 顶栏的「预热」随时能再看。跳过也记：想看的人走小入口，不想看的人别再被打扰。 */
 const WARM_DONE = 'warmup-done';
 let warmIdx = 0;
 const warmAudio = new Audio();
 const warmWords = () => (lesson && lesson.warmup && lesson.warmup.words) || [];
+const warmNotes = {};   // 'w<第几个词>:<词序号>' → 那一行：和正文的 notes 同一套，键分开
+
+/* 词按空格拆、key 只留字母数字和撇号——和 pipeline/explain.py 的 warm_sentence 同一条规矩，
+ * 两边的词序号才对得上 */
+const wNorm = (t) => t.toLowerCase().replace(/\u2019/g, "'").replace(/[^a-z0-9']/g, '');
+function warmSentence(wi) {
+  const w = warmWords()[wi];
+  const words = w.sentence.trim().split(/\s+/).map((t) => ({ text: t, key: wNorm(t) }));
+  return { id: `w${wi}`, warm: true, words };   // 摆成正文句子的形状，点词那套直接能用
+}
 
 function enterWarmup() {
   if (!audio.paused) { audio.pause(); render(); }   // 两个声音不叠着听
@@ -782,6 +804,7 @@ function exitWarmup() {
   warmAudio.onended = null;
   document.body.classList.remove('warming', 'warm-listening');
   document.querySelectorAll('.warm-listen.playing').forEach((b) => b.classList.remove('playing'));
+  $('wordbox').hidden = true;
   $('warmup').hidden = true;
   $('warmSkip').hidden = true;
   $('warmBtn').hidden = !warmWords().length;
@@ -802,9 +825,12 @@ function renderWarmup() {
   $('warmZh').textContent = w.zh;
   $('warmTermBtn').classList.add('accent');
   $('warmSentBtn').classList.remove('accent');
-  $('warmSent').hidden = true;            // 新的一词：句子收回，等听过读音再出现
+  $('warmCard').classList.remove('spread');   // 新的一词：卡片收回去，等听过读音再摊开
   $('warmOpen').hidden = true;
   $('warmReveal').hidden = false;
+  $('warmCn').hidden = true;
+  $('warmCnBtn').hidden = true;
+  $('wordbox').hidden = true;
   $('warmPrev').disabled = warmIdx === 0;
   $('warmNext').textContent = last ? '开始听' : '下一个';
   $('warmNext').classList.toggle('accent', last);
@@ -835,9 +861,9 @@ $('warmTermBtn').onclick = () => {
   const w = warmWords()[warmIdx];
   if (!w) return;
   warmPlay($('warmTermBtn'), w.termAudio, true, () => {
-    // 听完读音，句子滑入，主操作交给「听这句话」
+    // 听完读音，词滑去左边、右半边摊开，主操作交给「听这句话」
     if ($('warmup').hidden) return;      // 已经跳走就别再动画面
-    $('warmSent').hidden = false;
+    $('warmCard').classList.add('spread');
     $('warmTermBtn').classList.remove('accent');
     $('warmSentBtn').classList.add('accent');
   });
@@ -849,12 +875,35 @@ $('warmSentBtn').onclick = () => {
 $('warmReveal').onclick = () => {
   const w = warmWords()[warmIdx];
   if (!w) return;
-  const esc = (t) => String(t || '').replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
-  const safe = w.term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  $('warmEn').innerHTML = esc(w.sentence).replace(new RegExp(`(${safe})`, 'i'), '<b>$1</b>');  // 关键词亮着
-  $('warmCn').textContent = w.sentenceZh;
+  // 先只给英文（owner 2026-11-03：先看英文，看完英文再看中文）；句中每个词都能点着查
+  const toks = w.sentence.trim().split(/\s+/);
+  const norm = toks.map(wNorm);
+  const tt = w.term.trim().split(/\s+/).map(wNorm);
+  let from = -1;   // 关键词整串找得到就整串亮；找不到退到单个词各自亮
+  for (let k = 0; k + tt.length <= norm.length; k++) {
+    if (tt.every((t, j) => norm[k + j] === t)) { from = k; break; }
+  }
+  const en = $('warmEn');
+  en.innerHTML = '';
+  toks.forEach((t, k) => {
+    if (k) en.appendChild(document.createTextNode(' '));
+    const tag = document.createElement('w');
+    tag.textContent = t;
+    if (from >= 0 ? k >= from && k < from + tt.length : tt.includes(norm[k])) tag.classList.add('kw');
+    tag.onclick = (ev) => warmWord(k, ev.currentTarget);
+    en.appendChild(tag);
+  });
   $('warmOpen').hidden = false;
   $('warmReveal').hidden = true;
+  $('warmCn').hidden = true;
+  $('warmCnBtn').hidden = false;
+};
+$('warmCnBtn').onclick = () => {
+  const w = warmWords()[warmIdx];
+  if (!w) return;
+  $('warmCn').textContent = w.sentenceZh;
+  $('warmCn').hidden = false;
+  $('warmCnBtn').hidden = true;
 };
 $('warmPrev').onclick = () => { if (warmIdx > 0) { warmIdx -= 1; renderWarmup(); } };
 $('warmNext').onclick = () => {
