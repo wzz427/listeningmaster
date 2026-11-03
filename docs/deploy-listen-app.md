@@ -102,12 +102,15 @@ docker exec deploy-caddy-1 caddy reload  --config /etc/caddy/Caddyfile
   # 发体验版当前停的那一版（owner 在它上面验过、说过「上」；不是开发版最新的提交）
   TRIAL=$(git -C ../ListeningMaster-stable rev-parse HEAD)
   git -c core.autocrlf=false archive --format=tar $TRIAL | ssh -i ~/.ssh/tinkercode_deploy root@182.92.206.53 "tar -x -C /opt/listening"
+  git -c core.autocrlf=false archive --format=tar $TRIAL lessons | ssh -i ~/.ssh/tinkercode_deploy root@182.92.206.53 "tar -x -C /opt/listening/server-data/shared"   # 公共课有新内容（预热、读音文件）时一起盖过去
   ssh -i ~/.ssh/tinkercode_deploy root@182.92.206.53 \
     "cd /opt/listening && docker build -f deploy/Dockerfile -t listening-app:${TRIAL:0:8} . \
-     && sed -i \"s/:listening-app:[0-9a-f]*/:listening-app:${TRIAL:0:8}/\" deploy/docker-compose.yml \
+     && sed -i \"s/listening-app:[0-9a-f]*\\|listening-app:TAG/listening-app:${TRIAL:0:8}/\" deploy/docker-compose.yml \
+     && docker compose -f deploy/docker-compose.yml config --quiet \
      && docker compose -f deploy/docker-compose.yml up -d"
   ```
-  发版前提照 SPEC-008 操作手册：那一版在体验版上待过、两份测试（player、hosted_frontend）对它全过。镜像 tag 用那一版的提交短号——回滚时对着 tag 就知道退到哪一版。
+  sed 兼顾两种旧写法（2026-10-28 首次部署后 compose 里留的是字面 `:TAG`，不是短 sha——2026-11-03 就是被它绊了一脚）。**上线后别立刻连跑浏览器回归**：serve.py 有按 IP 的限流，两轮全链连打第二把会被拦（页面缺元素像出大事，其实等半分钟就恢复）。
+  发版前提照 `docs/copies-and-release.md`：那一版在体验版上待过、两份测试（player、hosted_frontend）对它全过。镜像 tag 用那一版的提交短号——回滚时对着 tag 就知道退到哪一版。
   `api-keys.txt`、`server-config.json`、`server-data/`、`materials/`、`lessons/` 都不在镜像里，覆盖代码不影响它们。
 - **备份**：`server-data/` 是各家上传的资料库＋公共课库，丢了无法重建。定期打包拉回开发机：`ssh … 'cd /opt/listening && tar -czf - server-data' > server-data-$(date +%F).tar.gz`。
 - **找回密码**：没有自助（SPEC-009 不做），家长找 owner、owner 转给 claude：照 `pipeline/accounts.py` 的 `register` 写法生成 PBKDF2 哈希，在服务器 `server-data/accounts.json` 里重写该邮箱那条，顺手清它的旧会话。
@@ -125,6 +128,7 @@ docker exec deploy-caddy-1 caddy reload  --config /etc/caddy/Caddyfile
 
 | 时间 | 操作人 | Commit | 镜像 tag / 回滚点 | 结论 |
 |---|---|---|---|---|
+| 2026-11-03 | claude（owner 说「服务器也同步更新吧，记得把几个材料都加上预热模块」） | `4e217d6`（=体验版当前那版） | `listening-app:4e217d6`（旧镜像 `934f5488` 还在，可回滚） | 三件上线：预热环节（D56/D57 横摊＋先英后中＋句中点词）、环节进入页两张节目卡（D58）、四集公共课补齐预热数据和读音文件（lessons 盖到 server-data/shared）。浏览器全链过：预热卡图出→预热 7 词→横摊→精听卡→播放器播起来→零 JS 报错；303/noindex、warmup mp3 Range 206、art 200、兄弟站无恙 |
 | 2026-11-02 | claude（owner 说「换个新的就完了」） | 不变（`934f5488`） | 镜像不变；旧配置备份 `/root/listening-config-backups/server-config.json.bak-20261102` | 只换邀请码（旧码进过公开仓库）：重启后旧码拒、新码过；线上只有部署探针一个账号，无陌生注册 |
 | 2026-10-28 | claude（owner 下指令部署） | `934f5488` | `listening-app:934f5488`；网关备份 `Caddyfile.bak-20261028-add-listening` | 首次部署。验证清单 1-7、9 全过（第 8 项真材料备课留到下次）；同批堵了密钥泄露洞（对外模式 GET/HEAD 白名单），hosted 29 项全绿 |
 | 2026-09-28 | claude | （旧机 39.105.73.114 的部署，随换机作废） | 旧机 systemd 形态；机器已被 182.92.206.53 取代 | 旧机服务还在跑旧代码（含已堵的洞，域名从未公开）；**等 owner 发话再下线** |
