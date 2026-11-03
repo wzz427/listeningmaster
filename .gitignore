@@ -36,3 +36,7 @@ lessons/*/explain_cache.json
 /.stable-history.jsonl
 /.player-tests-passed.json*
 /.site-tests-passed.json*
+
+# 无讲稿消融实验的输出（pipeline/ablation_no_transcript.py，2026-11-03）：随脚本能重新生成，
+# 结论的长久住处是 docs/research/2026-11-03-no-transcript-ablation.md
+/ablation/

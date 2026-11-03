@@ -62,6 +62,7 @@
 | `pipeline/accounts.py` | 邮箱账号（对外版地基）：注册要邀请码、登录发会话、连错锁、密码只存 PBKDF2 哈希；数据住 `server-data/`（不进 git），布局 `server-data/<账号id>/{materials/<材料id>/{audio.*, script.txt, meta.json}, lessons/<课>/}`——材料 meta.json 的 state 就是 SPEC-009 的状态机（new/prepping/done/failed） | SPEC-009 |
 | `pipeline/stable_copy.py` | 体验版和开发版：建体验版（自带网站配置和数据目录）、钉版本（要两份测试全过）、换版本（失败退回、留下用出来的数据）、退回上一版、双击后起网站的循环；见下面「三个住处、一套代码」 | SPEC-008 |
 | `pipeline/compare_models.py` | 一次性：比较两个模型写的中文和生词判断，出 `model_compare.md` | SPEC-005 |
+| `pipeline/ablation_no_transcript.py` | 一次性（2026-11-03）：无讲稿消融——识别原样（`asr_raw.json`）对金样 `timeline.json` 逐词逐句比对，说话人／巨词／预告漏进／碎句四个指标；离线不花钱，细账出 `ablation/`（不进仓库） | —（实验，结论住 `docs/research/2026-11-03-no-transcript-ablation.md`） |
 | `web/index.html`、`web/style.css`、`web/app.js` | 播放器，见下面「播放器」 | SPEC-001 |
 | `web/login.html` | 登录页（对外模式专用）：注册（要邀请码）／登录（只要邮箱密码，记住了邮箱第二次只输密码），注册成功即登录；底部「先直接体验」直达 /web/（v7：访客默认不经过这页）；自包含样式，不依赖 style.css | SPEC-009 |
 | `web/library.js` | 资料库侧边栏、上传面板（拖放区主角＋讲稿文件）、空库的播放器（不挡路，卡片里一句邀请）（对外模式专用）：app.js 只在服务报 `copy=hosted` 时进来（hostedStart/hostedLessonMissing 两个入口）；两区四状态、备课轮询、材料变课的高亮和通知、进度点（读 app.js 的学习记录键）、「＋讲稿」补传、登出。v7 匿名态（`/api/library` 的 `user` 为 null）：只见课区（标题「听力材料」＝公共库）、没有上传和材料区、底部小「登录」。本地模式一个字节都不执行 | SPEC-009 R8 |
