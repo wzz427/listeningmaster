@@ -2459,7 +2459,7 @@
       "speaker": "Neil",
       "start": 170.31,
       "end": 174.53,
-      "text": "I have it kind of, I don't know, work time, nine o' clock.",
+      "text": "I have it kind of, I don't know, work time, nine o'clock.",
       "words": [
         {
           "text": "I",
@@ -2517,13 +2517,8 @@
           "end": 174.03
         },
         {
-          "text": "o'",
+          "text": "o'clock.",
           "start": 174.03,
-          "end": 174.2
-        },
-        {
-          "text": "clock.",
-          "start": 174.2,
           "end": 174.63
         }
       ]
@@ -5125,5 +5120,5 @@
       ]
     }
   ],
-  "engine": "slicing/1.0.0"
+  "engine": "slicing/1.0.1"
 }

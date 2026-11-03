@@ -1257,7 +1257,7 @@
       "speaker": "Beth",
       "start": 101.38,
       "end": 109.41,
-      "text": "And as usual, we'll learn some useful new vocabulary, all of which you 'll find over on our website, bbc learning english com.",
+      "text": "And as usual, we'll learn some useful new vocabulary, all of which you'll find over on our website, bbc learning english com.",
       "words": [
         {
           "text": "And",
@@ -1320,13 +1320,8 @@
           "end": 105.48
         },
         {
-          "text": "you",
+          "text": "you'll",
           "start": 105.48,
-          "end": 105.6
-        },
-        {
-          "text": "'ll",
-          "start": 105.6,
           "end": 105.72
         },
         {
@@ -5642,5 +5637,5 @@
       ]
     }
   ],
-  "engine": "slicing/1.0.0"
+  "engine": "slicing/1.0.1"
 }

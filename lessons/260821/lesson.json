@@ -11305,13 +11305,25 @@
       "speaker": "Neil",
       "start": 292.48,
       "end": 298.36,
-      "text": "Itmeans there's no caffeine And we usually shorten that just to decaf, decaf coffee.",
+      "text": "–– it means there's no caffeine And we usually shorten that just to decaf, decaf coffee.",
       "words": [
         {
-          "text": "Itmeans",
+          "text": "––",
           "start": 292.59,
+          "end": 292.59,
+          "key": ""
+        },
+        {
+          "text": "it",
+          "start": 292.59,
+          "end": 292.73,
+          "key": "it"
+        },
+        {
+          "text": "means",
+          "start": 292.73,
           "end": 293.07,
-          "key": "itmeans"
+          "key": "means"
         },
         {
           "text": "there's",
@@ -11392,21 +11404,41 @@
           "key": "coffee"
         }
       ],
-      "zh": "意思就是没有咖啡因。我们一般就把它缩成 decaf，decaf coffee。",
+      "zh": "——意思就是里面没有caffeine（咖啡因）。我们一般把它缩短成decaf，就是decaf coffee（低因咖啡）。",
       "notes": [
         {
           "words": [
             0
           ],
-          "text": "Itmeans",
-          "pos": "缩写",
-          "ipa": "/ɪt ˈmiːnz/",
-          "zh": "= It means 它意思是",
+          "text": "––",
+          "pos": "int.",
+          "ipa": "/–/",
+          "zh": "（说话停顿）",
           "more": true
         },
         {
           "words": [
             1
+          ],
+          "text": "it",
+          "pos": "pron.",
+          "ipa": "/ɪt/",
+          "zh": "它（指 decaf）",
+          "more": true
+        },
+        {
+          "words": [
+            2
+          ],
+          "text": "means",
+          "pos": "v.",
+          "ipa": "/miːnz/",
+          "zh": "意思是",
+          "more": true
+        },
+        {
+          "words": [
+            3
           ],
           "text": "there's",
           "pos": "缩写",
@@ -11416,7 +11448,7 @@
         },
         {
           "words": [
-            2
+            4
           ],
           "text": "no",
           "pos": "adj.",
@@ -11426,7 +11458,7 @@
         },
         {
           "words": [
-            3
+            5
           ],
           "text": "caffeine",
           "pos": "n.",
@@ -11436,7 +11468,7 @@
         },
         {
           "words": [
-            4
+            6
           ],
           "text": "And",
           "pos": "conj.",
@@ -11446,7 +11478,7 @@
         },
         {
           "words": [
-            5
+            7
           ],
           "text": "we",
           "pos": "pron.",
@@ -11456,7 +11488,7 @@
         },
         {
           "words": [
-            6
+            8
           ],
           "text": "usually",
           "pos": "adv.",
@@ -11466,7 +11498,7 @@
         },
         {
           "words": [
-            7
+            9
           ],
           "text": "shorten",
           "pos": "v.",
@@ -11476,57 +11508,57 @@
         },
         {
           "words": [
-            8
+            10
           ],
           "text": "that",
           "pos": "pron.",
           "ipa": "/ðæt/",
-          "zh": "那个",
-          "more": true
-        },
-        {
-          "words": [
-            9
-          ],
-          "text": "just",
-          "pos": "adv.",
-          "ipa": "/dʒʌst/",
-          "zh": "只是",
-          "more": true
-        },
-        {
-          "words": [
-            10
-          ],
-          "text": "to",
-          "pos": "不定式",
-          "ipa": "/tuː/",
-          "zh": "不用翻译",
+          "zh": "那个（词）",
           "more": true
         },
         {
           "words": [
             11
           ],
-          "text": "decaf",
-          "pos": "n.",
-          "ipa": "/ˈdiːkæf/",
-          "zh": "无咖啡因咖啡",
+          "text": "just",
+          "pos": "adv.",
+          "ipa": "/dʒʌst/",
+          "zh": "只，就",
           "more": true
         },
         {
           "words": [
             12
           ],
-          "text": "decaf",
-          "pos": "n.",
-          "ipa": "/ˈdiːkæf/",
-          "zh": "无咖啡因咖啡",
+          "text": "to",
+          "pos": "prep.",
+          "ipa": "/tə/",
+          "zh": "到，成",
           "more": true
         },
         {
           "words": [
             13
+          ],
+          "text": "decaf",
+          "pos": "n.",
+          "ipa": "/ˈdiːkæf/",
+          "zh": "低因咖啡",
+          "more": true
+        },
+        {
+          "words": [
+            14
+          ],
+          "text": "decaf",
+          "pos": "n.",
+          "ipa": "/ˈdiːkæf/",
+          "zh": "低因咖啡",
+          "more": true
+        },
+        {
+          "words": [
+            15
           ],
           "text": "coffee",
           "pos": "n.",

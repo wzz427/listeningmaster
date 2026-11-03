@@ -1,7 +1,7 @@
 # 对齐报告 · 250918
 
-- 识别出的词：1009　讲稿的词：1038　两边对上的词：894（占讲稿 86%）
-- 识别出但讲稿里没有的词：115 个（片头片尾、口头语、识别错的）
+- 识别出的词：1008　讲稿的词：1038　两边对上的词：894（占讲稿 86%）
+- 识别出但讲稿里没有的词：114 个（片头片尾、口头语、识别错的）
 - 讲稿里有但没对上的词：144 个（讲稿不是逐字稿）
 
 - 粘成一块的相邻词拆开：2 处，多对上 4 个词
@@ -27,7 +27,7 @@
 | 12 | 76.81 | 84.33 | Beth | With advances in AI, robots are becoming smart enough to develop meaningful relationships with humans. |
 | 13 | 84.80 | 92.24 | Beth | There are reports of people telling their secrets to robot therapists and even falling in love with their robot friend. |
 | 14 | 92.68 | 101.04 | Beth | In this episode, we'll meet a home companion robot called abby, who's making friends with the elderly residents of Melbourne in Australia. |
-| 15 | 101.48 | 109.52 | Beth | And as usual, we'll learn some useful new vocabulary, all of which you 'll find over on our website, bbc learning english com. |
+| 15 | 101.48 | 109.52 | Beth | And as usual, we'll learn some useful new vocabulary, all of which you'll find over on our website, bbc learning english com. |
 | 16 | 109.94 | 112.10 | Neil | First, I have a question for you, Beth. |
 | 17 | 112.66 | 123.02 | Neil | Because it's important people feel safe around robots, engineers design them to look like the friendly characters seen in animated movies by studios like Pixar and DreamWorks. |
 | 18 | 123.74 | 133.22 | Neil | So, what is the name of Pixar's friendly robot who picks up garbage on an uninhabited planet Earth in the year 2805? |

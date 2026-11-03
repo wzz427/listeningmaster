@@ -1,7 +1,7 @@
 # 对齐报告 · 260821
 
-- 识别出的词：848　讲稿的词：788　两边对上的词：725（占讲稿 92%）
-- 识别出但讲稿里没有的词：123 个（片头片尾、口头语、识别错的）
+- 识别出的词：847　讲稿的词：788　两边对上的词：725（占讲稿 92%）
+- 识别出但讲稿里没有的词：122 个（片头片尾、口头语、识别错的）
 - 讲稿里有但没对上的词：63 个（讲稿不是逐字稿）
 
 - 粘成一块的相邻词拆开：2 处，多对上 5 个词
@@ -60,7 +60,7 @@
 | 45 | 160.45 | 161.25 | Georgie | How about you? |
 | 46 | 162.07 | 169.19 | Neil | Yeah, I need my coffee, especially in the morning, but I don't have my coffee first thing in the morning. |
 | 47 | 169.43 | 170.19 | Georgie | Oh, interesting. |
-| 48 | 170.31 | 174.63 | Neil | I have it kind of, I don't know, work time, nine o' clock. |
+| 48 | 170.31 | 174.63 | Neil | I have it kind of, I don't know, work time, nine o'clock. |
 | 49 | 175.15 | 175.91 | Georgie | Why is that? |
 | 50 | 176.27 | 180.63 | Neil | I think it's too strong, too powerful, Or maybe just the way I drink it. |
 | 51 | 180.79 | 181.15 | Neil | Mmm. |

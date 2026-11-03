@@ -143,7 +143,10 @@ def split_glued_pairs(sentences_tokens: list[list[Word]], turns: list[Turn]) -> 
     2026-10-28 第二次出现：250123 里 cando、dreamswhich、shopburger——欠账表说过出现第二次就修）。
     没对上讲稿的词，若讲稿游标后面紧挨的两到四个词连起来正好等于它，就按讲稿拆开：
     拼写用讲稿的，时间按字符数分（后面 refine_bounds、ear_bounds 还会按声音修边界）。
-    返回（拆了几个词，多对上了几个词）。"""
+    例外（2026-11-03，260821 第 48 句 o'clock）：讲稿自己把缩略词断成了两行（「o'」一行「clock.」一行），
+    连起来等于识别的一个整词——这时不拆，拼写把断行拼回去当一个词；拆开会让屏幕上出现「o' clock.」、
+    点词还会点出「o'」这种半截词。判定：断点贴着撇号（前段以撇号收尾，或后段以撇号开头）。
+    返回（拆了几个词，多对上了几个词；拼回去的按一处计、按词数计入对上）。"""
     script = [(i, w) for i, t in enumerate(turns) for w in t.text.split()]
     nxt = 0   # 讲稿游标：只会往前走
     fixed = gained = 0
@@ -165,6 +168,18 @@ def split_glued_pairs(sentences_tokens: list[list[Word]], turns: list[Turn]) -> 
                             span = k
                             break
             if not span:
+                i += 1
+                continue
+            spellings = [sp for _, sp in script[nxt:nxt + span]]
+            if any(sp.endswith(("'", "\u2019")) for sp in spellings[:-1]) \
+                    or any(sp.startswith(("'", "\u2019")) for sp in spellings[1:]):
+                # 讲稿断行断在了缩略词中间：拼回去当一个词，不拆
+                glued = "".join(spellings)
+                w.text = (" " if w.text.startswith(" ") else "") + glued
+                w.turn, w.script_word, w.script_idx = script[nxt][0], glued, nxt + span - 1
+                fixed += 1
+                gained += span
+                nxt += span
                 i += 1
                 continue
             total = len(nw)

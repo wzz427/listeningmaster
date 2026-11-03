@@ -12,7 +12,7 @@
 | 10 | 开头 | 72.05 | 71.78 | I really don't want to live with a robot. |
 | 11 | 开头 | 74.29 | 74.15 | I have enough people in my house. |
 | 12 | 开头 | 76.68 | 76.61 | With advances in AI, robots are becoming smart enough to develop meaningful relationships with humans. |
-| 15 | 开头 | 101.41 | 101.38 | And as usual, we'll learn some useful new vocabulary, all of which you 'll find over on our website, bbc learning english com. |
+| 15 | 开头 | 101.41 | 101.38 | And as usual, we'll learn some useful new vocabulary, all of which you'll find over on our website, bbc learning english com. |
 | 16 | 开头 | 109.80 | 109.69 | First, I have a question for you, Beth. |
 | 17 | 开头 | 112.54 | 112.38 | Because it's important people feel safe around robots, engineers design them to look like the friendly characters seen in animated movies by studios like Pixar and DreamWorks. |
 | 18 | 开头 | 123.61 | 123.57 | So, what is the name of Pixar's friendly robot who picks up garbage on an uninhabited planet Earth in the year 2805? |

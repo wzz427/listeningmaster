@@ -1,6 +1,6 @@
 # 机器耳朵查句子边界 · 260821
 
-听了 89 句。挪好了 67 处，挪到头也没听到的 3 处（要人耳查）。
+听了 89 句。挪好了 67 处，挪到头也没听到的 2 处（要人耳查）。
 
 ## 挪好了的
 
@@ -78,8 +78,7 @@
 
 | 句 | 哪头 | 这句 | 机器听到 |
 |---|---|---|---|
-| 48 | 开头 | I have it kind of, I don't know, work time, nine o' clock. | have it kind of i don't know work time nine o'clock |
-| 48 | 结尾 | I have it kind of, I don't know, work time, nine o' clock. | have it kind of i don't know work time nine o'clock |
+| 48 | 开头 | I have it kind of, I don't know, work time, nine o'clock. | have it kind of i don't know work time nine o'clock |
 | 76 | 开头 | Neil, it's time to recap the vocabulary we used in the conversation. | it's time to recap the vocabulary we used in the conversation |
 
 ## 照人耳确认的改（bounds_manual.json）

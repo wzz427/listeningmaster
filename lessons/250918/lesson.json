@@ -3534,7 +3534,7 @@
       "speaker": "Beth",
       "start": 101.38,
       "end": 109.41,
-      "text": "And as usual, we'll learn some useful new vocabulary, all of which you 'll find over on our website, bbc learning english com.",
+      "text": "And as usual, we'll learn some useful new vocabulary, all of which you'll find over on our website, bbc learning english com.",
       "words": [
         {
           "text": "And",
@@ -3609,16 +3609,10 @@
           "key": "which"
         },
         {
-          "text": "you",
+          "text": "you'll",
           "start": 105.48,
-          "end": 105.6,
-          "key": "you"
-        },
-        {
-          "text": "'ll",
-          "start": 105.6,
           "end": 105.72,
-          "key": "'ll"
+          "key": "you'll"
         },
         {
           "text": "find",
@@ -3675,7 +3669,7 @@
           "key": "com"
         }
       ],
-      "zh": "像往常一样，我们还会学一些有用的新词汇，都能在我们网站 bbc learning english 点 com 上找到。",
+      "zh": "跟往常一样，我们会学一些有用的新词，这些词你都能在我们网站 bbc learning english com 上找到。",
       "notes": [
         {
           "words": [
@@ -3723,7 +3717,7 @@
             5
           ],
           "text": "some",
-          "pos": "pron.",
+          "pos": "adj.",
           "ipa": "/sʌm/",
           "zh": "一些",
           "more": true
@@ -3772,8 +3766,7 @@
         },
         {
           "words": [
-            12,
-            13
+            12
           ],
           "text": "you'll",
           "pos": "缩写",
@@ -3783,7 +3776,7 @@
         },
         {
           "words": [
-            14
+            13
           ],
           "text": "find",
           "pos": "v.",
@@ -3793,18 +3786,18 @@
         },
         {
           "words": [
-            15,
-            16
+            14,
+            15
           ],
           "text": "over on",
           "pos": "词组",
           "ipa": "/ˈəʊvə(r) ɒn/",
-          "zh": "在……上",
+          "zh": "在（某处）",
           "more": true
         },
         {
           "words": [
-            17
+            16
           ],
           "text": "our",
           "pos": "pron.",
@@ -3814,7 +3807,7 @@
         },
         {
           "words": [
-            18
+            17
           ],
           "text": "website",
           "pos": "n.",
@@ -3824,10 +3817,10 @@
         },
         {
           "words": [
+            18,
             19,
             20,
-            21,
-            22
+            21
           ],
           "text": "bbc learning english com",
           "pos": "名字",
@@ -4425,7 +4418,7 @@
       "id": 18,
       "speaker": "Neil",
       "start": 123.57,
-      "end": 133.11,
+      "end": 133.18,
       "text": "So, what is the name of Pixar's friendly robot who picks up garbage on an uninhabited planet Earth in the year 2805?",
       "words": [
         {

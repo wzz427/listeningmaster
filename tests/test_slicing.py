@@ -86,7 +86,8 @@ def main() -> None:
         timeline, stats = replay(lesson)
         replays[lesson] = (timeline, stats)
         gold = golden(lesson)
-        check(f"A1 {lesson} 一条命令重放＝金样，逐句完全一致", timeline == gold)
+        strip_engine = lambda d: {k: v for k, v in d.items() if k != "engine"}  # noqa: E731 版本字段归 A3 专管
+        check(f"A1 {lesson} 一条命令重放＝金样，逐句完全一致", strip_engine(timeline) == strip_engine(gold))
         check(f"A2 {lesson} 对上率 ≥ 80%", stats["align"]["match_rate"] >= 0.80,
               f"{stats['align']['matched']}/{stats['align']['script_words']}（{stats['align']['match_rate']:.0%}）")
         check(f"A3 {lesson} engine 版本＝version.py", timeline.get("engine") == version.ENGINE_VERSION
