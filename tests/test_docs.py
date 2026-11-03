@@ -3,13 +3,15 @@
 为什么要有（2026-09-23 拆规格时加的）：《AI 编程项目管理指南》第六章——描述「代码现在长什么样」的话，
 要么配会报错的检查，要么别写。docs/architecture.md 和 specs/ 里写着文件、字段、验收编号，代码一改就可能过期，没人发现。
 
-查四样：
+查五样：
 1. 文档里用反引号写到的仓库路径都在。<课> 换成第一集 260821；被 .gitignore 挡住的（随时能重新生成的、密钥文件）不查。
    只查描述「现在」的文档；交接页、教训、决策是历史记录，里面写到删掉的文件是正常的，不查。
 2. pipeline/、web/、tests/ 下的代码文件，docs/architecture.md 里都写到了。
 3. tests/test_player.py、tests/test_stable_copy.py、tests/test_hosted_frontend.py 的每个自动检查（用例名开头的 A 编号）
    都在某份规格里写着；规格里的 A 编号，没标「（人工）」的，测试里都有。
 4. docs/architecture.md「课程文件」那张表里的字段，第一集的 lesson.json 里都有。
+5. docs/architecture.md「每一集的文件」那张表双向对账：git 跟踪的课程文件都得在「进」清单里（防误提交），
+   「不进」的都得有 .gitignore 挡着（防垃圾文件挂在 git status 里）——2026-11-03 owner 问起一份挂了六周的缓存才补的。
 
 跑法：<pywork python> tests/test_docs.py   （不到 1 秒，不连网）
 """
@@ -98,6 +100,40 @@ def main() -> None:
     check("D3 每个自动检查都在某份规格里写着", not undocumented, "、".join(undocumented))
     untested = sorted(in_specs - tests)
     check("D4 规格里没标人工的验收编号，测试里都有", not untested, "、".join(untested))
+
+    print("\n【课目录和「进/不进」的账对得上】")
+    # docs/architecture.md「每一集的文件」那张表是唯一的事实：表里「进」的是课程内容，「不进」的是运行产物。
+    # 两头对账：git 里跟踪的都得在「进」清单里（防误提交——2026-09 曾把 explain_cache.json 照旧表裹进仓库六周）；
+    # 「不进」的都得有 .gitignore 挡着（防该挡没挡、垃圾文件老挂在 git status 里）。
+    lesson_files = re.search(r"## 每一集的文件.*?\n(.*?)(?=\n## )", arch, re.S)
+    keep_in, keep_out = [], []
+    for line in (lesson_files.group(1) if lesson_files else "").splitlines():
+        cells = [c.strip() for c in line.split("|")]
+        if len(cells) < 5 or not cells[1].startswith("`"):
+            continue
+        names = re.findall(r"`([^`]+)`", cells[1])
+        if cells[4].startswith("进"):
+            keep_in += names
+        elif cells[4].startswith("不进"):
+            keep_out += names
+
+    def in_keep(rel: str) -> bool:
+        parts = rel.split("/")[2:]           # lessons/<课>/… → 去掉头两段
+        for name in keep_in:
+            rest = name.rstrip("/").split("/")
+            if parts[:len(rest)] == rest and (name.endswith("/") or parts[len(rest):] == []):
+                return True
+        return False
+
+    tracked = subprocess.run(["git", "ls-files", "lessons/"], cwd=ROOT, capture_output=True,
+                             text=True).stdout.split()
+    strays = [t for t in tracked if not in_keep(t)]
+    check("D6 git 里跟踪的课程文件都在表里写着「进」", bool(keep_in) and not strays,
+          "、".join(strays) + "——是内容就把表改过来，是运行产物就 .gitignore＋git rm --cached" if strays else "")
+    probe = lambda n: f"lessons/{LESSON}/{n}x" if n.endswith("/") else f"lessons/{LESSON}/{n}"  # 目录拿里面的一个假文件试
+    bare = [n for n in keep_out if not ignored(probe(n))]
+    check("D6b 表里「不进」的都有 .gitignore 挡着", not bare,
+          "、".join(f"lessons/*/{n}" for n in bare) + " 得进 .gitignore" if bare else "")
 
     print("\n【课程文件的字段都在】")
     section = re.search(r"## 课程文件.*?\n(.*?)(?=\n## )", arch, re.S)

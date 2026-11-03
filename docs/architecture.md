@@ -92,7 +92,7 @@
 | `bounds_manual.json` | 人（owner 听过定的） | `ear_bounds.py` | 进 |
 | `lesson.json` | `teach.py` | 播放器、`explain.py`、`tts.py check` | 进 |
 | `teach_raw.json` | `teach.py` | 人 | 进 |
-| `explain_cache.json` | 本地服务（点词补查、展开） | 本地服务 | 进（查过的不再花钱） |
+| `explain_cache.json` | 本地服务（点词补查、展开） | 本地服务 | 不进，运行时按处累积（线上在挂载卷、本机在本地）；重查一遍只花几分钱，换来的是仓库不动账（2026-11-03 改：原来写着进，实际早就各存各的，还把 `260821` 一份裹进了仓库六周没人发现——`tests/test_docs.py` D6 拿这张表双向对账） |
 | `tts/google_en-GB/` | `teach.py` 从发音词典拷 | 播放器 | 进 |
 | `tts/bailian_emily/` | 本地服务（词组、词典里没有的词现读） | 播放器 | 进 |
 | `model_compare.md` | `compare_models.py` | 人 | 进 |
