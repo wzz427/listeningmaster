@@ -171,7 +171,6 @@ def run(tmp: Path) -> None:
 
     print("\n【钉版本】")
     write(dev / "web" / "app.js", "// 多了一个按钮")
-    add_to_cache(dev, "1:1", "新写进仓库的讲解")
     write(dev / "lessons" / "L2" / "lesson.json", sentences("A new lesson."))   # 这一版加了一节课（A81）
     commit(dev, "第二版", tested=False)
     for done in (sc.TESTED, sc.SITE_TESTED):
@@ -289,8 +288,8 @@ def run(tmp: Path) -> None:
     check("A81 体验版网站的公共课就是这一版仓库里的课：新版本加的那节，点了更新才出现在资料库里",
           lessons_before == ["L1"] and lessons_after == ["L1", "L2"], f"换前 {lessons_before}，换后 {lessons_after}")
     kept = cache(stable)
-    check("A48 体验版里查过的讲解、现读的朗读、备课台、账号数据换完都还在，新版本新写进去的讲解也在",
-          kept.get("2:0", {}).get("zh") == "体验版里查过的" and kept.get("1:1", {}).get("zh") == "新写进仓库的讲解"
+    check("A48 体验版里查过的讲解、现读的朗读、备课台、账号数据换完都还在",
+          kept.get("2:0", {}).get("zh") == "体验版里查过的"
           and (stable / "lessons" / "L1" / "tts" / "bailian_emily" / "bye_now.mp3").exists()
           and (stable / "materials" / STAGE / "audio.mp3").exists()
           and "owner@example.com" in (sc.read_json(stable / sc.DATA_DIR / "accounts.json") or {}),
@@ -314,23 +313,15 @@ def run(tmp: Path) -> None:
     write(dev / "pipeline" / "serve.py", (REAL / "pipeline" / "serve.py").read_text(encoding="utf-8"))
 
     print("\n【什么时候不留查过的讲解】")
-    (dev / "lessons" / "L1" / "explain_cache.json").unlink()
-    c4 = commit(dev, "改了展开的提示词，删掉讲解缓存")
-    sc.invite("展开讲得更清楚了", dev)
-    sc.apply_update(stable, check_running=False)
-    dropped_deleted = sc.head(stable) == c4 and not (stable / "lessons" / "L1" / "explain_cache.json").exists()
-    add_to_cache(dev, "1:0", "你好")
-    commit(dev, "重新有了讲解缓存")
-    sc.invite("讲解缓存回来了", dev)
-    sc.apply_update(stable, check_running=False)
-    add_to_cache(stable, "2:0", "体验版里查过的")
+    # 讲解缓存 2026-11-03 起不进仓库（fcced66，.gitignore 挡着）：它是运行时状态，开发版查过的不随版本走；
+    # 体验版自己查过的换版本时留下，除非那一集的句子改了——讲解按句子编号存，对不上就删掉按新的重查。
     write(dev / "lessons" / "L1" / "lesson.json", sentences("Hello.", "Goodbye, everyone."))
     c6 = commit(dev, "改了第二句")
     sc.invite("第二句切得更准了", dev)
     sc.apply_update(stable, check_running=False)
-    check("A49 新版本删了讲解缓存、或者改了这一集的句子，查过的那一集不留，按新的重查",
-          dropped_deleted and sc.head(stable) == c6 and "2:0" not in cache(stable) and "1:0" in cache(stable),
-          f"删缓存后 {'没了' if dropped_deleted else '还在'}；改句子后 {sorted(cache(stable))}")
+    check("A49 改了那一集的句子，那一集查过的讲解不留，按新的重查",
+          sc.head(stable) == c6 and "2:0" not in cache(stable),
+          f"改句子后 {sorted(cache(stable))}")
 
     print("\n【退回上一版】")
     before = sc.head(stable)

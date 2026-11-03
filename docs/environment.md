@@ -67,7 +67,7 @@
 | 症状 | 修法 |
 |---|---|
 | 终端里中文变成乱码，或者 `UnicodeEncodeError: 'gbk' codec can't encode` | 程序入口加 `sys.stdout.reconfigure(encoding="utf-8")`（仓库里的程序都加了）；临时用 `python -c` 打印中文或音标时，前面加 `PYTHONIOENCODING=utf-8` |
-| `conda install ffmpeg` 报 `UnicodeDecodeError('gbk'...)` 后整体回滚 | 用 imageio-ffmpeg 自带的 ffmpeg（`pipeline/audio.py`）；没有 ffprobe，用 `ffmpeg -i` 读信息 |
+| `conda install ffmpeg` 报 `UnicodeDecodeError('gbk'...)` 后整体回滚 | 用 imageio-ffmpeg 自带的 ffmpeg（`pipeline/slicing/audio.py`）；没有 ffprobe，用 `ffmpeg -i` 读信息 |
 | 在 claude 的 Bash 里用 heredoc 写含反斜杠的 Python 脚本，`\\n` 变成了换行、替换位置差一个字符 | 这里的 Bash 会把 `\\` 吃成 `\`，加了引号的 heredoc 也一样；要写反斜杠一律用 Edit 工具逐处改 |
 | 用 `python -m http.server` 起服务，点下一句只能听到第一句 | 它不支持从文件中间取一段；用 `pipeline/serve.py` |
 | Bash 里没有 `bc` | 算时间用 Python |

@@ -65,7 +65,7 @@
 | 79 | 开头 | 275.95 | 275.73 | I take my coffee black, and I know you take your coffee white. |
 | 80 | 开头 | 280.87 | 280.61 | Yes, We also heard caffeine, which is the chemical that is in coffee, which makes you feel more awake. |
 | 81 | 开头 | 287.89 | 287.86 | Yes, but you can also get decaffeinated coffee or tea. |
-| 82 | 开头 | 292.51 | 292.48 | Itmeans there's no caffeine And we usually shorten that just to decaf, decaf coffee. |
+| 82 | 开头 | 292.51 | 292.48 | –– it means there's no caffeine And we usually shorten that just to decaf, decaf coffee. |
 | 83 | 开头 | 299.19 | 298.85 | Yes, We also heard the phrasal verb cut down on, which means you have less of something. |
 | 84 | 开头 | 304.67 | 304.48 | Yep, And you can also say cut back on. |
 | 86 | 开头 | 308.91 | 308.60 | Okay, |
@@ -78,6 +78,10 @@
 
 | 句 | 哪头 | 这句 | 机器听到 |
 |---|---|---|---|
-| 48 | 开头 | I have it kind of, I don't know, work time, nine o'clock. | have it kind of i don't know work time nine o'clock |
+| 48 | 开头 | I have it kind of, I don't know, work time, nine o' clock. | have it kind of i don't know work time nine o'clock |
+| 48 | 结尾 | I have it kind of, I don't know, work time, nine o' clock. | have it kind of i don't know work time nine o'clock |
 | 76 | 开头 | Neil, it's time to recap the vocabulary we used in the conversation. | it's time to recap the vocabulary we used in the conversation |
-| 82 | 开头 | Itmeans there's no caffeine And we usually shorten that just to decaf, decaf coffee. | it means there's no caffeine and we usually shorten that just to decaf decaf coffee |
+
+## 照人耳确认的改（bounds_manual.json）
+
+- 没有要改的

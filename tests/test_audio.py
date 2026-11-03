@@ -30,7 +30,7 @@ from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "pipeline"))
-from ear import hear, words_of  # noqa: E402
+from slicing.ear import hear, words_of  # noqa: E402
 from serve import make_server  # noqa: E402
 
 PORT = 8798

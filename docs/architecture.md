@@ -39,13 +39,17 @@
 | `docs/` | 本文、`workflow.md`（开发流程和验证）、`copies-and-release.md`（三版管理与发版的操作手册：改→测→交→验→上）、`environment.md`（开发环境和工具）、`deploy-listen-app.md`（对外版上线到阿里云的操作手册和日常运维）、`how-to-report.md`（发给 owner 的汇报怎么编排和自检，D59）、`decisions.md`、`lessons.md`、`debts.md`、`handoff.md`、`listening-led-course.md`（课程方案：理念、一集六步、单元阶段）；`research/` 放调研产出——`2026-09-12-products-teaching-tech-survey.md` 是三轮调研摘要（产品、教学研究、技术），报告一篇一文件、文件名带日期前缀（D46）；`refs/qwen-asr-api.md` 是百炼识别的官方文档存档；`history/` 放整批搬走的旧交接记录 | — |
 | `materials/<课>/` | 原始素材：音频、讲稿、练习 | SPEC-002 |
 | `lessons/<课>/` | 备好的一集，见下面「每一集的文件」 | SPEC-002 |
-| `pipeline/audio.py` | 转音频：16k 单声道 wav（识别、量音量用）、m4a（播放器用）；用 imageio-ffmpeg 自带的 ffmpeg | SPEC-002 |
-| `pipeline/asr_probe.py` | 上传临时存储、调百炼录音文件识别，存 `asr_raw.json` | SPEC-003 |
-| `pipeline/transcript.py` | 从 BBC 讲稿 PDF 读出「谁说了什么」 | SPEC-003 |
-| `pipeline/align.py` | 识别结果对齐讲稿、说话人、片头片尾、切句，写 `timeline.json`、`align_report.md` | SPEC-003 |
-| `pipeline/refine_bounds.py` | 按音量精修句子起止，写 `bounds_report.md` | SPEC-004 |
-| `pipeline/ear.py` | 机器耳朵：一段声音交给百炼 `qwen3-asr-flash` 听出是哪些词，带限流重试 | SPEC-004 |
-| `pipeline/ear_bounds.py` | 机器耳朵查每句开头结尾、往外挪，最后照 `bounds_manual.json` 改，写 `ear_report.md` | SPEC-004 |
+| `pipeline/slicing/` | 语义切割引擎（owner 2026-11-03 拍板收进一个包，算法一行没动）：六道工序＋一条命令＋版本＋金样考卷；怎么切准的细则住 SPEC-003、SPEC-004，怎么包住 SPEC-012 | SPEC-012 |
+| `pipeline/slicing/audio.py` | 转音频：16k 单声道 wav（识别、量音量用）、m4a（播放器用）；用 imageio-ffmpeg 自带的 ffmpeg | SPEC-002 |
+| `pipeline/slicing/asr_probe.py` | 上传临时存储、调百炼录音文件识别，存 `asr_raw.json` | SPEC-003 |
+| `pipeline/slicing/transcript.py` | 从 BBC 讲稿 PDF／TXT 读出「谁说了什么」 | SPEC-003 |
+| `pipeline/slicing/align.py` | 识别结果对齐讲稿、说话人、片头片尾、切句，写 `timeline.json`、`align_report.md` | SPEC-003 |
+| `pipeline/slicing/refine_bounds.py` | 按音量精修句子起止，写 `bounds_report.md` | SPEC-004 |
+| `pipeline/slicing/ear.py` | 机器耳朵：一段声音交给百炼 `qwen3-asr-flash` 听出是哪些词，带限流重试 | SPEC-004 |
+| `pipeline/slicing/ear_bounds.py` | 机器耳朵查每句开头结尾、往外挪，最后照 `bounds_manual.json`、`speaker_manual.json` 改，写 `ear_report.md`；真听过的片段记进 `ear_cache.json` | SPEC-004 |
+| `pipeline/slicing/run.py` | 引擎一条命令：串六步（识别已有就跳过）、写 `quality_report.md`；退出码 10 音频／20 识别／30 其他，serve.py 按码报人话 | SPEC-012 |
+| `pipeline/slicing/version.py` | 引擎版本唯一出处，`timeline.json` 的 engine 字段从这读 | SPEC-012 |
+| `pipeline/slicing/__init__.py` | 包标记＋导览注释 | SPEC-012 |
 | `pipeline/measure_bounds.py` | 只看音量量句子边界干不干净，比较改边界前后 | SPEC-004 |
 | `pipeline/teach.py` | 备课最后一步：每句中文、挑生词、调 `explain.prepare` 写那一行、分段、调 `tts.build` 拷朗读，写 `lesson.json`、`teach_raw.json` | SPEC-005 |
 | `pipeline/explain.py` | 单词卡的内容：备课时整句写那一行；点词时补查、展开、词组现读；缓存 | SPEC-006 |
@@ -53,7 +57,7 @@
 | `pipeline/tts_check.html` | `tts.py check` 用的抽听页模板 | SPEC-007 |
 | `pipeline/llm.py` | 调大模型的统一口：deepseek 开头走 DeepSeek，qwen 开头走百炼兼容接口；关掉 deepseek 的思考模式 | SPEC-000 R5 |
 | `pipeline/keys.py` | 从 `api-keys.txt` 读密钥，只读进内存 | SPEC-000 R2 |
-| `pipeline/serve.py` | 本地服务，见下面「本地服务」；`--hosted` 起对外模式（SPEC-009 v7，线上、体验版、开发版看网站都是它）：**访客免登录直接听公共课库**（线上 `server-data/shared/lessons/`，本机两份就是仓库里的 `lessons/`，R14）、点词现查开放；注册/登录/登出、上传/资料库/删材料、讲稿补传（TXT/PDF/MD 文件，`/api/material/script`）、备课任务（串行队列跑 SPEC-002 的六步，或配置 `prep_command` 换假命令测试）仍要登录会话 | SPEC-001 R12、SPEC-009 |
+| `pipeline/serve.py` | 本地服务，见下面「本地服务」；`--hosted` 起对外模式（SPEC-009 v7，线上、体验版、开发版看网站都是它）：**访客免登录直接听公共课库**（线上 `server-data/shared/lessons/`，本机两份就是仓库里的 `lessons/`，R14）、点词现查开放；注册/登录/登出、上传/资料库/删材料、讲稿补传（TXT/PDF/MD 文件，`/api/material/script`）、备课任务（串行队列：切割引擎一条命令＋`teach.py`，SPEC-012；或配置 `prep_command` 换假命令测试）仍要登录会话 | SPEC-001 R12、SPEC-009 |
 | `pipeline/speak_lab.py` | 口语实验页的服务端（决策 D52，实验件、不进播放器和对外版）：8770 出页面和陪练提示词（拿 `lesson.json` 的标题、分段、生词、几句原话拼，教学规矩也在提示词里）；8771 当 WebSocket 桥，网页 ⇄ 百炼 Realtime 原样转发，密钥只在这一个进程；`mock` 假模型不花钱走整条事件链；`--selftest omni38\|audio31` 连真模型放一段课程音频验证 | —（实验，正式规格等 A/B 结论） |
 | `pipeline/accounts.py` | 邮箱账号（对外版地基）：注册要邀请码、登录发会话、连错锁、密码只存 PBKDF2 哈希；数据住 `server-data/`（不进 git），布局 `server-data/<账号id>/{materials/<材料id>/{audio.*, script.txt, meta.json}, lessons/<课>/}`——材料 meta.json 的 state 就是 SPEC-009 的状态机（new/prepping/done/failed） | SPEC-009 |
 | `pipeline/stable_copy.py` | 体验版和开发版：建体验版（自带网站配置和数据目录）、钉版本（要两份测试全过）、换版本（失败退回、留下用出来的数据）、退回上一版、双击后起网站的循环；见下面「三个住处、一套代码」 | SPEC-008 |
@@ -66,6 +70,7 @@
 | `web/art/` | 环节进入页（节目卡）的两张固定配图：`warmup.jpg`（开场：调频）、`listen.jpg`（正片：夜听），百炼 qwen-image 生成后转 jpg；换图＝换这两个文件 | SPEC-011 R1 |
 | `tests/test_player.py` | 播放器的自动检查（Playwright），编号对应各规格的 A 编号 | `docs/workflow.md` |
 | `tests/test_audio.py` | 验声音：录下真的 Chrome 放出来的声音，对时间、机器耳朵听、出试听页 | SPEC-004 R7 |
+| `tests/test_slicing.py` | 切割引擎的金样考卷：四课离线重放，timeline 逐句对标准答案，另带咬人自检；改 `pipeline/slicing/` 必过 | SPEC-012 |
 | `tests/test_docs.py` | 文档和代码对不对得上 | `docs/workflow.md` |
 | `tests/test_accounts.py` | 账号模块的单元检查（注册、登录、会话、连错锁、密码不落盘），临时目录里跑 | SPEC-009 |
 | `tests/test_hosted_server.py` | 对外模式的自动检查：真起服务真发请求——访客免登录（公共课、点词）、上传等账号接口挡 401、注册登录登出、noindex、限流、无「更新」接口 | SPEC-009 |
@@ -84,12 +89,14 @@
 
 | 文件 | 谁写 | 谁读 | 进仓库 |
 |---|---|---|---|
-| `audio_16k.wav` | `asr_probe.py`（没有时 `refine_bounds.py` 补） | 精修、机器耳朵 | 不进，随时能重转 |
-| `audio.m4a` | `audio.py` | 播放器 | 进 |
-| `asr_raw.json` | `asr_probe.py` | `align.py` | 进（识别要花钱，留着原样） |
-| `timeline.json` | `align.py`，`refine_bounds.py`、`ear_bounds.py` 原地改起止 | `teach.py` | 进 |
-| `align_report.md`、`bounds_report.md`、`ear_report.md` | 第 3、4、5 步 | 人 | 进 |
-| `bounds_manual.json` | 人（owner 听过定的） | `ear_bounds.py` | 进 |
+| `audio_16k.wav` | `slicing/asr_probe.py`（没有时 `slicing/refine_bounds.py` 补） | 精修、机器耳朵 | 不进，随时能重转 |
+| `audio.m4a` | `slicing/audio.py` | 播放器 | 进 |
+| `asr_raw.json` | `slicing/asr_probe.py` | `slicing/align.py` | 进（识别要花钱，留着原样） |
+| `timeline.json` | `slicing/align.py`，`slicing/refine_bounds.py`、`slicing/ear_bounds.py` 原地改起止、最后盖 engine 版本 | `teach.py`；`tests/test_slicing.py` 拿它当标准答案 | 进 |
+| `ear_cache.json` | `slicing/ear_bounds.py`（真听时记：这一段听成了什么） | `slicing/ear_bounds.py`（重放）、`tests/test_slicing.py` | 进（机器耳朵花过钱换来的，考卷离线重放的前提） |
+| `align_report.md`、`bounds_report.md`、`ear_report.md`、`quality_report.md` | 第 3、4、5 步、`slicing/run.py` | 人 | 进 |
+| `bounds_manual.json` | 人（owner 听过定的） | `slicing/ear_bounds.py` | 进 |
+| `speaker_manual.json` | 人（说话人手定层；250123 结尾预告 2026-11-03 从 timeline 搬进文件） | `slicing/ear_bounds.py` | 进 |
 | `lesson.json` | `teach.py` | 播放器、`explain.py`、`tts.py check` | 进 |
 | `teach_raw.json` | `teach.py` | 人 | 进 |
 | `explain_cache.json` | 本地服务（点词补查、展开） | 本地服务 | 不进，运行时按处累积（线上在挂载卷、本机在本地）；重查一遍只花几分钱，换来的是仓库不动账（2026-11-03 改：原来写着进，实际早就各存各的，还把 `260821` 一份裹进了仓库六周没人发现——`tests/test_docs.py` D6 拿这张表双向对账） |
@@ -161,8 +168,8 @@
 
 | 服务 | 谁调 | 什么时候 | 要不要翻墙 | 密钥 |
 |---|---|---|---|---|
-| 百炼 录音文件识别 `qwen-audio-3.0-asr-flash-filetrans` + 临时存储 | `asr_probe.py` | 备课第 2 步 | 不要 | 百炼 |
-| 百炼 `qwen3-asr-flash`（机器耳朵） | `ear.py`（`ear_bounds.py`、`tests/test_audio.py`、`tts.py check` 用） | 备课第 5 步、验声音 | 不要 | 百炼 |
+| 百炼 录音文件识别 `qwen-audio-3.0-asr-flash-filetrans` + 临时存储 | `pipeline/slicing/asr_probe.py` | 备课第 2 步 | 不要 | 百炼 |
+| 百炼 `qwen3-asr-flash`（机器耳朵） | `pipeline/slicing/ear.py`（`slicing/ear_bounds.py`、`tests/test_audio.py`、`tts.py check` 用） | 备课第 5 步、验声音 | 不要 | 百炼 |
 | 百炼 `cosyvoice-v3-flash`，声音 `loongemily_v3` | `tts.py`（经 `explain.py` 的现读） | 孩子点「听朗读」、词组或词典里没有的词 | 不要 | 百炼 |
 | DeepSeek `deepseek-flash`（不开思考模式） | `llm.py`（`teach.py`、`explain.py` 用） | 备课第 6 步；孩子点「展开」、备课漏了的词 | 不要 | DeepSeek |
 | 百炼兼容接口的 qwen 文字模型 | `llm.py`（只有 `compare_models.py` 用） | 比较模型时 | 不要 | 百炼 |

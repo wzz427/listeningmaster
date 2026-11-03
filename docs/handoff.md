@@ -6,6 +6,15 @@
 
 ## 现在在哪（最新在上）
 
+### 2026-11-03 · 语义切割引擎 v1 落地（owner 拍板「现在开始做引擎化」当天兑现）
+
+- **做了什么**：七道切割文件（audio、asr_probe、transcript、align、refine_bounds、ear、ear_bounds）从 pipeline/ 根搬进 `pipeline/slicing/`，算法一行没动（只动了路径、root 参数、返回统计、缓存、版本戳这几样管线设施）；新增 `run.py`（一条命令：识别已有就跳过、耳朵吃缓存、出 `quality_report.md` 四指标、退出码 10/20/30 给 serve.py 报人话）、`version.py`（`engine` 字段唯一出处，四课 timeline 已带 `slicing/1.0.0`）、`__init__.py`。规格＝`specs/SPEC-012-slicing-engine.md`（R1–R7）。
+- **金样考卷 `tests/test_slicing.py`（改引擎必过）**：四课离线重放（识别吃 `asr_raw.json`、耳朵吃新增的 `lessons/<课>/ear_cache.json`，不联网不花钱、约半分钟），timeline 逐句对仓库里的标准答案，14 项全绿；**咬人自检每次跑**——故意把 ear 的 PAD 改坏重放第一集，必须和金样不一样（第一版用 QUIET_DB 自检踩过坑：它改上游边界→问出缓存没有的新片段→联网了，已换成只动本地计算的 PAD＋「一联网就报错」哨兵，SPEC-012 R6/R7 记了这条）。
+- **建金样对账挖出两件旧账**（都记进 `docs/lessons.md`）：①**250123 提交过比自家耳朵报告旧的 timeline**——38 处边界停在上一版、和 ear_report 的新值对不上，10-28 迭代多轮后提交了旧文件；这次重放值和耳朵报告 38/38 全对上，timeline 已按报告值刷新（**线上 lesson.json 没动**，两份现在差这 38 处小挪动，要不要重刷线上等 owner 发话）。②260821 的 timeline 是 2026-10-28 粘词修复之前产的（Itmeans 还粘着）——重放后修复终于落到这课，第 82 句显示正常了，对上率 91%→92%；另有一处 o'clock 被讲稿断行拆成 o'＋clock（粘词拆分忠实照讲稿，属已知小毛病，算法 v1 不动）。250918 一处句尾差 0.07 秒＝识别正常波动，缓存已锁定。250123 结尾预告的手工说话人标注从 timeline 搬进 `speaker_manual.json`（重跑不再丢，R7 精神）。
+- **顺手修了一件今天的旧坑**：fcced66 把 explain_cache 定为不进仓库后，`stable_copy.py` 的换版本逻辑和 `tests/test_stable_copy.py` 没跟上（A48 红在「新写进仓库的讲解」、A49 场景提交不了缓存直接崩，且句子改了以后旧缓存不再被 checkout 删掉、会按旧句子编号给错讲解的真缺口）——merge_runtime 补「句子变了主动删缓存」、两条用例按新政策改写、SPEC-008 R7 口径同步，15 项全过。
+- **验证**：test_slicing 14、test_docs 33、test_hosted_prep 11、test_stable_copy 15、test_hosted_frontend 29，全绿。test_audio 没跑（句子边界和播放器停法没动，耳朵的 import 路径改过但语法已过编译）——下次动边界时它会连这条一起验。
+- 下一步从哪接：debts「无讲稿材料的消融实验」行（引擎化已完成，owner 定的顺序）；引擎 v2（句首宁可多留、双模型会审）等材料谱系摸底数据再定。
+
 ### 2026-11-03 · 汇报规矩立档（owner：连续三轮没看懂之后）
 
 - 「引擎化」那三轮汇报的病根 owner 点破：满篇行话（引擎化/门禁/金样集）＋错字（「蒸馅」）＋语病（「一步都不准」）；换「拿真实例子从头走一遍」的讲法后他说「比之前好很多」。据此立 **D59**：总结性汇报发出前必读 `docs/how-to-report.md`——先例子后概念、行话出现一个解释一个、一次一件事、数字带落点、发出前完整通读；两屏以上或拿不准的，先派只读 agent 以「第一次听说这个项目的人」视角复核、改完再发。

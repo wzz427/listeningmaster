@@ -1,8 +1,10 @@
 # 对齐报告 · 260821
 
-- 识别出的词：845　讲稿的词：788　两边对上的词：720（占讲稿 91%）
-- 识别出但讲稿里没有的词：125 个（片头片尾、口头语、识别错的）
-- 讲稿里有但没对上的词：68 个（讲稿不是逐字稿）
+- 识别出的词：848　讲稿的词：788　两边对上的词：725（占讲稿 92%）
+- 识别出但讲稿里没有的词：123 个（片头片尾、口头语、识别错的）
+- 讲稿里有但没对上的词：63 个（讲稿不是逐字稿）
+
+- 粘成一块的相邻词拆开：2 处，多对上 5 个词
 - 说话人倒退按噪声修正的词：0 个，并回上一句的碎片：10 处
 - 识别给出 103 句，按说话人切开后 98 句，其中正文 89 句、片头片尾 9 句
 
@@ -58,7 +60,7 @@
 | 45 | 160.45 | 161.25 | Georgie | How about you? |
 | 46 | 162.07 | 169.19 | Neil | Yeah, I need my coffee, especially in the morning, but I don't have my coffee first thing in the morning. |
 | 47 | 169.43 | 170.19 | Georgie | Oh, interesting. |
-| 48 | 170.31 | 174.63 | Neil | I have it kind of, I don't know, work time, nine o'clock. |
+| 48 | 170.31 | 174.63 | Neil | I have it kind of, I don't know, work time, nine o' clock. |
 | 49 | 175.15 | 175.91 | Georgie | Why is that? |
 | 50 | 176.27 | 180.63 | Neil | I think it's too strong, too powerful, Or maybe just the way I drink it. |
 | 51 | 180.79 | 181.15 | Neil | Mmm. |
@@ -92,7 +94,7 @@
 | 79 | 275.95 | 280.35 | Neil | I take my coffee black, and I know you take your coffee white. |
 | 80 | 280.87 | 287.79 | Georgie | Yes, We also heard caffeine, which is the chemical that is in coffee, which makes you feel more awake. |
 | 81 | 288.03 | 292.11 | Neil | Yes, but you can also get decaffeinated coffee or tea. |
-| 82 | 292.59 | 298.47 | Neil | Itmeans there's no caffeine And we usually shorten that just to decaf, decaf coffee. |
+| 82 | 292.59 | 298.47 | Neil | –– it means there's no caffeine And we usually shorten that just to decaf, decaf coffee. |
 | 83 | 299.15 | 304.47 | Georgie | Yes, We also heard the phrasal verb cut down on, which means you have less of something. |
 | 84 | 304.67 | 307.07 | Neil | Yep, And you can also say cut back on. |
 | 85 | 307.19 | 308.23 | Neil | It means the same thing. |

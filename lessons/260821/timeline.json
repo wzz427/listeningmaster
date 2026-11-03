@@ -2459,7 +2459,7 @@
       "speaker": "Neil",
       "start": 170.31,
       "end": 174.53,
-      "text": "I have it kind of, I don't know, work time, nine o'clock.",
+      "text": "I have it kind of, I don't know, work time, nine o' clock.",
       "words": [
         {
           "text": "I",
@@ -2517,8 +2517,13 @@
           "end": 174.03
         },
         {
-          "text": "o'clock.",
+          "text": "o'",
           "start": 174.03,
+          "end": 174.2
+        },
+        {
+          "text": "clock.",
+          "start": 174.2,
           "end": 174.63
         }
       ]
@@ -4115,11 +4120,21 @@
       "speaker": "Neil",
       "start": 292.48,
       "end": 298.36,
-      "text": "Itmeans there's no caffeine And we usually shorten that just to decaf, decaf coffee.",
+      "text": "–– it means there's no caffeine And we usually shorten that just to decaf, decaf coffee.",
       "words": [
         {
-          "text": "Itmeans",
+          "text": "––",
           "start": 292.59,
+          "end": 292.59
+        },
+        {
+          "text": "it",
+          "start": 292.59,
+          "end": 292.73
+        },
+        {
+          "text": "means",
+          "start": 292.73,
           "end": 293.07
         },
         {
@@ -5109,5 +5124,6 @@
         }
       ]
     }
-  ]
+  ],
+  "engine": "slicing/1.0.0"
 }

@@ -27,7 +27,7 @@
 | 33 | 开头 | 219.37 | 219.28 | There's been a long-standing burger culture in Iceland. |
 | 34 | 开头 | 223.93 | 223.85 | They have their own take on a hamburger, wherein they'll use lettuce and raw cucumbers and a type of fry sauce that's called a shop burger and that's been around for ages. |
 | 37 | 开头 | 250.52 | 250.17 | Iceland already had a long standing tradition of eating burgers, a tradition that had existed for a long time. |
-| 38 | 开头 | 258.80 | 258.74 | For example, the Schalpul Bulgari, or Shopburger, was a take on, or variation of, the American hamburger. |
+| 38 | 开头 | 258.80 | 258.74 | For example, the Schalpul Bulgari, or shop burger, was a take on, or variation of, the American hamburger. |
 | 39 | 开头 | 266.77 | 266.50 | McDonald’s weren't as successful in Iceland as they'd been elsewhere. |
 | 41 | 开头 | 282.17 | 282.12 | To this day, there are no McDonald's in Iceland, unlike Britain, which reminds me of your question, Phil. |
 | 43 | 开头 | 294.64 | 294.61 | I asked you if there were four thousand, forty two thousand or four million, And of course the answer is forty two thousand, so you were right well done. |
@@ -56,3 +56,11 @@
 ## 照人耳确认的改（bounds_manual.json）
 
 - 没有要改的
+
+## 照人定的说话人改（speaker_manual.json）
+
+- 第 55 句说话人 Phil → 片头片尾
+- 第 56 句说话人 Phil → 片头片尾
+- 第 57 句说话人 Phil → 片头片尾
+- 第 58 句说话人 Phil → 片头片尾
+- 第 59 句说话人 Phil → 片头片尾

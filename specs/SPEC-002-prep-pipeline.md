@@ -3,7 +3,7 @@
 > 答什么：一份听力材料怎么变成一集能听的课程——要什么输入、按什么顺序跑哪几个程序、每步出什么、跑完查什么、多快、多少钱。「接一份新材料」照文末的操作手册做。
 > 谁何时读：接新材料之前；改任何一个备课程序之前；要把备课串成一条命令时。
 > 怎么变短：每一步里面怎么做住它自己的规格（识别对齐 SPEC-003、边界 SPEC-004、内容 SPEC-005、单词 SPEC-006、朗读 SPEC-007），这里只管顺序、交接、时间、钱和查什么。
-> 状态：开发中（每一步都能跑；已备好四集：260821 Coffee、261009 The cinema（REE）、250123 快餐、250918 机器人（6 Minute English，2026-10-28 接的，顺带修了 mp3 嵌封面图和识别粘词两个坑，见 `docs/lessons.md`）；还没串成一条命令，没讲稿的材料没试过）。
+> 状态：开发中（每一步都能跑；已备好四集：260821 Coffee、261009 The cinema（REE）、250123 快餐、250918 机器人（6 Minute English，2026-10-28 接的，顺带修了 mp3 嵌封面图和识别粘词两个坑，见 `docs/lessons.md`）；切割 1–5 步已串成一条命令＝语义切割引擎，`specs/SPEC-012-slicing-engine.md`，2026-11-03；没讲稿的材料没试过）。
 > 需求出处：`demand.md` 第 1 条。总需求：`specs/SPEC-000-overview.md`。
 
 ## 值不值
@@ -29,31 +29,31 @@
 
 ## 流程
 
-依次跑，每步都带课名：`<pywork python> pipeline/<程序> <课>`。时间是第一集（6 分 02 秒、89 句正文）实测的。
+1–5 步是一条命令（语义切割引擎，SPEC-012）：`<pywork python> pipeline/slicing/run.py <课>`——识别结果已在（`asr_raw.json`）就跳过第 2 步不花钱，机器耳朵听过的片段吃 `ear_cache.json`，跑完出 `quality_report.md`。每步仍是一个能单独重跑的程序（`<pywork python> pipeline/slicing/<程序> <课>`）。第 6 步单独跑。时间是第一集（6 分 02 秒、89 句正文）实测的。
 
 | 步 | 程序 | 做什么 | 出什么 | 时间 · 钱 | 细则 |
 |---|---|---|---|---|---|
-| 1 | `pipeline/audio.py` | 转成播放器用的 m4a | `audio.m4a` | 16 秒 | 本文 R4 |
-| 2 | `pipeline/asr_probe.py` | 转成 16k 单声道 wav，上传临时存储，百炼录音文件识别，拿到句、词和时间 | `audio_16k.wav`、`asr_raw.json` | 12 秒 · 约 0.08 元 | SPEC-003 |
-| 3 | `pipeline/align.py` | 和讲稿逐词对齐：拼写、说话人来自讲稿，切出片头片尾，按说话人和意思切成句子 | `timeline.json`、`align_report.md` | 0.4 秒 | SPEC-003 |
-| 4 | `pipeline/refine_bounds.py` | 按音量把每句起止挪到真正的停顿处 | 改 `timeline.json`，写 `bounds_report.md` | 0.3 秒 | SPEC-004 |
-| 5 | `pipeline/ear_bounds.py` | 机器耳朵听每句开头结尾，切掉了就往外挪；最后照人耳确认的改 | 改 `timeline.json`，写 `ear_report.md` | 42 秒 · 一两毛钱 | SPEC-004 |
+| 1 | `pipeline/slicing/audio.py` | 转成播放器用的 m4a | `audio.m4a` | 16 秒 | 本文 R4 |
+| 2 | `pipeline/slicing/asr_probe.py` | 转成 16k 单声道 wav，上传临时存储，百炼录音文件识别，拿到句、词和时间 | `audio_16k.wav`、`asr_raw.json` | 12 秒 · 约 0.08 元 | SPEC-003 |
+| 3 | `pipeline/slicing/align.py` | 和讲稿逐词对齐：拼写、说话人来自讲稿，切出片头片尾，按说话人和意思切成句子 | `timeline.json`、`align_report.md` | 0.4 秒 | SPEC-003 |
+| 4 | `pipeline/slicing/refine_bounds.py` | 按音量把每句起止挪到真正的停顿处 | 改 `timeline.json`，写 `bounds_report.md` | 0.3 秒 | SPEC-004 |
+| 5 | `pipeline/slicing/ear_bounds.py` | 机器耳朵听每句开头结尾，切掉了就往外挪；最后照人耳确认的改 | 改 `timeline.json`，写 `ear_report.md` | 42 秒 · 一两毛钱 | SPEC-004 |
 | 6 | `pipeline/teach.py` | 每句中文、挑生词、每个词的那一行、按话题分段、从发音词典拷朗读 | `lesson.json`、`teach_raw.json`、`tts/` | 35 秒（从头生成）· 几分钱 | SPEC-005、SPEC-006、SPEC-007 |
 
 合计约 1 分 45 秒。第 6 步重跑时默认沿用上一版已有的（按英文原句认），只给新句子调模型：`--fresh` 全部重来，`--resplit` 只重切分段，`--renote` 只重写每个词的那一行。
-只改了人耳确认的边界（`lessons/<课>/bounds_manual.json`）时：`ear_bounds.py <课> --manual` 再跑 `teach.py <课>`，不重调识别。
+只改了人耳确认的边界（`lessons/<课>/bounds_manual.json`）时：`pipeline/slicing/ear_bounds.py <课> --manual` 再跑 `teach.py <课>`，不重调识别。
 
 ## 规则与验收
 
 | # | 规则 | 怎么验收 |
 |---|---|---|
-| R1 | 一条命令备完一集，每步跑完自己查（文末清单里能机器查的项），查出不对就停下、说清是哪一步、哪几句 | 还没做（`docs/debts.md`「家长上传材料后一条命令备课」）。做完：拿第二集素材跑一条命令，得到能播的课程 |
+| R1 | 一条命令备完一集，每步跑完自己查（文末清单里能机器查的项），查出不对就停下、说清是哪一步、哪几句 | **已做（2026-11-03，SPEC-012）**：1–5 步一条命令 `pipeline/slicing/run.py <课>`，出质量报告 `quality_report.md`，退出码 10 音频／20 识别／30 其他说清哪步；第 6 步 teach.py 随后；改引擎代码有金样考卷 `tests/test_slicing.py` 兜底 |
 | R2 | 备一集几分钟以内（owner 2026-09-22） | 第一集实测约 1 分 45 秒（上表）；每接一集记一次时间，超过 5 分钟就查哪一步慢 |
 | R3 | 一集的识别加内容生成不超过一元 | 第一集：识别约 0.08 元，机器耳朵一两毛，模型几分钱 |
 | R4 | 音频转成 m4a 给播放器：mp3 尤其是变码率的，在浏览器里跳到指定时间会偏，「回到句首」就会跑掉（`docs/research/2026-09-12-products-teaching-tech-survey.md` 四） | A14（人工）：连续点同一句十次，每次都从同一个位置开始 |
 | R5 | 备课那一端只连百炼和 DeepSeek，不翻墙；发音词典换电脑时建一次（SPEC-007 R5） | `docs/architecture.md`「外部服务」 |
-| R6 | 每一步都写一份给人看的报告或打印结果：对上了多少、挪了多少、哪几句没把握 | 第一集的 `align_report.md`、`bounds_report.md`、`ear_report.md` 都在 |
-| R7 | 重跑不丢人定过的东西：人耳确认的边界住在 `bounds_manual.json`，每次都最后照它改；已有的中文、分段、那一行按英文原句沿用 | 改了边界重建课程文件，中文和分段不变 |
+| R6 | 每一步都写一份给人看的报告或打印结果：对上了多少、挪了多少、哪几句没把握 | 第一集的 `align_report.md`、`bounds_report.md`、`ear_report.md` 都在；2026-11-03 起引擎另出一份汇总 `quality_report.md`（四指标，SPEC-012） |
+| R7 | 重跑不丢人定过的东西：人耳确认的边界住在 `bounds_manual.json`、人定的说话人住在 `speaker_manual.json`（250123 结尾预告 2026-11-03 从 timeline 里搬进来），每次都最后照它们改；已有的中文、分段、那一行按英文原句沿用 | 改了边界重建课程文件，中文和分段不变 |
 | R8 | 没讲稿的材料也要能备：句子、说话人只靠识别结果 | 还没试（`docs/debts.md`）。要解决的：识别给的说话人不可用（SPEC-003 R3）。对外版 v1 先要求讲稿：没有的备课时报人话提示去粘（2026-09-28，讲稿认纯文本 transcript.txt） |
 | R9 | 课程文件的标题、出处从材料里来，不写死在程序里 | 已做（2026-09-28）：`teach.py` 从材料目录里的 meta.json 读标题和来源（对外版上传时带过去的，见 SPEC-009）；没带就用课名和默认出处 |
 
@@ -61,7 +61,7 @@
 
 每接一集照这个做，查到的数记进交接页；哪一项和第一集差得远，先停下查原因再往下走。第一集的数是参照，不是硬线——接完两三集再定报警线。
 
-1. **放材料**：`materials/<课>/` 放 mp3 和讲稿 PDF。先看讲稿 PDF 能不能读出「谁说了什么」（`pipeline/transcript.py`，BBC 以外的格式要先改它）。
+1. **放材料**：`materials/<课>/` 放 mp3 和讲稿 PDF。先看讲稿 PDF 能不能读出「谁说了什么」（`pipeline/slicing/transcript.py`，BBC 以外的格式要先改它）。
 2. **转音频、识别**（第 1、2 步）：看识别出了几句、几个词，词级时间是不是齐全。第一集：103 句、969 个词片（拼成 845 个词）。
 3. **对齐**（第 3 步），读 `align_report.md`：
    - 讲稿的词对上了多少：第一集 91%。低于八成先看是不是讲稿和录音不是同一版。
@@ -77,7 +77,7 @@
    - 生词挑了多少：第一集 24 到 35 个。
    - 朗读：词典里有几个、没有几个。第一集 259 个全有。
 6. **验声音**：跑 `tests/test_audio.py`（约 5 分钟、几分钱）。放出来的时间和预定的差不到 50 毫秒；开头机器听对的比例，第一集 82/89；结尾第一集 89/89。机器说不对的，打开试听页人耳听（`docs/workflow.md`「验证」）。
-7. **人耳定**：机器说不对、人耳也听出不对的，按 SPEC-004 R5 挪；人耳定下的写进 `bounds_manual.json`，`ear_bounds.py <课> --manual`，再跑 `teach.py <课>`。
+7. **人耳定**：机器说不对、人耳也听出不对的，按 SPEC-004 R5 挪；人耳定下的写进 `bounds_manual.json`，`pipeline/slicing/ear_bounds.py <课> --manual`，再跑 `teach.py <课>`。
 8. **抽查内容**：`pipeline/explain.py sample <课> 5 --more` 抽几句看那一行和展开的；翻一遍 `lesson.json` 里每句的中文。发现一类错，改提示词再重生成，不逐条手改（SPEC-000 R4）。
 9. **播放器里走一遍**：`tests/test_player.py` 现在只认第一集，接新材料时要让它能指定课名（R1 一起做）。
 

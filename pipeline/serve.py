@@ -55,7 +55,7 @@ LESSON_NAME = re.compile(r"[0-9A-Za-z_-]+")   # 课名只许这些字符，防�
 SESSION_COOKIE = "lm_session"
 SESSION_MAX_AGE = 30 * 86400                  # 会话 30 天（SPEC-009 R1）
 RATE_LIMIT = 30                               # 每 IP 每分钟 POST 次数（SPEC-009 R6）
-PREP_STEPS = ["audio.py", "asr_probe.py", "align.py", "refine_bounds.py", "ear_bounds.py", "teach.py"]
+PREP_STEPS = ["slicing/run.py", "teach.py"]   # 切割引擎一条命令（SPEC-012）＋内容生成
 PREP_TIMEOUT = 900                            # 单步最长 15 分钟（正常一步几十秒）
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import stable_copy  # noqa: E402
@@ -87,17 +87,17 @@ class PrepFailed(Exception):
         self.step = step
 
 
-def _prep_classify(step: str) -> str:
-    if step == "audio.py":
+def _prep_classify(step: str, code: int = 0) -> str:
+    if step == "slicing/run.py" and code == 10:   # 引擎的退出码（SPEC-012「一条命令」）
         return "这份音频没读出来，换一份再试"
-    if step == "asr_probe.py":
+    if step == "slicing/run.py" and code == 20:
         return "语音识别没成功，稍后重试"
     return "备课没成功，稍后再试或换一份材料"
 
 
 def _run_prep(server: "Server", email: str, mid: str) -> None:
     """备课任务（SPEC-009 R7、SPEC-002 流程）：材料搬进备课台（materials/<课>），
-    跑六步（或配置里的自定义命令），成了把 lessons/<课> 搬进该账号、拆台；
+    跑切割引擎一条命令＋teach.py（或配置里的自定义命令），成了把 lessons/<课> 搬进该账号、拆台；
     没成停在 failed，台子留着给运维看。串行队列，一次备一集。"""
     acc = server.accounts
     aid = acc.account_id(email)
@@ -127,12 +127,12 @@ def _run_prep(server: "Server", email: str, mid: str) -> None:
                                   capture_output=True, timeout=PREP_TIMEOUT)
             if proc.returncode != 0:
                 raise PrepFailed("备课没成功，稍后再试", step="自定义命令")
-        else:  # 真六步（SPEC-002「流程」），一步一个程序、都带课名
+        else:  # 引擎一条命令（退出码 10 音频／20 识别／30 其他，SPEC-012）＋teach.py，都带课名
             for name in PREP_STEPS:
                 proc = subprocess.run([sys.executable, str(ROOT / "pipeline" / name), mid],
                                       capture_output=True, timeout=PREP_TIMEOUT)
                 if proc.returncode != 0:
-                    raise PrepFailed(_prep_classify(name), step=name)
+                    raise PrepFailed(_prep_classify(name, proc.returncode), step=name)
         if not (stage_l / "lesson.json").exists():
             raise PrepFailed("备课没成功，稍后再试", step="生成课程文件")
         dest = Path(acc.dir) / aid / "lessons" / mid

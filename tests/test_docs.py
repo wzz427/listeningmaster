@@ -6,7 +6,7 @@
 查五样：
 1. 文档里用反引号写到的仓库路径都在。<课> 换成第一集 260821；被 .gitignore 挡住的（随时能重新生成的、密钥文件）不查。
    只查描述「现在」的文档；交接页、教训、决策是历史记录，里面写到删掉的文件是正常的，不查。
-2. pipeline/、web/、tests/ 下的代码文件，docs/architecture.md 里都写到了。
+2. pipeline/（含 pipeline/slicing/）、web/、tests/ 下的代码文件，docs/architecture.md 里都写到了。
 3. tests/test_player.py、tests/test_stable_copy.py、tests/test_hosted_frontend.py 的每个自动检查（用例名开头的 A 编号）
    都在某份规格里写着；规格里的 A 编号，没标「（人工）」的，测试里都有。
 4. docs/architecture.md「课程文件」那张表里的字段，第一集的 lesson.json 里都有。
@@ -84,13 +84,13 @@ def main() -> None:
     print("\n【代码文件都写进了架构文档】")
     arch = read("docs/architecture.md")
     code = sorted(str(p.relative_to(ROOT)).replace("\\", "/")
-                  for pattern in ("pipeline/*.py", "pipeline/*.html", "web/*.html", "web/*.js", "web/*.css", "tests/*.py")
+                  for pattern in ("pipeline/*.py", "pipeline/slicing/*.py", "pipeline/*.html", "web/*.html", "web/*.js", "web/*.css", "tests/*.py")
                   for p in ROOT.glob(pattern))
     absent = [c for c in code if c not in arch]
     check("D2 pipeline/、web/、tests/ 下每个文件 docs/architecture.md 都写到了", not absent, "、".join(absent))
 
     print("\n【自动检查的编号和规格对得上】")
-    tests = {x for f in ("tests/test_player.py", "tests/test_stable_copy.py", "tests/test_hosted_frontend.py")
+    tests = {x for f in ("tests/test_player.py", "tests/test_stable_copy.py", "tests/test_hosted_frontend.py", "tests/test_slicing.py")
              for x in re.findall(r'check\(\s*"(A[0-9A-Za-z-]+)', read(f))}
     spec_text = "\n".join(read(f"specs/{p.name}") for p in sorted((ROOT / "specs").glob("SPEC-[0-9]*.md")))
     in_specs, manual = set(), set()

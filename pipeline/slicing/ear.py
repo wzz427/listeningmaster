@@ -14,7 +14,7 @@ import sys
 import time
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))  # keys.py 在 pipeline/ 根上
 from keys import read_key  # noqa: E402
 
 MODEL = "qwen3-asr-flash"

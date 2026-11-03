@@ -27,7 +27,7 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from audio import to_mono_16k_wav  # noqa: E402
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parent.parent.parent
 FRAME = 0.01        # 每帧 10 毫秒
 SEARCH = 0.15       # 在识别给的时间点前后各找这么远
 QUIET_DB = 25       # 比说话时的典型音量低这么多分贝，算安静
@@ -104,11 +104,11 @@ def refine(sentences: list[dict], db: np.ndarray) -> dict:
     return stats
 
 
-def build(lesson: str) -> None:
-    lesson_dir = ROOT / "lessons" / lesson
+def build(lesson: str, root: Path = ROOT) -> dict:
+    lesson_dir = root / "lessons" / lesson
     wav = lesson_dir / "audio_16k.wav"
     if not wav.exists():
-        to_mono_16k_wav(next((ROOT / "materials" / lesson).glob("*.mp3")), wav)
+        to_mono_16k_wav(next((root / "materials" / lesson).glob("*.mp3")), wav)
     timeline_path = lesson_dir / "timeline.json"
     timeline = json.loads(timeline_path.read_text(encoding="utf-8"))
     stats = refine(timeline["sentences"], loudness(wav))
@@ -126,6 +126,7 @@ def build(lesson: str) -> None:
     ]
     (lesson_dir / "bounds_report.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
     print("\n".join(lines[2:]))
+    return stats
 
 
 if __name__ == "__main__":

@@ -157,7 +157,7 @@ def build(lesson_dir: Path, words: list[str]) -> dict[str, str]:
 def check_page(lesson: str) -> None:
     """给 owner 一页抽听朗读：机器耳朵先听一遍，它听着不对的排前面。
     机器耳朵单听一个词不可靠（to 听成 two、know 听成 no，2026-09-22），只用来排先后，好不好由人耳定。"""
-    from ear import hear, words_of
+    from slicing.ear import hear, words_of
 
     lesson_dir = ROOT / "lessons" / lesson
     data = json.loads((lesson_dir / "lesson.json").read_text(encoding="utf-8"))

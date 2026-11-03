@@ -53,13 +53,23 @@ def to_m4a(src: Path, dst: Path) -> Path:
     return dst
 
 
+ROOT = Path(__file__).resolve().parent.parent.parent
+
+
+def build(lesson: str, root: Path = ROOT) -> Path:
+    """备课第 1 步：mp3 转成播放器用的 m4a（已在就不重转，重放不花钱）。"""
+    target = root / "lessons" / lesson / "audio.m4a"
+    if target.exists():
+        print(f"m4a 已在，不重转：{target.relative_to(root)}")
+    else:
+        to_m4a(next((root / "materials" / lesson).glob("*.mp3")), target)
+        print(f"已转出 {target.relative_to(root)}（{target.stat().st_size / 1e6:.1f} MB）")
+    print(probe(target))
+    return target
+
+
 if __name__ == "__main__":
     import sys
 
     sys.stdout.reconfigure(encoding="utf-8")
-    lesson = sys.argv[1] if len(sys.argv) > 1 else "260821"
-    root = Path(__file__).resolve().parent.parent
-    source = next((root / "materials" / lesson).glob("*.mp3"))
-    target = to_m4a(source, root / "lessons" / lesson / "audio.m4a")
-    print(f"已转出 {target.relative_to(root)}（{target.stat().st_size / 1e6:.1f} MB）")
-    print(probe(target))
+    build(sys.argv[1] if len(sys.argv) > 1 else "260821")

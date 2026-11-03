@@ -118,7 +118,7 @@
     {
       "id": 2,
       "speaker": "Phil",
-      "start": 11.87,
+      "start": 11.78,
       "end": 12.57,
       "text": "I'm Phil.",
       "words": [
@@ -161,7 +161,7 @@
     {
       "id": 4,
       "speaker": "Phil",
-      "start": 14.32,
+      "start": 14.1,
       "end": 18.5,
       "text": "Love it or hate it, there's no doubt fast food is popular.",
       "words": [
@@ -230,7 +230,7 @@
     {
       "id": 5,
       "speaker": "Phil",
-      "start": 19.13,
+      "start": 19.08,
       "end": 20.77,
       "text": "Are you a fast food fan, Beth?",
       "words": [
@@ -312,7 +312,7 @@
     {
       "id": 8,
       "speaker": "Beth",
-      "start": 23.54,
+      "start": 23.36,
       "end": 29.33,
       "text": "I think sometimes it can be quite convenient, obviously, because it's quick, but not really.",
       "words": [
@@ -515,7 +515,7 @@
     {
       "id": 10,
       "speaker": "Beth",
-      "start": 39.23,
+      "start": 39.11,
       "end": 46.51,
       "text": "In this programme, we'll discussing the global spread fast food from its beginnings in 1950s America.",
       "words": [
@@ -604,7 +604,7 @@
     {
       "id": 11,
       "speaker": "Beth",
-      "start": 46.93,
+      "start": 46.89,
       "end": 50.38,
       "text": "As usual, we'll be learning some useful new words and phrases.",
       "words": [
@@ -836,7 +836,7 @@
     {
       "id": 14,
       "speaker": "Beth",
-      "start": 67.38,
+      "start": 67.21,
       "end": 71.18,
       "text": "I'm going to go for b), 42,000 okay,",
       "words": [
@@ -885,7 +885,7 @@
     {
       "id": 15,
       "speaker": "Phil",
-      "start": 71.26,
+      "start": 71.18,
       "end": 73.34,
       "text": "well, later on we'll find out the answer.",
       "words": [
@@ -934,8 +934,8 @@
     {
       "id": 16,
       "speaker": "Phil",
-      "start": 73.93,
-      "end": 81.71,
+      "start": 73.9,
+      "end": 82.34,
       "text": "In the United States, cheap and easy food like hamburgers, French fries, and milkshakes have been popular since the 1950s.",
       "words": [
         {
@@ -1202,7 +1202,7 @@
     {
       "id": 18,
       "speaker": "Phil",
-      "start": 95.18,
+      "start": 94.91,
       "end": 100.77,
       "text": "At the heart of the story of fast food is a very anyone can do this sense.",
       "words": [
@@ -1658,7 +1658,7 @@
     {
       "id": 22,
       "speaker": "Phil",
-      "start": 126.23,
+      "start": 126.15,
       "end": 132.17,
       "text": "So it was the American dream in a very small way that became the American dream in a very big way.",
       "words": [
@@ -1772,7 +1772,7 @@
     {
       "id": 23,
       "speaker": "Beth",
-      "start": 132.83,
+      "start": 132.56,
       "end": 139.05,
       "text": "The rise of fast food reflected the rise of American economic power after the Second World War.",
       "words": [
@@ -1985,7 +1985,7 @@
     {
       "id": 25,
       "speaker": "Phil",
-      "start": 147.2,
+      "start": 147.09,
       "end": 156.26,
       "text": "In the 1950s, when the famous brands we know today were just beginning anyone with can-do attitude could sell fast food.",
       "words": [
@@ -2099,7 +2099,7 @@
     {
       "id": 26,
       "speaker": "Phil",
-      "start": 156.92,
+      "start": 156.88,
       "end": 163.27,
       "text": "A can-do attitude describes someone who is confident and determined to fix problems and achieve results.",
       "words": [
@@ -2188,7 +2188,7 @@
     {
       "id": 27,
       "speaker": "Beth",
-      "start": 163.53,
+      "start": 163.29,
       "end": 181.53,
       "text": "Which exactly what happened successful restaurants like Kentucky Fried Chicken and McDonald's many, these fast food brands symbolised The American dream the idea that anyone in the United States can achieve success through hard work and determination.",
       "words": [
@@ -2550,7 +2550,7 @@
     {
       "id": 30,
       "speaker": "Beth",
-      "start": 194.8,
+      "start": 194.7,
       "end": 200.63,
       "text": "But not every country opened its arms in welcome the tiny island of Iceland, for one.",
       "words": [
@@ -2718,7 +2718,7 @@
     {
       "id": 32,
       "speaker": "Beth",
-      "start": 208.04,
+      "start": 208.01,
       "end": 218.63,
       "text": "Here she tells BBC World Service programme The Food Chain how McDonald's got a frosty reception when it started selling burgers in Iceland's capital, Reykjavik.",
       "words": [
@@ -2852,7 +2852,7 @@
     {
       "id": 33,
       "speaker": "Beth",
-      "start": 219.37,
+      "start": 219.28,
       "end": 223.84,
       "text": "There's been a long-standing burger culture in Iceland.",
       "words": [
@@ -2901,7 +2901,7 @@
     {
       "id": 34,
       "speaker": "Beth",
-      "start": 223.93,
+      "start": 223.85,
       "end": 238.2,
       "text": "They have their own take on a hamburger, wherein they'll use lettuce and raw cucumbers and a type of fry sauce that's called a shop burger and that's been around for ages.",
       "words": [
@@ -3233,7 +3233,7 @@
     {
       "id": 37,
       "speaker": "Phil",
-      "start": 250.52,
+      "start": 250.17,
       "end": 258.22,
       "text": "Iceland already had a long standing tradition of eating burgers, a tradition that had existed for a long time.",
       "words": [
@@ -3337,7 +3337,7 @@
     {
       "id": 38,
       "speaker": "Phil",
-      "start": 258.8,
+      "start": 258.74,
       "end": 266.14,
       "text": "For example, the Schalpul Bulgari, or shop burger, was a take on, or variation of, the American hamburger.",
       "words": [
@@ -3436,7 +3436,7 @@
     {
       "id": 39,
       "speaker": "Beth",
-      "start": 266.77,
+      "start": 266.5,
       "end": 270.85,
       "text": "McDonald’s weren't as successful in Iceland as they'd been elsewhere.",
       "words": [
@@ -3649,7 +3649,7 @@
     {
       "id": 41,
       "speaker": "Beth",
-      "start": 282.17,
+      "start": 282.12,
       "end": 289.55,
       "text": "To this day, there are no McDonald's in Iceland, unlike Britain, which reminds me of your question, Phil.",
       "words": [
@@ -3822,7 +3822,7 @@
     {
       "id": 43,
       "speaker": "Phil",
-      "start": 294.64,
+      "start": 294.61,
       "end": 303.91,
       "text": "I asked you if there were four thousand, forty two thousand or four million, And of course the answer is forty two thousand, so you were right well done.",
       "words": [
@@ -3976,7 +3976,7 @@
     {
       "id": 44,
       "speaker": "Phil",
-      "start": 305.12,
+      "start": 305.09,
       "end": 314.55,
       "text": "Okay, let's recap the vocabulary we've learned, starting with at the heart of, meaning the most important part or the cause of something.",
       "words": [
@@ -4100,7 +4100,7 @@
     {
       "id": 45,
       "speaker": "Beth",
-      "start": 315.72,
+      "start": 315.66,
       "end": 324.5,
       "text": "If you say that someone has a can-do attitude, you mean they are confident to take action, fix problems, and deal with new challenges.",
       "words": [
@@ -4229,7 +4229,7 @@
     {
       "id": 46,
       "speaker": "Phil",
-      "start": 324.88,
+      "start": 324.81,
       "end": 333.31,
       "text": "The American dream is the belief that everyone in the USA has the opportunity to be successful and happy if they work hard.",
       "words": [
@@ -4417,7 +4417,7 @@
     {
       "id": 48,
       "speaker": "Phil",
-      "start": 338.7,
+      "start": 338.63,
       "end": 342.73,
       "text": "A take on something means a variation or new way of presenting it.",
       "words": [
@@ -4789,7 +4789,7 @@
     {
       "id": 51,
       "speaker": "Beth",
-      "start": 364.32,
+      "start": 364.27,
       "end": 365.23,
       "text": "See you there soon.",
       "words": [
@@ -4818,8 +4818,8 @@
     {
       "id": 52,
       "speaker": "Phil",
-      "start": 365.72,
-      "end": 366.24,
+      "start": 365.46,
+      "end": 366.31,
       "text": "Goodbye.",
       "words": [
         {
@@ -4886,7 +4886,7 @@
     {
       "id": 54,
       "speaker": "Phil",
-      "start": 374.67,
+      "start": 374.51,
       "end": 376.96,
       "text": "Thanks for listening to six Minute English.",
       "words": [
@@ -4930,7 +4930,7 @@
     {
       "id": 55,
       "speaker": "片头片尾",
-      "start": 377.31,
+      "start": 377.27,
       "end": 379.57,
       "text": "Have you heard our new music series?",
       "words": [
@@ -4974,7 +4974,7 @@
     {
       "id": 56,
       "speaker": "片头片尾",
-      "start": 379.71,
+      "start": 379.59,
       "end": 382.71,
       "text": "My song, my home in each episode.",
       "words": [
@@ -5018,7 +5018,7 @@
     {
       "id": 57,
       "speaker": "片头片尾",
-      "start": 382.83,
+      "start": 382.71,
       "end": 387.36,
       "text": "We visit a different place in the uk and meet a musician that lives there.",
       "words": [
@@ -5102,7 +5102,7 @@
     {
       "id": 58,
       "speaker": "片头片尾",
-      "start": 388.02,
+      "start": 387.98,
       "end": 391.68,
       "text": "Learn english from songs and hear natural british speakers.",
       "words": [
@@ -5156,7 +5156,7 @@
     {
       "id": 59,
       "speaker": "片头片尾",
-      "start": 392.18,
+      "start": 392.12,
       "end": 392.71,
       "text": "Find the",
       "words": [
@@ -5276,5 +5276,6 @@
         }
       ]
     }
-  ]
+  ],
+  "engine": "slicing/1.0.0"
 }

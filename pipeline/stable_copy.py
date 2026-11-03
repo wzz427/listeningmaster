@@ -279,11 +279,15 @@ def save_runtime(stable: Path, commit: str) -> dict:
 
 def merge_runtime(stable: Path, saved: dict) -> dict[str, int]:
     """换到新版本后：孩子查过的讲解并回去（新版本里有的以新版本为准）。
-    新版本删了这一集的缓存（改了展开的提示词），或者改了这一集的句子（讲解按句子编号存，对不上了），就不留。"""
+    新版本改了这一集的句子，那一集就不留、按新的重查（讲解按句子编号存，对不上了）。
+    缓存 2026-11-03 起不进仓库（fcced66）：换版本时它不再被 checkout 删掉，句子变了要在这里主动删。"""
     kept = {}
     for lesson, s in saved.items():
         path = stable / "lessons" / lesson / "explain_cache.json"
-        if not s["added"] or not path.exists() or _sentences(stable, lesson) != s["sentences"]:
+        if _sentences(stable, lesson) != s["sentences"]:
+            path.unlink(missing_ok=True)   # 没被 checkout 删掉（不进仓库），句子对不上了，主动删
+            continue
+        if not s["added"] or not path.exists():
             continue
         cache = read_json(path) or {}
         fresh = {k: v for k, v in s["added"].items() if k not in cache}

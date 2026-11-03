@@ -1,6 +1,6 @@
 # 机器耳朵查句子边界 · 250918
 
-听了 62 句。挪好了 43 处，挪到头也没听到的 4 处（要人耳查）。
+听了 62 句。挪好了 44 处，挪到头也没听到的 4 处（要人耳查）。
 
 ## 挪好了的
 
@@ -16,6 +16,7 @@
 | 16 | 开头 | 109.80 | 109.69 | First, I have a question for you, Beth. |
 | 17 | 开头 | 112.54 | 112.38 | Because it's important people feel safe around robots, engineers design them to look like the friendly characters seen in animated movies by studios like Pixar and DreamWorks. |
 | 18 | 开头 | 123.61 | 123.57 | So, what is the name of Pixar's friendly robot who picks up garbage on an uninhabited planet Earth in the year 2805? |
+| 18 | 结尾 | 133.11 | 133.18 | So, what is the name of Pixar's friendly robot who picks up garbage on an uninhabited planet Earth in the year 2805? |
 | 19 | 结尾 | 139.28 | 139.39 | Is it a), Roz?  b), wally, or c), R2D2? |
 | 22 | 开头 | 147.02 | 146.96 | For five months during the Covid pandemic, Australian engineer Grace Brown had no human contact. |
 | 25 | 开头 | 179.46 | 179.39 | Abby, who's the humanoid robot that we build at Andromeda, people don't expect humanoid robots to have like so much personality. |

@@ -18,12 +18,13 @@ import dashscope
 from dashscope.audio.asr import Transcription
 from dashscope.utils.oss_utils import upload_file
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parent))          # 同包的 audio
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))  # pipeline/ 根上的 keys
 from audio import probe, to_mono_16k_wav  # noqa: E402
 from keys import read_key  # noqa: E402
 
 MODEL = "qwen-audio-3.0-asr-flash-filetrans"
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parent.parent.parent
 
 
 def transcribe(audio_path: Path, out_path: Path) -> dict:
@@ -63,7 +64,7 @@ def transcribe(audio_path: Path, out_path: Path) -> dict:
     data = json.loads(request.urlopen(sub["transcription_url"]).read().decode("utf8"))
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"      已存到 {out_path.relative_to(ROOT)}")
+    print(f"      已存到 {out_path.parent.parent / out_path.name}")
     return data
 
 
@@ -83,8 +84,15 @@ def summarize(data: dict) -> None:
             print(f"  [{w['begin_time']/1000:7.2f} - {w['end_time']/1000:7.2f}] {w['text']!r}")
 
 
+def build(lesson: str, root: Path = ROOT) -> dict:
+    """备课第 2 步：识别整集（要花钱，一集约 0.08 元，SPEC-002）。要不要跳过由 run.py 按文件在不在决定。"""
+    src = next((root / "materials" / lesson).glob("*.mp3"))
+    out = root / "lessons" / lesson / "asr_raw.json"
+    data = transcribe(src, out)
+    summarize(data)
+    return data
+
+
 if __name__ == "__main__":
-    lesson = sys.argv[1] if len(sys.argv) > 1 else "260821"
-    src = next((ROOT / "materials" / lesson).glob("*.mp3"))
-    out = ROOT / "lessons" / lesson / "asr_raw.json"
-    summarize(transcribe(src, out))
+    sys.stdout.reconfigure(encoding="utf-8")
+    build(sys.argv[1] if len(sys.argv) > 1 else "260821")

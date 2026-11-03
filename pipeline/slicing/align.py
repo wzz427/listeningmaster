@@ -20,7 +20,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from transcript import Turn, read_turns  # noqa: E402
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parent.parent.parent
 OUTSIDE = "片头片尾"      # 讲稿里没有的部分
 NOISE_RUN = 2             # 连续不超过这么多个词的「说话人倒退」当噪声
 MEGA = 20                 # 归一化后超过这么长字符的「词」只可能是识别粘词拼出来的巨词
@@ -284,10 +284,10 @@ def merge_fragments(sentences: list[Sentence]) -> int:
     return count
 
 
-def build(lesson: str) -> None:
-    lesson_dir = ROOT / "lessons" / lesson
+def build(lesson: str, root: Path = ROOT) -> dict:
+    lesson_dir = root / "lessons" / lesson
     asr = json.loads((lesson_dir / "asr_raw.json").read_text(encoding="utf-8"))
-    material_dir = ROOT / "materials" / lesson
+    material_dir = root / "materials" / lesson
     script = next(material_dir.glob("*transcript.pdf"), None) or next(material_dir.glob("transcript.txt"), None)
     if script is None:  # 对外版 v1 要讲稿（SPEC-009 R5）；没讲稿的路是 SPEC-002 R8 的欠账
         raise SystemExit("这份材料没有讲稿，暂时备不了：在资料库里这条材料上点「＋讲稿」，"
@@ -354,7 +354,11 @@ def build(lesson: str) -> None:
     print(f"句子：{len(sentences_tokens)} → {len(sentences)}（正文 {len(body)} 句）")
     print(f"对上的词：{matched}/{script_total}（{matched / script_total:.0%}），修正噪声 {smoothed} 个"
           + (f"，粘词重切 {respaced} 句" if respaced else ""))
-    print(f"已写出 {(lesson_dir / 'timeline.json').relative_to(ROOT)} 和 align_report.md")
+    print(f"已写出 {(lesson_dir / 'timeline.json').relative_to(root)} 和 align_report.md")
+    return {"asr_words": len(all_words), "script_words": script_total, "matched": matched,
+            "match_rate": matched / script_total, "respaced": respaced, "pair_fixed": pair_fixed,
+            "pair_gained": pair_gained, "smoothed": smoothed, "joined": joined,
+            "sentences": len(sentences), "body": len(body)}
 
 
 if __name__ == "__main__":

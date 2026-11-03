@@ -45,9 +45,10 @@
 - 机器：Windows 11 笔记本（2026-10-29 换机），显卡 RTX 5070 Laptop（12GB 显存）。
 - 测试（什么时候跑哪份、看什么，全在 `docs/workflow.md`「验证」）：`<pywork python> tests/test_player.py`——用 Playwright 真的开浏览器、真的点按钮、真的看音频播到第几秒，85 项，不到 1 分钟。**改完播放器或本地服务必须跑**。加 `--show` 能看见浏览器窗口，加 `--shots <目录>` 存截图看界面。Playwright 和 chromium 已经装在 pywork 里。改了网站（对外模式、library.js、login.html）跑 `tests/test_hosted_frontend.py`（约 20 秒，走完整条用户路）；改了文档或加删文件跑 `tests/test_docs.py`（不到 1 秒）：文档里写到的文件、字段、验收编号和代码对不上就报错。
 - 验声音：`<pywork python> tests/test_audio.py`——录下真的 Chrome 放出来的每一句，交给机器耳朵听开头结尾对不对，做一页试听给人耳抽查，约 5 分钟、几分钱。**改了句子边界或播放器的停法就跑**。只核对数字发现不了声音问题（`docs/lessons.md` 2026-09-22）。
+- 切割引擎（`pipeline/slicing/`，2026-11-03 收进一个包，SPEC-012）：一条命令 `<pywork python> pipeline/slicing/run.py <课>` 跑完切割整条链（识别已有就跳过、耳朵吃缓存），出 timeline＋`quality_report.md`；**改了 `pipeline/slicing/` 的任何代码，合入前必跑金样考卷 `<pywork python> tests/test_slicing.py`**（四课离线重放对标准答案＋咬人自检，约半分钟、不联网不花钱）。
 - 三个住处、一套代码（D55）：owner 测新版本用旁边的体验版 `ListeningMaster-stable`（双击 `start-trial.bat`，http://localhost:8790/ ，跑的是网站），家长和孩子用线上正式版，claude 只改这个目录（开发版）。体验版一个字不手改，换版本只经 `pipeline/stable_copy.py`；新版本 `invite` 钉给他、他点页面右上角的「更新」（平时灰着，钉了才亮）过去（操作手册 `docs/copies-and-release.md`）；上线只发体验版那一版。改了换版本的代码跑 `tests/test_stable_copy.py`（约半分钟）。
 - 自己看效果：播放器 `<pywork python> pipeline/serve.py 8766`，打开 http://localhost:8766/web/ ；网站 `<pywork python> pipeline/serve.py --hosted`（8791，公共课就是仓库里的 lessons/，配置在仓库根 gitignore 的 server-config.json）。这个本地服务还管点词补查、展开、现读词组（`pipeline/explain.py`），密钥只在它这里。**不要用 `python -m http.server`**：它不支持从文件中间取一段，音频跳不动（见 `docs/lessons.md`）。
-- 备课（接一份新材料）：六个程序依次跑，顺序、每步出什么、跑完查什么，照 `specs/SPEC-002-prep-pipeline.md`「流程」和「接一份新材料：操作手册」。备课要在几分钟以内（owner 2026-09-22）。
+- 备课（接一份新材料）：切割一条命令 `<pywork python> pipeline/slicing/run.py <课>`，再 `teach.py`；顺序、每步出什么、跑完查什么，照 `specs/SPEC-002-prep-pipeline.md`「流程」和「接一份新材料：操作手册」。备课要在几分钟以内（owner 2026-09-22）。
 - 发音词典（换电脑时建一次）：`pipeline/tts.py library` 把常用词的谷歌英音取到仓库外并排的 `WordsAudio/`，要翻墙；`--top 50000` 取 5 万（实测约 2.5 小时、587MB、没有失败，2026-09-23 取完）；断了重跑接着取。
 - 异地备份：两处远端——`gitee`（私有库 `wzz427/listening-master-backup`，owner 2026-09-28 建，走 `~/.ssh/config` 里专门的 `gitee_wzz427` 钥匙）和 `github`（**公开库** `wzz427/listeningmaster`，owner 2026-09-29 拍板公开：仓库里的 BBC 素材定位是 sample，D51；走专门的 `github_wzz` 钥匙，GitHub 上登记名 agent-access）。**提交后顺手 `git push gitee master && git push github master`**（/wrap 第 4 步也含它）。备份不含密钥：`api-keys.txt`、`docs/refs/阿里云配置指南.md`、`server-config.json`、`server-data/` 都在 `.gitignore` 里；各家上传的资料在服务器上另做打包备份（`docs/deploy-listen-app.md` 第 7 节）。owner 自建的听力材料库以后放仓库外的专门目录，不进 git（D51）。
 
@@ -68,7 +69,7 @@
 | 课程怎么教（理念、一集六步、单元阶段、材料阶梯、落地路线） | `docs/listening-led-course.md` |
 | 调百炼语音识别 | `docs/refs/qwen-asr-api.md`（官方文档存档） |
 | 原始素材 | `materials/<期号>/`（音频 + 讲稿 + 练习） |
-| 备课程序 | `pipeline/`；接新材料照 `specs/SPEC-002-prep-pipeline.md` 的操作手册 |
+| 备课程序 | 切割引擎住 `pipeline/slicing/`（一条命令 `run.py`），内容生成在 `pipeline/teach.py`；接新材料照 `specs/SPEC-002-prep-pipeline.md` 的操作手册 |
 | 播放器 | `web/`（五个文件：index.html、style.css、app.js，登录页 login.html，对外模式的资料库侧边栏 library.js） |
 | 验播放器改得对不对 | `tests/test_player.py` |
 | 交一版给 owner 试、体验版出了问题、退回上一版 | `docs/copies-and-release.md`（三版管理与发版的操作手册） |
@@ -78,6 +79,7 @@
 | 改点词讲解的提示词（`specs/SPEC-006-word-card.md`） | `pipeline/explain.py`：那一行的规则在 `RULES`（备课整句写用 `LINES`，漏了补查用 `LINE`），改完 `teach.py <课> --renote`；展开的在 `MORE`，改完删 `lessons/<课>/explain_cache.json`。抽查 `explain.py sample <课> <句数> --more` |
 | 改界面 | 先加载 frontend-design 技能再动手（ZCode 里就有；owner 2026-09-28 验收上传面板「设计得真难看」后定的），按真正的前端设计标准做（owner 2026-09-21 要求）；改完跑 `tests/test_player.py --shots <目录>` 看截图 |
 | 句子边界切得准不准 | `specs/SPEC-004-sentence-bounds.md`；先听：`tests/test_audio.py`；再量：`pipeline/measure_bounds.py`（只看音量，会被骗） |
+| 切割引擎怎么包（一条命令、质量报告、版本、金样考卷） | `specs/SPEC-012-slicing-engine.md`；考卷 `tests/test_slicing.py` |
 | 汇报怎么写（发给他之前的编排和自检） | `docs/how-to-report.md` |
 | 压缩上下文 | `/wrap` |
 
