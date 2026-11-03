@@ -63,6 +63,7 @@
 | `web/library.js` | 资料库侧边栏、上传面板（拖放区主角＋讲稿文件）、空库的播放器（不挡路，卡片里一句邀请）（对外模式专用）：app.js 只在服务报 `copy=hosted` 时进来（hostedStart/hostedLessonMissing 两个入口）；两区四状态、备课轮询、材料变课的高亮和通知、进度点（读 app.js 的学习记录键）、「＋讲稿」补传、登出。v7 匿名态（`/api/library` 的 `user` 为 null）：只见课区（标题「听力材料」＝公共库）、没有上传和材料区、底部小「登录」。本地模式一个字节都不执行 | SPEC-009 R8 |
 | `web/speak-lab.html` | 口语实验页（决策 D52，自包含单文件）：两个实时语音模型 A/B 一键切换、孩子/大人两种口吻、麦克风收发（AudioWorklet，上行 16k 下行 24k）、实时转写、每轮「接话」延迟、10 分钟封顶、聊完存转写（文本和 JSON）、「事件」面板看原始事件（协议排错用）。只连本地 8771 的桥，不直接连百炼 | —（实验，同 `pipeline/speak_lab.py`） |
 | `web/fonts/` | 放在本地的字体：Literata（英文正文）、DM Mono（数字）、Noto Serif 裁出来的音标字体，各带许可证 | SPEC-001 R22、SPEC-006 R8 |
+| `web/art/` | 环节进入页（节目卡）的两张固定配图：`warmup.jpg`（开场：调频）、`listen.jpg`（正片：夜听），百炼 qwen-image 生成后转 jpg；换图＝换这两个文件 | SPEC-011 R1 |
 | `tests/test_player.py` | 播放器的自动检查（Playwright），编号对应各规格的 A 编号 | `docs/workflow.md` |
 | `tests/test_audio.py` | 验声音：录下真的 Chrome 放出来的声音，对时间、机器耳朵听、出试听页 | SPEC-004 R7 |
 | `tests/test_docs.py` | 文档和代码对不对得上 | `docs/workflow.md` |
@@ -143,7 +144,7 @@
 - 三个文件，纯 HTML + JavaScript + CSS，不用框架、没有构建步骤（决策 D14）。
 - `app.js` 按功能分块，块头有注释：启动、分段、声音（渐强渐弱、准点停）、跳句（两种播法）、画面、进度条、单词、全文、按钮和键盘。开头写着几条要记住的理由。
 - 声音走 Web Audio 的音量节点，停之前在上面做渐弱（SPEC-001 R16）；验声音时在同一个节点后面接录音（`tests/test_audio.py`）。
-- 学习记录和设置存在浏览器本地（`localStorage`，按课名分开），「导出」存成文件（决策 D9）。
+- 学习记录和设置存在浏览器本地（`localStorage`，按课名分开），「导出」存成文件（决策 D9）。另有按课记的一次性开关：`warmup-done`（这课预热过没有，SPEC-010）、`listen-intro-done`（这课过没过「精听」节目卡，SPEC-011）。
 - 字体全在 `web/fonts/`，中文用系统字体（决策 D19）。
 - 换版本（SPEC-008）：每分钟、切回页签时问一次 `/api/version`；服务换了版本挂「这一页旧了」；「更新」只在体验版里有——平时灰着、钉了新版本亮起来（D55）。刷新前把当前句子记在 `sessionStorage`，刷新后回到这一句。
 

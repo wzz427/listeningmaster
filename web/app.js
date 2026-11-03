@@ -79,11 +79,13 @@ async function boot() {
   backToPlace();
   setRate(1);
   render();
-  // 预热（SPEC-010 R8）：第一次开这一课、有预热词，先进预热；这课没有预热（旧课、生成失败）直接进播放器（R7）
+  // 预热（SPEC-010 R8）：第一次开这一课、有预热词，先进预热；这课没有预热（旧课、生成失败）直接进播放器（R7）。
+  // 环节进入页（SPEC-011）：第一次开课先过「预热」那张卡；预热过了（或这课没有），第一次进播放器前过「精听」那张
   $('warmBtn').hidden = !warmWords().length;
   let warmed = null;
   try { warmed = localStorage.getItem(settingKey(WARM_DONE)); } catch { /* 存不了就当没来过 */ }
-  if (warmWords().length && !warmed) enterWarmup();
+  if (warmWords().length && !warmed) showIntro('warm');
+  else if (!introSeen()) showIntro('listen');
   requestAnimationFrame(tick);
 }
 
@@ -767,6 +769,66 @@ async function speakKey(key, text) {
   voice.play().catch(() => {});
 }
 
+/* ---------- 环节进入页（SPEC-011，节目卡） ----------
+ * 预热、精听各一张：固定的配图（web/art/，老电台海报那一家）＋环节名＋课名＋一句固定的话。
+ * 一课一次，按设备记：预热页跟着「第一次进预热」走，精听页跟着「第一次进播放器」走
+ * （预热完了、跳过、这课没预热，都算第一次进播放器）；以后开课直进播放器，不拦天天来的人。
+ * 预热页有「直接听课」：两张都算过，直接进播放器。播放器里的小入口再进预热不加门。 */
+const INTRO_DONE = 'listen-intro-done';
+let introKind = null;
+const INTRO = {
+  warm: { art: 'art/warmup.jpg', stage: '预热', line: '先让耳朵认识这一集的几个关键词，两三分钟', go: '开始预热' },
+  listen: { art: 'art/listen.jpg', stage: '精听', line: '一段一段听，卡住了随时要提示', go: '开始听' },
+};
+/* 图和页面住一起（web/art/），跟课无关：不加 BASE（那是课程文件夹的路径） */
+
+function introSeen() {
+  try { return !!localStorage.getItem(settingKey(INTRO_DONE)); } catch { return true; }  /* 存不了就当看过，别拦 */
+}
+
+function showIntro(kind) {
+  if (!audio.paused) { audio.pause(); render(); }   // 两个声音不叠着听
+  introKind = kind;
+  const c = INTRO[kind];
+  const art = $('introArt');
+  art.onload = () => art.closest('.intro-art').classList.remove('gone');
+  art.onerror = () => art.closest('.intro-art').classList.add('gone');   // 图没到：隐掉图，卡照常（R4）
+  art.src = c.art;
+  $('introStage').textContent = c.stage;
+  $('introTitle').textContent = lesson.title || '';
+  $('introSource').textContent = lesson.source || '';
+  $('introLine').textContent = c.line;
+  $('introGo').textContent = c.go;
+  $('introSkip').hidden = kind !== 'warm';
+  document.body.classList.add('introing');
+  $('stageIntro').hidden = false;
+  $('introGo').focus();
+}
+
+function hideIntro() {
+  introKind = null;
+  document.body.classList.remove('introing');
+  $('stageIntro').hidden = true;
+}
+
+$('introGo').onclick = () => {
+  const kind = introKind;
+  hideIntro();
+  if (kind === 'warm') { enterWarmup(); return; }
+  try { localStorage.setItem(settingKey(INTRO_DONE), '1'); } catch { /* 存不下：下次再过一次也无妨 */ }
+  render();   // 进播放器
+};
+
+/* 预热页的「直接听课」：预热算过、两张进入页都算过，直接进播放器 */
+$('introSkip').onclick = () => {
+  try {
+    localStorage.setItem(settingKey(WARM_DONE), '1');
+    localStorage.setItem(settingKey(INTRO_DONE), '1');
+  } catch { /* 存不下：下次再过一次也无妨 */ }
+  hideIntro();
+  render();
+};
+
 /* ---------- 预热（SPEC-010） ----------
  * 第一次开一课先进：一页一词。词先过耳朵——听完读音，卡片摊开：词去左半边，右半边出这句话，
  * 默认只有声音；听不懂点开先看英文（句中每个词都能点着查，和精听同一套），再点「看中文」
@@ -808,6 +870,7 @@ function exitWarmup() {
   $('warmup').hidden = true;
   $('warmSkip').hidden = true;
   $('warmBtn').hidden = !warmWords().length;
+  if (!introSeen()) { showIntro('listen'); return; }   // 第一次进播放器：先过一张节目卡（SPEC-011）
   render();
 }
 
@@ -1014,6 +1077,13 @@ audio.addEventListener('pause', render);
 
 document.addEventListener('keydown', (e) => {
   if (updating || ['INPUT', 'TEXTAREA'].includes(e.target.tagName) || e.ctrlKey || e.metaKey || e.altKey) return;
+  if (document.body.classList.contains('introing')) {  // 节目卡上：空格就是那张卡的主按钮
+    if (e.key === ' ') {
+      e.preventDefault();
+      $('introGo').click();
+    }
+    return;
+  }
   if (document.body.classList.contains('warming')) {  // 预热里：空格听当前那个，← → 换词
     if (e.key === ' ') {
       e.preventDefault();

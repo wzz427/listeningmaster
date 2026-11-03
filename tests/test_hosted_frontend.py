@@ -186,6 +186,8 @@ def run(page) -> None:
     print("\n【点课切换】")
     lesson.click()
     page.wait_for_url(f"{BASE}/web/?lesson={mid1}")
+    if page.is_visible("#introGo"):   # 新课第一次进播放器：过一张「精听」节目卡（SPEC-011）
+        page.click("#introGo")
     page.wait_for_function("document.getElementById('title').textContent !== '听力练习'")
     check("点了停在句首待命、标题和来源是备课时读的（meta.json）",
           page.inner_text("#title") == "平时怎么喝咖啡" and page.inner_text("#source") == "Real Easy English"
@@ -285,6 +287,9 @@ def main() -> int:
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         page = browser.new_page(viewport={"width": 1600, "height": 900})
+        # 这套测的是资料库/登录/上传/换版本，不是节目卡（SPEC-011）：公共课 DAY1 两张卡都当过过
+        page.add_init_script("try { localStorage.setItem('listening:DAY1:warmup-done', '1');"
+                             " localStorage.setItem('listening:DAY1:listen-intro-done', '1'); } catch (e) {}")
         try:
             run(page)
         finally:

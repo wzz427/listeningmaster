@@ -42,6 +42,22 @@
 </header>
 
 <main class="stage">
+  <!-- 环节进入页（SPEC-011，节目卡）：第一次开一课，进预热前、第一次进播放器前，各过一张——
+       配图＋环节名＋课名＋一句固定的话＋主按钮。一课一次，不拦每天开课的人 -->
+  <section id="stageIntro" class="stage-intro" hidden>
+    <div class="intro-card card">
+      <div class="intro-art"><img id="introArt" alt="" draggable="false" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></div>
+      <div class="intro-body">
+        <p class="intro-stage"><span id="introStage"></span></p>
+        <h2 id="introTitle" class="intro-title"></h2>
+        <p id="introSource" class="intro-source"></p>
+        <p id="introLine" class="intro-line"></p>
+        <button id="introGo" class="pill accent big"></button>
+        <button id="introSkip" class="warm-reveal intro-skip" hidden>直接听课 »</button>
+      </div>
+    </div>
+  </section>
+
   <!-- 预热（SPEC-010）：第一次开一课先进——一页一词，先听词的读音，听完卡片摊开：
        词移到左半边，右半边出这句话，默认只有声音；听不懂点开先看英文（每个词都能点着查），
        再点「看中文」。完了「开始听」进播放器 -->

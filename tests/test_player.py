@@ -80,7 +80,8 @@ def run(page, shots: Path | None) -> None:
     page.on("pageerror", lambda e: errors.append(str(e)))
     # 这一页测播放器本体：先当「这课已经预热过」，不然第一次开课进预热、后面的用例全对不上
     # （预热自己另开一个干净页面测，见 warmup_run）
-    page.add_init_script(f"try {{ localStorage.setItem('listening:{LESSON}:warmup-done', '1'); }} catch (e) {{}}")
+    page.add_init_script(f"try {{ localStorage.setItem('listening:{LESSON}:warmup-done', '1');"
+                         f" localStorage.setItem('listening:{LESSON}:listen-intro-done', '1'); }} catch (e) {{}}")
     page.goto(URL)
     page.wait_for_function("window.lesson !== null && document.querySelectorAll('.seg').length > 0",
                            timeout=15000)
@@ -736,17 +737,31 @@ def sections_part(page, shots: Path | None, body: list[dict]) -> None:
 
 
 def warmup_run(page, shots: Path | None) -> None:
-    """预热环节（SPEC-010）：拿 250123（Fast Food，8 个关键词）走整条流。
-    这个页面是干净的（没存过 warmup-done），第一次开课就该自动进预热。"""
+    """预热环节（SPEC-010）＋环节进入页（SPEC-011）：拿 250123（Fast Food，8 个关键词）走整条流。
+    这个页面是干净的（没存过 warmup-done、listen-intro-done），第一次开课先出「预热」节目卡。"""
     errors: list[str] = []
     page.on("pageerror", lambda e: errors.append(str(e)))
     url = f"http://127.0.0.1:{PORT}/web/?lesson=250123"
     page.goto(url)
-    page.wait_for_function("window.lesson !== null && !document.getElementById('warmup').hidden",
+    page.wait_for_function("window.lesson !== null && !document.getElementById('stageIntro').hidden",
                            timeout=15000)
     page.wait_for_timeout(600)  # 等进场动画走完再截图
     print("\n【预热：第一次开课】")
-    check("A83 第一次开这一课，先进预热、播放器让位、右上能跳过（R7、R8）",
+    shot(page, shots, "13-intro-warm")
+    check("A91 第一次开课先出「预热」节目卡：图＋环节名＋课名＋一句话，开始预热、也能直接听课；预热和播放器都还藏着（R1、R2）",
+          page.evaluate("document.getElementById('introStage').textContent") == "预热"
+          and page.evaluate("document.getElementById('introArt').naturalWidth") > 0
+          and "fast food" in page.inner_text("#introTitle")
+          and page.inner_text("#introGo").strip() == "开始预热"
+          and page.is_visible("#introSkip")
+          and page.is_hidden(".now") and page.is_hidden("#warmup"),
+          page.inner_text("#introTitle"))
+
+    page.click("#introGo")
+    page.wait_for_function("window.lesson !== null && !document.getElementById('warmup').hidden",
+                           timeout=15000)
+    page.wait_for_timeout(600)  # 等进场动画走完再截图
+    check("A83 点「开始预热」进预热、播放器让位、右上能跳过（R7、R8）",
           page.is_visible("#warmup") and page.is_hidden(".now") and page.is_hidden(".deck")
           and page.is_visible("#warmSkip") and page.is_hidden("#warmBtn")
           and page.inner_text("#warmTerm").strip() != "" and page.locator("#warmDots i").count() >= 5,
@@ -807,9 +822,20 @@ def warmup_run(page, shots: Path | None) -> None:
           and page.evaluate("document.getElementById('warmNext').classList.contains('accent')"))
     page.click("#warmNext")
     page.wait_for_timeout(400)
-    check("A87b 点「开始听」进播放器；这台设备记住了这一课预热过（R8）",
-          page.is_hidden("#warmup") and page.is_visible(".who") and page.is_visible(".deck")
+    shot(page, shots, "14-intro-listen")
+    check("A92 预热完先进「精听」节目卡（没有跳过入口），点了「开始听」才进播放器（R3）",
+          page.is_hidden("#warmup") and page.is_visible("#stageIntro")
+          and page.evaluate("document.getElementById('introStage').textContent") == "精听"
+          and page.inner_text("#introGo").strip() == "开始听"
+          and page.is_hidden("#introSkip"),
+          page.inner_text("#introLine"))
+    page.click("#introGo")
+    page.wait_for_timeout(400)
+    check("A87b 点「开始听」进播放器；这台设备记住了这一课预热过、精听卡也过过（R8）",
+          page.is_hidden("#stageIntro") and page.is_hidden("#warmup")
+          and page.is_visible(".who") and page.is_visible(".deck")
           and page.evaluate("localStorage.getItem('listening:250123:warmup-done')") == "1"
+          and page.evaluate("localStorage.getItem('listening:250123:listen-intro-done')") == "1"
           and page.is_visible("#warmBtn"))
 
     page.reload()
@@ -822,8 +848,9 @@ def warmup_run(page, shots: Path | None) -> None:
     print("\n【预热：随时再看】")
     page.click("#warmBtn")
     page.wait_for_timeout(400)
-    check("A89 播放器里的小入口「预热」随时能再看，从头开始、句子收起（R8）",
-          page.is_visible("#warmup") and page.inner_text("#warmCount").startswith("1 /")
+    check("A89 播放器里的小入口「预热」随时能再看，直接进词卡（不再出节目卡）、从头开始、句子收起（R8）",
+          page.is_visible("#warmup") and page.is_hidden("#stageIntro")
+          and page.inner_text("#warmCount").startswith("1 /")
           and page.evaluate("!document.getElementById('warmCard').classList.contains('spread')"))
     page.keyboard.press("ArrowRight")
     page.wait_for_timeout(300)
@@ -838,7 +865,22 @@ def warmup_run(page, shots: Path | None) -> None:
           page.evaluate("document.getElementById('warmCard').classList.contains('spread')"))
     page.click("#warmSkip")
     page.wait_for_timeout(300)
-    check("A89d 右上「跳过预热」直接回播放器（R7）", page.is_hidden("#warmup") and page.is_visible(".who"))
+    check("A89d 右上「跳过预热」直接回播放器（精听卡已经过过，不再出）（R7）",
+          page.is_hidden("#warmup") and page.is_hidden("#stageIntro") and page.is_visible(".who"))
+
+    print("\n【节目卡：直接听课】")
+    page.evaluate("localStorage.removeItem('listening:250123:warmup-done');"
+                  " localStorage.removeItem('listening:250123:listen-intro-done'); 0")
+    page.reload()
+    page.wait_for_function("window.lesson !== null && !document.getElementById('stageIntro').hidden",
+                           timeout=15000)
+    page.wait_for_timeout(400)
+    page.click("#introSkip")
+    page.wait_for_timeout(400)
+    check("A93 预热卡上「直接听课」：两张卡都算过、直接进播放器，预热不再自动出（R4）",
+          page.is_hidden("#stageIntro") and page.is_hidden("#warmup") and page.is_visible(".who")
+          and page.evaluate("localStorage.getItem('listening:250123:warmup-done')") == "1"
+          and page.evaluate("localStorage.getItem('listening:250123:listen-intro-done')") == "1")
 
     print("\n【预热：没有预热的课不挡路】")
     no_warmup = json.loads((Path(__file__).resolve().parent.parent / "lessons/260821/lesson.json")
@@ -851,11 +893,18 @@ def warmup_run(page, shots: Path | None) -> None:
 
     page.route("**/lessons/260821/lesson.json", strip_warmup)
     page.goto(f"http://127.0.0.1:{PORT}/web/?lesson=260821")
+    page.wait_for_function("window.lesson !== null && !document.getElementById('stageIntro').hidden",
+                           timeout=15000)
+    check("A92b 没有预热的课（旧的课、生成失败的课）：第一次开课只过一张「精听」卡，不出预热卡（R3）",
+          page.evaluate("document.getElementById('introStage').textContent") == "精听"
+          and page.is_hidden("#warmup"))
+    page.click("#introGo")
     page.wait_for_function("window.lesson !== null && document.querySelectorAll('.seg').length > 0",
                            timeout=15000)
     page.wait_for_timeout(400)
-    check("A90 这一课没有预热（旧的课、生成失败的课）：开课直接进播放器，不空白、不报错（R7）",
-          page.is_hidden("#warmup") and page.is_visible(".who") and page.is_hidden("#warmBtn")
+    check("A90 这一课没有预热：过完卡直接进播放器，不空白、不报错（R7）",
+          page.is_hidden("#stageIntro") and page.is_hidden("#warmup") and page.is_visible(".who")
+          and page.is_hidden("#warmBtn")
           and not errors, "; ".join(errors[:2]))
     page.unroute("**/lessons/260821/lesson.json")
 
