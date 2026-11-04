@@ -679,8 +679,8 @@
       "id": 12,
       "speaker": "Phil",
       "start": 50.78,
-      "end": 68.86,
-      "text": "But first I have a question for you Beth roughly how many fast food restaurants are there in the UK??  is it a, 4,000, b, 42,000, or c, 4 million? i'm going to go for b.",
+      "end": 58.62,
+      "text": "But first I have a question for you Beth roughly how many fast food restaurants are there in the UK??",
       "words": [
         {
           "text": "But",
@@ -781,7 +781,16 @@
           "text": "UK??",
           "start": 58.42,
           "end": 58.62
-        },
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "speaker": "Phil",
+      "start": 59.1,
+      "end": 68.86,
+      "text": "is it a, 4,000, b, 42,000, or c, 4 million? i'm going to go for b.",
+      "words": [
         {
           "text": "is",
           "start": 59.1,
@@ -865,11 +874,11 @@
       ]
     },
     {
-      "id": 13,
+      "id": 14,
       "speaker": "Phil",
       "start": 69.34,
-      "end": 132.23,
-      "text": "42,000 okay, well, later on we'll find out the answer in the united states, cheap and easy food like hamburgers, french fries, and milkshakes have been popular since the 1950s listen as adam chandler, author of the book drive-through dreams, which traces the history of american fast food, tells bbc world service program the food chain how it all got started at the heart of the story of fast food is a very anyone can do this sense a lot of the company founders didn't have a college degree, who didn't have a high school degree in a lot of instances, didn't come from money, were oftentimes just people who were ready to plug themselves into a system that would work for them and it did it made opportunity very, very easy in a time when that was a new part of the american experience so it was the american dream in a very small way that became the american dream in a very big way.",
+      "end": 81.82,
+      "text": "42,000 okay, well, later on we'll find out the answer in the united states, cheap and easy food like hamburgers, french fries, and milkshakes have been popular since the 1950s.",
       "words": [
         {
           "text": "42,000",
@@ -1017,10 +1026,19 @@
           "end": 81.14
         },
         {
-          "text": "1950s",
+          "text": "1950s.",
           "start": 81.14,
           "end": 81.82
-        },
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "speaker": "Phil",
+      "start": 82.38,
+      "end": 94.58,
+      "text": "listen as adam chandler, author of the book drive-through dreams, which traces the history of american fast food, tells bbc world service program the food chain how it all got started.",
+      "words": [
         {
           "text": "listen",
           "start": 82.38,
@@ -1167,10 +1185,19 @@
           "end": 93.98
         },
         {
-          "text": "started",
+          "text": "started.",
           "start": 93.98,
           "end": 94.58
-        },
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "speaker": "Role A",
+      "start": 95.26,
+      "end": 100.82,
+      "text": "at the heart of the story of fast food is a very anyone can do this sense.",
+      "words": [
         {
           "text": "at",
           "start": 95.26,
@@ -1252,10 +1279,19 @@
           "end": 100.26
         },
         {
-          "text": "sense",
+          "text": "sense.",
           "start": 100.26,
           "end": 100.82
-        },
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "speaker": "Role A",
+      "start": 101.26,
+      "end": 115.51,
+      "text": "a lot of the company founders didn't have a college degree, who didn't have a high school degree in a lot of instances, didn't come from money, were oftentimes just people who were ready to plug themselves into a system that would work for them.",
+      "words": [
         {
           "text": "a",
           "start": 101.26,
@@ -1477,10 +1513,19 @@
           "end": 115.15
         },
         {
-          "text": "them",
+          "text": "them.",
           "start": 115.15,
           "end": 115.51
-        },
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "speaker": "Role A",
+      "start": 115.95,
+      "end": 126.15,
+      "text": "and it did it made opportunity very, very easy in a time when that was a new part of the american experience.",
+      "words": [
         {
           "text": "and",
           "start": 115.95,
@@ -1587,10 +1632,19 @@
           "end": 125.75
         },
         {
-          "text": "experience",
+          "text": "experience.",
           "start": 125.75,
           "end": 126.15
-        },
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "speaker": "Role A",
+      "start": 126.23,
+      "end": 132.23,
+      "text": "so it was the american dream in a very small way that became the american dream in a very big way.",
+      "words": [
         {
           "text": "so",
           "start": 126.23,
@@ -1699,7 +1753,7 @@
       ]
     },
     {
-      "id": 14,
+      "id": 20,
       "speaker": "Beth",
       "start": 132.88,
       "end": 139.16,
@@ -1793,7 +1847,7 @@
       ]
     },
     {
-      "id": 15,
+      "id": 21,
       "speaker": "Beth",
       "start": 139.6,
       "end": 151.8,
@@ -1977,7 +2031,7 @@
       ]
     },
     {
-      "id": 16,
+      "id": 22,
       "speaker": "Phil",
       "start": 152.48,
       "end": 156.36,
@@ -2031,7 +2085,7 @@
       ]
     },
     {
-      "id": 17,
+      "id": 23,
       "speaker": "Phil",
       "start": 156.96,
       "end": 163.24,
@@ -2120,7 +2174,7 @@
       ]
     },
     {
-      "id": 18,
+      "id": 24,
       "speaker": "Beth",
       "start": 163.44,
       "end": 169.2,
@@ -2199,7 +2253,7 @@
       ]
     },
     {
-      "id": 19,
+      "id": 25,
       "speaker": "Beth",
       "start": 170.04,
       "end": 181.64,
@@ -2338,7 +2392,7 @@
       ]
     },
     {
-      "id": 20,
+      "id": 26,
       "speaker": "Phil",
       "start": 182.22,
       "end": 187.06,
@@ -2407,7 +2461,7 @@
       ]
     },
     {
-      "id": 21,
+      "id": 27,
       "speaker": "Phil",
       "start": 187.7,
       "end": 194.34,
@@ -2506,7 +2560,7 @@
       ]
     },
     {
-      "id": 22,
+      "id": 28,
       "speaker": "Beth",
       "start": 194.86,
       "end": 197.9,
@@ -2560,7 +2614,7 @@
       ]
     },
     {
-      "id": 23,
+      "id": 29,
       "speaker": "Beth",
       "start": 198.1,
       "end": 200.88,
@@ -2599,7 +2653,7 @@
       ]
     },
     {
-      "id": 24,
+      "id": 30,
       "speaker": "Beth",
       "start": 201.42,
       "end": 204.94,
@@ -2653,7 +2707,7 @@
       ]
     },
     {
-      "id": 25,
+      "id": 31,
       "speaker": "Beth",
       "start": 205.26,
       "end": 208.42,
@@ -2692,11 +2746,11 @@
       ]
     },
     {
-      "id": 26,
+      "id": 32,
       "speaker": "Beth",
       "start": 208.54,
-      "end": 249.69,
-      "text": "She tells bbc world service program, the food chain, how mcdonald's got a frosty reception when it started selling burgers in iceland's capital reykjavik there's been a long-standing burger culture in iceland they have their own take on a hamburger, wherein they'll use lettuce and raw cucumbers and a type of fry sauce that's called a shalpu bogari or shop burger and that's been around for ages yeah, so mcdonald's, they struggled to try to maintain a market the final nail in the coffin was the global... Financial crisis in two thousand eight, two thousand nine.",
+      "end": 218.74,
+      "text": "She tells bbc world service program, the food chain, how mcdonald's got a frosty reception when it started selling burgers in iceland's capital reykjavik.",
       "words": [
         {
           "text": "She",
@@ -2814,10 +2868,19 @@
           "end": 217.9
         },
         {
-          "text": "reykjavik",
+          "text": "reykjavik.",
           "start": 217.9,
           "end": 218.74
-        },
+        }
+      ]
+    },
+    {
+      "id": 33,
+      "speaker": "Role B",
+      "start": 219.45,
+      "end": 223.85,
+      "text": "there's been a long-standing burger culture in iceland.",
+      "words": [
         {
           "text": "there's",
           "start": 219.45,
@@ -2854,10 +2917,19 @@
           "end": 223.37
         },
         {
-          "text": "iceland",
+          "text": "iceland.",
           "start": 223.37,
           "end": 223.85
-        },
+        }
+      ]
+    },
+    {
+      "id": 34,
+      "speaker": "Role B",
+      "start": 223.93,
+      "end": 238.17,
+      "text": "they have their own take on a hamburger, wherein they'll use lettuce and raw cucumbers and a type of fry sauce that's called a shalpu bogari or shop burger and that's been around for ages.",
+      "words": [
         {
           "text": "they",
           "start": 223.93,
@@ -3029,10 +3101,19 @@
           "end": 237.69
         },
         {
-          "text": "ages",
+          "text": "ages.",
           "start": 237.69,
           "end": 238.17
-        },
+        }
+      ]
+    },
+    {
+      "id": 35,
+      "speaker": "Role B",
+      "start": 238.57,
+      "end": 249.69,
+      "text": "yeah, so mcdonald's, they struggled to try to maintain a market the final nail in the coffin was the global... Financial crisis in two thousand eight, two thousand nine.",
+      "words": [
         {
           "text": "yeah,",
           "start": 238.57,
@@ -3176,7 +3257,7 @@
       ]
     },
     {
-      "id": 27,
+      "id": 36,
       "speaker": "Phil",
       "start": 250.65,
       "end": 258.33,
@@ -3280,7 +3361,7 @@
       ]
     },
     {
-      "id": 28,
+      "id": 37,
       "speaker": "Phil",
       "start": 258.81,
       "end": 266.25,
@@ -3374,11 +3455,11 @@
       ]
     },
     {
-      "id": 29,
+      "id": 38,
       "speaker": "Beth",
       "start": 266.85,
-      "end": 294.12,
-      "text": "McDonald's weren't as successful in Iceland as they'd been elsewhere and the global financial crash of 2008 was the final nail in the coffin, an event which caused the failure of something that had already started to go wrong to this day, there are no mcdonald's in iceland, unlike britain, which reminds me of your question, phil yes, i asked you how many fast food restaurants there are in britain.",
+      "end": 281.4,
+      "text": "McDonald's weren't as successful in Iceland as they'd been elsewhere and the global financial crash of 2008 was the final nail in the coffin, an event which caused the failure of something that had already started to go wrong.",
       "words": [
         {
           "text": "McDonald's",
@@ -3571,10 +3652,19 @@
           "end": 280.92
         },
         {
-          "text": "wrong",
+          "text": "wrong.",
           "start": 280.92,
           "end": 281.4
-        },
+        }
+      ]
+    },
+    {
+      "id": 39,
+      "speaker": "Beth",
+      "start": 282.16,
+      "end": 294.12,
+      "text": "to this day, there are no mcdonald's in iceland, unlike britain, which reminds me of your question, phil yes, i asked you how many fast food restaurants there are in britain.",
+      "words": [
         {
           "text": "to",
           "start": 282.16,
@@ -3733,7 +3823,7 @@
       ]
     },
     {
-      "id": 30,
+      "id": 40,
       "speaker": "Phil",
       "start": 294.76,
       "end": 303.2,
@@ -3877,7 +3967,7 @@
       ]
     },
     {
-      "id": 31,
+      "id": 41,
       "speaker": "Phil",
       "start": 303.28,
       "end": 304.02,
@@ -3896,7 +3986,7 @@
       ]
     },
     {
-      "id": 32,
+      "id": 42,
       "speaker": "Phil",
       "start": 305.26,
       "end": 314.66,
@@ -4020,7 +4110,7 @@
       ]
     },
     {
-      "id": 33,
+      "id": 43,
       "speaker": "Beth",
       "start": 315.82,
       "end": 324.54,
@@ -4149,7 +4239,7 @@
       ]
     },
     {
-      "id": 34,
+      "id": 44,
       "speaker": "Phil",
       "start": 324.94,
       "end": 333.42,
@@ -4273,7 +4363,7 @@
       ]
     },
     {
-      "id": 35,
+      "id": 45,
       "speaker": "Beth",
       "start": 334.16,
       "end": 338.4,
@@ -4337,7 +4427,7 @@
       ]
     },
     {
-      "id": 36,
+      "id": 46,
       "speaker": "Phil",
       "start": 338.76,
       "end": 342.84,
@@ -4411,7 +4501,7 @@
       ]
     },
     {
-      "id": 37,
+      "id": 47,
       "speaker": "Beth",
       "start": 343.76,
       "end": 353.72,
@@ -4555,7 +4645,7 @@
       ]
     },
     {
-      "id": 38,
+      "id": 48,
       "speaker": "Beth",
       "start": 354.28,
       "end": 356.28,
@@ -4599,7 +4689,7 @@
       ]
     },
     {
-      "id": 39,
+      "id": 49,
       "speaker": "Beth",
       "start": 356.52,
       "end": 364.16,
@@ -4718,7 +4808,7 @@
       ]
     },
     {
-      "id": 40,
+      "id": 50,
       "speaker": "Beth",
       "start": 364.4,
       "end": 365.28,
@@ -4747,7 +4837,7 @@
       ]
     },
     {
-      "id": 41,
+      "id": 51,
       "speaker": "Phil",
       "start": 365.72,
       "end": 366.28,
@@ -4761,7 +4851,7 @@
       ]
     },
     {
-      "id": 42,
+      "id": 52,
       "speaker": "片头片尾",
       "start": 367.79,
       "end": 373.44,
@@ -4815,7 +4905,7 @@
       ]
     },
     {
-      "id": 43,
+      "id": 53,
       "speaker": "片头片尾",
       "start": 374.79,
       "end": 377.03,
@@ -4859,7 +4949,7 @@
       ]
     },
     {
-      "id": 44,
+      "id": 54,
       "speaker": "片头片尾",
       "start": 377.39,
       "end": 379.55,
@@ -4903,7 +4993,7 @@
       ]
     },
     {
-      "id": 45,
+      "id": 55,
       "speaker": "片头片尾",
       "start": 379.71,
       "end": 382.71,
@@ -4947,7 +5037,7 @@
       ]
     },
     {
-      "id": 46,
+      "id": 56,
       "speaker": "片头片尾",
       "start": 382.83,
       "end": 387.47,
@@ -5031,7 +5121,7 @@
       ]
     },
     {
-      "id": 47,
+      "id": 57,
       "speaker": "片头片尾",
       "start": 388.19,
       "end": 400.31,

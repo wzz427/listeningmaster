@@ -176,15 +176,25 @@ def split_megas(sentences: list[Sentence], cache: dict) -> dict:
     return stat
 
 
+MAX_SECONDS = 15   # 并出来的整句不超过这么长——再长就不是一句人话，重听没法练
+
+
 def merge_halves(sentences: list[Sentence]) -> int:
-    """R5 并半句：只看标点——前句以逗号结尾、或后句以小写字母开头就并（并时去掉识别点在
-    半句处的句号）。不看说话人：编号还没归并成真人，同一个人的两个编号看不出「同人」
-    （四课实测拆碎句 7/8/8/10 → 2/6/3/4，出处同上）。"""
+    """R5 并半句：前句以逗号结尾、或（前句以句末标点收尾且）后句以小写字母开头就并
+    （并时去掉识别点在半句处的句号）。不看说话人：编号还没归并成真人，同一个人的两个编号
+    看不出「同人」（四课实测拆碎句 7/8/8/10 → 2/6/3/4，出处同上）。
+    两条护栏（overpop 科普课踩出来的，2026-11-04）：①小写判据只在前句以 . ! ? 收尾时作数——
+    要修的病是「识别把半句点成了整句」；整段没标句读的转写句句小写，见小写就并会把
+    6 分半并成 12 句、最长一句 4 分半；②并完不超过 MAX_SECONDS 秒。"""
     merged: list[Sentence] = []
     count = 0
     for s in sentences:
         prev = merged[-1] if merged else None
-        joins = prev is not None and (prev.text.endswith(",") or s.text[:1].islower())
+        joins = (
+            prev is not None
+            and s.end - prev.start <= MAX_SECONDS
+            and (prev.text.endswith(",") or (s.text[:1].islower() and prev.text[-1:] in (".", "!", "?")))
+        )
         if joins:
             if s.text[:1].islower() and prev.words[-1].text.rstrip().endswith("."):
                 prev.words[-1].text = prev.words[-1].text.rstrip().rstrip(".")

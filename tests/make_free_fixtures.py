@@ -39,6 +39,9 @@ def main() -> None:
         shutil.copy2(src, lesson_dir / "asr_raw.json")
         for f in (ROOT / "materials" / lesson).glob("*.mp3"):
             shutil.copy2(f, material_dir / f.name)   # timeline 的 audio 字段要文件名
+        if (FIXTURES / f"{lesson}_llm_cache.json").exists():
+            # 上一轮的回答先垫上：问法没变（提示词、识别原句都没动）就不重新问，省钱也稳金样
+            shutil.copy2(FIXTURES / f"{lesson}_llm_cache.json", lesson_dir / "llm_cache.json")
         try:
             stats = no_transcript.build(lesson, root=tmp)
             timeline = json.loads((lesson_dir / "timeline.json").read_text(encoding="utf8"))

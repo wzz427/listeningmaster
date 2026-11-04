@@ -6,8 +6,8 @@
       "id": 0,
       "speaker": "片头片尾",
       "start": 0.32,
-      "end": 19.4,
-      "text": "do you know someone who is starting to learn english? we have a new easy video series just for them, the london letter challenge three teams race around london to find eight letters which will take them to the winning crowns.",
+      "end": 11.8,
+      "text": "do you know someone who is starting to learn english? we have a new easy video series just for them, the london letter challenge.",
       "words": [
         {
           "text": "do",
@@ -125,10 +125,19 @@
           "end": 11.28
         },
         {
-          "text": "challenge",
+          "text": "challenge.",
           "start": 11.28,
           "end": 11.8
-        },
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "speaker": "片头片尾",
+      "start": 12.28,
+      "end": 19.4,
+      "text": "three teams race around london to find eight letters which will take them to the winning crowns.",
+      "words": [
         {
           "text": "three",
           "start": 12.28,
@@ -217,7 +226,7 @@
       ]
     },
     {
-      "id": 1,
+      "id": 2,
       "speaker": "片头片尾",
       "start": 20.83,
       "end": 26.39,
@@ -286,7 +295,7 @@
       ]
     },
     {
-      "id": 2,
+      "id": 3,
       "speaker": "片头片尾",
       "start": 28.85,
       "end": 33.37,
@@ -340,7 +349,7 @@
       ]
     },
     {
-      "id": 3,
+      "id": 4,
       "speaker": "Neil",
       "start": 35.73,
       "end": 39.21,
@@ -399,7 +408,7 @@
       ]
     },
     {
-      "id": 4,
+      "id": 5,
       "speaker": "Neil",
       "start": 39.33,
       "end": 39.81,
@@ -418,7 +427,7 @@
       ]
     },
     {
-      "id": 5,
+      "id": 6,
       "speaker": "Beth",
       "start": 40.05,
       "end": 41.09,
@@ -442,7 +451,7 @@
       ]
     },
     {
-      "id": 6,
+      "id": 7,
       "speaker": "Neil",
       "start": 41.45,
       "end": 50.09,
@@ -556,11 +565,11 @@
       ]
     },
     {
-      "id": 7,
+      "id": 8,
       "speaker": "Neil",
       "start": 50.77,
-      "end": 160.79,
-      "text": "Humanoid robots, meaning robots which appear and behave like humans, are being built to help us do everything from washing the dishes to babysitting the kids but not everyone feels comfortable with the idea of inviting a human-like robot into their home neil, how would you feel about living with a robot? i really don't want to live with a robot i have enough people in my house with advances in ai, robots are becoming smart enough to develop meaningful relationships with humans there are reports of people telling their secrets to robot therapists and even falling in love with their robot friend in this episode, we'll meet a home companion robot called abby, who's making friends with the elderly residents of melbourne in australia and as usual, we'll learn some useful new vocabulary, all of which you'll find over on our website, bbc learning english dot com first, i have a question for you, beth because it's important people feel safe around robots, engineers design them to look like the friendly characters seen in animated movies by studios like pixar and dreamworks so, what is the name of pixar's friendly robot who picks up garbage on an uninhabited planet earth in the year 2805? is it a, roz?  b, wally, or c, r2-d2? i am pretty certain that the answer is b, wally well, we'll find out the answer later in the program for five months during the covid pandemic, australian engineer grace brown had no human contact she used this time to build a home companion robot, abby, with the idea it would provide companionship.",
+      "end": 60.49,
+      "text": "Humanoid robots, meaning robots which appear and behave like humans, are being built to help us do everything from washing the dishes to babysitting the kids.",
       "words": [
         {
           "text": "Humanoid",
@@ -688,10 +697,19 @@
           "end": 60.13
         },
         {
-          "text": "kids",
+          "text": "kids.",
           "start": 60.13,
           "end": 60.49
-        },
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "speaker": "Beth",
+      "start": 60.97,
+      "end": 75.93,
+      "text": "but not everyone feels comfortable with the idea of inviting a human-like robot into their home neil, how would you feel about living with a robot? i really don't want to live with a robot i have enough people in my house.",
+      "words": [
         {
           "text": "but",
           "start": 60.97,
@@ -898,10 +916,19 @@
           "end": 75.53
         },
         {
-          "text": "house",
+          "text": "house.",
           "start": 75.53,
           "end": 75.93
-        },
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "speaker": "Beth",
+      "start": 76.81,
+      "end": 84.33,
+      "text": "with advances in ai, robots are becoming smart enough to develop meaningful relationships with humans.",
+      "words": [
         {
           "text": "with",
           "start": 76.81,
@@ -973,10 +1000,19 @@
           "end": 83.85
         },
         {
-          "text": "humans",
+          "text": "humans.",
           "start": 83.85,
           "end": 84.33
-        },
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "speaker": "Beth",
+      "start": 84.8,
+      "end": 92.24,
+      "text": "there are reports of people telling their secrets to robot therapists and even falling in love with their robot friend.",
+      "words": [
         {
           "text": "there",
           "start": 84.8,
@@ -1073,10 +1109,19 @@
           "end": 91.68
         },
         {
-          "text": "friend",
+          "text": "friend.",
           "start": 91.68,
           "end": 92.24
-        },
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "speaker": "Beth",
+      "start": 92.68,
+      "end": 101.04,
+      "text": "in this episode, we'll meet a home companion robot called abby, who's making friends with the elderly residents of melbourne in australia.",
+      "words": [
         {
           "text": "in",
           "start": 92.68,
@@ -1183,10 +1228,19 @@
           "end": 100.48
         },
         {
-          "text": "australia",
+          "text": "australia.",
           "start": 100.48,
           "end": 101.04
-        },
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "speaker": "Beth",
+      "start": 101.48,
+      "end": 112.1,
+      "text": "and as usual, we'll learn some useful new vocabulary, all of which you'll find over on our website, bbc learning english dot com first, i have a question for you, beth.",
+      "words": [
         {
           "text": "and",
           "start": 101.48,
@@ -1338,10 +1392,19 @@
           "end": 111.62
         },
         {
-          "text": "beth",
+          "text": "beth.",
           "start": 111.74,
           "end": 112.1
-        },
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "speaker": "Neil",
+      "start": 112.66,
+      "end": 123.02,
+      "text": "because it's important people feel safe around robots, engineers design them to look like the friendly characters seen in animated movies by studios like pixar and dreamworks.",
+      "words": [
         {
           "text": "because",
           "start": 112.66,
@@ -1473,10 +1536,19 @@
           "end": 122.26
         },
         {
-          "text": "dreamworks",
+          "text": "dreamworks.",
           "start": 122.26,
           "end": 123.02
-        },
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "speaker": "Neil",
+      "start": 123.74,
+      "end": 135.42,
+      "text": "so, what is the name of pixar's friendly robot who picks up garbage on an uninhabited planet earth in the year 2805? is it a, roz?",
+      "words": [
         {
           "text": "so,",
           "start": 123.74,
@@ -1606,7 +1678,16 @@
           "text": "roz?",
           "start": 134.9,
           "end": 135.42
-        },
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "speaker": "Neil",
+      "start": 135.83,
+      "end": 146.67,
+      "text": "b, wally, or c, r2-d2? i am pretty certain that the answer is b, wally well, we'll find out the answer later in the program.",
+      "words": [
         {
           "text": "b,",
           "start": 135.83,
@@ -1728,10 +1809,19 @@
           "end": 146.31
         },
         {
-          "text": "program",
+          "text": "program.",
           "start": 146.31,
           "end": 146.67
-        },
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "speaker": "Neil",
+      "start": 147.11,
+      "end": 160.79,
+      "text": "for five months during the covid pandemic, australian engineer grace brown had no human contact she used this time to build a home companion robot, abby, with the idea it would provide companionship.",
+      "words": [
         {
           "text": "for",
           "start": 147.11,
@@ -1900,7 +1990,7 @@
       ]
     },
     {
-      "id": 8,
+      "id": 18,
       "speaker": "Neil",
       "start": 161.02,
       "end": 162.86,
@@ -1934,7 +2024,7 @@
       ]
     },
     {
-      "id": 9,
+      "id": 19,
       "speaker": "Neil",
       "start": 163.22,
       "end": 173.98,
@@ -2068,7 +2158,7 @@
       ]
     },
     {
-      "id": 10,
+      "id": 20,
       "speaker": "Neil",
       "start": 174.06,
       "end": 178.78,
@@ -2137,7 +2227,7 @@
       ]
     },
     {
-      "id": 11,
+      "id": 21,
       "speaker": "片头片尾",
       "start": 179.57,
       "end": 186.85,
@@ -2251,7 +2341,7 @@
       ]
     },
     {
-      "id": 12,
+      "id": 22,
       "speaker": "片头片尾",
       "start": 187.41,
       "end": 188.65,
@@ -2280,7 +2370,7 @@
       ]
     },
     {
-      "id": 13,
+      "id": 23,
       "speaker": "片头片尾",
       "start": 188.77,
       "end": 190.65,
@@ -2314,7 +2404,7 @@
       ]
     },
     {
-      "id": 14,
+      "id": 24,
       "speaker": "片头片尾",
       "start": 190.73,
       "end": 196.09,
@@ -2438,7 +2528,7 @@
       ]
     },
     {
-      "id": 15,
+      "id": 25,
       "speaker": "Beth",
       "start": 196.33,
       "end": 201.17,
@@ -2502,7 +2592,7 @@
       ]
     },
     {
-      "id": 16,
+      "id": 26,
       "speaker": "Beth",
       "start": 201.61,
       "end": 205.93,
@@ -2551,7 +2641,7 @@
       ]
     },
     {
-      "id": 17,
+      "id": 27,
       "speaker": "Neil",
       "start": 206.25,
       "end": 211.89,
@@ -2640,7 +2730,7 @@
       ]
     },
     {
-      "id": 18,
+      "id": 28,
       "speaker": "Neil",
       "start": 212.21,
       "end": 216.29,
@@ -2724,7 +2814,7 @@
       ]
     },
     {
-      "id": 19,
+      "id": 29,
       "speaker": "Neil",
       "start": 216.89,
       "end": 230.33,
@@ -2913,11 +3003,11 @@
       ]
     },
     {
-      "id": 20,
+      "id": 30,
       "speaker": "Beth",
       "start": 230.81,
-      "end": 266.71,
-      "text": "Unlike the unpredictable and violent robots which are sometimes portrayed in sci fi movies abby is much more approachable and friendly, even funny she can blow bubbles from her hand her softer design was a conscious decision by grace, who wanted children and elderly people to interact with abby naturally and without fear, as she explained to bbc world services, the conversation i originally modelled her off the size of like a young child, so like a six, seven-year-old child, so she's about 110 centimetres tall she's got a whole splash of different colours.",
+      "end": 244.03,
+      "text": "Unlike the unpredictable and violent robots which are sometimes portrayed in sci fi movies abby is much more approachable and friendly, even funny she can blow bubbles from her hand.",
       "words": [
         {
           "text": "Unlike",
@@ -3065,10 +3155,19 @@
           "end": 243.51
         },
         {
-          "text": "hand",
+          "text": "hand.",
           "start": 243.51,
           "end": 244.03
-        },
+        }
+      ]
+    },
+    {
+      "id": 31,
+      "speaker": "Beth",
+      "start": 244.55,
+      "end": 257.75,
+      "text": "her softer design was a conscious decision by grace, who wanted children and elderly people to interact with abby naturally and without fear, as she explained to bbc world services, the conversation.",
+      "words": [
         {
           "text": "her",
           "start": 244.55,
@@ -3225,10 +3324,19 @@
           "end": 257.03
         },
         {
-          "text": "conversation",
+          "text": "conversation.",
           "start": 257.03,
           "end": 257.75
-        },
+        }
+      ]
+    },
+    {
+      "id": 32,
+      "speaker": "片头片尾",
+      "start": 258.03,
+      "end": 266.71,
+      "text": "i originally modelled her off the size of like a young child, so like a six, seven-year-old child, so she's about 110 centimetres tall she's got a whole splash of different colours.",
+      "words": [
         {
           "text": "i",
           "start": 258.03,
@@ -3392,7 +3500,7 @@
       ]
     },
     {
-      "id": 21,
+      "id": 33,
       "speaker": "片头片尾",
       "start": 267.08,
       "end": 269.92,
@@ -3436,7 +3544,7 @@
       ]
     },
     {
-      "id": 22,
+      "id": 34,
       "speaker": "片头片尾",
       "start": 270.0,
       "end": 278.96,
@@ -3605,7 +3713,7 @@
       ]
     },
     {
-      "id": 23,
+      "id": 35,
       "speaker": "Neil",
       "start": 279.32,
       "end": 282.12,
@@ -3664,7 +3772,7 @@
       ]
     },
     {
-      "id": 24,
+      "id": 36,
       "speaker": "Neil",
       "start": 282.28,
       "end": 292.8,
@@ -3858,7 +3966,7 @@
       ]
     },
     {
-      "id": 25,
+      "id": 37,
       "speaker": "Beth",
       "start": 293.58,
       "end": 296.62,
@@ -3897,7 +4005,7 @@
       ]
     },
     {
-      "id": 26,
+      "id": 38,
       "speaker": "Beth",
       "start": 297.06,
       "end": 302.7,
@@ -3981,7 +4089,7 @@
       ]
     },
     {
-      "id": 27,
+      "id": 39,
       "speaker": "Neil",
       "start": 303.58,
       "end": 310.34,
@@ -4085,7 +4193,7 @@
       ]
     },
     {
-      "id": 28,
+      "id": 40,
       "speaker": "Beth",
       "start": 310.54,
       "end": 317.46,
@@ -4199,7 +4307,7 @@
       ]
     },
     {
-      "id": 29,
+      "id": 41,
       "speaker": "Beth",
       "start": 317.78,
       "end": 321.06,
@@ -4268,7 +4376,7 @@
       ]
     },
     {
-      "id": 30,
+      "id": 42,
       "speaker": "Beth",
       "start": 321.58,
       "end": 324.9,
@@ -4337,11 +4445,11 @@
       ]
     },
     {
-      "id": 31,
+      "id": 43,
       "speaker": "Neil",
       "start": 325.34,
-      "end": 357.43,
-      "text": "I asked you for the name of Pixar's friendly robot who picks up garbage on an uninhabited planet Earth in the year 2805 and i said it was wally and you were correct yes that is the right answer okay, let's recap the vocabulary we've learned, starting with humanoid, an adjective meaning to have the appearance and behavior of a human someone who is sassy is bold, confident, and cheeky if you are taken aback by something, you are shocked or surprised by it.",
+      "end": 339.87,
+      "text": "I asked you for the name of Pixar's friendly robot who picks up garbage on an uninhabited planet Earth in the year 2805 and i said it was wally and you were correct yes that is the right answer.",
       "words": [
         {
           "text": "I",
@@ -4534,10 +4642,19 @@
           "end": 339.59
         },
         {
-          "text": "answer",
+          "text": "answer.",
           "start": 339.59,
           "end": 339.87
-        },
+        }
+      ]
+    },
+    {
+      "id": 44,
+      "speaker": "Neil",
+      "start": 340.03,
+      "end": 353.03,
+      "text": "okay, let's recap the vocabulary we've learned, starting with humanoid, an adjective meaning to have the appearance and behavior of a human someone who is sassy is bold, confident, and cheeky.",
+      "words": [
         {
           "text": "okay,",
           "start": 340.03,
@@ -4689,10 +4806,19 @@
           "end": 352.43
         },
         {
-          "text": "cheeky",
+          "text": "cheeky.",
           "start": 352.43,
           "end": 353.03
-        },
+        }
+      ]
+    },
+    {
+      "id": 45,
+      "speaker": "Neil",
+      "start": 353.27,
+      "end": 357.43,
+      "text": "if you are taken aback by something, you are shocked or surprised by it.",
+      "words": [
         {
           "text": "if",
           "start": 353.27,
@@ -4766,7 +4892,7 @@
       ]
     },
     {
-      "id": 32,
+      "id": 46,
       "speaker": "Beth",
       "start": 357.81,
       "end": 365.41,
@@ -4890,7 +5016,7 @@
       ]
     },
     {
-      "id": 33,
+      "id": 47,
       "speaker": "Neil",
       "start": 365.69,
       "end": 372.65,
@@ -5014,7 +5140,7 @@
       ]
     },
     {
-      "id": 34,
+      "id": 48,
       "speaker": "Beth",
       "start": 372.97,
       "end": 378.41,
@@ -5083,7 +5209,7 @@
       ]
     },
     {
-      "id": 35,
+      "id": 49,
       "speaker": "Beth",
       "start": 378.85,
       "end": 380.77,
@@ -5127,7 +5253,7 @@
       ]
     },
     {
-      "id": 36,
+      "id": 50,
       "speaker": "Beth",
       "start": 381.17,
       "end": 389.05,
@@ -5251,7 +5377,7 @@
       ]
     },
     {
-      "id": 37,
+      "id": 51,
       "speaker": "Beth",
       "start": 389.37,
       "end": 391.49,
@@ -5290,7 +5416,7 @@
       ]
     },
     {
-      "id": 38,
+      "id": 52,
       "speaker": "Beth",
       "start": 391.93,
       "end": 394.33,
@@ -5344,7 +5470,7 @@
       ]
     },
     {
-      "id": 39,
+      "id": 53,
       "speaker": "Neil",
       "start": 394.77,
       "end": 395.17,
@@ -5358,7 +5484,7 @@
       ]
     },
     {
-      "id": 40,
+      "id": 54,
       "speaker": "片头片尾",
       "start": 396.49,
       "end": 400.97,

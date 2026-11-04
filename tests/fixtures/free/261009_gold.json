@@ -629,8 +629,8 @@
       "id": 12,
       "speaker": "Phil",
       "start": 35.45,
-      "end": 74.47,
-      "text": "That if you go to BBC Learning English dot com, there's a worksheet where you can practice all the language that you'll hear in this episode so, phil, do you go to the cinema often? no, no, i don't go very often at all what about you? i don't go often, but i did go a couple of weeks ago i went to see an action film, a recent action film, and it was really spectacular and i'm not a big fan of action movies, action films.",
+      "end": 43.77,
+      "text": "That if you go to BBC Learning English dot com, there's a worksheet where you can practice all the language that you'll hear in this episode.",
       "words": [
         {
           "text": "That",
@@ -758,10 +758,19 @@
           "end": 43.21
         },
         {
-          "text": "episode",
+          "text": "episode.",
           "start": 43.21,
           "end": 43.77
-        },
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "speaker": "Georgie",
+      "start": 49.47,
+      "end": 63.91,
+      "text": "so, phil, do you go to the cinema often? no, no, i don't go very often at all what about you? i don't go often, but i did go a couple of weeks ago.",
+      "words": [
         {
           "text": "so,",
           "start": 49.47,
@@ -928,10 +937,19 @@
           "end": 63.59
         },
         {
-          "text": "ago",
+          "text": "ago.",
           "start": 63.59,
           "end": 63.91
-        },
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "speaker": "Georgie",
+      "start": 64.03,
+      "end": 74.47,
+      "text": "i went to see an action film, a recent action film, and it was really spectacular and i'm not a big fan of action movies, action films.",
+      "words": [
         {
           "text": "i",
           "start": 64.03,
@@ -1070,7 +1088,7 @@
       ]
     },
     {
-      "id": 13,
+      "id": 15,
       "speaker": "Georgie",
       "start": 74.92,
       "end": 94.72,
@@ -1304,7 +1322,7 @@
       ]
     },
     {
-      "id": 14,
+      "id": 16,
       "speaker": "Phil",
       "start": 95.0,
       "end": 97.76,
@@ -1353,7 +1371,7 @@
       ]
     },
     {
-      "id": 15,
+      "id": 17,
       "speaker": "Phil",
       "start": 98.26,
       "end": 100.5,
@@ -1387,7 +1405,7 @@
       ]
     },
     {
-      "id": 16,
+      "id": 18,
       "speaker": "Georgie",
       "start": 100.78,
       "end": 102.82,
@@ -1441,7 +1459,7 @@
       ]
     },
     {
-      "id": 17,
+      "id": 19,
       "speaker": "Georgie",
       "start": 102.9,
       "end": 103.86,
@@ -1475,7 +1493,7 @@
       ]
     },
     {
-      "id": 18,
+      "id": 20,
       "speaker": "Phil",
       "start": 104.3,
       "end": 107.3,
@@ -1529,7 +1547,7 @@
       ]
     },
     {
-      "id": 19,
+      "id": 21,
       "speaker": "Phil",
       "start": 107.5,
       "end": 110.06,
@@ -1593,7 +1611,7 @@
       ]
     },
     {
-      "id": 20,
+      "id": 22,
       "speaker": "Phil",
       "start": 110.62,
       "end": 116.61,
@@ -1712,7 +1730,7 @@
       ]
     },
     {
-      "id": 21,
+      "id": 23,
       "speaker": "Phil",
       "start": 117.03,
       "end": 117.55,
@@ -1736,7 +1754,7 @@
       ]
     },
     {
-      "id": 22,
+      "id": 24,
       "speaker": "Phil",
       "start": 117.67,
       "end": 119.99,
@@ -1775,7 +1793,7 @@
       ]
     },
     {
-      "id": 23,
+      "id": 25,
       "speaker": "Phil",
       "start": 120.47,
       "end": 121.67,
@@ -1804,7 +1822,7 @@
       ]
     },
     {
-      "id": 24,
+      "id": 26,
       "speaker": "Phil",
       "start": 121.95,
       "end": 123.15,
@@ -1833,7 +1851,7 @@
       ]
     },
     {
-      "id": 25,
+      "id": 27,
       "speaker": "Phil",
       "start": 123.83,
       "end": 130.87,
@@ -1937,7 +1955,7 @@
       ]
     },
     {
-      "id": 26,
+      "id": 28,
       "speaker": "Phil",
       "start": 131.35,
       "end": 132.43,
@@ -1971,7 +1989,7 @@
       ]
     },
     {
-      "id": 27,
+      "id": 29,
       "speaker": "Phil",
       "start": 132.63,
       "end": 133.91,
@@ -1995,11 +2013,11 @@
       ]
     },
     {
-      "id": 28,
+      "id": 30,
       "speaker": "Phil",
       "start": 134.51,
-      "end": 277.2,
-      "text": "Um, and it's not the best when you want to talk to people when you want to get to know people so I tend to watch films more at home to be honest yeah but what about if you go to the cinema with people that you see very often and you don't need to catch up or find out about their lives you're just going to watch a film and to relax yeah I mean yeah that makes sense because it is it is it is nice to get out it is nice to get out of the house and see it on a big screen there are also other downsides to going to the cinema my big thing with the cinema is that the seats are not very comfortable it's much more comfortable to watch a film at home because you might have a sofa, blankets, you can lie down, you don't have to sit like we are now in a chair upright yeah, it's really nice at home you have your snacks you don't have to pay for them as well i also think tvs that people have at home now are much better than they used to be when i was a kid, you had a tiny little tv and it was so different to watching something at the cinema but now i've got quite a nice telly so phil, you talked about going to the cinema as like an event so something we do for special occasions i really feel that i love going to the cinema because you can buy snacks that you wouldn't normally eat, like popcorn is something i don't eat at home, but i eat at the cinema and then going in a little bit early and watching the film trailers, which are short adverts for films that are coming up soon that are shown at the cinema is there anything else you like about the cinema?  what is nice about the cinema is that you can have no distractions you just have the film you put your phone away at least you should put your phone away some people some people in the cinema don't follow the rules but hopefully everyone watching puts their phone away there's no distractions you can just relax and get involved in the film it's really nice it is really annoying when people in front of you or next to you are talking really loudly throughout the film it's okay to whisper so that's when you whisper like that it's okay to do that every now and again but if they're talking all the way through the film, that is really annoying.",
+      "end": 144.55,
+      "text": "Um, and it's not the best when you want to talk to people when you want to get to know people so I tend to watch films more at home to be honest.",
       "words": [
         {
           "text": "Um,",
@@ -2162,10 +2180,19 @@
           "end": 143.47
         },
         {
-          "text": "honest",
+          "text": "honest.",
           "start": 143.47,
           "end": 144.55
-        },
+        }
+      ]
+    },
+    {
+      "id": 31,
+      "speaker": "Georgie",
+      "start": 144.55,
+      "end": 155.79,
+      "text": "yeah but what about if you go to the cinema with people that you see very often and you don't need to catch up or find out about their lives you're just going to watch a film and to relax.",
+      "words": [
         {
           "text": "yeah",
           "start": 144.55,
@@ -2362,10 +2389,19 @@
           "end": 154.71
         },
         {
-          "text": "relax",
+          "text": "relax.",
           "start": 154.71,
           "end": 155.79
-        },
+        }
+      ]
+    },
+    {
+      "id": 32,
+      "speaker": "Phil",
+      "start": 155.79,
+      "end": 167.02,
+      "text": "yeah I mean yeah that makes sense because it is it is it is nice to get out it is nice to get out of the house and see it on a big screen there are also other downsides to going to the cinema.",
+      "words": [
         {
           "text": "yeah",
           "start": 155.79,
@@ -2582,10 +2618,19 @@
           "end": 166.54
         },
         {
-          "text": "cinema",
+          "text": "cinema.",
           "start": 166.54,
           "end": 167.02
-        },
+        }
+      ]
+    },
+    {
+      "id": 33,
+      "speaker": "Georgie",
+      "start": 167.3,
+      "end": 172.18,
+      "text": "my big thing with the cinema is that the seats are not very comfortable.",
+      "words": [
         {
           "text": "my",
           "start": 167.3,
@@ -2652,10 +2697,19 @@
           "end": 171.7
         },
         {
-          "text": "comfortable",
+          "text": "comfortable.",
           "start": 171.7,
           "end": 172.18
-        },
+        }
+      ]
+    },
+    {
+      "id": 34,
+      "speaker": "Georgie",
+      "start": 172.66,
+      "end": 186.18,
+      "text": "it's much more comfortable to watch a film at home because you might have a sofa, blankets, you can lie down, you don't have to sit like we are now in a chair upright.",
+      "words": [
         {
           "text": "it's",
           "start": 172.66,
@@ -2822,10 +2876,19 @@
           "end": 184.94
         },
         {
-          "text": "upright",
+          "text": "upright.",
           "start": 184.94,
           "end": 186.18
-        },
+        }
+      ]
+    },
+    {
+      "id": 35,
+      "speaker": "Georgie",
+      "start": 186.83,
+      "end": 201.83,
+      "text": "yeah, it's really nice at home you have your snacks you don't have to pay for them as well i also think tvs that people have at home now are much better than they used to be when i was a kid, you had a tiny little tv and it was so different to watching something at the cinema.",
+      "words": [
         {
           "text": "yeah,",
           "start": 186.83,
@@ -3117,10 +3180,19 @@
           "end": 201.51
         },
         {
-          "text": "cinema",
+          "text": "cinema.",
           "start": 201.51,
           "end": 201.83
-        },
+        }
+      ]
+    },
+    {
+      "id": 36,
+      "speaker": "Phil",
+      "start": 202.11,
+      "end": 210.19,
+      "text": "but now i've got quite a nice telly so phil, you talked about going to the cinema as like an event so something we do for special occasions.",
+      "words": [
         {
           "text": "but",
           "start": 202.11,
@@ -3257,10 +3329,19 @@
           "end": 209.59
         },
         {
-          "text": "occasions",
+          "text": "occasions.",
           "start": 209.59,
           "end": 210.19
-        },
+        }
+      ]
+    },
+    {
+      "id": 37,
+      "speaker": "Georgie",
+      "start": 210.64,
+      "end": 220.56,
+      "text": "i really feel that i love going to the cinema because you can buy snacks that you wouldn't normally eat, like popcorn is something i don't eat at home, but i eat at the cinema.",
+      "words": [
         {
           "text": "i",
           "start": 210.64,
@@ -3432,10 +3513,19 @@
           "end": 220.2
         },
         {
-          "text": "cinema",
+          "text": "cinema.",
           "start": 220.2,
           "end": 220.56
-        },
+        }
+      ]
+    },
+    {
+      "id": 38,
+      "speaker": "Georgie",
+      "start": 221.48,
+      "end": 232.88,
+      "text": "and then going in a little bit early and watching the film trailers, which are short adverts for films that are coming up soon that are shown at the cinema is there anything else you like about the cinema?",
+      "words": [
         {
           "text": "and",
           "start": 221.48,
@@ -3630,7 +3720,16 @@
           "text": "cinema?",
           "start": 232.56,
           "end": 232.88
-        },
+        }
+      ]
+    },
+    {
+      "id": 39,
+      "speaker": "Phil",
+      "start": 233.79,
+      "end": 255.28,
+      "text": "what is nice about the cinema is that you can have no distractions you just have the film you put your phone away at least you should put your phone away some people some people in the cinema don't follow the rules but hopefully everyone watching puts their phone away there's no distractions you can just relax and get.",
+      "words": [
         {
           "text": "what",
           "start": 233.79,
@@ -3922,10 +4021,19 @@
           "end": 254.87
         },
         {
-          "text": "get",
+          "text": "get.",
           "start": 254.87,
           "end": 255.28
-        },
+        }
+      ]
+    },
+    {
+      "id": 40,
+      "speaker": "Phil",
+      "start": 256.48,
+      "end": 270.48,
+      "text": "involved in the film it's really nice it is really annoying when people in front of you or next to you are talking really loudly throughout the film it's okay to whisper so that's when you whisper like that.",
+      "words": [
         {
           "text": "involved",
           "start": 256.48,
@@ -4117,10 +4225,19 @@
           "end": 270.12
         },
         {
-          "text": "that",
+          "text": "that.",
           "start": 270.12,
           "end": 270.48
-        },
+        }
+      ]
+    },
+    {
+      "id": 41,
+      "speaker": "Georgie",
+      "start": 270.92,
+      "end": 277.2,
+      "text": "it's okay to do that every now and again but if they're talking all the way through the film, that is really annoying.",
+      "words": [
         {
           "text": "it's",
           "start": 270.92,
@@ -4239,7 +4356,7 @@
       ]
     },
     {
-      "id": 29,
+      "id": 42,
       "speaker": "Phil",
       "start": 278.02,
       "end": 278.18,
@@ -4253,7 +4370,7 @@
       ]
     },
     {
-      "id": 30,
+      "id": 43,
       "speaker": "Georgie",
       "start": 278.22,
       "end": 279.1,
@@ -4282,7 +4399,7 @@
       ]
     },
     {
-      "id": 31,
+      "id": 44,
       "speaker": "Georgie",
       "start": 279.58,
       "end": 282.86,
@@ -4356,7 +4473,7 @@
       ]
     },
     {
-      "id": 32,
+      "id": 45,
       "speaker": "Phil",
       "start": 283.26,
       "end": 288.46,
@@ -4420,7 +4537,7 @@
       ]
     },
     {
-      "id": 33,
+      "id": 46,
       "speaker": "Phil",
       "start": 289.34,
       "end": 291.98,
@@ -4454,7 +4571,7 @@
       ]
     },
     {
-      "id": 34,
+      "id": 47,
       "speaker": "Phil",
       "start": 292.54,
       "end": 293.98,
@@ -4488,7 +4605,7 @@
       ]
     },
     {
-      "id": 35,
+      "id": 48,
       "speaker": "Phil",
       "start": 294.18,
       "end": 295.46,
@@ -4522,7 +4639,7 @@
       ]
     },
     {
-      "id": 36,
+      "id": 49,
       "speaker": "Phil",
       "start": 296.02,
       "end": 302.02,
@@ -4631,11 +4748,11 @@
       ]
     },
     {
-      "id": 37,
+      "id": 50,
       "speaker": "Phil",
       "start": 302.14,
-      "end": 321.14,
-      "text": "I kind of like films like that films that take you somewhere, that show you something you wouldn't normally see that's definitely good to watch on a big screen yeah, i agree i wouldn't go to the cinema to watch a romantic comedy, a rom-com i agree with you i'd like to watch something, yeah, spectacular.",
+      "end": 313.5,
+      "text": "I kind of like films like that films that take you somewhere, that show you something you wouldn't normally see that's definitely good to watch on a big screen yeah, i agree.",
       "words": [
         {
           "text": "I",
@@ -4793,10 +4910,19 @@
           "end": 313.14
         },
         {
-          "text": "agree",
+          "text": "agree.",
           "start": 313.14,
           "end": 313.5
-        },
+        }
+      ]
+    },
+    {
+      "id": 51,
+      "speaker": "Georgie",
+      "start": 313.58,
+      "end": 321.14,
+      "text": "i wouldn't go to the cinema to watch a romantic comedy, a rom-com i agree with you i'd like to watch something, yeah, spectacular.",
+      "words": [
         {
           "text": "i",
           "start": 313.58,
@@ -4920,7 +5046,7 @@
       ]
     },
     {
-      "id": 38,
+      "id": 52,
       "speaker": "Georgie",
       "start": 328.69,
       "end": 338.49,
@@ -5079,7 +5205,7 @@
       ]
     },
     {
-      "id": 39,
+      "id": 53,
       "speaker": "Phil",
       "start": 338.93,
       "end": 341.41,
@@ -5118,7 +5244,7 @@
       ]
     },
     {
-      "id": 40,
+      "id": 54,
       "speaker": "Phil",
       "start": 341.73,
       "end": 344.17,
@@ -5152,7 +5278,7 @@
       ]
     },
     {
-      "id": 41,
+      "id": 55,
       "speaker": "Phil",
       "start": 344.69,
       "end": 350.09,
@@ -5216,11 +5342,11 @@
       ]
     },
     {
-      "id": 42,
+      "id": 56,
       "speaker": "Phil",
       "start": 350.57,
-      "end": 396.93,
-      "text": "Um, and it's very nice, and you get it at the cinema we also heard spectacular, which is a very strong adjective to describe something that is very exciting to look at and we talked about distractions, things that are distractions, things that make you look at something you might not have wanted to look at, like someone's phone screen instead of the film and the things that you watch in the cinema are called films or sometimes called movies as well okay, and that's it for this week's episode of real easy english but don't worry, we'll be back next week with another episode in easy english and don't forget to download a free worksheet to test what you've learned at bbc learning english dot com goodbye for now bye.",
+      "end": 360.35,
+      "text": "Um, and it's very nice, and you get it at the cinema we also heard spectacular, which is a very strong adjective to describe something that is very exciting to look at.",
       "words": [
         {
           "text": "Um,",
@@ -5378,10 +5504,19 @@
           "end": 360.07
         },
         {
-          "text": "at",
+          "text": "at.",
           "start": 360.07,
           "end": 360.35
-        },
+        }
+      ]
+    },
+    {
+      "id": 57,
+      "speaker": "Phil",
+      "start": 361.11,
+      "end": 373.19,
+      "text": "and we talked about distractions, things that are distractions, things that make you look at something you might not have wanted to look at, like someone's phone screen instead of the film.",
+      "words": [
         {
           "text": "and",
           "start": 361.11,
@@ -5538,10 +5673,19 @@
           "end": 372.91
         },
         {
-          "text": "film",
+          "text": "film.",
           "start": 372.91,
           "end": 373.19
-        },
+        }
+      ]
+    },
+    {
+      "id": 58,
+      "speaker": "Georgie",
+      "start": 373.77,
+      "end": 383.29,
+      "text": "and the things that you watch in the cinema are called films or sometimes called movies as well okay, and that's it for this week's episode of real easy english.",
+      "words": [
         {
           "text": "and",
           "start": 373.77,
@@ -5688,10 +5832,19 @@
           "end": 382.97
         },
         {
-          "text": "english",
+          "text": "english.",
           "start": 382.97,
           "end": 383.29
-        },
+        }
+      ]
+    },
+    {
+      "id": 59,
+      "speaker": "Phil",
+      "start": 383.85,
+      "end": 396.93,
+      "text": "but don't worry, we'll be back next week with another episode in easy english and don't forget to download a free worksheet to test what you've learned at bbc learning english dot com goodbye for now bye.",
+      "words": [
         {
           "text": "but",
           "start": 383.85,

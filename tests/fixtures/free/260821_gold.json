@@ -540,8 +540,8 @@
       "id": 11,
       "speaker": "Neil",
       "start": 37.44,
-      "end": 119.85,
-      "text": "It's a sad moment when I've finished my second coffee of the day because that's it i don't have more than two so, georgie, we're talking about coffee how much coffee or how many coffees, if we're talking about cups of coffee, how many do you have a day? i usually have two, and i know that you do as well, because we drink them both in the office, don't we? we have one cup of coffee in the morning and one usually in the afternoon when we need to regain some energy and alertness yeah and so we all know, because we make each other at bbc learning english, we make each other coffee so we know how we take our coffee yes how we take our coffee is how we like it, what we like to put in it for example, sugar or milk i know that you don't like milk in your coffee you take your coffee black i do i like black coffee and you take your coffee white and you used to have sugar, but you don't anymore that's right occasionally, when i'm at home, i put some honey in my coffee to make it a bit sweeter honey in coffee? yes.",
+      "end": 49.8,
+      "text": "It's a sad moment when I've finished my second coffee of the day because that's it i don't have more than two so, georgie, we're talking about coffee.",
       "words": [
         {
           "text": "It's",
@@ -679,10 +679,19 @@
           "end": 49.44
         },
         {
-          "text": "coffee",
+          "text": "coffee.",
           "start": 49.44,
           "end": 49.8
-        },
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "speaker": "Neil",
+      "start": 50.28,
+      "end": 58.16,
+      "text": "how much coffee or how many coffees, if we're talking about cups of coffee, how many do you have a day?",
+      "words": [
         {
           "text": "how",
           "start": 50.28,
@@ -787,7 +796,16 @@
           "text": "day?",
           "start": 57.8,
           "end": 58.16
-        },
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "speaker": "Georgie",
+      "start": 59.0,
+      "end": 68.12,
+      "text": "i usually have two, and i know that you do as well, because we drink them both in the office, don't we? we have one cup of coffee in the morning.",
+      "words": [
         {
           "text": "i",
           "start": 59.0,
@@ -939,10 +957,19 @@
           "end": 67.76
         },
         {
-          "text": "morning",
+          "text": "morning.",
           "start": 67.76,
           "end": 68.12
-        },
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "speaker": "Georgie",
+      "start": 68.43,
+      "end": 77.19,
+      "text": "and one usually in the afternoon when we need to regain some energy and alertness yeah.",
+      "words": [
         {
           "text": "and",
           "start": 68.43,
@@ -1019,10 +1046,19 @@
           "end": 76.47
         },
         {
-          "text": "yeah",
+          "text": "yeah.",
           "start": 76.83,
           "end": 77.19
-        },
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "speaker": "Neil",
+      "start": 77.63,
+      "end": 88.95,
+      "text": "and so we all know, because we make each other at bbc learning english, we make each other coffee so we know how we take our coffee yes.",
+      "words": [
         {
           "text": "and",
           "start": 77.63,
@@ -1159,10 +1195,19 @@
           "end": 88.15
         },
         {
-          "text": "yes",
+          "text": "yes.",
           "start": 88.55,
           "end": 88.95
-        },
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "speaker": "Georgie",
+      "start": 89.15,
+      "end": 103.01,
+      "text": "how we take our coffee is how we like it, what we like to put in it for example, sugar or milk i know that you don't like milk in your coffee you take your coffee black i do.",
+      "words": [
         {
           "text": "how",
           "start": 89.15,
@@ -1354,10 +1399,19 @@
           "end": 102.73
         },
         {
-          "text": "do",
+          "text": "do.",
           "start": 102.73,
           "end": 103.01
-        },
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "speaker": "Neil",
+      "start": 103.25,
+      "end": 117.01,
+      "text": "i like black coffee and you take your coffee white and you used to have sugar, but you don't anymore that's right occasionally, when i'm at home, i put some honey in my coffee to make it a bit sweeter.",
+      "words": [
         {
           "text": "i",
           "start": 103.25,
@@ -1554,10 +1608,19 @@
           "end": 116.41
         },
         {
-          "text": "sweeter",
+          "text": "sweeter.",
           "start": 116.41,
           "end": 117.01
-        },
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "speaker": "Neil",
+      "start": 118.05,
+      "end": 119.85,
+      "text": "honey in coffee? yes.",
+      "words": [
         {
           "text": "honey",
           "start": 118.05,
@@ -1581,7 +1644,7 @@
       ]
     },
     {
-      "id": 12,
+      "id": 19,
       "speaker": "Georgie",
       "start": 120.25,
       "end": 121.21,
@@ -1605,7 +1668,7 @@
       ]
     },
     {
-      "id": 13,
+      "id": 20,
       "speaker": "Neil",
       "start": 121.69,
       "end": 122.89,
@@ -1639,7 +1702,7 @@
       ]
     },
     {
-      "id": 14,
+      "id": 21,
       "speaker": "Neil",
       "start": 123.25,
       "end": 123.69,
@@ -1653,7 +1716,7 @@
       ]
     },
     {
-      "id": 15,
+      "id": 22,
       "speaker": "Neil",
       "start": 124.49,
       "end": 126.17,
@@ -1682,7 +1745,7 @@
       ]
     },
     {
-      "id": 16,
+      "id": 23,
       "speaker": "Georgie",
       "start": 126.65,
       "end": 129.41,
@@ -1726,7 +1789,7 @@
       ]
     },
     {
-      "id": 17,
+      "id": 24,
       "speaker": "Neil",
       "start": 129.81,
       "end": 130.93,
@@ -1755,7 +1818,7 @@
       ]
     },
     {
-      "id": 18,
+      "id": 25,
       "speaker": "Neil",
       "start": 131.37,
       "end": 132.89,
@@ -1799,7 +1862,7 @@
       ]
     },
     {
-      "id": 19,
+      "id": 26,
       "speaker": "Georgie",
       "start": 134.41,
       "end": 135.21,
@@ -1823,7 +1886,7 @@
       ]
     },
     {
-      "id": 20,
+      "id": 27,
       "speaker": "Georgie",
       "start": 135.49,
       "end": 136.41,
@@ -1847,11 +1910,11 @@
       ]
     },
     {
-      "id": 21,
+      "id": 28,
       "speaker": "Neil",
       "start": 136.89,
-      "end": 161.25,
-      "text": "Okay so, georgie, what happens if you don't have your coffee? well, in the morning, if i don't have coffee, i feel very grumpy and very tired in the afternoon, if i don't have a coffee, it's not terrible, but i would prefer to have my afternoon coffee how about you?",
+      "end": 151.65,
+      "text": "Okay so, georgie, what happens if you don't have your coffee? well, in the morning, if i don't have coffee, i feel very grumpy and very tired.",
       "words": [
         {
           "text": "Okay",
@@ -1984,10 +2047,19 @@
           "end": 151.05
         },
         {
-          "text": "tired",
+          "text": "tired.",
           "start": 151.05,
           "end": 151.65
-        },
+        }
+      ]
+    },
+    {
+      "id": 29,
+      "speaker": "Georgie",
+      "start": 152.81,
+      "end": 161.25,
+      "text": "in the afternoon, if i don't have a coffee, it's not terrible, but i would prefer to have my afternoon coffee how about you?",
+      "words": [
         {
           "text": "in",
           "start": 152.81,
@@ -2111,7 +2183,7 @@
       ]
     },
     {
-      "id": 22,
+      "id": 30,
       "speaker": "Neil",
       "start": 162.07,
       "end": 169.19,
@@ -2220,7 +2292,7 @@
       ]
     },
     {
-      "id": 23,
+      "id": 31,
       "speaker": "Neil",
       "start": 169.43,
       "end": 170.19,
@@ -2239,7 +2311,7 @@
       ]
     },
     {
-      "id": 24,
+      "id": 32,
       "speaker": "Neil",
       "start": 170.31,
       "end": 174.63,
@@ -2308,7 +2380,7 @@
       ]
     },
     {
-      "id": 25,
+      "id": 33,
       "speaker": "Georgie",
       "start": 175.15,
       "end": 175.91,
@@ -2332,7 +2404,7 @@
       ]
     },
     {
-      "id": 26,
+      "id": 34,
       "speaker": "Neil",
       "start": 176.27,
       "end": 180.63,
@@ -2416,7 +2488,7 @@
       ]
     },
     {
-      "id": 27,
+      "id": 35,
       "speaker": "Georgie",
       "start": 180.79,
       "end": 181.15,
@@ -2430,7 +2502,7 @@
       ]
     },
     {
-      "id": 28,
+      "id": 36,
       "speaker": "Georgie",
       "start": 181.35,
       "end": 183.31,
@@ -2479,7 +2551,7 @@
       ]
     },
     {
-      "id": 29,
+      "id": 37,
       "speaker": "Neil",
       "start": 183.67,
       "end": 187.51,
@@ -2518,7 +2590,7 @@
       ]
     },
     {
-      "id": 30,
+      "id": 38,
       "speaker": "Neil",
       "start": 187.95,
       "end": 188.95,
@@ -2547,7 +2619,7 @@
       ]
     },
     {
-      "id": 31,
+      "id": 39,
       "speaker": "Neil",
       "start": 189.27,
       "end": 200.63,
@@ -2666,7 +2738,7 @@
       ]
     },
     {
-      "id": 32,
+      "id": 40,
       "speaker": "Georgie",
       "start": 201.55,
       "end": 206.46,
@@ -2730,7 +2802,7 @@
       ]
     },
     {
-      "id": 33,
+      "id": 41,
       "speaker": "Georgie",
       "start": 206.8,
       "end": 210.32,
@@ -2804,7 +2876,7 @@
       ]
     },
     {
-      "id": 34,
+      "id": 42,
       "speaker": "Georgie",
       "start": 210.88,
       "end": 215.32,
@@ -2868,7 +2940,7 @@
       ]
     },
     {
-      "id": 35,
+      "id": 43,
       "speaker": "Neil",
       "start": 215.96,
       "end": 216.28,
@@ -2882,7 +2954,7 @@
       ]
     },
     {
-      "id": 36,
+      "id": 44,
       "speaker": "Neil",
       "start": 216.44,
       "end": 218.12,
@@ -2921,7 +2993,7 @@
       ]
     },
     {
-      "id": 37,
+      "id": 45,
       "speaker": "Neil",
       "start": 218.44,
       "end": 219.16,
@@ -2940,7 +3012,7 @@
       ]
     },
     {
-      "id": 38,
+      "id": 46,
       "speaker": "Neil",
       "start": 219.4,
       "end": 220.4,
@@ -2964,7 +3036,7 @@
       ]
     },
     {
-      "id": 39,
+      "id": 47,
       "speaker": "Neil",
       "start": 220.6,
       "end": 221.28,
@@ -2983,7 +3055,7 @@
       ]
     },
     {
-      "id": 40,
+      "id": 48,
       "speaker": "Georgie",
       "start": 222.88,
       "end": 225.52,
@@ -3042,7 +3114,7 @@
       ]
     },
     {
-      "id": 41,
+      "id": 49,
       "speaker": "Neil",
       "start": 226.48,
       "end": 228.72,
@@ -3086,7 +3158,7 @@
       ]
     },
     {
-      "id": 42,
+      "id": 50,
       "speaker": "Neil",
       "start": 229.92,
       "end": 236.28,
@@ -3180,7 +3252,7 @@
       ]
     },
     {
-      "id": 43,
+      "id": 51,
       "speaker": "Neil",
       "start": 236.84,
       "end": 237.16,
@@ -3194,7 +3266,7 @@
       ]
     },
     {
-      "id": 44,
+      "id": 52,
       "speaker": "Neil",
       "start": 237.4,
       "end": 245.12,
@@ -3283,7 +3355,7 @@
       ]
     },
     {
-      "id": 45,
+      "id": 53,
       "speaker": "Georgie",
       "start": 245.91,
       "end": 247.11,
@@ -3317,7 +3389,7 @@
       ]
     },
     {
-      "id": 46,
+      "id": 54,
       "speaker": "Neil",
       "start": 247.59,
       "end": 252.39,
@@ -3366,7 +3438,7 @@
       ]
     },
     {
-      "id": 47,
+      "id": 55,
       "speaker": "Neil",
       "start": 252.47,
       "end": 256.96,
@@ -3430,7 +3502,7 @@
       ]
     },
     {
-      "id": 48,
+      "id": 56,
       "speaker": "Neil",
       "start": 257.46,
       "end": 258.58,
@@ -3459,7 +3531,7 @@
       ]
     },
     {
-      "id": 49,
+      "id": 57,
       "speaker": "Neil",
       "start": 258.7,
       "end": 261.32,
@@ -3483,7 +3555,7 @@
       ]
     },
     {
-      "id": 50,
+      "id": 58,
       "speaker": "Georgie",
       "start": 266.39,
       "end": 271.07,
@@ -3557,7 +3629,7 @@
       ]
     },
     {
-      "id": 51,
+      "id": 59,
       "speaker": "Georgie",
       "start": 271.51,
       "end": 273.27,
@@ -3591,7 +3663,7 @@
       ]
     },
     {
-      "id": 52,
+      "id": 60,
       "speaker": "Georgie",
       "start": 273.43,
       "end": 275.55,
@@ -3640,7 +3712,7 @@
       ]
     },
     {
-      "id": 53,
+      "id": 61,
       "speaker": "Neil",
       "start": 275.95,
       "end": 280.35,
@@ -3714,7 +3786,7 @@
       ]
     },
     {
-      "id": 54,
+      "id": 62,
       "speaker": "Georgie",
       "start": 280.87,
       "end": 287.79,
@@ -3818,7 +3890,7 @@
       ]
     },
     {
-      "id": 55,
+      "id": 63,
       "speaker": "Neil",
       "start": 288.03,
       "end": 292.11,
@@ -3877,7 +3949,7 @@
       ]
     },
     {
-      "id": 56,
+      "id": 64,
       "speaker": "Neil",
       "start": 292.59,
       "end": 298.47,
@@ -3956,7 +4028,7 @@
       ]
     },
     {
-      "id": 57,
+      "id": 65,
       "speaker": "Georgie",
       "start": 299.15,
       "end": 304.47,
@@ -4050,7 +4122,7 @@
       ]
     },
     {
-      "id": 58,
+      "id": 66,
       "speaker": "Neil",
       "start": 304.67,
       "end": 307.07,
@@ -4104,7 +4176,7 @@
       ]
     },
     {
-      "id": 59,
+      "id": 67,
       "speaker": "Neil",
       "start": 307.19,
       "end": 308.23,
@@ -4138,7 +4210,7 @@
       ]
     },
     {
-      "id": 60,
+      "id": 68,
       "speaker": "Georgie",
       "start": 308.91,
       "end": 314.07,
@@ -4222,7 +4294,7 @@
       ]
     },
     {
-      "id": 61,
+      "id": 69,
       "speaker": "Neil",
       "start": 314.39,
       "end": 319.63,
@@ -4316,7 +4388,7 @@
       ]
     },
     {
-      "id": 62,
+      "id": 70,
       "speaker": "Georgie",
       "start": 319.87,
       "end": 326.59,
@@ -4425,7 +4497,7 @@
       ]
     },
     {
-      "id": 63,
+      "id": 71,
       "speaker": "Neil",
       "start": 326.99,
       "end": 327.51,
@@ -4449,7 +4521,7 @@
       ]
     },
     {
-      "id": 64,
+      "id": 72,
       "speaker": "Neil",
       "start": 327.79,
       "end": 328.23,
@@ -4463,7 +4535,7 @@
       ]
     },
     {
-      "id": 65,
+      "id": 73,
       "speaker": "片头片尾",
       "start": 331.38,
       "end": 333.46,
@@ -4492,7 +4564,7 @@
       ]
     },
     {
-      "id": 66,
+      "id": 74,
       "speaker": "片头片尾",
       "start": 333.7,
       "end": 336.18,
@@ -4536,7 +4608,7 @@
       ]
     },
     {
-      "id": 67,
+      "id": 75,
       "speaker": "片头片尾",
       "start": 336.62,
       "end": 342.62,
@@ -4605,7 +4677,7 @@
       ]
     },
     {
-      "id": 68,
+      "id": 76,
       "speaker": "片头片尾",
       "start": 343.1,
       "end": 347.78,
@@ -4674,7 +4746,7 @@
       ]
     },
     {
-      "id": 69,
+      "id": 77,
       "speaker": "片头片尾",
       "start": 348.42,
       "end": 355.86,
@@ -4793,7 +4865,7 @@
       ]
     },
     {
-      "id": 70,
+      "id": 78,
       "speaker": "片头片尾",
       "start": 356.26,
       "end": 362.54,
