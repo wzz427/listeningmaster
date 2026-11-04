@@ -41,12 +41,13 @@ def transcribe(audio_path: Path, out_path: Path) -> dict:
     print(f"      拿到地址：{oss_url.split('/')[0]}//...（省略）")
 
     print("[3/4] 提交识别任务")
+    # 不传 speaker_count：当年按「两人对话」传的 2 在帮倒忙——它把说话人分离压塌到对一半
+    # （2026-11-04 选型实测，删掉后四课 85–98%，specs/SPEC-013-no-transcript-prep.md R2）
     task = Transcription.async_call(
         model=MODEL,
         file_urls=[oss_url],
         language_hints=["en"],
         diarization_enabled=True,
-        speaker_count=2,
         headers={"X-DashScope-OssResourceResolve": "enable"},
     )
     if task.status_code != HTTPStatus.OK:

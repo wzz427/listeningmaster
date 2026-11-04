@@ -43,11 +43,12 @@
 | `pipeline/slicing/audio.py` | 转音频：16k 单声道 wav（识别、量音量用）、m4a（播放器用）；用 imageio-ffmpeg 自带的 ffmpeg | SPEC-002 |
 | `pipeline/slicing/asr_probe.py` | 上传临时存储、调百炼录音文件识别，存 `asr_raw.json` | SPEC-003 |
 | `pipeline/slicing/transcript.py` | 从 BBC 讲稿 PDF／TXT 读出「谁说了什么」 | SPEC-003 |
-| `pipeline/slicing/align.py` | 识别结果对齐讲稿、说话人、片头片尾、切句，写 `timeline.json`、`align_report.md` | SPEC-003 |
+| `pipeline/slicing/align.py` | 识别结果对齐讲稿、说话人、片头片尾、切句，写 `timeline.json`、`align_report.md`（有讲稿走这条） | SPEC-003 |
+| `pipeline/slicing/no_transcript.py` | 无讲稿路的对齐（SPEC-013）：拼词、巨词大模型加空格＋词频兜底、标点并半句、编号归并起名，同样写 `timeline.json`、`align_report.md`；大模型回答缓存 `llm_cache.json` | SPEC-013 |
 | `pipeline/slicing/refine_bounds.py` | 按音量精修句子起止，写 `bounds_report.md` | SPEC-004 |
 | `pipeline/slicing/ear.py` | 机器耳朵：一段声音交给百炼 `qwen3-asr-flash` 听出是哪些词，带限流重试 | SPEC-004 |
 | `pipeline/slicing/ear_bounds.py` | 机器耳朵查每句开头结尾、往外挪，最后照 `bounds_manual.json`、`speaker_manual.json` 改，写 `ear_report.md`；真听过的片段记进 `ear_cache.json` | SPEC-004 |
-| `pipeline/slicing/run.py` | 引擎一条命令：串六步（识别已有就跳过）、写 `quality_report.md`；退出码 10 音频／20 识别／30 其他，serve.py 按码报人话 | SPEC-012 |
+| `pipeline/slicing/run.py` | 引擎一条命令：串六步（识别已有就跳过）、按材料夹里有没有讲稿挑 align／no_transcript、写 `quality_report.md`（无讲稿课不出对上率）；退出码 10 音频／20 识别／30 其他，serve.py 按码报人话 | SPEC-012、SPEC-013 |
 | `pipeline/slicing/version.py` | 引擎版本唯一出处，`timeline.json` 的 engine 字段从这读 | SPEC-012 |
 | `pipeline/slicing/__init__.py` | 包标记＋导览注释 | SPEC-012 |
 | `pipeline/measure_bounds.py` | 只看音量量句子边界干不干净，比较改边界前后 | SPEC-004 |
@@ -71,7 +72,8 @@
 | `web/art/` | 环节进入页（节目卡）的两张固定配图：`warmup.jpg`（开场：调频）、`listen.jpg`（正片：夜听），百炼 qwen-image 生成后转 jpg；换图＝换这两个文件 | SPEC-011 R1 |
 | `tests/test_player.py` | 播放器的自动检查（Playwright），编号对应各规格的 A 编号 | `docs/workflow.md` |
 | `tests/test_audio.py` | 验声音：录下真的 Chrome 放出来的声音，对时间、机器耳朵听、出试听页 | SPEC-004 R7 |
-| `tests/test_slicing.py` | 切割引擎的金样考卷：四课离线重放，timeline 逐句对标准答案，另带咬人自检；改 `pipeline/slicing/` 必过 | SPEC-012 |
+| `tests/test_slicing.py` | 切割引擎的金样考卷：四课离线重放，timeline 逐句对标准答案，另带咬人自检；无讲稿路同四课对 `tests/fixtures/free/` 的 free 金样（识别＋大模型缓存都在那，不联网）；改 `pipeline/slicing/` 必过 | SPEC-012、SPEC-013 |
+| `tests/make_free_fixtures.py` | 造无讲稿考卷的考题和答案（调一次大模型、几分钱）：识别考题＋`llm_cache`＋free 金样写进 `tests/fixtures/free/`；改了无讲稿的提示词或规则后重跑 | SPEC-013 |
 | `tests/test_docs.py` | 文档和代码对不对得上 | `docs/workflow.md` |
 | `tests/test_accounts.py` | 账号模块的单元检查（注册、登录、会话、连错锁、密码不落盘），临时目录里跑 | SPEC-009 |
 | `tests/test_hosted_server.py` | 对外模式的自动检查：真起服务真发请求——访客免登录（公共课、点词）、上传等账号接口挡 401、注册登录登出、noindex、限流、无「更新」接口 | SPEC-009 |

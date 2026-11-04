@@ -1,13 +1,16 @@
-"""金样考卷：切割引擎（pipeline/slicing）改代码必过（SPEC-012 R1–R7，owner 2026-11-03 拍板）。
+"""金样考卷：切割引擎（pipeline/slicing）改代码必过（SPEC-012 R1–R7，owner 2026-11-03 拍板；
+2026-11-04 加无讲稿路 A94/A95，SPEC-013 R10）。
 
 为什么要有：改边界代码以前只能靠人耳抽查才知道退没退步；现在四课的 timeline 就是标准答案，
 重放一遍逐句对，退步当场红。金样另有三处人工标准答案：第一集 7 句疑难归因（SPEC-004 的表）、
 4 条人耳确认（lessons/260821/bounds_manual.json）、250123 结尾预告的说话人（lessons/250123/speaker_manual.json）。
 
 离线：识别吃 asr_raw.json、机器耳朵吃 ear_cache.json，全程不联网不花钱（换 STEP、MAX_MOVE 这类
-会改试探点阵的参数做实验时，删对应课的 ear_cache.json 重听——SPEC-012 R7）。
+会改试探点阵的参数做实验时，删对应课的 ear_cache.json 重听——SPEC-012 R7）。无讲稿路的考题和
+答案在 tests/fixtures/free/（去参数重识别的 asr＋大模型回答缓存＋free 金样），造题跑
+tests/make_free_fixtures.py（联网、几分钱）。
 
-查五样：
+查七样：
 A1 四课用一条命令（run.run）在临时目录重放，timeline 和金样逐句完全一致——搬家不改结果（R1）、
    一条命令跑完整条链（R2）。
 A2 对上率四课都 ≥ 80%（R3 红线；低于先怀疑讲稿和录音不是同一版）。
@@ -16,6 +19,9 @@ A4 第一集 4 条人耳确认：重放的起止 ＝ bounds_manual.json 的值�
 A5 考卷真咬人：把机器耳朵的句末余量 PAD 故意改坏重放第一集，必须和金样不一样——一样说明这份
    考卷是橡皮图章，本身就不过（R6）。只动 PAD 这类不改试探点阵的参数；考卷把耳朵换成了「一联网
    就报错」的哨兵，谁改出缓存没有的片段谁当场红（R7）。
+A94 四课无讲稿路离线重放（拼词/巨词/并句/起名）＝ tests/fixtures/free/ 的 free 金样（SPEC-013 R10）。
+   只重放对齐这一步——精修、机器耳朵两步和带讲稿路共用代码，A1 那半边看住；大模型换哨兵只吃缓存。
+A95 无讲稿考卷真咬人：把标点并半句关掉重放快餐课，必须和 free 金样不一样。
 
 跑法：<pywork python> tests/test_slicing.py   （约半分钟，不联网）
 """
@@ -29,6 +35,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "pipeline" / "slicing"))
 import ear_bounds  # noqa: E402
+import no_transcript  # noqa: E402
 import run as engine  # noqa: E402  —— 名字太通用，用 engine 称呼
 import version  # noqa: E402
 
@@ -76,7 +83,38 @@ def replay(lesson: str):
 
 
 def golden(lesson: str) -> dict:
-    return json.loads((ROOT / "lessons" / lesson / "timeline.json").read_text(encoding="utf-8"))
+    return json.loads((ROOT / "lessons" / lesson / "timeline.json").read_text(encoding="utf8"))
+
+
+def _no_network_llm(*args, **kwargs):
+    raise RuntimeError("考卷不联网：大模型缓存里没有这一问——先跑 tests/make_free_fixtures.py 重造缓存（SPEC-013 R10）")
+
+
+def free_replay(lesson: str) -> dict:
+    """无讲稿路只重放对齐这一步（no_transcript.build）：精修、机器耳朵两步和带讲稿路共用代码，
+    A1 那半边已经看住。识别和起名/巨词的大模型回答都从 fixtures 拷进临时目录。"""
+    tmp = Path(tempfile.mkdtemp())
+    lesson_dir = tmp / "lessons" / lesson
+    material_dir = tmp / "materials" / lesson
+    lesson_dir.mkdir(parents=True)
+    material_dir.mkdir(parents=True)
+    for f in (ROOT / "materials" / lesson).glob("*.mp3"):
+        shutil.copy2(f, material_dir / f.name)   # timeline 的 audio 字段要文件名
+    fixture = ROOT / "tests" / "fixtures" / "free"
+    shutil.copy2(fixture / f"{lesson}_asr.json", lesson_dir / "asr_raw.json")
+    shutil.copy2(fixture / f"{lesson}_llm_cache.json", lesson_dir / "llm_cache.json")
+    saved = no_transcript.call
+    no_transcript.call = _no_network_llm        # 只吃缓存，想联网就大声失败
+    try:
+        no_transcript.build(lesson, root=tmp)
+        return json.loads((lesson_dir / "timeline.json").read_text(encoding="utf8"))
+    finally:
+        no_transcript.call = saved
+        shutil.rmtree(tmp, ignore_errors=True)
+
+
+def free_gold(lesson: str) -> dict:
+    return json.loads((ROOT / "tests" / "fixtures" / "free" / f"{lesson}_gold.json").read_text(encoding="utf8"))
 
 
 def main() -> None:
@@ -108,6 +146,19 @@ def main() -> None:
         check("A5 改坏参数后重放 ≠ 金样（考卷能查出退步）", sabotaged != golden(MANUAL_LESSON))
     finally:
         ear_bounds.PAD = saved
+
+    print("\n【A94/A95 无讲稿路离线重放对 free 金样】（SPEC-013 R10；识别和大模型回答都吃 tests/fixtures/free/）")
+    for lesson in LESSONS:
+        check("A94 无讲稿重放＝free 金样（拼词/巨词/并句/起名逐句一致）",
+              free_replay(lesson) == free_gold(lesson), lesson)
+
+    print("【A95 无讲稿考卷真咬人】把标点并半句关掉重放快餐课，必须和 free 金样不一样")
+    saved_fn = no_transcript.merge_halves
+    no_transcript.merge_halves = lambda sentences: 0   # 只关这一步：不改下句、也不并
+    try:
+        check("A95 关掉并句后重放 ≠ free 金样（考卷能查出退步）", free_replay("250123") != free_gold("250123"))
+    finally:
+        no_transcript.merge_halves = saved_fn
 
     print(f"\n通过 {len(passes)} 项，未通过 {len(failures)} 项")
     sys.exit(1 if failures else 0)

@@ -1,0 +1,12 @@
+{
+ "f5a7858e1ca63af57effcac91ff5358e83fe833e": {
+  "speakers": "两位说话人：Neil 和 Beth（编号0为片头预告，编号1为片头/片尾音乐，编号4为被引用的嘉宾 Grace，不算对话说话人）",
+  "labels": {
+   "0": "promo",
+   "1": "promo",
+   "2": "Neil",
+   "3": "Beth",
+   "4": "promo"
+  }
+ }
+}

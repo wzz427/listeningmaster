@@ -1,0 +1,9 @@
+{
+ "290e43785e897ec310179b3c86b54193675cba2a": {
+  "speakers": "两位说话人：Phil 和 Georgie，编号0和1分别对应两人。",
+  "labels": {
+   "0": "Phil",
+   "1": "Georgie"
+  }
+ }
+}

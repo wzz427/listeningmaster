@@ -80,7 +80,8 @@ def mark_hard(words: list[str], sentences: list[dict], context: str, model: str 
                   "例如 take your coffee black 里的 take、black，give up 里的 give、up。"
                   "每个词后面 in 是它出现的那句，一个词一个词看它在那句里是怎么用的。"
                   "PET 词表里的常见词用的是常见意思，就不算（important、problem、weekend 这类都不算）；"
-                  "人名、网址里的词、嗯啊之类的语气声也不算。宁少勿多。"
+                  "人名、网址里的词、嗯啊之类的语气声也不算；节目片头片尾的预告、订阅推广那类语句"
+                  "（若有）里的词也不算——只挑这一课正题的词。宁少勿多。"
                   '每个词都要答，w 原样写。只输出 JSON：{"items":[{"w":"...","hard":false}]}',
             f"这一集的完整内容：\n{context}\n\n"
             f"词：\n{json.dumps(chunk, ensure_ascii=False)}",
@@ -160,7 +161,8 @@ def warmup(body: list[dict], hard_words: list[str], model: str = MODEL) -> list[
             model,
             WHO + "这一集开听之前有个预热环节：挑 5 到 8 个关键词，先让他的耳朵认识，"
                   "免得听的时候因为不认识这些词整段跟丢。挑词只有一条判据：不认识（或听不出）"
-                  "就会影响理解这一集内容的词。单词、词组都行——可以是难单词，也可以是"
+                  "就会影响理解这一集内容的词，并且只挑这一课正题的词——节目片头片尾的预告、"
+                  "订阅推广那类语句（若有）不算。单词、词组都行——可以是难单词，也可以是"
                   " the American dream、the final nail in the coffin 这样的词组或习语，"
                   "不刻意凑词组、也不刻意避开；他多半已认识的主题词（fast food、burger）不挑；"
                   "人名、品牌名、网址、纯数字不挑。"

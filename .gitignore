@@ -40,3 +40,13 @@ lessons/*/explain_cache.json
 # 无讲稿消融实验的输出（pipeline/ablation_no_transcript.py，2026-11-03）：随脚本能重新生成，
 # 结论的长久住处是 docs/research/2026-11-03-no-transcript-ablation.md
 /ablation/
+
+# owner 自备的听力材料（红线：自建材料库不进公开仓库，D51）——materials/original/ 的原件，
+# 和拿它备出来的三课实验材料（hans/overpop/words05，SPEC-013 首批无讲稿试跑）
+materials/original/
+materials/hans/
+materials/overpop/
+materials/words05/
+lessons/hans/
+lessons/overpop/
+lessons/words05/

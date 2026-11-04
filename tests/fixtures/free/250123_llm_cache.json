@@ -1,0 +1,21 @@
+{
+ "f05d490ccd185f05125322e9b734fbd1b75e504b": {
+  "cuts": [
+   "Fast food brands like KFC Domino's and of course the big one McDonald's are incredibly successful.",
+   "In this program we'll be discussing the global spread of fast food from its beginnings in 1950s America.",
+   "As usual we'll be learning some useful new words and phrases.",
+   "But first I have a question for you Beth roughly how many fast food restaurants are there in the UK?"
+  ]
+ },
+ "557a3096f50f76b660bf057af7659a8b4fb8393d": {
+  "speakers": "两位说话人：Phil 和 Beth；编号3、4是插入的受访者录音，编号0、5是片头片尾音乐/预告。",
+  "labels": {
+   "0": "promo",
+   "1": "Phil",
+   "2": "Beth",
+   "3": "Role A",
+   "4": "Role B",
+   "5": "promo"
+  }
+ }
+}

@@ -114,7 +114,7 @@ function showEmptyPlayer() {
   el('emptyTitle').textContent = withMaterials ? '还没有备好的课' : '资料库还是空的';
   el('emptyText').textContent = withMaterials
     ? '已上传的材料在左边的资料库里，点「备课」，几分钟后就变成一节课。'
-    : '从左边的资料库传一集 BBC 音频（mp3 和讲稿文件），点一下「备课」，几分钟就能听。';
+    : '从左边的资料库传一集音频（mp3；讲稿有就带上，没有也能备），点一下「备课」，几分钟就能听。';
   btn.textContent = withMaterials ? '打开资料库' : '上传一集';
   btn.dataset.mode = withMaterials ? 'lib' : 'upload';
   el('emptyHint').hidden = false;

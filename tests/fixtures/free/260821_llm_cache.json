@@ -1,0 +1,10 @@
+{
+ "237789594da96d7e3eda7925deec5bff0a92ef8e": {
+  "speakers": "两位说话人：Georgie 和 Neil；编号2是片尾预告，不是对话者。",
+  "labels": {
+   "0": "Georgie",
+   "1": "Neil",
+   "2": "promo"
+  }
+ }
+}
