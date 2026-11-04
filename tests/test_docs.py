@@ -27,6 +27,7 @@ LESSON = "260821"
 CURRENT_DOCS = ["AGENTS.md", "CLAUDE.md", "demand.md", "docs/copies-and-release.md", "docs/architecture.md", "docs/workflow.md", "docs/environment.md", "docs/deploy-listen-app.md", "docs/how-to-report.md", "docs/debts.md", "docs/listening-led-course.md",
                 "docs/research/2026-09-12-products-teaching-tech-survey.md", "docs/research/2026-09-26-listening-led-course-design.md",
                 "docs/research/2026-11-03-no-transcript-ablation.md",
+                "docs/research/2026-11-04-speaker-diarization-services.md",
                 *sorted(str(p.relative_to(ROOT)).replace("\\", "/") for p in (ROOT / "specs").glob("*.md"))]
 PATH_ROOTS = ("pipeline/", "web/", "tests/", "docs/", "specs/", "lessons/", "materials/", ".zcode/")
 TOP_FILES = {"AGENTS.md", "demand.md", "CLAUDE.md", "idea.txt", "start-trial.bat", "start-speak-lab.bat", "api-keys.txt"}
