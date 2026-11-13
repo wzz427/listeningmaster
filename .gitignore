@@ -50,3 +50,7 @@ materials/words05/
 lessons/hans/
 lessons/overpop/
 lessons/words05/
+
+# 英语基础设施收件箱的本机绑定（接入说明在 WordsStudy 的 docs/infra-mailbox.md）：
+# 只有本应用在本机的地址，不含密钥，不复制给其他仓库
+/.english-infra-mailbox.json

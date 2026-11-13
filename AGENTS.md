@@ -14,6 +14,10 @@
 
 owner 一开口给新活就先干新活。
 
+## 基础设施收件箱（指针）
+
+英语基础设施（发音词典等共用资产）的申请、投递与回复全走收件箱，操作正文只有一份、在维护方仓库：`C:\Users\wzzpk\Desktop\VibeCoding\BayesAPP\WordsStudy\docs\infra-mailbox.md`（本仓不抄规则）。查收时点：新会话／压缩后开工先 `peek` 一次摘要，任务收口时再查，任务中途不切换。边界：基础设施申请与回复经收件箱与 `maintainer` 往返；核心／公共工具升级必须 owner 批准；收件不等于授权升级。本机绑定 `/.english-infra-mailbox.json` 不入库。
+
 ## 红线（全文见 `CLAUDE.md`「红线」）
 
 - 三版（开发版/体验版/正式版）怎么管、怎么交版和上线：照 `docs/copies-and-release.md`（改代码之前先读它）。只改开发版；体验版一个字不手改；上线只发 owner 在体验版上验过、说「上」的那一版。

@@ -80,6 +80,7 @@
 | 改界面 | 先加载 frontend-design 技能再动手（ZCode 里就有；owner 2026-09-28 验收上传面板「设计得真难看」后定的），按真正的前端设计标准做（owner 2026-09-21 要求）；改完跑 `tests/test_player.py --shots <目录>` 看截图 |
 | 句子边界切得准不准 | `specs/SPEC-004-sentence-bounds.md`；先听：`tests/test_audio.py`；再量：`pipeline/measure_bounds.py`（只看音量，会被骗） |
 | 切割引擎怎么包（一条命令、质量报告、版本、金样考卷） | `specs/SPEC-012-slicing-engine.md`；考卷 `tests/test_slicing.py` |
+| 英语基础设施收件箱（共用资产的申请与回复、查收时点、升级审批） | 操作正文在维护方仓库：`C:\Users\wzzpk\Desktop\VibeCoding\BayesAPP\WordsStudy\docs\infra-mailbox.md`。查收：新会话／压缩后开工先 `peek` 摘要、任务收口再查、任务中途不切换；申请与回复经收件箱与 `maintainer` 往返，核心／公共工具升级必须 owner 批准，收件不等于授权升级；本机绑定 `/.english-infra-mailbox.json` 不入库 |
 | 汇报怎么写（发给他之前的编排和自检） | `docs/how-to-report.md` |
 | 压缩上下文 | `/wrap` |
 
