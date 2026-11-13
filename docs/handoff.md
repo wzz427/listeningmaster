@@ -6,6 +6,11 @@
 
 ## 现在在哪（最新在上）
 
+### 2026-11-13 · 英语基础设施收件箱接入（共用资产的通信通道，代码零改动）
+
+- owner 托发 WordsStudy 的接入说明（路径在 `AGENTS.md`「基础设施收件箱（指针）」小节），照其五步办完：本仓根 join 得地址 `app_8c77302c25264dd1877d8cf71cfb315a`（维护方固定 `maintainer`）；`.gitignore` 追加 `/.english-infra-mailbox.json`（本机绑定只有本机地址，不入库）；`AGENTS.md` 加指针小节、`CLAUDE.md`「干这件事进哪」加一行——查收时点（开工先 peek、收口再查、中途不切换）、申请与回复经收件箱与维护方往返、核心／公共工具升级须 owner 批准，规则正文只住维护方那页。`test_docs` 36 项全过。接入结果通知已投递 maintainer（消息 `15c7c7a685a4dec82786cea6f5cfa3a3a71cf7ee267a8fb06b9acae4fc61062a`，queued——投递不等于对方已收）。
+- 下一步从哪接：不新开活——基础设施的申请、回复、交付核验直接走收件箱往返（命令与消息格式见接入说明那页）；本仓播放器、备课、课程内容零改动。
+
 ### 2026-11-04 · SPEC-013 实现落地：无讲稿路进引擎（1.1.0），owner 圈三份材料试备
 
 - owner 回话定试备材料：「8 份里先拿这三份」——hans（丽声故事屋《Hans in Luck》2:19）、overpop（Overpopulation 科普 6:39）、words05（English_words_Track05 1:58），合计约 11 分钟。
